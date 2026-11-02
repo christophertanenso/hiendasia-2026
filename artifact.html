@@ -1,0 +1,1103 @@
+<title>HiEnd Asia 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="img/monogram.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400&family=Noto+Sans+SC:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: the HiEnd Asia 2026 design system (black ground, peach-gold heads, gold rules, bronze bands),
+   one idea per section, centred bilingual headings, content max 1200px. Dark is the brand, so the page
+   commits to one dark look. */
+:root {
+  --bg: #000000;
+  --heading: #f8c59a;
+  --body: #ebebeb;
+  --muted: #d6c9c9;
+  --accent: #c6a661;
+  --on-accent: #000000;
+  --line: #4f4632;
+  --band: #201d17;
+  --card-ink: #c6a661;
+  --tile: #ffffff;
+
+  --font-display: Arimo, "Helvetica Neue", Helvetica, Arial, "Noto Sans SC", sans-serif;
+  --font-body: "Open Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  --space-s: 8px; --space-m: 24px; --space-l: 48px; --space-xl: 96px;
+  --radius-card: 12px; --radius-pill: 50px;
+  --max: 1200px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--body); font: 16px/1.7 var(--font-body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+img { max-width: 100%; display: block; }
+a { color: var(--heading); }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3 { text-wrap: balance; }
+.zh { font-family: var(--font-zh); }
+
+.wrap { max-width: var(--max); margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 720px) { .wrap { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); } }
+section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-l); }
+.band { background: var(--band); border-top: 1px solid var(--accent); border-bottom: 1px solid var(--accent); }
+
+/* Header */
+.site-head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(0,0,0,.92);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.site-head .logo img { height: 44px; width: auto; }
+.nav { display: flex; align-items: center; gap: 22px; font: 700 13px/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
+.nav a { color: var(--body); text-decoration: none; }
+.nav a:hover { color: var(--heading); }
+.nav .zh { color: var(--muted); letter-spacing: .02em; margin-left: 4px; font-weight: 400; }
+@media (max-width: 1080px) { .nav .zh { display: none; } }
+@media (max-width: 860px) {
+  .site-head .wrap { flex-wrap: wrap; row-gap: 10px; }
+  .nav { order: 3; width: 100%; gap: 20px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a.txt { white-space: nowrap; min-height: 32px; display: inline-flex; align-items: center; }
+  .head-cta { margin-left: auto; }
+}
+
+/* Free entry + share */
+.free { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; align-self: flex-start; padding: 10px 18px;
+  border: 1px solid var(--accent); border-radius: var(--radius-pill); color: var(--heading); }
+.free b { font: 700 14px/1.2 var(--font-display); letter-spacing: .12em; text-transform: uppercase; }
+.free span { color: var(--body); font-size: 14px; }
+.cal { position: relative; }
+.cal > summary { list-style: none; }
+.cal > summary::-webkit-details-marker { display: none; }
+.cal > summary .chev { transition: transform .2s; }
+.cal[open] > summary .chev { transform: rotate(180deg); }
+.cal-menu { position: absolute; z-index: 15; top: calc(100% + 8px); left: 0; min-width: 240px; background: var(--band); border: 1px solid var(--line);
+  border-radius: var(--radius-card); padding: 6px; display: flex; flex-direction: column; }
+.cal-menu a { padding: 12px 14px; border-radius: 8px; color: var(--body); text-decoration: none; font-size: 15px; }
+.cal-menu a:hover, .cal-menu a:focus-visible { background: rgba(198,166,97,.14); color: var(--heading); }
+.cal-menu small { display: block; color: var(--muted); font-size: 12px; }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* Video */
+.video-frame { margin: 0; border: 1px solid var(--line); border-radius: var(--radius-card); overflow: hidden; background: #000; }
+.video-frame video { display: block; width: 100%; height: auto; aspect-ratio: 832 / 464; background: #000; }
+.video-cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 13px; color: var(--muted); }
+
+/* Programme */
+.days { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: var(--space-m); }
+.day { border: 1px dashed var(--line); border-radius: var(--radius-card); padding: var(--space-m); display: flex; flex-direction: column; gap: 6px; }
+.day-date { font: 700 28px/1.1 var(--font-display); color: var(--heading); }
+.day-time { font: italic 17px/1.4 var(--font-display); color: var(--body); }
+.tbc { margin-top: 12px; align-self: flex-start; padding: 4px 12px; border: 1px solid var(--accent); border-radius: var(--radius-pill);
+  font: 700 11px/1.4 var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.day ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-s); min-height: 48px; padding: 0 26px;
+  border-radius: var(--radius-pill); border: 1px solid var(--accent); font: 700 14px/1 var(--font-display); letter-spacing: .08em;
+  text-transform: uppercase; text-decoration: none; cursor: pointer; background: transparent; color: var(--heading); }
+.btn .zh { letter-spacing: .02em; }
+.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover { color: var(--on-accent); filter: brightness(1.08); }
+.btn-outline:hover { background: rgba(198,166,97,.12); color: var(--heading); }
+.btn-sm { min-height: 44px; padding: 0 20px; font-size: 13px; }
+.btns { display: flex; flex-wrap: wrap; gap: 16px; }
+
+/* Bilingual heading */
+.bh { display: flex; flex-direction: column; align-items: center; gap: var(--space-s); text-align: center; max-width: 760px; margin: 0 auto; }
+.bh-en { margin: 0; font: 700 clamp(36px, 5vw, 64px)/1.05 var(--font-display); letter-spacing: .01em; text-transform: uppercase; color: var(--heading); }
+.bh-zh { margin: 0; font: 700 clamp(28px, 4.2vw, 52px)/1.2 var(--font-zh); color: var(--heading); }
+.bh.sub .bh-en { font-size: clamp(28px, 3.4vw, 36px); text-transform: none; line-height: 1.15; }
+.bh.sub .bh-zh { font-size: clamp(24px, 3vw, 32px); }
+.rule { width: 64px; height: 1px; background: var(--accent); margin: var(--space-s) 0; }
+.intro { margin: 0; color: var(--body); max-width: 68ch; }
+.intro-zh { margin: 0; color: var(--muted); font: 15px/1.8 var(--font-zh); max-width: 68ch; }
+.bh.left { align-items: flex-start; text-align: left; margin: 0; }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; width: 1100px; height: 1100px; right: -380px; top: -260px; pointer-events: none; opacity: .22;
+  background: repeating-radial-gradient(circle at center, transparent 0 27px, var(--accent) 27px 28px);
+  -webkit-mask: radial-gradient(circle, #000 0 35%, transparent 70%); mask: radial-gradient(circle, #000 0 35%, transparent 70%); }
+.hero .wrap { position: relative; padding-block: 80px 96px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px; }
+.hero-copy { flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+.eyebrow { margin: 0; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.hero h1 { margin: 0; font: 700 clamp(38px, 5.6vw, 76px)/1.03 var(--font-display); letter-spacing: .005em; text-transform: uppercase; color: var(--heading); }
+.hero h1 small { display: block; font-size: .42em; letter-spacing: .12em; color: var(--accent); margin-bottom: 14px; }
+.dates { display: grid; grid-template-columns: auto auto; justify-content: start; column-gap: 20px; row-gap: 2px;
+  font: italic 20px/1.5 var(--font-display); color: var(--heading); font-variant-numeric: tabular-nums; }
+.dates span:nth-child(even) { color: var(--body); }
+.venue { margin: 0; color: var(--muted); }
+.hero-poster { flex: 1 1 300px; min-width: 0; max-width: 420px; margin: 0 auto; }
+.hero-poster img { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); }
+
+/* Stats */
+.stats .wrap { padding-block: 56px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; text-align: center; }
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat b { font: 700 48px/1.1 var(--font-display); color: var(--heading); font-variant-numeric: tabular-nums; }
+.stat span { color: var(--body); }
+.stat .zh { font-size: 15px; color: var(--muted); }
+
+/* Floorplan */
+.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-l); align-items: center; }
+@media (max-width: 860px) { .split { grid-template-columns: minmax(0, 1fr); } }
+.split-copy { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.figure { margin: 0; background: var(--tile); border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--line); }
+.figure img { width: 100%; height: auto; }
+.figcap { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 0; margin: 0; list-style: none; font-size: 14px; }
+.legend li { display: flex; gap: 8px; align-items: baseline; }
+.legend b { font: 700 12px/1 var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+/* People cards */
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: var(--space-m); padding: 0; margin: 0; }
+.person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
+  display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
+.badge { align-self: flex-start; padding: 4px 12px; background: var(--accent); color: var(--on-accent); border-radius: var(--radius-pill);
+  font: 700 11px/1.4 var(--font-display); letter-spacing: .14em; text-transform: uppercase; }
+.p-name { margin: 4px 0 0; font: 700 24px/1.25 var(--font-display); color: var(--heading); }
+.p-zh { margin: 0; font: 700 19px/1.3 var(--font-zh); color: var(--heading); }
+.p-role { font-size: 13px; font-weight: 700; line-height: 1.5; color: var(--card-ink); }
+.p-bio { margin: 0; font-size: 15px; line-height: 1.7; color: var(--body); }
+
+/* Brand reps */
+.reps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr)); gap: 28px 16px; }
+.rep { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.rep img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: var(--band); margin-bottom: 10px; filter: grayscale(.15); }
+.rep-name { font: 700 16px/1.3 var(--font-display); color: var(--heading); }
+.rep-role { font-size: 13px; line-height: 1.45; color: var(--muted); }
+.rep-brand { font-size: 12px; line-height: 1.45; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--card-ink); }
+
+/* Logo wall */
+.wall { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 132px), 1fr)); gap: var(--space-s); }
+.wall.big { grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr)); }
+.tile { aspect-ratio: 3 / 2; background: var(--tile); border-radius: var(--radius-card); display: flex; align-items: center; justify-content: center; padding: 10px; }
+.tile img { max-width: 86%; max-height: 78%; width: auto; height: auto; object-fit: contain; }
+.wall-box { position: relative; }
+.wall-box.collapsed .wall { max-height: 470px; overflow: hidden; }
+.wall-box.collapsed::after { content: ""; position: absolute; inset: auto 0 0; height: 160px; background: linear-gradient(transparent, var(--bg)); pointer-events: none; }
+.center { display: flex; justify-content: center; }
+.az { columns: 4 180px; column-gap: 24px; margin: 0; padding: 0; list-style: none; font-size: 14px; color: var(--muted); }
+.az li { break-inside: avoid; padding: 2px 0; }
+.sub-h { margin: 0; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 16px; }
+.sub-h::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+/* Story timeline */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.timeline li { padding: 24px 24px 0 0; display: flex; flex-direction: column; gap: 4px; position: relative; }
+.timeline li::before { content: ""; position: absolute; top: -5px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+.timeline li.now::before { box-shadow: 0 0 0 5px rgba(198,166,97,.25); }
+.t-year { font: 700 40px/1 var(--font-display); color: var(--heading); font-variant-numeric: tabular-nums; }
+.t-place { font-weight: 700; color: var(--body); }
+.t-note { font-size: 14px; color: var(--muted); }
+.story { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: var(--space-l); }
+.story p { margin: 0 0 14px; }
+.story .zh p { font-size: 15px; line-height: 1.85; color: var(--muted); }
+
+/* Visit */
+.visit-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-l); align-items: start; }
+@media (max-width: 860px) { .visit-grid { grid-template-columns: minmax(0, 1fr); } }
+.photos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-s); }
+.photos img { width: 100%; height: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); }
+.mrt { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.mrt li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.mrt b { font: 700 15px/1.5 var(--font-display); color: var(--heading); }
+.mrt span { color: var(--body); font-size: 15px; }
+.visit-copy { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.visit-copy .dates { font-size: 18px; }
+
+/* Partners */
+.partners { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: var(--space-l) var(--space-m); }
+.partners h3 { margin: 0 0 10px; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.partners h3 .zh { color: var(--muted); letter-spacing: .04em; margin-left: 6px; }
+.plist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.plist li { color: var(--body); line-height: 1.45; }
+.plist small { display: block; color: var(--muted); font-size: 13px; }
+.media { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.media li { padding: 6px 14px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; color: var(--body); }
+
+/* Footer */
+.site-foot { border-top: 1px solid var(--line); }
+.site-foot .wrap { padding-block: 64px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+.foot-brand { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.foot-brand img { height: 44px; width: auto; align-self: flex-start; }
+.foot-brand b { font: 700 18px/1.3 var(--font-display); color: var(--heading); }
+.foot-brand p { margin: 0; color: var(--muted); max-width: 46ch; }
+.foot-contact { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.foot-contact .social { display: flex; flex-wrap: wrap; gap: 20px; padding-top: 8px; }
+.copy { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+.copy .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+</style>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="HiEnd Asia home"><img src="img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
+    <nav class="nav" aria-label="Main">
+      <a class="txt" href="#programme">Programme<span class="zh">节目表</span></a>
+      <a class="txt" href="#floorplan">Floorplan<span class="zh">平面图</span></a>
+      <a class="txt" href="#speakers">Speakers<span class="zh">演讲</span></a>
+      <a class="txt" href="#concerts">Concerts<span class="zh">音乐会</span></a>
+      <a class="txt" href="#brands">Brands<span class="zh">品牌</span></a>
+      <a class="txt" href="#visit">Visit<span class="zh">参观</span></a>
+    </nav>
+    <a class="btn btn-primary btn-sm head-cta" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Save the date <span class="zh">加入日历</span></a>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">17 – 19 Dec 2026 · Suntec Singapore · Free entry</p>
+      <h1><small>2026 Singapore</small>Hi-End Asia International Audio Visual Show</h1>
+      <div class="rule"></div>
+      <div class="dates" aria-label="Show hours">
+        <span>17 Dec Thursday</span><span>10am – 7pm</span>
+        <span>18 Dec Friday</span><span>10am – 7pm</span>
+        <span>19 Dec Saturday</span><span>10am – 7pm</span>
+      </div>
+      <p class="venue">Level 3, Suntec Singapore Convention &amp; Exhibition Centre<br><span class="zh">新达城新加坡国际会议与展览中心 三楼</span></p>
+      <p class="free"><b>Free entry · 免费入场</b><span>No tickets needed. Walk in any day.</span></p>
+      <div class="btns">
+        <details class="cal">
+          <summary class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Add to calendar <span class="zh">加入日历</span><span class="chev" aria-hidden="true">▾</span></summary>
+          <div class="cal-menu">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Google Calendar<small>Repeats 10am – 7pm, 17 – 19 Dec</small></a>
+            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Outlook.com<small>Personal Outlook and Hotmail</small></a>
+            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Outlook (work or school)<small>Microsoft 365</small></a>
+          </div>
+        </details>
+        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17-19%20Dec%202026%2C%2010am-7pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//www.hiendasia.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>Share on WhatsApp <span class="zh">分享</span></a>
+      </div>
+    </div>
+    <div class="hero-poster">
+      <img src="img/000.jpg" alt="Official poster: 2026 Singapore Hi-End Asia International Audio Visual Show, 17 to 19 December, Suntec Singapore Level 3" width="900" height="1202">
+    </div>
+  </div>
+</section>
+
+<section class="band stats" aria-label="The show in numbers">
+  <div class="wrap">
+    <div class="stat"><b>150+</b><span>leading audio brands</span><span class="zh">逾150个世界领先音响品牌</span></div>
+    <div class="stat"><b>8,000+</b><span>patrons at the 2024 edition</span><span class="zh">2024年超过八千参观人次</span></div>
+    <div class="stat"><b>3 days</b><span>of listening rooms and live music</span><span class="zh">三日沉浸式聆听</span></div>
+    <div class="stat"><b>Free</b><span>entry, no tickets needed</span><span class="zh">免费入场，无需门票</span></div>
+  </div>
+</section>
+
+<section class="block" id="video">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en">Inside HiEnd Asia</h2>
+      <p class="bh-zh">展会实况</p>
+      <div class="rule"></div>
+      <p class="intro">Listening rooms, founders at the turntable and crates of vinyl: a minute at the 2025 show.</p>
+      <p class="intro-zh">试听室、品牌创始人亲自示范、满墙黑胶：一分钟回顾 2025 年展会。</p>
+    </div>
+    <figure class="video-frame">
+      <video controls playsinline preload="metadata" poster="video/showcase-poster.jpg" width="832" height="464" aria-label="Showcase video of HiEnd Asia 2025">
+        <source src="video/showcase-2025.mp4" type="video/mp4">
+        Your browser can't play this video. Watch it on <a href="https://www.hiendasia.com/" target="_blank" rel="noopener">hiendasia.com</a>.
+      </video>
+    </figure>
+    <div class="video-cap"><span>HiEnd Asia 2025 showcase · 1:06</span><span>Suntec Singapore</span></div>
+  </div>
+</section>
+
+<section class="block band" id="programme">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en">Programme</h2>
+      <p class="bh-zh">节目表</p>
+      <div class="rule"></div>
+      <p class="intro">The 2026 programme is yet to be confirmed. Expect keynote talks, daily live concerts and artist meet-and-greets across all three days. The timetable will be published here.</p>
+      <p class="intro-zh">2026 年节目表尚待确认。三日内将设有主题演讲、每日现场音乐会及艺术家见面会，详细时间表将于此公布。</p>
+    </div>
+    <ol class="days">
+      <li class="day"><span class="day-date">Thu 17 Dec</span><span class="day-time">10am – 7pm</span><span class="tbc">To be confirmed · 待定</span></li>
+      <li class="day"><span class="day-date">Fri 18 Dec</span><span class="day-time">10am – 7pm</span><span class="tbc">To be confirmed · 待定</span></li>
+      <li class="day"><span class="day-date">Sat 19 Dec</span><span class="day-time">10am – 7pm</span><span class="tbc">To be confirmed · 待定</span></li>
+    </ol>
+    <div class="center">
+      <div class="btns">
+        <details class="cal">
+          <summary class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Add to calendar <span class="zh">加入日历</span><span class="chev" aria-hidden="true">▾</span></summary>
+          <div class="cal-menu">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Google Calendar<small>Repeats 10am – 7pm, 17 – 19 Dec</small></a>
+            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Outlook.com<small>Personal Outlook and Hotmail</small></a>
+            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Outlook (work or school)<small>Microsoft 365</small></a>
+          </div>
+        </details>
+        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17-19%20Dec%202026%2C%2010am-7pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//www.hiendasia.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>Share on WhatsApp <span class="zh">分享</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="floorplan">
+  <div class="wrap">
+    <div class="split">
+      <div class="split-copy">
+        <div class="bh left">
+          <h2 class="bh-en">Show Floorplan</h2>
+          <p class="bh-zh">展会平面图</p>
+          <div class="rule"></div>
+        </div>
+        <p class="intro">Explore dedicated listening rooms on Level 3 of the Suntec Singapore Convention &amp; Exhibition Centre. Each space is purpose-built to showcase the finest in audiophile equipment: a curated journey through sound, precision and craftsmanship.</p>
+        <p class="intro-zh">在新达城会展中心三楼，探索专属试听室。每一个空间都为极致音响体验而精心打造，带您踏上一段精挑细选的声音之旅，尽享精准与工艺的完美结合。</p>
+        <ul class="legend">
+          <li><b>Hall</b> Exhibition Hall</li>
+          <li><b>Stage</b> Concert Hall</li>
+          <li><b>Rooms</b> Listening rooms</li>
+          <li><b>VIP</b> VIP rooms</li>
+        </ul>
+      </div>
+      <div>
+        <figure class="figure"><img src="img/007.jpg" alt="Show floorplan of Suntec Level 3: exhibition hall, concert hall, VIP room and numbered exhibition rooms along concourses 1 to 4" width="1400" height="927" loading="lazy"></figure>
+        <p class="figcap">Level 3 layout from hiendasia.com. Room allocations may change before the show.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block band" id="speakers">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en">Keynote Speakers</h2>
+      <p class="bh-zh">主题演讲嘉宾</p>
+      <div class="rule"></div>
+      <p class="intro">Renowned experts and thought leaders in high-end audio share their insights in an intimate setting. Held in private rooms, these sessions go deep, from design philosophies to emerging technologies.</p>
+      <p class="intro-zh">多位高端音响领域的权威专家将于专属空间内，深入分享他们的见解与经验。从设计理念到前沿技术，带您探讨音响艺术的更深层次。</p>
+    </div>
+    <div class="people">
+<article class="person">
+  <img class="p-photo" src="img/011.jpg" alt="Jack Liu" loading="lazy" width="640" height="800">
+  <span class="badge">Keynote · 主题演讲</span>
+  <h3 class="p-name">Jack Liu</h3><p class="p-zh">劉漢盛</p>
+  <span class="p-role">Editor, Audio Art · Taiwan</span>
+  <p class="p-bio">Liu Hansheng has edited Audio Art, Taiwan&#x27;s leading Hi-End audio magazine, since 1988. The monthly covers global audio equipment, tuning tips and new music, and is a key voice in the Chinese-speaking audio world.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/012.jpg" alt="Patrick Lee" loading="lazy" width="640" height="800">
+  <span class="badge">Keynote · 主题演讲</span>
+  <h3 class="p-name">Patrick Lee</h3><p class="p-zh">Lee388</p>
+  <span class="p-role">Hi-fi reviewer · Hong Kong</span>
+  <p class="p-bio">A Hong Kong hi-fi reviewer since the 1980s, Patrick shares decades of expertise through magazines, social media and YouTube. His Hi-Fi Circle community has over 40,000 members across Greater China and Southeast Asia.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/013.jpg" alt="Richard H. Mak" loading="lazy" width="640" height="800">
+  <span class="badge">Keynote · 主题演讲</span>
+  <h3 class="p-name">Richard H. Mak</h3>
+  <span class="p-role">Analog Equipment Editor · Mono &amp; Stereo</span>
+  <p class="p-bio">Analog editor for Mono &amp; Stereo and Part Time Audiophile, and Analog Master at TONEAudio. A writer for 25 years and an audiophile for 44, he designed AnalogMagik, the world&#x27;s only all-in-one cartridge setup software.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/014.jpg" alt="AdiLance" loading="lazy" width="640" height="800">
+  <span class="badge">Keynote · 主题演讲</span>
+  <h3 class="p-name">AdiLance</h3><p class="p-zh">草爸</p>
+  <span class="p-role">Audiophile and creator</span>
+  <p class="p-bio">A fellow audiophile who shares his journey into music and hi-fi on social media, in a characteristically frank manner that makes a refreshing change for those following along.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/015.jpg" alt="John Hsu" loading="lazy" width="640" height="800">
+  <span class="badge">Keynote · 主题演讲</span>
+  <h3 class="p-name">John Hsu</h3>
+  <span class="p-role">Room acoustics · Singapore</span>
+  <p class="p-bio">An audiophile for 45 years and a Singapore resident, John has built and tuned a dedicated basement listening room. His interactive session covers psychoacoustics, stereo imaging, room treatment and speaker placement.</p>
+</article>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="concerts">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en">Daily Live Concerts</h2>
+      <p class="bh-zh">每日现场音乐会</p>
+      <div class="rule"></div>
+      <p class="intro">A curated lineup of international and Asian artists on the grand stage, voices that reflect the region's languages, traditions and musical depth. From acoustic purity to cultural nuance, each performance is a tribute to the art of listening.</p>
+      <p class="intro-zh">HiEnd Asia 精选多位国际和亚洲艺术家登上主舞台，呈现多语言、多文化交融的音乐风貌。从声学纯净到文化细腻，每一场演出，皆是对聆听之美的深情致敬。</p>
+    </div>
+    <div class="people">
+<article class="person">
+  <img class="p-photo" src="img/031.jpg" alt="Anette Askvik" loading="lazy" width="640" height="800">
+  <span class="badge">Live · 现场</span>
+  <h3 class="p-name">Anette Askvik</h3><p class="p-zh">安妮特·阿斯克维克</p>
+  <span class="p-role">Singer, composer, producer · Norway</span>
+  <p class="p-bio">Her voice is vulnerable and powerful at once; her music soft and hypnotic, balanced between acoustic and electronic. Four albums in, her recordings have become a global standard for demonstrating and testing audio equipment.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/036.jpg" alt="STein Austrud" loading="lazy" width="640" height="800">
+  <span class="badge">Live · 现场</span>
+  <h3 class="p-name">STein Austrud</h3>
+  <span class="p-role">Pianist, composer, producer · Norway</span>
+  <p class="p-bio">Blends classical training with contemporary soundscapes, weaving cinematic textures with lyrical piano. Performs with Anette Askvik at HiEnd Asia.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/032.jpg" alt="Anne Bisson" loading="lazy" width="640" height="800">
+  <span class="badge">Live · 现场</span>
+  <h3 class="p-name">Anne Bisson</h3>
+  <span class="p-role">Jazz singer, pianist, songwriter · Canada</span>
+  <p class="p-bio">Celebrated for warm vocals, intimate live performances and audiophile-quality recordings that blend jazz, pop and classical influences.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/033.jpg" alt="Zhong Zhigang" loading="lazy" width="640" height="800">
+  <span class="badge">Live · 现场</span>
+  <h3 class="p-name">Zhong Zhigang</h3><p class="p-zh">钟志刚</p>
+  <span class="p-role">Singer and producer · China</span>
+  <p class="p-bio">Second place at the 1994 Hunan MTV Singing Contest and one of Shenzhen&#x27;s Top Ten Singers in 1998 and 1999. Albums include Once Chanted, Night Fire and Just Right.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/034.jpg" alt="Kiva" loading="lazy" width="640" height="800">
+  <span class="badge">Live · 现场</span>
+  <h3 class="p-name">Kiva</h3><p class="p-zh">孙艺汇</p>
+  <span class="p-role">Singer-songwriter</span>
+  <p class="p-bio">A Mandarin-language singer-songwriter whose music ranges from soulful ballads to cinematic themes. Nominated for Best Jazz Song for Libra at the 2025 Wave Music Awards.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/035.jpg" alt="Henry Heng" loading="lazy" width="640" height="800">
+  <span class="badge">Emcee · 主持</span>
+  <h3 class="p-name">Henry Heng</h3><p class="p-zh">王利秦</p>
+  <span class="p-role">Emcee · Singapore</span>
+  <p class="p-bio">A familiar face on Singapore television for over two decades, best known for his work with Mediacorp across dramas, variety shows and films.</p>
+</article>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="guests" style="padding-top:0">
+  <div class="wrap" style="padding-top:0">
+    <div class="bh">
+      <h2 class="bh-en">Esteemed Guests</h2>
+      <p class="bh-zh">尊贵嘉宾</p>
+      <div class="rule"></div>
+      <p class="intro">Respected personalities, industry veterans and passionate voices from the audiophile world walk the halls of HiEnd Asia. Their presence is about shared passion, deep appreciation and meaningful encounters.</p>
+      <p class="intro-zh">多位业界知名人士与音响爱好者将莅临展会，静静同行于 HiEnd Asia 的每一展厅。这不仅是一次现身，更是对声音艺术的真诚致敬与共鸣。</p>
+    </div>
+    <div class="people">
+<article class="person">
+  <img class="p-photo" src="img/040.jpg" alt="Arthur Hsieh" loading="lazy" width="640" height="800">
+  <span class="badge">VIP · 贵宾</span>
+  <h3 class="p-name">Arthur Hsieh</h3><p class="p-zh">謝誌豪</p>
+  <span class="p-role">Producer and songwriter · Taiwan</span>
+  <p class="p-bio">Has worked with Golden Melody Award winners including Andy Lau, Ricky Hsiao and Sasha Lee. Founded the LP2D Remaster Station channel in 2012 and the listening space 築SOUND))) in 2022.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/041.jpg" alt="Brother Bok" loading="lazy" width="640" height="800">
+  <span class="badge">VIP · 贵宾</span>
+  <h3 class="p-name">Brother Bok</h3>
+  <span class="p-role">Audio YouTuber · Malaysia</span>
+  <p class="p-bio">Malaysia&#x27;s only professional audio YouTuber presenting in Chinese, known for a humorous, straightforward style: unboxings, store visits and audio know-how.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/042.jpg" alt="Hao Wei" loading="lazy" width="640" height="800">
+  <span class="badge">Meet &amp; greet · 见面会</span>
+  <h3 class="p-name">Hao Wei</h3><p class="p-zh">好薇</p>
+  <span class="p-role">Soprano · China</span>
+  <p class="p-bio">A graduate of the Xinghai Conservatory of Music in vocal performance, known for strong performances and emotional depth. Several albums released since 2020.</p>
+</article>
+    </div>
+  </div>
+</section>
+
+<section class="block band" id="reps">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en">Brand Representatives</h2>
+      <p class="bh-zh">品牌代表</p>
+      <div class="rule"></div>
+      <p class="intro">From founders to chief engineers, the people shaping the future of high-end audio will be in the room. A rare chance to hear the philosophies, craftsmanship and vision behind the world's most respected brands, directly from their creators.</p>
+      <p class="intro-zh">从创始人到首席工程师，多位高端音响品牌的灵魂人物将亲临现场。真实观点，原声呈现。</p>
+    </div>
+    <ul class="reps">
+<li class="rep">
+  <img src="img/043.jpg" alt="Robert Hegemann" loading="lazy" width="400" height="500">
+  <span class="rep-name">Robert Hegemann</span>
+  <span class="rep-role">&nbsp;</span>
+  <span class="rep-brand">Acoustic Signature</span>
+</li>
+<li class="rep">
+  <img src="img/044.jpg" alt="Dietrich Brakemeier" loading="lazy" width="400" height="500">
+  <span class="rep-name">Dietrich Brakemeier</span>
+  <span class="rep-role">CEO</span>
+  <span class="rep-brand">Acoustical Systems</span>
+</li>
+<li class="rep">
+  <img src="img/045.jpg" alt="Kenneth Lin" loading="lazy" width="400" height="500">
+  <span class="rep-name">Kenneth Lin</span>
+  <span class="rep-role">Co-Founder</span>
+  <span class="rep-brand">Alexandria Audio</span>
+</li>
+<li class="rep">
+  <img src="img/046.jpg" alt="Henry Kristanto" loading="lazy" width="400" height="500">
+  <span class="rep-name">Henry Kristanto</span>
+  <span class="rep-role">Co-Founder</span>
+  <span class="rep-brand">Alexandria Audio</span>
+</li>
+<li class="rep">
+  <img src="img/047.jpg" alt="Danny Hon" loading="lazy" width="400" height="500">
+  <span class="rep-name">Danny Hon</span>
+  <span class="rep-role">Asia Sales Manager</span>
+  <span class="rep-brand">Audio Group Denmark</span>
+</li>
+<li class="rep">
+  <img src="img/048.jpg" alt="Michael Børresen" loading="lazy" width="400" height="500">
+  <span class="rep-name">Michael Børresen</span>
+  <span class="rep-role">CTO</span>
+  <span class="rep-brand">Audio Group Denmark</span>
+</li>
+<li class="rep">
+  <img src="img/049.jpg" alt="Mads Klifoth" loading="lazy" width="400" height="500">
+  <span class="rep-name">Mads Klifoth</span>
+  <span class="rep-role">CEO</span>
+  <span class="rep-brand">Audiovector</span>
+</li>
+<li class="rep">
+  <img src="img/050.jpg" alt="Jacky Fong" loading="lazy" width="400" height="500">
+  <span class="rep-name">Jacky Fong</span>
+  <span class="rep-role">Asia Sales Manager</span>
+  <span class="rep-brand">Audiovector</span>
+</li>
+<li class="rep">
+  <img src="img/051.jpg" alt="Felix Avalos, Raul Rangel" loading="lazy" width="400" height="500">
+  <span class="rep-name">Felix Avalos, Raul Rangel</span>
+  <span class="rep-role">President &amp; CEO</span>
+  <span class="rep-brand">Avalos Sound Design · Fono Acustica</span>
+</li>
+<li class="rep">
+  <img src="img/052.jpg" alt="Jerome Andre" loading="lazy" width="400" height="500">
+  <span class="rep-name">Jerome Andre</span>
+  <span class="rep-role">International Sales Manager</span>
+  <span class="rep-brand">Avantgarde</span>
+</li>
+<li class="rep">
+  <img src="img/053.jpg" alt="Steve Shade" loading="lazy" width="400" height="500">
+  <span class="rep-name">Steve Shade</span>
+  <span class="rep-role">Director of International Sales</span>
+  <span class="rep-brand">BAT · MoFi Electronics</span>
+</li>
+<li class="rep">
+  <img src="img/054.jpg" alt="Helmut Brinkmann" loading="lazy" width="400" height="500">
+  <span class="rep-name">Helmut Brinkmann</span>
+  <span class="rep-role">Founder</span>
+  <span class="rep-brand">Brinkmann</span>
+</li>
+<li class="rep">
+  <img src="img/055.jpg" alt="Matthias Lock" loading="lazy" width="400" height="500">
+  <span class="rep-name">Matthias Lock</span>
+  <span class="rep-role">Co-Owner</span>
+  <span class="rep-brand">Brinkmann</span>
+</li>
+<li class="rep">
+  <img src="img/056.jpg" alt="Xu Nuo" loading="lazy" width="400" height="500">
+  <span class="rep-name">Xu Nuo</span>
+  <span class="rep-role">General Manager (China)</span>
+  <span class="rep-brand">Direct Sound Machine</span>
+</li>
+<li class="rep">
+  <img src="img/057.jpg" alt="Heng Yi Xiang" loading="lazy" width="400" height="500">
+  <span class="rep-name">Heng Yi Xiang</span>
+  <span class="rep-role">General Manager (Singapore)</span>
+  <span class="rep-brand">Direct Sound Machine</span>
+</li>
+<li class="rep">
+  <img src="img/058.jpg" alt="Maurizio Aterini" loading="lazy" width="400" height="500">
+  <span class="rep-name">Maurizio Aterini</span>
+  <span class="rep-role">Founder &amp; CEO</span>
+  <span class="rep-brand">Gold Note</span>
+</li>
+<li class="rep">
+  <img src="img/059.jpg" alt="Micha Huber" loading="lazy" width="400" height="500">
+  <span class="rep-name">Micha Huber</span>
+  <span class="rep-role">CEO</span>
+  <span class="rep-brand">HiFiction AG</span>
+</li>
+<li class="rep">
+  <img src="img/060.jpg" alt="Hans-Jürgen Kaiser" loading="lazy" width="400" height="500">
+  <span class="rep-name">Hans-Jürgen Kaiser</span>
+  <span class="rep-role">CEO and Managing Director</span>
+  <span class="rep-brand">Kaiser Acoustics</span>
+</li>
+<li class="rep">
+  <img src="img/061.jpg" alt="Rainer Weber" loading="lazy" width="400" height="500">
+  <span class="rep-name">Rainer Weber</span>
+  <span class="rep-role">Technical Director</span>
+  <span class="rep-brand">Kaiser Acoustics</span>
+</li>
+<li class="rep">
+  <img src="img/062.jpg" alt="Jonathan Carr" loading="lazy" width="400" height="500">
+  <span class="rep-name">Jonathan Carr</span>
+  <span class="rep-role">Chief Engineer</span>
+  <span class="rep-brand">Lyra Analog</span>
+</li>
+<li class="rep">
+  <img src="img/063.jpg" alt="Stig Bjorge" loading="lazy" width="400" height="500">
+  <span class="rep-name">Stig Bjorge</span>
+  <span class="rep-role">CEO</span>
+  <span class="rep-brand">Lyra Analog</span>
+</li>
+<li class="rep">
+  <img src="img/064.jpg" alt="Bjorn Bengtsson" loading="lazy" width="400" height="500">
+  <span class="rep-name">Bjorn Bengtsson</span>
+  <span class="rep-role">Products Specialist</span>
+  <span class="rep-brand">Nordost</span>
+</li>
+<li class="rep">
+  <img src="img/065.jpg" alt="Lennart Asbjørn" loading="lazy" width="400" height="500">
+  <span class="rep-name">Lennart Asbjørn</span>
+  <span class="rep-role">CEO</span>
+  <span class="rep-brand">Peak Consult</span>
+</li>
+<li class="rep">
+  <img src="img/066.jpg" alt="Wilfried Ehrenholz" loading="lazy" width="400" height="500">
+  <span class="rep-name">Wilfried Ehrenholz</span>
+  <span class="rep-role">Product Development</span>
+  <span class="rep-brand">Peak Consult</span>
+</li>
+<li class="rep">
+  <img src="img/067.jpg" alt="Mark Thomsen" loading="lazy" width="400" height="500">
+  <span class="rep-name">Mark Thomsen</span>
+  <span class="rep-role">International Sales &amp; Marketing</span>
+  <span class="rep-brand">SB Acoustics &amp; SB Audience</span>
+</li>
+<li class="rep">
+  <img src="img/068.jpg" alt="Melly Wulandari" loading="lazy" width="400" height="500">
+  <span class="rep-name">Melly Wulandari</span>
+  <span class="rep-role">Project Manager</span>
+  <span class="rep-brand">Sinar Bajar Electric</span>
+</li>
+<li class="rep">
+  <img src="img/069.jpg" alt="Willy S" loading="lazy" width="400" height="500">
+  <span class="rep-name">Willy S</span>
+  <span class="rep-role">Project Manager</span>
+  <span class="rep-brand">Sinar Bajar Electric</span>
+</li>
+<li class="rep">
+  <img src="img/070.jpg" alt="Ming Yip" loading="lazy" width="400" height="500">
+  <span class="rep-name">Ming Yip</span>
+  <span class="rep-role">Founder</span>
+  <span class="rep-brand">Sine</span>
+</li>
+<li class="rep">
+  <img src="img/071.jpg" alt="James Soh" loading="lazy" width="400" height="500">
+  <span class="rep-name">James Soh</span>
+  <span class="rep-role">CEO</span>
+  <span class="rep-brand">Sound Affairs</span>
+</li>
+<li class="rep">
+  <img src="img/072.jpg" alt="Richard Braine" loading="lazy" width="400" height="500">
+  <span class="rep-name">Richard Braine</span>
+  <span class="rep-role">Director</span>
+  <span class="rep-brand">Supatrac</span>
+</li>
+<li class="rep">
+  <img src="img/073.jpg" alt="Shinji Tarutani" loading="lazy" width="400" height="500">
+  <span class="rep-name">Shinji Tarutani</span>
+  <span class="rep-role">President</span>
+  <span class="rep-brand">TAD</span>
+</li>
+<li class="rep">
+  <img src="img/074.jpg" alt="Rumen Artaski" loading="lazy" width="400" height="500">
+  <span class="rep-name">Rumen Artaski</span>
+  <span class="rep-role">CEO</span>
+  <span class="rep-brand">Thrax Audio</span>
+</li>
+<li class="rep">
+  <img src="img/075.jpg" alt="Masashi Miyake" loading="lazy" width="400" height="500">
+  <span class="rep-name">Masashi Miyake</span>
+  <span class="rep-role">Founder</span>
+  <span class="rep-brand">Vinyl Audio Laboratory</span>
+</li>
+<li class="rep">
+  <img src="img/076.jpg" alt="Hans-Ole Vitus" loading="lazy" width="400" height="500">
+  <span class="rep-name">Hans-Ole Vitus</span>
+  <span class="rep-role">Founder</span>
+  <span class="rep-brand">Vitus Audio</span>
+</li>
+<li class="rep">
+  <img src="img/077.jpg" alt="Inès Adler" loading="lazy" width="400" height="500">
+  <span class="rep-name">Inès Adler</span>
+  <span class="rep-role">CEO and Founder</span>
+  <span class="rep-brand">Voxativ</span>
+</li>
+<li class="rep">
+  <img src="img/078.jpg" alt="Stefan Trog" loading="lazy" width="400" height="500">
+  <span class="rep-name">Stefan Trog</span>
+  <span class="rep-role">Managing Director</span>
+  <span class="rep-brand">Westend Audio System</span>
+</li>
+<li class="rep">
+  <img src="img/079.jpg" alt="Günther Mania" loading="lazy" width="400" height="500">
+  <span class="rep-name">Günther Mania</span>
+  <span class="rep-role">Developer</span>
+  <span class="rep-brand">Westend Audio System</span>
+</li>
+<li class="rep">
+  <img src="img/080.jpg" alt="Aurèle Docquin" loading="lazy" width="400" height="500">
+  <span class="rep-name">Aurèle Docquin</span>
+  <span class="rep-role">APAC Sales Director</span>
+  <span class="rep-brand">YG Acoustics</span>
+</li>
+<li class="rep">
+  <img src="img/081.jpg" alt="Demetris Baklavas" loading="lazy" width="400" height="500">
+  <span class="rep-name">Demetris Baklavas</span>
+  <span class="rep-role">Founder &amp; Chief Designer</span>
+  <span class="rep-brand">Ypsilon Electronic</span>
+</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block" id="brands">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en">More Brands</h2>
+      <p class="bh-zh">更多品牌</p>
+      <div class="rule"></div>
+      <p class="intro">Over 150 of the world's leading audio brands under one roof, from legendary pioneers to today's most talked-about names, brought by Singapore's dealers and distributors.</p>
+      <p class="intro-zh">逾150个世界领先音响品牌齐聚一堂，从业界传奇到当今焦点新秀，尽数呈现。</p>
+    </div>
+    <h3 class="sub-h">Dealers &amp; distributors · 经销商与代理商</h3>
+    <ul class="wall big">
+<li class="tile"><img src="img/082.jpg" alt="Aston Martin" loading="lazy" title="Aston Martin"></li>
+<li class="tile"><img src="img/083.jpg" alt="Audio Maestro" loading="lazy" title="Audio Maestro"></li>
+<li class="tile"><img src="img/084.jpg" alt="Ong Radio" loading="lazy" title="Ong Radio"></li>
+<li class="tile"><img src="img/085.jpg" alt="AudioLine" loading="lazy" title="AudioLine"></li>
+<li class="tile"><img src="img/086.jpg" alt="Audio 88" loading="lazy" title="Audio 88"></li>
+<li class="tile"><img src="img/087.jpg" alt="Audio Atelier" loading="lazy" title="Audio Atelier"></li>
+<li class="tile"><img src="img/088.jpg" alt="Hifi.com.sg" loading="lazy" title="Hifi.com.sg"></li>
+<li class="tile"><img src="img/089.jpg" alt="Analog Playground" loading="lazy" title="Analog Playground"></li>
+<li class="tile"><img src="img/090.jpg" alt="Audio Exotics" loading="lazy" title="Audio Exotics"></li>
+<li class="tile"><img src="img/091.jpg" alt="Optivox" loading="lazy" title="Optivox"></li>
+<li class="tile"><img src="img/092.jpg" alt="MU6" loading="lazy" title="MU6"></li>
+<li class="tile"><img src="img/093.jpg" alt="Peak Audio" loading="lazy" title="Peak Audio"></li>
+<li class="tile"><img src="img/094.jpg" alt="Sound Machine" loading="lazy" title="Sound Machine"></li>
+<li class="tile"><img src="img/095.jpg" alt="Artisan acoustics" loading="lazy" title="Artisan acoustics"></li>
+<li class="tile"><img src="img/096.jpg" alt="Cancan" loading="lazy" title="Cancan"></li>
+<li class="tile"><img src="img/097.jpg" alt="McIntosh" loading="lazy" title="McIntosh"></li>
+<li class="tile"><img src="img/098.jpg" alt="Melodious Piano Boutique" loading="lazy" title="Melodious Piano Boutique"></li>
+<li class="tile"><img src="img/099.jpg" alt="Westend" loading="lazy" title="Westend"></li>
+<li class="tile"><img src="img/100.jpg" alt="AV Intelligence" loading="lazy" title="AV Intelligence"></li>
+<li class="tile"><img src="img/101.jpg" alt="High End Research" loading="lazy" title="High End Research"></li>
+<li class="tile"><img src="img/102.jpg" alt="Arsham" loading="lazy" title="Arsham"></li>
+<li class="tile"><img src="img/103.jpg" alt="Lingke" loading="lazy" title="Lingke"></li>
+<li class="tile"><img src="img/104.jpg" alt="SharkWire" loading="lazy" title="SharkWire"></li>
+<li class="tile"><img src="img/105.jpg" alt="Point" loading="lazy" title="Point"></li>
+<li class="tile"><img src="img/106.jpg" alt="APL" loading="lazy" title="APL"></li>
+    </ul>
+    <h3 class="sub-h">Exhibiting brands · 参展品牌</h3>
+    <div class="wall-box collapsed" id="wallBox">
+      <ul class="wall" id="brandWall">
+<li class="tile"><img src="img/107.jpg" alt="ARTESANIA" loading="lazy" title="ARTESANIA"></li>
+<li class="tile"><img src="img/108.jpg" alt="Aavik" loading="lazy" title="Aavik"></li>
+<li class="tile"><img src="img/109.jpg" alt="Accuphase" loading="lazy" title="Accuphase"></li>
+<li class="tile"><img src="img/110.jpg" alt="Acoustic Signature" loading="lazy" title="Acoustic Signature"></li>
+<li class="tile"><img src="img/111.jpg" alt="Acoustical Systems" loading="lazy" title="Acoustical Systems"></li>
+<li class="tile"><img src="img/112.jpg" alt="Air Tight" loading="lazy" title="Air Tight"></li>
+<li class="tile"><img src="img/113.jpg" alt="Alexandria Audio" loading="lazy" title="Alexandria Audio"></li>
+<li class="tile"><img src="img/115.jpg" alt="Ansuz" loading="lazy" title="Ansuz"></li>
+<li class="tile"><img src="img/116.jpg" alt="Audio Bastion" loading="lazy" title="Audio Bastion"></li>
+<li class="tile"><img src="img/117.jpg" alt="Audio Desk" loading="lazy" title="Audio Desk"></li>
+<li class="tile"><img src="img/118.jpg" alt="Audio Exotics" loading="lazy" title="Audio Exotics"></li>
+<li class="tile"><img src="img/119.jpg" alt="Audio Group Denmark" loading="lazy" title="Audio Group Denmark"></li>
+<li class="tile"><img src="img/120.jpg" alt="Audio Note Singapore Pte. Ltd." loading="lazy" title="Audio Note Singapore Pte. Ltd."></li>
+<li class="tile"><img src="img/121.jpg" alt="Audio-Technica" loading="lazy" title="Audio-Technica"></li>
+<li class="tile"><img src="img/122.jpg" alt="Audiovector" loading="lazy" title="Audiovector"></li>
+<li class="tile"><img src="img/123.jpg" alt="Avalos" loading="lazy" title="Avalos"></li>
+<li class="tile"><img src="img/124.jpg" alt="Avantgarde" loading="lazy" title="Avantgarde"></li>
+<li class="tile"><img src="img/125.jpg" alt="Axxess" loading="lazy" title="Axxess"></li>
+<li class="tile"><img src="img/126.jpg" alt="B.Audio" loading="lazy" title="B.Audio"></li>
+<li class="tile"><img src="img/127.jpg" alt="Balanced Audio Technology" loading="lazy" title="Balanced Audio Technology"></li>
+<li class="tile"><img src="img/128.jpg" alt="Basso" loading="lazy" title="Basso"></li>
+<li class="tile"><img src="img/129.jpg" alt="Black Cat" loading="lazy" title="Black Cat"></li>
+<li class="tile"><img src="img/130.jpg" alt="Borresen" loading="lazy" title="Borresen"></li>
+<li class="tile"><img src="img/131.jpg" alt="Bowers &amp; Wilkins" loading="lazy" title="Bowers &amp; Wilkins"></li>
+<li class="tile"><img src="img/132.jpg" alt="Brinkmann Audio" loading="lazy" title="Brinkmann Audio"></li>
+<li class="tile"><img src="img/133.jpg" alt="Cabasse" loading="lazy" title="Cabasse"></li>
+<li class="tile"><img src="img/134.jpg" alt="Cary Audio" loading="lazy" title="Cary Audio"></li>
+<li class="tile"><img src="img/135.jpg" alt="Cessaro" loading="lazy" title="Cessaro"></li>
+<li class="tile"><img src="img/136.jpg" alt="Classe Audio" loading="lazy" title="Classe Audio"></li>
+<li class="tile"><img src="img/137.jpg" alt="Consonance Audio" loading="lazy" title="Consonance Audio"></li>
+<li class="tile"><img src="img/138.jpg" alt="Dalby" loading="lazy" title="Dalby"></li>
+<li class="tile"><img src="img/139.jpg" alt="Diapason" loading="lazy" title="Diapason"></li>
+<li class="tile"><img src="img/140.jpg" alt="Diesis Audio" loading="lazy" title="Diesis Audio"></li>
+<li class="tile"><img src="img/141.jpg" alt="Dohmann" loading="lazy" title="Dohmann"></li>
+<li class="tile"><img src="img/142.jpg" alt="Dr. Feickhert Analogue" loading="lazy" title="Dr. Feickhert Analogue"></li>
+<li class="tile"><img src="img/143.jpg" alt="EMT" loading="lazy" title="EMT"></li>
+<li class="tile"><img src="img/144.jpg" alt="Ediscreation" loading="lazy" title="Ediscreation"></li>
+<li class="tile"><img src="img/145.jpg" alt="Engstrom" loading="lazy" title="Engstrom"></li>
+<li class="tile"><img src="img/146.jpg" alt="Enleum" loading="lazy" title="Enleum"></li>
+<li class="tile"><img src="img/147.jpg" alt="Ensemble Swiss Audio" loading="lazy" title="Ensemble Swiss Audio"></li>
+<li class="tile"><img src="img/148.jpg" alt="Esprit" loading="lazy" title="Esprit"></li>
+<li class="tile"><img src="img/149.jpg" alt="Etsuro Urushi" loading="lazy" title="Etsuro Urushi"></li>
+<li class="tile"><img src="img/150.jpg" alt="Falcon Acoustics" loading="lazy" title="Falcon Acoustics"></li>
+<li class="tile"><img src="img/151.jpg" alt="Finite Elemente EU" loading="lazy" title="Finite Elemente EU"></li>
+<li class="tile"><img src="img/152.jpg" alt="Fono Acustica" loading="lazy" title="Fono Acustica"></li>
+<li class="tile"><img src="img/153.jpg" alt="Gait" loading="lazy" title="Gait"></li>
+<li class="tile"><img src="img/154.jpg" alt="Genesis Audio" loading="lazy" title="Genesis Audio"></li>
+<li class="tile"><img src="img/155.jpg" alt="Goal Bon" loading="lazy" title="Goal Bon"></li>
+<li class="tile"><img src="img/156.jpg" alt="Goebel" loading="lazy" title="Goebel"></li>
+<li class="tile"><img src="img/157.jpg" alt="Gold Note" loading="lazy" title="Gold Note"></li>
+<li class="tile"><img src="img/158.jpg" alt="Goldmund Swiss Made" loading="lazy" title="Goldmund Swiss Made"></li>
+<li class="tile"><img src="img/159.jpg" alt="Graham Audio" loading="lazy" title="Graham Audio"></li>
+<li class="tile"><img src="img/160.jpg" alt="Grand Prix Audio" loading="lazy" title="Grand Prix Audio"></li>
+<li class="tile"><img src="img/161.jpg" alt="Harmonic Resolution Systems" loading="lazy" title="Harmonic Resolution Systems"></li>
+<li class="tile"><img src="img/162.jpg" alt="HiFiction AG" loading="lazy" title="HiFiction AG"></li>
+<li class="tile"><img src="img/163.jpg" alt="Ikeda Sound Labs" loading="lazy" title="Ikeda Sound Labs"></li>
+<li class="tile"><img src="img/164.jpg" alt="Ikigai" loading="lazy" title="Ikigai"></li>
+<li class="tile"><img src="img/165.jpg" alt="Innuos" loading="lazy" title="Innuos"></li>
+<li class="tile"><img src="img/166.jpg" alt="JBL" loading="lazy" title="JBL"></li>
+<li class="tile"><img src="img/167.jpg" alt="JMF Audio" loading="lazy" title="JMF Audio"></li>
+<li class="tile"><img src="img/168.jpg" alt="Kaiser" loading="lazy" title="Kaiser"></li>
+<li class="tile"><img src="img/169.jpg" alt="Kawero" loading="lazy" title="Kawero"></li>
+<li class="tile"><img src="img/170.jpg" alt="Kinki Studio" loading="lazy" title="Kinki Studio"></li>
+<li class="tile"><img src="img/171.jpg" alt="Kora High Fidelity" loading="lazy" title="Kora High Fidelity"></li>
+<li class="tile"><img src="img/172.jpg" alt="LAB 12" loading="lazy" title="LAB 12"></li>
+<li class="tile"><img src="img/173.jpg" alt="LAIV" loading="lazy" title="LAIV"></li>
+<li class="tile"><img src="img/174.jpg" alt="Leben" loading="lazy" title="Leben"></li>
+<li class="tile"><img src="img/175.jpg" alt="Lithosphere Labs (France)" loading="lazy" title="Lithosphere Labs (France)"></li>
+<li class="tile"><img src="img/176.jpg" alt="Live Cable" loading="lazy" title="Live Cable"></li>
+<li class="tile"><img src="img/177.jpg" alt="Loricraft Audio" loading="lazy" title="Loricraft Audio"></li>
+<li class="tile"><img src="img/178.jpg" alt="Lumin" loading="lazy" title="Lumin"></li>
+<li class="tile"><img src="img/179.jpg" alt="Lyra Analog" loading="lazy" title="Lyra Analog"></li>
+<li class="tile"><img src="img/180.jpg" alt="MSB Technology" loading="lazy" title="MSB Technology"></li>
+<li class="tile"><img src="img/181.jpg" alt="Marten Audio" loading="lazy" title="Marten Audio"></li>
+<li class="tile"><img src="img/182.jpg" alt="Matrix Audio" loading="lazy" title="Matrix Audio"></li>
+<li class="tile"><img src="img/183.jpg" alt="Matter" loading="lazy" title="Matter"></li>
+<li class="tile"><img src="img/184.jpg" alt="Metronome" loading="lazy" title="Metronome"></li>
+<li class="tile"><img src="img/185.jpg" alt="Miyajima Laboratory" loading="lazy" title="Miyajima Laboratory"></li>
+<li class="tile"><img src="img/186.jpg" alt="Mod Audio" loading="lazy" title="Mod Audio"></li>
+<li class="tile"><img src="img/187.jpg" alt="Mofi Electronics" loading="lazy" title="Mofi Electronics"></li>
+<li class="tile"><img src="img/188.jpg" alt="MontAudio" loading="lazy" title="MontAudio"></li>
+<li class="tile"><img src="img/189.jpg" alt="Moon by Sim Audio" loading="lazy" title="Moon by Sim Audio"></li>
+<li class="tile"><img src="img/190.jpg" alt="Mr. K Audio" loading="lazy" title="Mr. K Audio"></li>
+<li class="tile"><img src="img/191.jpg" alt="NAGRA" loading="lazy" title="NAGRA"></li>
+<li class="tile"><img src="img/192.jpg" alt="Nirvana Audio" loading="lazy" title="Nirvana Audio"></li>
+<li class="tile"><img src="img/193.jpg" alt="Nordost" loading="lazy" title="Nordost"></li>
+<li class="tile"><img src="img/194.jpg" alt="Obit" loading="lazy" title="Obit"></li>
+<li class="tile"><img src="img/195.jpg" alt="Opera Loudspeakers" loading="lazy" title="Opera Loudspeakers"></li>
+<li class="tile"><img src="img/196.jpg" alt="Origin Live" loading="lazy" title="Origin Live"></li>
+<li class="tile"><img src="img/197.jpg" alt="Ortofon" loading="lazy" title="Ortofon"></li>
+<li class="tile"><img src="img/198.jpg" alt="Pass Labs" loading="lazy" title="Pass Labs"></li>
+<li class="tile"><img src="img/199.jpg" alt="Pink Faun" loading="lazy" title="Pink Faun"></li>
+<li class="tile"><img src="img/200.jpg" alt="PliXir" loading="lazy" title="PliXir"></li>
+<li class="tile"><img src="img/201.jpg" alt="Purple Qingdao" loading="lazy" title="Purple Qingdao"></li>
+<li class="tile"><img src="img/202.jpg" alt="Quadraspire" loading="lazy" title="Quadraspire"></li>
+<li class="tile"><img src="img/203.jpg" alt="Raidho Acoustics" loading="lazy" title="Raidho Acoustics"></li>
+<li class="tile"><img src="img/204.jpg" alt="Reiki Audio" loading="lazy" title="Reiki Audio"></li>
+<li class="tile"><img src="img/205.jpg" alt="Richard Gray&#x27;s Power Company" loading="lazy" title="Richard Gray&#x27;s Power Company"></li>
+<li class="tile"><img src="img/206.jpg" alt="Riviera" loading="lazy" title="Riviera"></li>
+<li class="tile"><img src="img/207.jpg" alt="Rogers High Fidelity" loading="lazy" title="Rogers High Fidelity"></li>
+<li class="tile"><img src="img/208.jpg" alt="Roxy Disc House" loading="lazy" title="Roxy Disc House"></li>
+<li class="tile"><img src="img/209.jpg" alt="SB Acoustics" loading="lazy" title="SB Acoustics"></li>
+<li class="tile"><img src="img/210.jpg" alt="Scansonic" loading="lazy" title="Scansonic"></li>
+<li class="tile"><img src="img/211.jpg" alt="Showfeel" loading="lazy" title="Showfeel"></li>
+<li class="tile"><img src="img/212.jpg" alt="Shunyata Research" loading="lazy" title="Shunyata Research"></li>
+<li class="tile"><img src="img/213.jpg" alt="Signal Projects" loading="lazy" title="Signal Projects"></li>
+<li class="tile"><img src="img/214.jpg" alt="Sine" loading="lazy" title="Sine"></li>
+<li class="tile"><img src="img/215.jpg" alt="Solid Tech" loading="lazy" title="Solid Tech"></li>
+<li class="tile"><img src="img/216.jpg" alt="Sound Gallery by IMS" loading="lazy" title="Sound Gallery by IMS"></li>
+<li class="tile"><img src="img/217.jpg" alt="Stellavox" loading="lazy" title="Stellavox"></li>
+<li class="tile"><img src="img/218.jpg" alt="Stradius" loading="lazy" title="Stradius"></li>
+<li class="tile"><img src="img/219.jpg" alt="Supatrac" loading="lazy" title="Supatrac"></li>
+<li class="tile"><img src="img/220.jpg" alt="Sutherland" loading="lazy" title="Sutherland"></li>
+<li class="tile"><img src="img/221.jpg" alt="Synastec Audio" loading="lazy" title="Synastec Audio"></li>
+<li class="tile"><img src="img/222.jpg" alt="TAD" loading="lazy" title="TAD"></li>
+<li class="tile"><img src="img/223.jpg" alt="Thales Audio" loading="lazy" title="Thales Audio"></li>
+<li class="tile"><img src="img/224.jpg" alt="Thrax Audio" loading="lazy" title="Thrax Audio"></li>
+<li class="tile"><img src="img/225.jpg" alt="Tiglon" loading="lazy" title="Tiglon"></li>
+<li class="tile"><img src="img/226.jpg" alt="Triode Japan" loading="lazy" title="Triode Japan"></li>
+<li class="tile"><img src="img/227.jpg" alt="TW Acustic" loading="lazy" title="TW Acustic"></li>
+<li class="tile"><img src="img/228.jpg" alt="Ungnoi" loading="lazy" title="Ungnoi"></li>
+<li class="tile"><img src="img/229.jpg" alt="Unison Research" loading="lazy" title="Unison Research"></li>
+<li class="tile"><img src="img/230.jpg" alt="VPI" loading="lazy" title="VPI"></li>
+<li class="tile"><img src="img/231.jpg" alt="Vertere" loading="lazy" title="Vertere"></li>
+<li class="tile"><img src="img/232.jpg" alt="Vinshine Audio" loading="lazy" title="Vinshine Audio"></li>
+<li class="tile"><img src="img/233.jpg" alt="Vinyl Audio Laboratory" loading="lazy" title="Vinyl Audio Laboratory"></li>
+<li class="tile"><img src="img/234.jpg" alt="Vitus Audio" loading="lazy" title="Vitus Audio"></li>
+<li class="tile"><img src="img/235.jpg" alt="Voxativ" loading="lazy" title="Voxativ"></li>
+<li class="tile"><img src="img/236.jpg" alt="Vulcan Fuse" loading="lazy" title="Vulcan Fuse"></li>
+<li class="tile"><img src="img/237.jpg" alt="Weichen Music" loading="lazy" title="Weichen Music"></li>
+<li class="tile"><img src="img/238.jpg" alt="Wilson Audio" loading="lazy" title="Wilson Audio"></li>
+<li class="tile"><img src="img/239.jpg" alt="Xquisite" loading="lazy" title="Xquisite"></li>
+<li class="tile"><img src="img/240.jpg" alt="YG Acoustics" loading="lazy" title="YG Acoustics"></li>
+<li class="tile"><img src="img/241.jpg" alt="Ypsilon Electronics" loading="lazy" title="Ypsilon Electronics"></li>
+<li class="tile"><img src="img/242.jpg" alt="Zensati" loading="lazy" title="Zensati"></li>
+      </ul>
+    </div>
+    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false">Show all 135 brands <span class="zh">全部品牌</span></button></div>
+  </div>
+</section>
+
+<section class="block band" id="story">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en">Why HiEnd Asia</h2>
+      <p class="bh-zh">为何选择 HiEnd Asia</p>
+      <div class="rule"></div>
+    </div>
+    <ol class="timeline">
+      <li><span class="t-year">2023</span><span class="t-place">Sofitel Singapore</span><span class="t-note">Debut edition · 6,000 visits</span></li>
+      <li><span class="t-year">2024</span><span class="t-place">Pan Pacific Singapore</span><span class="t-note">Expanded showcase · 8,000+ patrons</span></li>
+      <li><span class="t-year">2025</span><span class="t-place">Suntec Singapore</span><span class="t-note">First edition at a world-class convention venue</span></li>
+      <li class="now"><span class="t-year">2026</span><span class="t-place">Suntec Singapore, Level 3</span><span class="t-note">17 – 19 December</span></li>
+    </ol>
+    <div class="story">
+      <div>
+        <p>HiEnd Asia has quickly become Southeast Asia's most anticipated high-end audio exhibition. At Suntec Singapore Convention &amp; Exhibition Centre, at the heart of the city, it brings more exhibitors, more brands and purpose-built listening rooms, just minutes from three MRT lines.</p>
+        <p>As Southeast Asia moves towards becoming half of the global economy by 2030, demand for high-end, lifestyle audio is accelerating. Singapore, a gateway to over 4 billion people within a 7-hour flight, offers global access, pro-business infrastructure and Asian elegance.</p>
+      </div>
+      <div class="zh">
+        <p>自2023年首展于 Sofitel 酒店圆满落幕，三日吸引六千人次；到 2024 年移师 Pan Pacific 酒店，迎来超过八千参观人次。HiEnd Asia 已迅速成为东南亚最受瞩目的高端音响展览之一。</p>
+        <p>东南亚正以惊人速度增长，预计2030年将占据全球经济的一半。新加坡在七小时飞行半径内连接超过40亿人口，凭借其国际通达力、亲商环境与独特亚洲魅力，成为 HiEnd Asia 理想之选。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="visit">
+  <div class="wrap">
+    <div class="visit-grid">
+      <div class="visit-copy">
+        <div class="bh left">
+          <h2 class="bh-en">Strategic Location</h2>
+          <p class="bh-zh">交通方便</p>
+          <div class="rule"></div>
+        </div>
+        <div class="dates" aria-label="Show hours">
+          <span>17 Dec Thursday</span><span>10am – 7pm</span>
+          <span>18 Dec Friday</span><span>10am – 7pm</span>
+          <span>19 Dec Saturday</span><span>10am – 7pm</span>
+        </div>
+        <p class="intro">Suntec Singapore sits in the heart of the downtown district, near Marina Bay Sands, Gardens by the Bay and the Singapore Flyer.</p>
+        <ul class="mrt" aria-label="Nearest MRT stations">
+          <li><b>Esplanade</b><span>Circle Line</span></li>
+          <li><b>Promenade</b><span>Circle or Downtown Line</span></li>
+          <li><b>City Hall</b><span>North-South or East-West Line</span></li>
+        </ul>
+        <p class="intro-zh">展会位于新达城新加坡国际会议与展览中心三楼，邻近滨海湾金沙、滨海湾花园与新加坡摩天观景轮，步行数分钟即可抵达三条地铁线路。</p>
+        <p class="free"><b>Free entry · 免费入场</b><span>No tickets needed.</span></p>
+        <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener">Get directions <span class="zh">交通指南</span></a></div>
+      <div class="btns">
+        <details class="cal">
+          <summary class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Add to calendar <span class="zh">加入日历</span><span class="chev" aria-hidden="true">▾</span></summary>
+          <div class="cal-menu">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Google Calendar<small>Repeats 10am – 7pm, 17 – 19 Dec</small></a>
+            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Outlook.com<small>Personal Outlook and Hotmail</small></a>
+            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Outlook (work or school)<small>Microsoft 365</small></a>
+          </div>
+        </details>
+        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17-19%20Dec%202026%2C%2010am-7pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//www.hiendasia.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>Share on WhatsApp <span class="zh">分享</span></a>
+      </div>
+      </div>
+      <div class="photos">
+        <img src="img/008.jpg" alt="Escalators at the entrance to Suntec Singapore Convention Centre" loading="lazy" width="1333" height="1000">
+        <img src="img/009.jpg" alt="Suntec Singapore's glass roof lit blue at night" loading="lazy" width="1400" height="933">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block band" id="partners">
+  <div class="wrap">
+    <div class="bh sub">
+      <h2 class="bh-en">Organisers &amp; Partners</h2>
+      <p class="bh-zh">主办与合作伙伴</p>
+      <div class="rule"></div>
+    </div>
+    <div class="partners">
+      <div>
+        <h3>Main organisers <span class="zh">主办单位</span></h3>
+        <ul class="plist"><li>HiEnd Asia + Pte. Ltd</li><li>SIEC<small>上海市国际展览（集团）有限公司</small></li></ul>
+      </div>
+      <div>
+        <h3>Co-organisers <span class="zh">协办单位</span></h3>
+        <ul class="plist"><li>Taipei Electrical Commercial Association</li><li>SIAV</li><li>Taichung City Electric Business Association</li></ul>
+      </div>
+      <div>
+        <h3>Sponsors <span class="zh">赞助</span></h3>
+        <ul class="plist"><li>MU6<small>Cash sponsorship</small></li><li>Enso Consult<small>Publicity and IT</small></li><li>Stardust Pictures<small>Video and photography</small></li><li>Melodious Piano House<small>Yamaha concert piano</small></li></ul>
+      </div>
+      <div>
+        <h3>Partner hotels <span class="zh">官方合作酒店</span></h3>
+        <ul class="plist"><li>Pullman Singapore</li><li>lyf Funan Singapore</li></ul>
+      </div>
+    </div>
+    <div>
+      <h3 class="sub-h">Media partners · 媒体合作伙伴</h3>
+      <ul class="media" style="margin-top:16px">
+<li>HiFi PiG Magazine</li>
+<li>AudioNet</li>
+<li>Lee388</li>
+<li>The AudiophileLance</li>
+<li>Brother Bok</li>
+<li>AudioArt</li>
+<li>Mono &amp; Stereo</li>
+<li>Part-Time Audiophile</li>
+<li>The Listening Chair with Howard Kneller</li>
+<li>AMPED</li>
+<li>New Audiophile</li>
+<li>STHIFI.COM</li>
+<li>iAVlife.com</li>
+<li>PSV PerfectSoundVision</li>
+<li>PrimeAV</li>
+<li>The Greater Toronto Area Audiophile Club</li>
+<li>Audiophile Club Singapore</li>
+<li>Enso Consult</li>
+<li>Stardust Pictures</li>
+<li>El Hefe Reviews</li>
+<li>Sights N Sounds</li>
+<li>51audio.com</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-brand">
+      <img src="img/logo.svg" alt="HiEnd Asia" width="170" height="44">
+      <b>HiEnd Asia + Pte. Ltd</b>
+      <p>Sharing our passion for the finer things in life for our five senses, sights, sound, taste, touch and smell with our fellow ASEAN brethren.</p>
+    </div>
+    <div class="foot-contact">
+      <span>1093 Lower Delta Road #02-09, Singapore 169204</span>
+      <span>+65 8668 1927</span>
+      <span>michelle@hiendasia.com</span>
+      <div class="social">
+        <a href="https://www.facebook.com/hiendasia.sg/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/hiendasia.sg/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.linkedin.com/company/hiendasia/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.hiendasia.com/" target="_blank" rel="noopener">hiendasia.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="copy"><div class="wrap"><span>© 2026 HiEnd Asia + Pte. Ltd</span><span>Be present. The moment is yours. · <a href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17-19%20Dec%202026%2C%2010am-7pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//www.hiendasia.com/" target="_blank" rel="noopener">Share on WhatsApp</a></span></div></div>
+</footer>
+
+<script>
+(function () {
+  var box = document.getElementById('wallBox'), btn = document.getElementById('wallToggle');
+  var label = btn.innerHTML;
+  btn.addEventListener('click', function () {
+    var open = box.classList.toggle('collapsed') === false;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.innerHTML = open ? 'Show fewer <span class="zh">收起</span>' : label;
+    if (!open) box.scrollIntoView({ block: 'start' });
+  });
+  // Close any open "Add to calendar" menu on an outside click or Escape
+  var cals = document.querySelectorAll('details.cal');
+  document.addEventListener('click', function (ev) {
+    cals.forEach(function (d) { if (d.open && !d.contains(ev.target)) d.open = false; });
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') cals.forEach(function (d) { d.open = false; });
+  });
+})();
+</script>
