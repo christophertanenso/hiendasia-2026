@@ -94,11 +94,16 @@ def initials(name):
     return ''.join(w[0] for w in name.split()[:2])
 
 
+def badge_html(badge):
+    en, _, zh = badge.partition(' · ')
+    return e(en) + ('<span class="zh"> · %s</span>' % e(zh) if zh else '')
+
+
 def person_card(i, name, zh, role, badge, bio):
     zh_html = '<p class="p-zh">%s</p>' % e(zh) if zh else ''
     return f'''<article class="person">
   <img class="p-photo" src="{img(i)}" alt="{e(name)}" loading="lazy" width="640" height="800">
-  <span class="badge">{e(badge)}</span>
+  <span class="badge">{badge_html(badge)}</span>
   <h3 class="p-name">{e(name)}</h3>{zh_html}
   <span class="p-role">{e(role)}</span>
   <p class="p-bio">{e(bio)}</p>

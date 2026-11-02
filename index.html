@@ -14,6 +14,16 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "2026 Singapore Hi-End Asia International Audio Visual Show", "startDate": "2026-12-17T10:00:00+08:00", "endDate": "2026-12-19T19:00:00+08:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": {"@type": "Place", "name": "Suntec Singapore Convention & Exhibition Centre, Level 3", "address": {"@type": "PostalAddress", "streetAddress": "1 Raffles Boulevard", "postalCode": "039593", "addressCountry": "SG"}}, "image": ["https://christophertanenso.github.io/hiendasia-2026/img/000.jpg"], "description": "17-19 Dec 2026, Level 3, Suntec Singapore. Free entry. 150+ high-end audio brands, listening rooms, keynote talks and live concerts.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SGD", "availability": "https://schema.org/InStock", "url": "https://www.hiendasia.com/"}, "organizer": {"@type": "Organization", "name": "HiEnd Asia + Pte. Ltd", "url": "https://www.hiendasia.com/"}}</script>
 <title>HiEnd Asia 2026</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<script>
+/* Chinese lines show only when the visitor's browser languages include Chinese, or they chose it with the toggle. */
+(function () {
+  var pick = null;
+  try { pick = localStorage.getItem('hea-lang'); } catch (e) {}
+  var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+  var zh = pick ? pick === 'zh' : langs.some(function (l) { return /^zh(-|$)/i.test(l); });
+  if (zh) document.documentElement.classList.add('lang-zh');
+})();
+</script>
 <link rel="icon" href="img/monogram.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +63,12 @@ a { color: var(--heading); }
 a:hover { color: var(--accent); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 h1, h2, h3 { text-wrap: balance; }
+[hidden] { display: none !important; }
 .zh { font-family: var(--font-zh); }
+:root:not(.lang-zh) :is(.zh, .bh-zh, .intro-zh, .p-zh) { display: none !important; }
+.lang-btn { min-height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: transparent;
+  color: var(--body); font: 700 13px/1 var(--font-body); cursor: pointer; white-space: nowrap; }
+.lang-btn:hover { border-color: var(--accent); color: var(--heading); }
 
 .wrap { max-width: var(--max); margin: 0 auto;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
@@ -66,17 +81,18 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 .site-head .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
 .site-head .logo img { height: 44px; width: auto; }
-.nav { display: flex; align-items: center; gap: 22px; font: 700 13px/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
-.nav a { color: var(--body); text-decoration: none; }
+.nav { display: flex; align-items: center; gap: 20px; margin-left: auto; font: 700 13px/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
+.nav a { color: var(--body); text-decoration: none; white-space: nowrap; }
 .nav a:hover { color: var(--heading); }
 .nav .zh { color: var(--muted); letter-spacing: .02em; margin-left: 4px; font-weight: 400; }
-@media (max-width: 1080px) { .nav .zh { display: none; } }
+@media (max-width: 1360px) { .nav .zh { display: none !important; } }
 @media (max-width: 860px) {
   .site-head .wrap { flex-wrap: wrap; row-gap: 10px; }
   .nav { order: 3; width: 100%; gap: 20px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
   .nav::-webkit-scrollbar { display: none; }
   .nav a.txt { white-space: nowrap; min-height: 32px; display: inline-flex; align-items: center; }
   .head-cta { margin-left: auto; }
+  .nav { margin-left: 0; }
 }
 
 /* Free entry + share */
@@ -111,7 +127,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .day ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; line-height: 1.7; }
 
 /* Buttons */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-s); min-height: 48px; padding: 0 26px;
+.btn { white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-s); min-height: 48px; padding: 0 26px;
   border-radius: var(--radius-pill); border: 1px solid var(--accent); font: 700 14px/1 var(--font-display); letter-spacing: .08em;
   text-transform: uppercase; text-decoration: none; cursor: pointer; background: transparent; color: var(--heading); }
 .btn .zh { letter-spacing: .02em; }
@@ -137,7 +153,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .hero::before { content: ""; position: absolute; width: 1100px; height: 1100px; right: -380px; top: -260px; pointer-events: none; opacity: .22;
   background: repeating-radial-gradient(circle at center, transparent 0 27px, var(--accent) 27px 28px);
   -webkit-mask: radial-gradient(circle, #000 0 35%, transparent 70%); mask: radial-gradient(circle, #000 0 35%, transparent 70%); }
-.hero .wrap { position: relative; padding-block: 64px 96px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); align-items: center; gap: 56px; }
+.hero .wrap { max-width: 1480px; position: relative; padding-block: 56px 96px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr); align-items: center; gap: 56px; }
 @media (max-width: 960px) { .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-block: 48px 72px; } }
 .hero-copy { min-width: 0; display: flex; flex-direction: column; gap: 22px; }
 .eyebrow { margin: 0; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
@@ -148,7 +164,13 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   font: italic 20px/1.5 var(--font-display); color: var(--heading); font-variant-numeric: tabular-nums; }
 .dates span:nth-child(even) { color: var(--body); }
 .venue { margin: 0; color: var(--muted); }
-.hero-poster { min-width: 0; width: 100%; max-width: 720px; margin: 0 auto; }
+.hero-poster { min-width: 0; width: 100%; max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+.poster-btn { display: block; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: var(--radius-card); }
+.poster-hint { align-self: flex-end; font-size: 13px; color: var(--muted); background: none; border: 0; padding: 4px 0; cursor: zoom-in; text-decoration: underline; text-underline-offset: 3px; }
+.poster-hint:hover { color: var(--heading); }
+.lightbox { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.94); overflow: auto; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lightbox img { width: min(1242px, 100%); height: auto; margin: 0 auto; border-radius: var(--radius-card); cursor: zoom-out; }
+.lb-close { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); right: calc(12px + env(safe-area-inset-right, 0px)); z-index: 51; }
 .hero-poster img { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); }
 
 /* Stats */
@@ -262,6 +284,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <a class="txt" href="#brands">Brands<span class="zh">品牌</span></a>
       <a class="txt" href="#visit">Visit<span class="zh">参观</span></a>
     </nav>
+    <button class="lang-btn" id="langBtn" type="button">中文</button>
     <a class="btn btn-primary btn-sm head-cta" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fwww.hiendasia.com%2F" target="_blank" rel="noopener">Save the date <span class="zh">加入日历</span></a>
   </div>
 </header>
@@ -279,7 +302,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <span>19 Dec Saturday</span><span>10am – 7pm</span>
       </div>
       <p class="venue">Level 3, Suntec Singapore Convention &amp; Exhibition Centre<br><span class="zh">新达城新加坡国际会议与展览中心 三楼</span></p>
-      <p class="free"><b>Free entry · 免费入场</b><span>No tickets needed. Walk in any day.</span></p>
+      <p class="free"><b>Free entry<span class="zh"> · 免费入场</span></b><span>No tickets needed. Walk in any day.</span></p>
       <div class="btns">
         <details class="cal">
           <summary class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Add to calendar <span class="zh">加入日历</span><span class="chev" aria-hidden="true">▾</span></summary>
@@ -293,7 +316,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       </div>
     </div>
     <div class="hero-poster">
-      <img src="img/000.jpg" alt="Official poster: 2026 Singapore Hi-End Asia International Audio Visual Show, 17 to 19 December, Suntec Singapore Level 3" width="1242" height="1660" fetchpriority="high">
+      <button class="poster-btn" type="button" data-zoom aria-label="View the poster full size"><img src="img/000.jpg" alt="Official poster: 2026 Singapore Hi-End Asia International Audio Visual Show, 17 to 19 December, Suntec Singapore Level 3" width="1242" height="1660" fetchpriority="high"></button>
+      <button class="poster-hint" type="button" data-zoom>View poster full size</button>
     </div>
   </div>
 </section>
@@ -336,9 +360,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <p class="intro-zh">2026 年节目表尚待确认。三日内将设有主题演讲、每日现场音乐会及艺术家见面会，详细时间表将于此公布。</p>
     </div>
     <ol class="days">
-      <li class="day"><span class="day-date">Thu 17 Dec</span><span class="day-time">10am – 7pm</span><span class="tbc">To be confirmed · 待定</span></li>
-      <li class="day"><span class="day-date">Fri 18 Dec</span><span class="day-time">10am – 7pm</span><span class="tbc">To be confirmed · 待定</span></li>
-      <li class="day"><span class="day-date">Sat 19 Dec</span><span class="day-time">10am – 7pm</span><span class="tbc">To be confirmed · 待定</span></li>
+      <li class="day"><span class="day-date">Thu 17 Dec</span><span class="day-time">10am – 7pm</span><span class="tbc">To be confirmed<span class="zh"> · 待定</span></span></li>
+      <li class="day"><span class="day-date">Fri 18 Dec</span><span class="day-time">10am – 7pm</span><span class="tbc">To be confirmed<span class="zh"> · 待定</span></span></li>
+      <li class="day"><span class="day-date">Sat 19 Dec</span><span class="day-time">10am – 7pm</span><span class="tbc">To be confirmed<span class="zh"> · 待定</span></span></li>
     </ol>
     <div class="center">
       <div class="btns">
@@ -394,35 +418,35 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="people">
 <article class="person">
   <img class="p-photo" src="img/011.jpg" alt="Jack Liu" loading="lazy" width="640" height="800">
-  <span class="badge">Keynote · 主题演讲</span>
+  <span class="badge">Keynote<span class="zh"> · 主题演讲</span></span>
   <h3 class="p-name">Jack Liu</h3><p class="p-zh">劉漢盛</p>
   <span class="p-role">Editor, Audio Art · Taiwan</span>
   <p class="p-bio">Liu Hansheng has edited Audio Art, Taiwan&#x27;s leading Hi-End audio magazine, since 1988. The monthly covers global audio equipment, tuning tips and new music, and is a key voice in the Chinese-speaking audio world.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/012.jpg" alt="Patrick Lee" loading="lazy" width="640" height="800">
-  <span class="badge">Keynote · 主题演讲</span>
+  <span class="badge">Keynote<span class="zh"> · 主题演讲</span></span>
   <h3 class="p-name">Patrick Lee</h3><p class="p-zh">Lee388</p>
   <span class="p-role">Hi-fi reviewer · Hong Kong</span>
   <p class="p-bio">A Hong Kong hi-fi reviewer since the 1980s, Patrick shares decades of expertise through magazines, social media and YouTube. His Hi-Fi Circle community has over 40,000 members across Greater China and Southeast Asia.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/013.jpg" alt="Richard H. Mak" loading="lazy" width="640" height="800">
-  <span class="badge">Keynote · 主题演讲</span>
+  <span class="badge">Keynote<span class="zh"> · 主题演讲</span></span>
   <h3 class="p-name">Richard H. Mak</h3>
   <span class="p-role">Analog Equipment Editor · Mono &amp; Stereo</span>
   <p class="p-bio">Analog editor for Mono &amp; Stereo and Part Time Audiophile, and Analog Master at TONEAudio. A writer for 25 years and an audiophile for 44, he designed AnalogMagik, the world&#x27;s only all-in-one cartridge setup software.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/014.jpg" alt="AdiLance" loading="lazy" width="640" height="800">
-  <span class="badge">Keynote · 主题演讲</span>
+  <span class="badge">Keynote<span class="zh"> · 主题演讲</span></span>
   <h3 class="p-name">AdiLance</h3><p class="p-zh">草爸</p>
   <span class="p-role">Audiophile and creator</span>
   <p class="p-bio">A fellow audiophile who shares his journey into music and hi-fi on social media, in a characteristically frank manner that makes a refreshing change for those following along.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/015.jpg" alt="John Hsu" loading="lazy" width="640" height="800">
-  <span class="badge">Keynote · 主题演讲</span>
+  <span class="badge">Keynote<span class="zh"> · 主题演讲</span></span>
   <h3 class="p-name">John Hsu</h3>
   <span class="p-role">Room acoustics · Singapore</span>
   <p class="p-bio">An audiophile for 45 years and a Singapore resident, John has built and tuned a dedicated basement listening room. His interactive session covers psychoacoustics, stereo imaging, room treatment and speaker placement.</p>
@@ -443,42 +467,42 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="people">
 <article class="person">
   <img class="p-photo" src="img/031.jpg" alt="Anette Askvik" loading="lazy" width="640" height="800">
-  <span class="badge">Live · 现场</span>
+  <span class="badge">Live<span class="zh"> · 现场</span></span>
   <h3 class="p-name">Anette Askvik</h3><p class="p-zh">安妮特·阿斯克维克</p>
   <span class="p-role">Singer, composer, producer · Norway</span>
   <p class="p-bio">Her voice is vulnerable and powerful at once; her music soft and hypnotic, balanced between acoustic and electronic. Four albums in, her recordings have become a global standard for demonstrating and testing audio equipment.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/036.jpg" alt="STein Austrud" loading="lazy" width="640" height="800">
-  <span class="badge">Live · 现场</span>
+  <span class="badge">Live<span class="zh"> · 现场</span></span>
   <h3 class="p-name">STein Austrud</h3>
   <span class="p-role">Pianist, composer, producer · Norway</span>
   <p class="p-bio">Blends classical training with contemporary soundscapes, weaving cinematic textures with lyrical piano. Performs with Anette Askvik at HiEnd Asia.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/032.jpg" alt="Anne Bisson" loading="lazy" width="640" height="800">
-  <span class="badge">Live · 现场</span>
+  <span class="badge">Live<span class="zh"> · 现场</span></span>
   <h3 class="p-name">Anne Bisson</h3>
   <span class="p-role">Jazz singer, pianist, songwriter · Canada</span>
   <p class="p-bio">Celebrated for warm vocals, intimate live performances and audiophile-quality recordings that blend jazz, pop and classical influences.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/033.jpg" alt="Zhong Zhigang" loading="lazy" width="640" height="800">
-  <span class="badge">Live · 现场</span>
+  <span class="badge">Live<span class="zh"> · 现场</span></span>
   <h3 class="p-name">Zhong Zhigang</h3><p class="p-zh">钟志刚</p>
   <span class="p-role">Singer and producer · China</span>
   <p class="p-bio">Second place at the 1994 Hunan MTV Singing Contest and one of Shenzhen&#x27;s Top Ten Singers in 1998 and 1999. Albums include Once Chanted, Night Fire and Just Right.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/034.jpg" alt="Kiva" loading="lazy" width="640" height="800">
-  <span class="badge">Live · 现场</span>
+  <span class="badge">Live<span class="zh"> · 现场</span></span>
   <h3 class="p-name">Kiva</h3><p class="p-zh">孙艺汇</p>
   <span class="p-role">Singer-songwriter</span>
   <p class="p-bio">A Mandarin-language singer-songwriter whose music ranges from soulful ballads to cinematic themes. Nominated for Best Jazz Song for Libra at the 2025 Wave Music Awards.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/035.jpg" alt="Henry Heng" loading="lazy" width="640" height="800">
-  <span class="badge">Emcee · 主持</span>
+  <span class="badge">Emcee<span class="zh"> · 主持</span></span>
   <h3 class="p-name">Henry Heng</h3><p class="p-zh">王利秦</p>
   <span class="p-role">Emcee · Singapore</span>
   <p class="p-bio">A familiar face on Singapore television for over two decades, best known for his work with Mediacorp across dramas, variety shows and films.</p>
@@ -499,21 +523,21 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="people">
 <article class="person">
   <img class="p-photo" src="img/040.jpg" alt="Arthur Hsieh" loading="lazy" width="640" height="800">
-  <span class="badge">VIP · 贵宾</span>
+  <span class="badge">VIP<span class="zh"> · 贵宾</span></span>
   <h3 class="p-name">Arthur Hsieh</h3><p class="p-zh">謝誌豪</p>
   <span class="p-role">Producer and songwriter · Taiwan</span>
   <p class="p-bio">Has worked with Golden Melody Award winners including Andy Lau, Ricky Hsiao and Sasha Lee. Founded the LP2D Remaster Station channel in 2012 and the listening space 築SOUND))) in 2022.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/041.jpg" alt="Brother Bok" loading="lazy" width="640" height="800">
-  <span class="badge">VIP · 贵宾</span>
+  <span class="badge">VIP<span class="zh"> · 贵宾</span></span>
   <h3 class="p-name">Brother Bok</h3>
   <span class="p-role">Audio YouTuber · Malaysia</span>
   <p class="p-bio">Malaysia&#x27;s only professional audio YouTuber presenting in Chinese, known for a humorous, straightforward style: unboxings, store visits and audio know-how.</p>
 </article>
 <article class="person">
   <img class="p-photo" src="img/042.jpg" alt="Hao Wei" loading="lazy" width="640" height="800">
-  <span class="badge">Meet &amp; greet · 见面会</span>
+  <span class="badge">Meet &amp; greet<span class="zh"> · 见面会</span></span>
   <h3 class="p-name">Hao Wei</h3><p class="p-zh">好薇</p>
   <span class="p-role">Soprano · China</span>
   <p class="p-bio">A graduate of the Xinghai Conservatory of Music in vocal performance, known for strong performances and emotional depth. Several albums released since 2020.</p>
@@ -779,7 +803,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <p class="intro">Over 150 of the world's leading audio brands under one roof, from legendary pioneers to today's most talked-about names, brought by Singapore's dealers and distributors.</p>
       <p class="intro-zh">逾150个世界领先音响品牌齐聚一堂，从业界传奇到当今焦点新秀，尽数呈现。</p>
     </div>
-    <h3 class="sub-h">Dealers &amp; distributors · 经销商与代理商</h3>
+    <h3 class="sub-h">Dealers &amp; distributors<span class="zh"> · 经销商与代理商</span></h3>
     <ul class="wall big">
 <li class="tile"><img src="img/082.jpg" alt="Aston Martin" loading="lazy" title="Aston Martin"></li>
 <li class="tile"><img src="img/083.jpg" alt="Audio Maestro" loading="lazy" title="Audio Maestro"></li>
@@ -807,7 +831,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <li class="tile"><img src="img/105.jpg" alt="Point" loading="lazy" title="Point"></li>
 <li class="tile"><img src="img/106.jpg" alt="APL" loading="lazy" title="APL"></li>
     </ul>
-    <h3 class="sub-h">Exhibiting brands · 参展品牌</h3>
+    <h3 class="sub-h">Exhibiting brands<span class="zh"> · 参展品牌</span></h3>
     <div class="wall-box collapsed" id="wallBox">
       <ul class="wall" id="brandWall">
 <li class="tile"><img src="img/107.jpg" alt="ARTESANIA" loading="lazy" title="ARTESANIA"></li>
@@ -998,7 +1022,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <li><b>City Hall</b><span>North-South or East-West Line</span></li>
         </ul>
         <p class="intro-zh">展会位于新达城新加坡国际会议与展览中心三楼，邻近滨海湾金沙、滨海湾花园与新加坡摩天观景轮，步行数分钟即可抵达三条地铁线路。</p>
-        <p class="free"><b>Free entry · 免费入场</b><span>No tickets needed.</span></p>
+        <p class="free"><b>Free entry<span class="zh"> · 免费入场</span></b><span>No tickets needed.</span></p>
         <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener">Get directions <span class="zh">交通指南</span></a></div>
       <div class="btns">
         <details class="cal">
@@ -1030,7 +1054,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="partners">
       <div>
         <h3>Main organisers <span class="zh">主办单位</span></h3>
-        <ul class="plist"><li>HiEnd Asia + Pte. Ltd</li><li>SIEC<small>上海市国际展览（集团）有限公司</small></li></ul>
+        <ul class="plist"><li>HiEnd Asia + Pte. Ltd</li><li>SIEC<small class="zh">上海市国际展览（集团）有限公司</small></li></ul>
       </div>
       <div>
         <h3>Co-organisers <span class="zh">协办单位</span></h3>
@@ -1046,7 +1070,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       </div>
     </div>
     <div>
-      <h3 class="sub-h">Media partners · 媒体合作伙伴</h3>
+      <h3 class="sub-h">Media partners<span class="zh"> · 媒体合作伙伴</span></h3>
       <ul class="media" style="margin-top:16px">
 <li>HiFi PiG Magazine</li>
 <li>AudioNet</li>
@@ -1075,6 +1099,11 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
 </section>
 </main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Official poster, full size" hidden>
+  <button class="btn btn-outline btn-sm lb-close" type="button" id="lbClose">Close</button>
+  <img src="img/000.jpg" alt="Official poster: 2026 Singapore Hi-End Asia International Audio Visual Show, 17 to 19 December, Suntec Singapore Level 3" width="1242" height="1660">
+</div>
 
 <footer class="site-foot">
   <div class="wrap">
@@ -1108,6 +1137,23 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     btn.innerHTML = open ? 'Show fewer <span class="zh">收起</span>' : label;
     if (!open) box.scrollIntoView({ block: 'start' });
   });
+  // Language toggle: remembers the visitor's choice
+  var root = document.documentElement, langBtn = document.getElementById('langBtn');
+  function syncLang() { langBtn.textContent = root.classList.contains('lang-zh') ? 'English' : '中文'; }
+  syncLang();
+  langBtn.addEventListener('click', function () {
+    var zh = root.classList.toggle('lang-zh');
+    try { localStorage.setItem('hea-lang', zh ? 'zh' : 'en'); } catch (e) {}
+    syncLang();
+  });
+  // Poster lightbox
+  var lb = document.getElementById('lightbox'), lbClose = document.getElementById('lbClose'), lastFocus = null;
+  function openLb() { lastFocus = document.activeElement; lb.hidden = false; document.body.style.overflow = 'hidden'; lbClose.focus(); }
+  function closeLb() { lb.hidden = true; document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
+  document.querySelectorAll('[data-zoom]').forEach(function (b) { b.addEventListener('click', openLb); });
+  lbClose.addEventListener('click', closeLb);
+  lb.addEventListener('click', function (ev) { if (ev.target !== lbClose) closeLb(); });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && !lb.hidden) closeLb(); });
   // Close any open "Add to calendar" menu on an outside click or Escape
   var cals = document.querySelectorAll('details.cal');
   document.addEventListener('click', function (ev) {
