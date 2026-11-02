@@ -10,7 +10,6 @@
   "nav.brands": "Jenama",
   "nav.visit": "Lawatan",
   "nav.save": "Simpan tarikh",
-
   "hero.eyebrow": "17 – 19 Dis 2026 · Suntec Singapore · Masuk percuma",
   "hero.kicker": "2026 Singapura",
   "hero.title": "Pameran Audio Visual Antarabangsa Hi-End Asia",
@@ -22,11 +21,10 @@
   "d.fri.short": "Jum 18 Dis",
   "d.sat.short": "Sab 19 Dis",
   "time": "10 pagi – 7 malam",
-  "venue": "Aras 3, Pusat Konvensyen & Pameran Suntec Singapore",
+  "venue": "Suntec Singapore · Aras 3, Pusat Konvensyen & Pameran Suntec Singapura",
   "free.label": "Masuk percuma",
   "free.hero": "Tiada tiket diperlukan. Datang pada mana-mana hari.",
   "free.short": "Tiada tiket diperlukan.",
-
   "cal.add": "Tambah ke kalendar",
   "cal.google": "Google Calendar",
   "cal.google.note": "Berulang 10 pagi – 7 malam, 17 – 19 Dis",
@@ -35,14 +33,12 @@
   "cal.work": "Outlook (kerja atau sekolah)",
   "cal.work.note": "Microsoft 365",
   "share.wa": "Kongsi di WhatsApp",
-  "wa.text": "HiEnd Asia 2026, Pameran Audio Visual Antarabangsa Hi-End Asia Singapura\n17 – 19 Dis 2026, 10 pagi – 7 malam setiap hari\nAras 3, Pusat Konvensyen & Pameran Suntec Singapore\nMasuk percuma, tiada tiket diperlukan.",
-
+  "wa.text": "HiEnd Asia 2026, Pameran Audio Visual Antarabangsa Hi-End Asia Singapura\n17 – 19 Dis 2026, 10 pagi – 7 malam setiap hari\nSuntec Singapore · Aras 3, Pusat Konvensyen & Pameran Suntec Singapura\nMasuk percuma, tiada tiket diperlukan.",
   "poster.alt": "Poster rasmi: Pameran Audio Visual Antarabangsa Hi-End Asia Singapura 2026, 17 hingga 19 Disember, Suntec Singapore Aras 3",
   "poster.zoom": "Lihat poster dalam saiz penuh",
   "poster.hint": "Lihat poster saiz penuh",
   "lb.aria": "Poster rasmi, saiz penuh",
   "lb.close": "Tutup",
-
   "stats.aria": "Pameran dalam angka",
   "stat.brands": "jenama audio terkemuka",
   "stat.visits": "pengunjung pada edisi 2024",
@@ -50,16 +46,13 @@
   "stat.days": "bilik dengar dan muzik langsung",
   "stat.free.n": "Percuma",
   "stat.free": "kemasukan, tiada tiket diperlukan",
-
   "video.h": "Di Dalam HiEnd Asia",
   "video.intro": "Bilik dengar, pengasas di sisi pemain piring hitam dan peti-peti vinil: seminit di pameran 2025.",
   "video.aria": "Video sorotan HiEnd Asia 2025",
   "video.cap": "Sorotan HiEnd Asia 2025 · 1:06",
-
   "prog.h": "Program",
   "prog.intro": "Program 2026 belum disahkan. Nantikan ceramah utama, konsert langsung setiap hari dan sesi bertemu artis sepanjang tiga hari. Jadual akan diterbitkan di sini.",
   "prog.tbc": "Akan disahkan",
-
   "floor.h": "Pelan Lantai Pameran",
   "floor.intro": "Terokai bilik dengar khas di Aras 3 Pusat Konvensyen & Pameran Suntec Singapore. Setiap ruang dibina khusus untuk mempamerkan peralatan audiofil terbaik: satu perjalanan pilihan menerusi bunyi, ketelitian dan ketukangan.",
   "legend.hall.k": "Dewan",
@@ -72,7 +65,6 @@
   "legend.vip": "Bilik VIP",
   "floor.alt": "Pelan lantai pameran Suntec Aras 3: dewan pameran, dewan konsert, bilik VIP dan bilik pameran bernombor di sepanjang laluan legar 1 hingga 4",
   "floor.cap": "Susun atur Aras 3 dari hiendasia.com. Peruntukan bilik mungkin berubah sebelum pameran.",
-
   "kn.h": "Penceramah Utama",
   "kn.intro": "Pakar ternama dan pemikir dalam dunia audio mewah berkongsi pandangan dalam suasana yang intim. Diadakan di bilik persendirian, sesi ini menyelami secara mendalam, daripada falsafah reka bentuk hingga teknologi baharu.",
   "con.h": "Konsert Langsung Harian",
@@ -81,13 +73,11 @@
   "gu.intro": "Tokoh dihormati, veteran industri dan suara-suara yang bersemangat dari dunia audiofil hadir di dewan HiEnd Asia. Kehadiran mereka tentang minat yang dikongsi, penghargaan yang mendalam dan pertemuan yang bermakna.",
   "reps.h": "Wakil Jenama",
   "reps.intro": "Daripada pengasas hingga ketua jurutera, mereka yang membentuk masa depan audio mewah akan berada di sini. Peluang jarang untuk mendengar falsafah, ketukangan dan visi di sebalik jenama paling dihormati di dunia, terus daripada penciptanya.",
-
   "badge.keynote": "Ucaptama",
   "badge.live": "Langsung",
   "badge.emcee": "Pengacara",
   "badge.vip": "VIP",
   "badge.meet": "Temu mesra",
-
   "p.11.name": "Jack Liu",
   "p.11.role": "Editor, Audio Art · Taiwan",
   "p.11.bio": "Liu Hansheng telah menyunting Audio Art, majalah audio Hi-End terkemuka Taiwan, sejak 1988. Majalah bulanan ini merangkumi peralatan audio global, petua penalaan dan muzik baharu, serta menjadi suara penting dalam dunia audio berbahasa Cina.",
@@ -130,7 +120,6 @@
   "p.42.name": "Hao Wei",
   "p.42.role": "Soprano · China",
   "p.42.bio": "Graduan persembahan vokal dari Konservatori Muzik Xinghai, terkenal dengan persembahan yang mantap dan kedalaman emosi. Beberapa album telah dikeluarkan sejak 2020.",
-
   "rep.0.role": "",
   "rep.1.role": "CEO",
   "rep.2.role": "Pengasas Bersama",
@@ -170,33 +159,29 @@
   "rep.36.role": "Pembangun",
   "rep.37.role": "Pengarah Jualan APAC",
   "rep.38.role": "Pengasas & Ketua Pereka",
-
   "brands.h": "Lebih Banyak Jenama",
   "brands.intro": "Lebih 150 jenama audio terkemuka dunia di bawah satu bumbung, daripada perintis legenda hingga nama-nama yang paling diperkatakan hari ini, dibawakan oleh peniaga dan pengedar Singapura.",
   "brands.dealers": "Peniaga & pengedar",
   "brands.exhibiting": "Jenama yang mempamer",
   "brands.showall": "Tunjuk semua 135 jenama",
   "brands.showfewer": "Tunjuk kurang",
-
   "story.h": "Mengapa HiEnd Asia",
   "tl.2023": "Edisi sulung · 6,000 kunjungan",
   "tl.2024": "Pameran diperluas · 8,000+ pengunjung",
   "tl.2025": "Edisi pertama di pusat konvensyen bertaraf dunia",
   "tl.2026.place": "Suntec Singapore, Aras 3",
   "tl.2026": "17 – 19 Disember",
-  "story.p1": "HiEnd Asia pantas menjadi pameran audio mewah yang paling dinanti di Asia Tenggara. Di Pusat Konvensyen & Pameran Suntec Singapore, di tengah-tengah bandar, ia menghimpunkan lebih ramai pempamer, lebih banyak jenama dan bilik dengar yang dibina khusus, hanya beberapa minit dari tiga laluan MRT.",
+  "story.p1": "HiEnd Asia pantas menjadi pameran audio mewah yang paling dinanti di Asia Tenggara. Di Pusat Konvensyen & Pameran Suntec Singapura (Suntec Singapore), di tengah-tengah bandar, ia menghimpunkan lebih ramai pempamer, lebih banyak jenama dan bilik dengar yang dibina khusus, hanya beberapa minit dari tiga laluan MRT.",
   "story.p2": "Ketika Asia Tenggara menuju ke arah menjadi separuh daripada ekonomi global menjelang 2030, permintaan untuk audio mewah dan gaya hidup semakin meningkat. Singapura, pintu masuk kepada lebih 4 bilion orang dalam lingkungan 7 jam penerbangan, menawarkan akses global, infrastruktur mesra perniagaan dan keanggunan Asia.",
-
   "visit.h": "Lokasi Strategik",
   "visit.intro": "Suntec Singapore terletak di tengah-tengah pusat bandar, berhampiran Marina Bay Sands, Gardens by the Bay dan Singapore Flyer.",
   "mrt.aria": "Stesen MRT terdekat",
-  "mrt.esplanade": "Laluan Circle",
-  "mrt.promenade": "Laluan Circle atau Downtown",
-  "mrt.cityhall": "Laluan North-South atau East-West",
+  "mrt.esplanade": "Circle Line",
+  "mrt.promenade": "Circle Line atau Downtown Line",
+  "mrt.cityhall": "North-South Line atau East-West Line",
   "visit.directions": "Dapatkan arah",
   "visit.photo1": "Eskalator di pintu masuk Pusat Konvensyen Suntec Singapore",
   "visit.photo2": "Bumbung kaca Suntec Singapore bercahaya biru pada waktu malam",
-
   "partners.h": "Penganjur & Rakan Kongsi",
   "partners.main": "Penganjur utama",
   "partners.co": "Penganjur bersama",
@@ -207,7 +192,6 @@
   "sp.enso": "Publisiti dan IT",
   "sp.stardust": "Video dan fotografi",
   "sp.piano": "Piano konsert Yamaha",
-
-  "foot.tagline": "Berkongsi minat kami terhadap keindahan hidup bagi kelima-lima deria, penglihatan, bunyi, rasa, sentuhan dan bau, bersama saudara-saudara ASEAN kami.",
-  "foot.motto": "Hadirlah sepenuhnya. Saat ini milik anda."
+  "foot.tagline": "Bersama saudara ASEAN, kami meraikan keindahan hidup buat kelima-lima deria: yang dilihat, didengar, dirasa, disentuh dan dihidu.",
+  "foot.motto": "Hadirlah sepenuh jiwa. Detik ini milikmu."
 }

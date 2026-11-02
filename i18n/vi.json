@@ -10,7 +10,6 @@
   "nav.brands": "Thương hiệu",
   "nav.visit": "Tham quan",
   "nav.save": "Lưu ngày",
-
   "hero.eyebrow": "17 – 19/12/2026 · Suntec Singapore · Vào cửa miễn phí",
   "hero.kicker": "2026 Singapore",
   "hero.title": "Triển lãm Âm thanh & Hình ảnh Quốc tế Hi-End Asia",
@@ -26,7 +25,6 @@
   "free.label": "Vào cửa miễn phí",
   "free.hero": "Không cần vé. Ghé thăm bất cứ ngày nào.",
   "free.short": "Không cần vé.",
-
   "cal.add": "Thêm vào lịch",
   "cal.google": "Google Calendar",
   "cal.google.note": "Lặp lại 10:00 – 19:00, 17 – 19/12",
@@ -36,13 +34,11 @@
   "cal.work.note": "Microsoft 365",
   "share.wa": "Chia sẻ qua WhatsApp",
   "wa.text": "HiEnd Asia 2026, Triển lãm Âm thanh & Hình ảnh Quốc tế Hi-End Asia tại Singapore\n17 – 19/12/2026, 10:00 – 19:00 mỗi ngày\nTầng 3, Trung tâm Hội nghị & Triển lãm Suntec Singapore\nVào cửa miễn phí, không cần vé.",
-
   "poster.alt": "Áp phích chính thức: Triển lãm Âm thanh & Hình ảnh Quốc tế Hi-End Asia 2026 tại Singapore, từ 17 đến 19 tháng 12, Tầng 3 Suntec Singapore",
   "poster.zoom": "Xem áp phích ở kích thước đầy đủ",
   "poster.hint": "Xem áp phích cỡ lớn",
   "lb.aria": "Áp phích chính thức, kích thước đầy đủ",
   "lb.close": "Đóng",
-
   "stats.aria": "Triển lãm qua những con số",
   "stat.brands": "thương hiệu âm thanh hàng đầu",
   "stat.visits": "lượt khách tại kỳ 2024",
@@ -50,16 +46,13 @@
   "stat.days": "phòng nghe và nhạc sống",
   "stat.free.n": "Miễn phí",
   "stat.free": "vào cửa, không cần vé",
-
   "video.h": "Bên trong HiEnd Asia",
   "video.intro": "Những phòng nghe, các nhà sáng lập bên mâm đĩa than và từng thùng đĩa vinyl: một phút tại triển lãm năm 2025.",
   "video.aria": "Video giới thiệu HiEnd Asia 2025",
   "video.cap": "Giới thiệu HiEnd Asia 2025 · 1:06",
-
   "prog.h": "Chương trình",
   "prog.intro": "Chương trình năm 2026 đang được hoàn thiện. Sẽ có các buổi nói chuyện chuyên đề, hòa nhạc trực tiếp mỗi ngày và giao lưu cùng nghệ sĩ trong suốt ba ngày. Lịch chi tiết sẽ được cập nhật tại đây.",
   "prog.tbc": "Sẽ được xác nhận",
-
   "floor.h": "Sơ đồ triển lãm",
   "floor.intro": "Khám phá các phòng nghe riêng tại Tầng 3, Trung tâm Hội nghị & Triển lãm Suntec Singapore. Mỗi không gian được thiết kế riêng để giới thiệu những thiết bị audiophile tinh tuyển nhất: một hành trình chọn lọc qua âm thanh, sự chính xác và tay nghề chế tác.",
   "legend.hall.k": "Sảnh",
@@ -72,7 +65,6 @@
   "legend.vip": "Phòng VIP",
   "floor.alt": "Sơ đồ triển lãm Tầng 3 Suntec: sảnh triển lãm, phòng hòa nhạc, phòng VIP và các phòng trưng bày được đánh số dọc theo hành lang 1 đến 4",
   "floor.cap": "Bố trí Tầng 3 theo hiendasia.com. Việc phân bổ phòng có thể thay đổi trước triển lãm.",
-
   "kn.h": "Diễn giả chính",
   "kn.intro": "Những chuyên gia danh tiếng và người dẫn dắt tư tưởng trong lĩnh vực âm thanh cao cấp chia sẻ góc nhìn trong không gian thân mật. Diễn ra tại các phòng riêng, mỗi buổi đi sâu từ triết lý thiết kế đến những công nghệ mới.",
   "con.h": "Hòa nhạc trực tiếp mỗi ngày",
@@ -81,13 +73,11 @@
   "gu.intro": "Những gương mặt được kính trọng, các bậc lão làng trong ngành và những người say mê từ giới audiophile cùng hiện diện tại HiEnd Asia. Sự có mặt của họ là để chia sẻ niềm đam mê, sự trân trọng sâu sắc và những cuộc gặp gỡ ý nghĩa.",
   "reps.h": "Đại diện thương hiệu",
   "reps.intro": "Từ nhà sáng lập đến kỹ sư trưởng, những người định hình tương lai của âm thanh cao cấp sẽ có mặt. Một cơ hội hiếm có để nghe về triết lý, tay nghề và tầm nhìn phía sau những thương hiệu được kính trọng nhất thế giới, trực tiếp từ chính người tạo ra chúng.",
-
   "badge.keynote": "Diễn giả",
   "badge.live": "Trực tiếp",
   "badge.emcee": "MC",
   "badge.vip": "VIP",
   "badge.meet": "Giao lưu",
-
   "p.11.name": "Jack Liu",
   "p.11.role": "Biên tập viên, Audio Art · Đài Loan",
   "p.11.bio": "Liu Hansheng là biên tập viên của Audio Art, tạp chí âm thanh Hi-End hàng đầu Đài Loan, từ năm 1988. Tạp chí ra hằng tháng, đề cập đến thiết bị âm thanh toàn cầu, mẹo tinh chỉnh và âm nhạc mới, và là tiếng nói quan trọng trong giới âm thanh Hoa ngữ.",
@@ -130,7 +120,6 @@
   "p.42.name": "Hao Wei",
   "p.42.role": "Giọng nữ cao · Trung Quốc",
   "p.42.bio": "Tốt nghiệp chuyên ngành thanh nhạc tại Học viện Âm nhạc Tinh Hải, được biết đến với những màn trình diễn đầy nội lực và chiều sâu cảm xúc. Đã phát hành nhiều album từ năm 2020.",
-
   "rep.0.role": "",
   "rep.1.role": "CEO",
   "rep.2.role": "Đồng sáng lập",
@@ -170,14 +159,12 @@
   "rep.36.role": "Nhà phát triển",
   "rep.37.role": "Giám đốc Kinh doanh khu vực APAC",
   "rep.38.role": "Nhà sáng lập kiêm Thiết kế trưởng",
-
   "brands.h": "Thêm thương hiệu",
   "brands.intro": "Hơn 150 thương hiệu âm thanh hàng đầu thế giới dưới cùng một mái nhà, từ những tên tuổi tiên phong huyền thoại đến các thương hiệu được nhắc đến nhiều nhất hôm nay, do các đại lý và nhà phân phối tại Singapore mang đến.",
   "brands.dealers": "Đại lý & nhà phân phối",
   "brands.exhibiting": "Thương hiệu triển lãm",
   "brands.showall": "Xem tất cả 135 thương hiệu",
   "brands.showfewer": "Thu gọn",
-
   "story.h": "Vì sao là HiEnd Asia",
   "tl.2023": "Kỳ đầu tiên · 6.000 lượt khách",
   "tl.2024": "Mở rộng quy mô · Hơn 8.000 khách",
@@ -186,17 +173,15 @@
   "tl.2026": "17 – 19 tháng 12",
   "story.p1": "HiEnd Asia đã nhanh chóng trở thành triển lãm âm thanh cao cấp được mong đợi nhất Đông Nam Á. Tại Trung tâm Hội nghị & Triển lãm Suntec Singapore, ngay giữa lòng thành phố, triển lãm quy tụ nhiều nhà trưng bày hơn, nhiều thương hiệu hơn cùng các phòng nghe được thiết kế riêng, chỉ cách ba tuyến MRT vài phút.",
   "story.p2": "Khi Đông Nam Á tiến dần đến việc chiếm một nửa nền kinh tế toàn cầu vào năm 2030, nhu cầu về âm thanh cao cấp và phong cách sống đang tăng tốc. Singapore, cửa ngõ đến hơn 4 tỷ người trong vòng 7 giờ bay, mang đến khả năng kết nối toàn cầu, hạ tầng thân thiện với doanh nghiệp và nét thanh lịch châu Á.",
-
   "visit.h": "Vị trí chiến lược",
   "visit.intro": "Suntec Singapore nằm giữa khu trung tâm thành phố, gần Marina Bay Sands, Gardens by the Bay và Singapore Flyer.",
   "mrt.aria": "Các ga MRT gần nhất",
-  "mrt.esplanade": "Tuyến Circle",
-  "mrt.promenade": "Tuyến Circle hoặc Downtown",
-  "mrt.cityhall": "Tuyến North-South hoặc East-West",
+  "mrt.esplanade": "Circle Line",
+  "mrt.promenade": "Circle Line hoặc Downtown Line",
+  "mrt.cityhall": "North-South Line hoặc East-West Line",
   "visit.directions": "Chỉ đường",
   "visit.photo1": "Thang cuốn tại lối vào Trung tâm Hội nghị Suntec Singapore",
   "visit.photo2": "Mái kính của Suntec Singapore sáng đèn xanh lam về đêm",
-
   "partners.h": "Ban tổ chức & Đối tác",
   "partners.main": "Đơn vị tổ chức chính",
   "partners.co": "Đơn vị đồng tổ chức",
@@ -207,7 +192,6 @@
   "sp.enso": "Truyền thông và CNTT",
   "sp.stardust": "Quay phim và chụp ảnh",
   "sp.piano": "Đàn piano hòa nhạc Yamaha",
-
-  "foot.tagline": "Cùng những người anh em ASEAN chia sẻ niềm đam mê với những điều tinh tế trong cuộc sống dành cho năm giác quan: thị giác, thính giác, vị giác, xúc giác và khứu giác.",
-  "foot.motto": "Hãy sống trọn hiện tại. Khoảnh khắc này là của bạn."
+  "foot.tagline": "Cùng những người bạn ASEAN thưởng thức vẻ đẹp cuộc sống bằng cả năm giác quan: điều mắt thấy, tai nghe, lưỡi nếm, tay chạm và mũi ngửi.",
+  "foot.motto": "Hãy lắng nghe trọn vẹn. Khoảnh khắc này thuộc về bạn."
 }
