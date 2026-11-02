@@ -1,6 +1,6 @@
 # HiEnd Asia 2026
 
-Bilingual (English / 简体中文) one-page site for the **2026 Singapore Hi-End Asia International Audio Visual Show**, 17–19 December 2026, Level 3, Suntec Singapore Convention & Exhibition Centre. Free entry.
+One-page site, in eight languages, for the **2026 Singapore Hi-End Asia International Audio Visual Show**, 17–19 December 2026, Level 3, Suntec Singapore Convention & Exhibition Centre. Free entry.
 
 Live: https://christophertanenso.github.io/hiendasia-2026/
 
@@ -14,6 +14,9 @@ Built on the HiEnd Asia 2026 design system (black ground, peach-gold headings, g
 | `build.py` | Fills the template with speakers, artists, brand reps and logos, then writes the pages |
 | `index.html` | Generated. The full page served by GitHub Pages |
 | `artifact.html` | Generated. The same page as a fragment for the Claude artifact preview |
+| `i18n/en.json` | All English copy, by key. The source for every translation |
+| `i18n/<lang>.json` | Translations: `zh-Hans`, `zh-Hant`, `id`, `ms`, `fil`, `th`, `vi`. Same keys as `en.json` |
+| `i18n/_seed-zh.json` | The client's original Simplified Chinese wording, kept for reference |
 | `imgs.json` | Image list scraped from hiendasia.com (alt text = brand names) |
 | `img/` | Poster, floorplan, venue, portraits and brand logos |
 | `video/` | 2025 showcase video (480p) and its poster frame |
@@ -27,6 +30,14 @@ python build.py
 ```
 
 Commit both generated pages. GitHub Pages redeploys from `main` on every push.
+
+## Languages
+
+The page picks its language automatically from the visitor's browser and device language list: English, 简体中文, 繁體中文 (Taiwan, Hong Kong, Macau), Bahasa Indonesia, Bahasa Melayu, Filipino, ไทย and Tiếng Việt. Anything else falls back to English. Visitors can switch with the globe menu, and the choice is remembered. A link can force a language with `?lang=`, e.g. `?lang=th` or `?lang=zh-Hant`.
+
+To change copy, edit `i18n/en.json` and the same key in each language file. To add a language, copy `en.json` to `i18n/<code>.json`, translate it, and add the code to `SUPPORTED`, `match()` and the `<select>` in `page.tpl.html`.
+
+The translations were machine-drafted and should be checked by native speakers before launch.
 
 ## Hosted asset URLs
 

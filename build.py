@@ -1,5 +1,6 @@
-# Builds index.html for the HiEnd Asia 2026 page from content scraped off hiendasia.com.
-# Run: python build.py   (expects img/ and imgs.json beside it)
+# Builds index.html (GitHub Pages) and artifact.html for the HiEnd Asia 2026 page.
+# English copy lives in i18n/en.json; other languages in i18n/<lang>.json load in the browser.
+# Run: python build.py   (expects img/, imgs.json and i18n/ beside it)
 import glob, html, json, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -12,43 +13,14 @@ def img(i):
     return 'img/' + os.path.basename(hits[0])
 
 
-KEYNOTES = [
-    (11, 'Jack Liu', '劉漢盛', 'Editor, Audio Art · Taiwan',
-     "Liu Hansheng has edited Audio Art, Taiwan's leading Hi-End audio magazine, since 1988. The monthly covers global audio equipment, tuning tips and new music, and is a key voice in the Chinese-speaking audio world."),
-    (12, 'Patrick Lee', 'Lee388', 'Hi-fi reviewer · Hong Kong',
-     'A Hong Kong hi-fi reviewer since the 1980s, Patrick shares decades of expertise through magazines, social media and YouTube. His Hi-Fi Circle community has over 40,000 members across Greater China and Southeast Asia.'),
-    (13, 'Richard H. Mak', '', 'Analog Equipment Editor · Mono & Stereo',
-     "Analog editor for Mono & Stereo and Part Time Audiophile, and Analog Master at TONEAudio. A writer for 25 years and an audiophile for 44, he designed AnalogMagik, the world's only all-in-one cartridge setup software."),
-    (14, 'AdiLance', '草爸', 'Audiophile and creator',
-     'A fellow audiophile who shares his journey into music and hi-fi on social media, in a characteristically frank manner that makes a refreshing change for those following along.'),
-    (15, 'John Hsu', '', 'Room acoustics · Singapore',
-     'An audiophile for 45 years and a Singapore resident, John has built and tuned a dedicated basement listening room. His interactive session covers psychoacoustics, stereo imaging, room treatment and speaker placement.'),
-]
+EN = json.load(open(os.path.join(HERE, 'i18n', 'en.json'), encoding='utf-8'))
 
-ARTISTS = [
-    (31, 'Anette Askvik', '安妮特·阿斯克维克', 'Singer, composer, producer · Norway',
-     'Her voice is vulnerable and powerful at once; her music soft and hypnotic, balanced between acoustic and electronic. Four albums in, her recordings have become a global standard for demonstrating and testing audio equipment.'),
-    (36, 'STein Austrud', '', 'Pianist, composer, producer · Norway',
-     'Blends classical training with contemporary soundscapes, weaving cinematic textures with lyrical piano. Performs with Anette Askvik at HiEnd Asia.'),
-    (32, 'Anne Bisson', '', 'Jazz singer, pianist, songwriter · Canada',
-     'Celebrated for warm vocals, intimate live performances and audiophile-quality recordings that blend jazz, pop and classical influences.'),
-    (33, 'Zhong Zhigang', '钟志刚', 'Singer and producer · China',
-     "Second place at the 1994 Hunan MTV Singing Contest and one of Shenzhen's Top Ten Singers in 1998 and 1999. Albums include Once Chanted, Night Fire and Just Right."),
-    (34, 'Kiva', '孙艺汇', 'Singer-songwriter',
-     'A Mandarin-language singer-songwriter whose music ranges from soulful ballads to cinematic themes. Nominated for Best Jazz Song for Libra at the 2025 Wave Music Awards.'),
-    (35, 'Henry Heng', '王利秦', 'Emcee · Singapore',
-     "A familiar face on Singapore television for over two decades, best known for his work with Mediacorp across dramas, variety shows and films."),
-]
+# People: (photo id, badge key). Names, roles and bios live in i18n/<lang>.json as p.<id>.name/.role/.bio
+KEYNOTES = [(11, 'keynote'), (12, 'keynote'), (13, 'keynote'), (14, 'keynote'), (15, 'keynote')]
+ARTISTS = [(31, 'live'), (36, 'live'), (32, 'live'), (33, 'live'), (34, 'live'), (35, 'emcee')]
+GUESTS = [(40, 'vip'), (41, 'vip'), (42, 'meet')]
 
-GUESTS = [
-    (40, 'Arthur Hsieh', '謝誌豪', 'Producer and songwriter · Taiwan', 'VIP · 贵宾',
-     'Has worked with Golden Melody Award winners including Andy Lau, Ricky Hsiao and Sasha Lee. Founded the LP2D Remaster Station channel in 2012 and the listening space 築SOUND))) in 2022.'),
-    (41, 'Brother Bok', '', 'Audio YouTuber · Malaysia', 'VIP · 贵宾',
-     "Malaysia's only professional audio YouTuber presenting in Chinese, known for a humorous, straightforward style: unboxings, store visits and audio know-how."),
-    (42, 'Hao Wei', '好薇', 'Soprano · China', 'Meet & greet · 见面会',
-     'A graduate of the Xinghai Conservatory of Music in vocal performance, known for strong performances and emotional depth. Several albums released since 2020.'),
-]
-
+# Brand representatives: (name, English role for reference, brand). Displayed roles come from rep.<n>.role
 REPS = [
     ('Robert Hegemann', '', 'Acoustic Signature'), ('Dietrich Brakemeier', 'CEO', 'Acoustical Systems'),
     ('Kenneth Lin', 'Co-Founder', 'Alexandria Audio'), ('Henry Kristanto', 'Co-Founder', 'Alexandria Audio'),
@@ -90,36 +62,44 @@ def logo_name(i):
     return NAME_FIX.get(n, n)
 
 
-def initials(name):
-    return ''.join(w[0] for w in name.split()[:2])
+
+def t(key, tag='span', cls='', attrs=''):
+    """An element translated in the browser; the English is baked in for no-JS visitors and search engines."""
+    c = ' class="%s"' % cls if cls else ''
+    return '<%s%s data-i18n="%s"%s>%s</%s>' % (tag, c, key, attrs, e(EN[key]), tag)
 
 
-def badge_html(badge):
-    en, _, zh = badge.partition(' · ')
-    return e(en) + ('<span class="zh"> · %s</span>' % e(zh) if zh else '')
-
-
-def person_card(i, name, zh, role, badge, bio):
-    zh_html = '<p class="p-zh">%s</p>' % e(zh) if zh else ''
+def person_card(i, badge):
+    k = 'p.%d.' % i
     return f'''<article class="person">
-  <img class="p-photo" src="{img(i)}" alt="{e(name)}" loading="lazy" width="640" height="800">
-  <span class="badge">{badge_html(badge)}</span>
-  <h3 class="p-name">{e(name)}</h3>{zh_html}
-  <span class="p-role">{e(role)}</span>
-  <p class="p-bio">{e(bio)}</p>
+  <img class="p-photo" src="{img(i)}" alt="{e(EN[k + 'name'])}" data-i18n-attr="alt:{k}name" loading="lazy" width="640" height="800">
+  {t('badge.' + badge, cls='badge')}
+  {t(k + 'name', 'h3', 'p-name')}
+  {t(k + 'role', cls='p-role')}
+  {t(k + 'bio', 'p', 'p-bio')}
 </article>'''
 
 
-keynote_html = '\n'.join(person_card(i, n, z, r, 'Keynote · 主题演讲', b) for i, n, z, r, b in KEYNOTES)
-artist_html = '\n'.join(person_card(i, n, z, r, 'Emcee · 主持' if n == 'Henry Heng' else 'Live · 现场', b)
-                        for i, n, z, r, b in ARTISTS)
-guest_html = '\n'.join(person_card(i, n, z, r, badge, b) for i, n, z, r, badge, b in GUESTS)
+def rep_role(k):
+    key = 'rep.%d.role' % k
+    return t(key, cls='rep-role') if EN[key] else '<span class="rep-role">&nbsp;</span>'
+
+
+keynote_html = '\n'.join(person_card(i, b) for i, b in KEYNOTES)
+artist_html = '\n'.join(person_card(i, b) for i, b in ARTISTS)
+guest_html = '\n'.join(person_card(i, b) for i, b in GUESTS)
 rep_html = '\n'.join(f'''<li class="rep">
   <img src="{img(43 + k)}" alt="{e(n)}" loading="lazy" width="400" height="500">
   <span class="rep-name">{e(n)}</span>
-  <span class="rep-role">{e(r) if r else '&nbsp;'}</span>
+  {rep_role(k)}
   <span class="rep-brand">{e(b)}</span>
 </li>''' for k, (n, r, b) in enumerate(REPS))
+
+DATES = '''      <div class="dates" aria-label="%s" data-i18n-attr="aria-label:dates.aria">
+        %s%s
+        %s%s
+        %s%s
+      </div>''' % (e(EN['dates.aria']), t('d.thu'), t('time'), t('d.fri'), t('time'), t('d.sat'), t('time'))
 
 
 def tiles(idx):
@@ -165,28 +145,32 @@ ICON_WA = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><pat
 
 ACTIONS = f'''      <div class="btns">
         <details class="cal">
-          <summary class="btn btn-primary">{ICON_CAL}Add to calendar <span class="zh">加入日历</span><span class="chev" aria-hidden="true">▾</span></summary>
+          <summary class="btn btn-primary">{ICON_CAL}{t('cal.add')}<span class="chev" aria-hidden="true">▾</span></summary>
           <div class="cal-menu">
-            <a href="{e(GCAL)}" target="_blank" rel="noopener">Google Calendar<small>Repeats 10am – 7pm, 17 – 19 Dec</small></a>
-            <a href="{e(outlook('outlook.live.com'))}" target="_blank" rel="noopener">Outlook.com<small>Personal Outlook and Hotmail</small></a>
-            <a href="{e(outlook('outlook.office.com'))}" target="_blank" rel="noopener">Outlook (work or school)<small>Microsoft 365</small></a>
+            <a href="{e(GCAL)}" target="_blank" rel="noopener">{t('cal.google')}{t('cal.google.note', 'small')}</a>
+            <a href="{e(outlook('outlook.live.com'))}" target="_blank" rel="noopener">{t('cal.outlook')}{t('cal.outlook.note', 'small')}</a>
+            <a href="{e(outlook('outlook.office.com'))}" target="_blank" rel="noopener">{t('cal.work')}{t('cal.work.note', 'small')}</a>
           </div>
         </details>
-        <a class="btn btn-outline" href="{e(WA)}" target="_blank" rel="noopener">{ICON_WA}Share on WhatsApp <span class="zh">分享</span></a>
+        <a class="btn btn-outline" href="{e(WA)}" target="_blank" rel="noopener" data-wa>{ICON_WA}{t('share.wa')}</a>
       </div>'''
 
 tpl = open(os.path.join(HERE, 'page.tpl.html'), encoding='utf-8').read()
-out = (tpl.replace('{{ACTIONS}}', ACTIONS).replace('{{GCAL}}', e(GCAL)).replace('{{WA}}', e(WA))
+out = (tpl.replace('{{ACTIONS}}', ACTIONS).replace('{{DATES}}', DATES)
+          .replace('{{GCAL}}', e(GCAL)).replace('{{WA}}', e(WA))
           .replace('{{KEYNOTES}}', keynote_html)
           .replace('{{ARTISTS}}', artist_html)
           .replace('{{GUESTS}}', guest_html)
           .replace('{{REPS}}', rep_html)
           .replace('{{DEALERS}}', tiles(DEALER_IDX))
           .replace('{{BRANDS}}', tiles(BRAND_IDX))
-          .replace('{{BRAND_COUNT}}', str(len(BRAND_IDX)))
           .replace('{{MEDIA}}', '\n'.join('<li>%s</li>' % e(m) for m in MEDIA))
           .replace('{{POSTER}}', img(0)).replace('{{FLOOR}}', img(7))
           .replace('{{SUNTEC_IN}}', img(8)).replace('{{SUNTEC_NIGHT}}', img(9)))
+# The remaining {{key}} tokens are English strings from i18n/en.json
+import re
+out = re.sub(r'\{\{([a-z][\w.]*)\}\}', lambda m: e(EN[m.group(1)]), out)
+assert '{{' not in out, re.findall(r'\{\{[^}]*\}\}', out)[:5]
 # artifact.html: the fragment the Claude artifact host wraps in its own skeleton.
 open(os.path.join(HERE, 'artifact.html'), 'w', encoding='utf-8').write(out)
 
