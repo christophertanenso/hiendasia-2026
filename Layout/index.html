@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HiEnd Asia 2026 · Floor Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="floormap.css">
+<style>
+  :root { --bg:#000; --heading:#f8c59a; --body:#ebebeb; --muted:#d6c9c9; --accent:#c6a661; --line:#4f4632; --band:#201d17;
+    --font-display: Arimo, Arial, sans-serif; --font-body: "Open Sans", Arial, sans-serif; color-scheme: dark; }
+  body { margin:0; background:var(--bg); color:var(--body); font:16px/1.7 var(--font-body); }
+  .wrap { max-width:1200px; margin:0 auto; padding:48px 16px; display:flex; flex-direction:column; gap:24px; }
+  h2 { margin:0; font:700 32px/1.2 var(--font-display); color:var(--heading); }
+  .rule { width:64px; height:2px; background:var(--accent); }
+</style>
+</head>
+<body>
+<section class="wrap" id="floorplan">
+  <h2>Show Floorplan</h2><div class="rule"></div>
+  <!-- Paste your published Google Sheet CSV link into data-sheet -->
+  <div id="hea-map" data-sheet=""></div>
+</section>
+<script src="floormap.js" defer></script>
+</body>
+</html>
