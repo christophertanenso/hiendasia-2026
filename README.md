@@ -39,6 +39,18 @@ To change copy, edit `i18n/en.json` and the same key in each language file. To a
 
 The translations were machine-drafted and should be checked by native speakers before launch.
 
+## Tracking
+
+`page.tpl.html` loads GA4 (`G-NED2Z7D1C5`, property 401777091) and the Meta Pixel (`982955510477872`) in the `<head>`. One helper, `trackIntent(action, detail)`, reports intent clicks. A delegated click listener matches link hrefs, so every repeated link, and any added later, is covered:
+
+| Link | GA4 | Meta |
+| --- | --- | --- |
+| Google, Outlook.com, Office 365 calendar (and any `.ics`) | `add_to_calendar` with `calendar` | `Schedule` |
+| WhatsApp (`wa.me`) | `share` with `method=whatsapp` | `Share` (custom) |
+| Google/Apple Maps | `get_directions` | none |
+
+Every event carries `page_language`. Nothing blocks navigation, and the page works if an ad blocker stops the tags. Query strings (UTMs, `?lang=`) are never stripped. To track a new link type, add a host pattern to `classify()`.
+
 ## Hosted asset URLs
 
 Every image and the video can be linked directly, for example:

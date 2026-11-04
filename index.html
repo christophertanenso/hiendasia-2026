@@ -47,6 +47,67 @@
 })();
 </script>
 <link rel="icon" href="img/monogram.svg" type="image/svg+xml">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NED2Z7D1C5"></script>
+<script>
+/* Analytics: GA4 (G-NED2Z7D1C5) and the Meta Pixel (982955510477872). Both load async. The stubs below are
+   defined inline, so everything still runs if an ad blocker stops the vendor scripts. Query strings (UTMs, ?lang=) are left alone. */
+window.dataLayer = window.dataLayer || [];
+function gtag() { dataLayer.push(arguments); }
+gtag('js', new Date());
+gtag('config', 'G-NED2Z7D1C5');
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '982955510477872');
+fbq('track', 'PageView');
+
+/* Intent tracking. trackIntent(action, detail) reports one real-interest action. Clicks are caught by event
+   delegation on link href patterns, so every repeated link, and any added later, is covered. Nothing here
+   blocks or delays navigation, and every call is wrapped so a failure can never break the page. */
+(function () {
+  var HOSTS = [
+    ['calendar.google.com', /^calendar\.google\.com$/, /^\/calendar/, 'google'],
+    ['outlook.live.com', /^outlook\.live\.com$/, /^\/calendar/, 'outlook'],
+    ['outlook.office.com', /^outlook\.office(365)?\.com$/, /^\/calendar/, 'office365']
+  ];
+  function lang() { return document.documentElement.lang || window.HEA_LANG || 'en'; }
+  window.trackIntent = function (action, detail) {
+    detail = detail || {};
+    var common = { page_language: lang(), transport_type: 'beacon' };
+    try {
+      if (action === 'add_to_calendar') {
+        if (typeof gtag === 'function') gtag('event', 'add_to_calendar', { calendar: detail.calendar, page_language: common.page_language, transport_type: 'beacon' });
+        if (typeof fbq === 'function') fbq('track', 'Schedule', { content_name: 'HiEnd Asia 2026', calendar: detail.calendar });
+      } else if (action === 'share') {
+        if (typeof gtag === 'function') gtag('event', 'share', { method: detail.method, page_language: common.page_language, transport_type: 'beacon' });
+        if (typeof fbq === 'function') fbq('trackCustom', 'Share', { method: detail.method });
+      } else if (action === 'get_directions') {
+        if (typeof gtag === 'function') gtag('event', 'get_directions', { page_language: common.page_language, transport_type: 'beacon' });
+      }
+    } catch (err) { /* tracking must never affect the page */ }
+  };
+  function classify(a) {
+    var u;
+    try { u = new URL(a.getAttribute('href'), location.href); } catch (err) { return null; }
+    var host = u.hostname.toLowerCase(), path = u.pathname.toLowerCase();
+    if (/\.ics$/.test(path)) return ['add_to_calendar', { calendar: 'ics' }];
+    for (var i = 0; i < HOSTS.length; i++) {
+      if (HOSTS[i][1].test(host) && HOSTS[i][2].test(path)) return ['add_to_calendar', { calendar: HOSTS[i][3] }];
+    }
+    if (host === 'wa.me' || host === 'api.whatsapp.com' || (/(^|\.)whatsapp\.com$/.test(host) && /^\/send/.test(path))) return ['share', { method: 'whatsapp' }];
+    if (host === 'maps.apple.com' || host === 'maps.google.com' || host === 'goo.gl' && /^\/maps/.test(path) || (/(^|\.)google\.[a-z.]+$/.test(host) && /^\/maps/.test(path))) return ['get_directions', {}];
+    return null;
+  }
+  function onClick(ev) {
+    try {
+      var el = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+      if (!el) return;
+      var hit = classify(el);
+      if (hit) window.trackIntent(hit[0], hit[1]);
+    } catch (err) { /* ignore */ }
+  }
+  document.addEventListener('click', onClick, true);
+  document.addEventListener('auxclick', onClick, true); /* middle-click opens a new tab without a click event */
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600;700&display=swap">
