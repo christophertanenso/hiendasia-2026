@@ -119,9 +119,14 @@ from urllib.parse import quote, urlencode
 
 EVENT = '2026 Singapore Hi-End Asia International Audio Visual Show'
 VENUE = 'Level 3, Suntec Singapore Convention & Exhibition Centre, 1 Raffles Boulevard, Singapore 039593'
-SITE = 'https://www.hiendasia.com/'
+SITE = 'https://www.hiendasia.com/'  # the organiser's own site (schema.org organizer)
+PAGES = 'https://christophertanenso.github.io/hiendasia-2026/'  # the show site
+# Links people carry away (calendar entries, shares) point at the show site and are UTM-tagged, so GA4
+# credits the visits they bring back to the right source.
+CAL_LINK = PAGES + '?utm_source=calendar&utm_medium=referral&utm_campaign=save_the_date'
+WA_LINK = PAGES + '?utm_source=whatsapp&utm_medium=social&utm_campaign=share'
 ABOUT = ('Free entry, no tickets needed. 150+ high-end audio brands, listening rooms, keynote talks and live concerts. '
-         'Open 10am - 7pm daily. ' + SITE)
+         'Open 10am - 7pm daily. ' + CAL_LINK)
 # Google repeats 10am-7pm SGT for three days; Outlook takes one span from the first opening to the last close.
 GCAL = 'https://calendar.google.com/calendar/render?' + urlencode({
     'action': 'TEMPLATE', 'text': 'HiEnd Asia 2026', 'dates': '20261217T100000/20261217T190000',
@@ -137,10 +142,44 @@ def outlook(host):
 WA = 'https://wa.me/?text=' + quote(
     'HiEnd Asia 2026, the Singapore Hi-End Asia International Audio Visual Show\n'
     '17-19 Dec 2026, 10am-7pm daily\nLevel 3, Suntec Singapore Convention & Exhibition Centre\n'
-    'Free entry, no tickets needed.\n' + SITE)
+    'Free entry, no tickets needed.\n' + WA_LINK)
 
 ICON_CAL = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'
             '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>')
+
+
+def ics_fold(line):
+    # RFC 5545: lines longer than 75 octets continue on the next line after a space.
+    out, b = [], line.encode('utf-8')
+    while len(b) > (75 if not out else 74):
+        cut = 75 if not out else 74
+        while (b[cut] & 0xC0) == 0x80:
+            cut -= 1
+        out.append(b[:cut].decode('utf-8')); b = b[cut:]
+    out.append(b.decode('utf-8'))
+    return '\r\n '.join(out)
+
+
+def ics_text(v):
+    return v.replace('\\', '\\\\').replace(';', '\\;').replace(',', '\\,').replace('\n', '\\n')
+
+
+# .ics for Apple Calendar and anything else (works where Google is blocked, e.g. mainland China).
+# 10am-7pm SGT (UTC+8) on 17, 18 and 19 Dec, with a reminder the day before.
+ICS = '\r\n'.join(ics_fold(l) for l in [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//HiEnd Asia//HiEnd Asia 2026//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'BEGIN:VEVENT', 'UID:hiendasia-2026@christophertanenso.github.io', 'DTSTAMP:20261104T000000Z',
+    'DTSTART:20261217T020000Z', 'DTEND:20261217T110000Z', 'RRULE:FREQ=DAILY;COUNT=3',
+    'SUMMARY:HiEnd Asia 2026', 'LOCATION:' + ics_text(VENUE), 'DESCRIPTION:' + ics_text(EVENT + '\n\n' + ABOUT),
+    'URL:' + CAL_LINK,
+    'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:HiEnd Asia 2026 is tomorrow', 'TRIGGER:-P1D', 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR']) + '\r\n'
+ICS_FILE = 'hiendasia-2026.ics'
+with open(os.path.join(HERE, ICS_FILE), 'w', encoding='utf-8', newline='') as f:
+    f.write(ICS)
+
+ICON_WX = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 4C5.1 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.4 2.5.4h.4a5 5 0 0 1-.2-1.4C9.2 11 12.2 8.6 16 8.6h.3C15.6 5.9 12.6 4 9 4Zm-2.4 3.2a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/>'
+           '<path d="M22 14.2c0-2.7-2.7-4.8-6-4.8s-6 2.1-6 4.8 2.7 4.8 6 4.8c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.8Zm-8-.9a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z"/></svg>')
 ICON_WA = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>')
 
 ACTIONS = f'''      <div class="btns">
@@ -150,9 +189,18 @@ ACTIONS = f'''      <div class="btns">
             <a href="{e(GCAL)}" target="_blank" rel="noopener">{t('cal.google')}{t('cal.google.note', 'small')}</a>
             <a href="{e(outlook('outlook.live.com'))}" target="_blank" rel="noopener">{t('cal.outlook')}{t('cal.outlook.note', 'small')}</a>
             <a href="{e(outlook('outlook.office.com'))}" target="_blank" rel="noopener">{t('cal.work')}{t('cal.work.note', 'small')}</a>
+            <a href="{ICS_FILE}">{t('cal.ics')}{t('cal.ics.note', 'small')}</a>
           </div>
         </details>
         <a class="btn btn-outline" href="{e(WA)}" target="_blank" rel="noopener" data-wa>{ICON_WA}{t('share.wa')}</a>
+        <details class="cal wx">
+          <summary class="btn btn-outline">{ICON_WX}{t('share.wx')}</summary>
+          <div class="cal-menu wx-menu">
+            <img src="img/wechat-qr.svg" width="168" height="168" alt="{e(EN['share.wx.qr'])}" data-i18n-attr="alt:share.wx.qr">
+            {t('share.wx.scan', 'p')}
+            <button class="btn btn-outline btn-sm" type="button" data-copy>{t('share.wx.copy')}</button>
+          </div>
+        </details>
       </div>'''
 
 tpl = open(os.path.join(HERE, 'page.tpl.html'), encoding='utf-8').read()
@@ -175,7 +223,6 @@ assert '{{' not in out, re.findall(r'\{\{[^}]*\}\}', out)[:5]
 open(os.path.join(HERE, 'artifact.html'), 'w', encoding='utf-8').write(out)
 
 # index.html: a complete document for GitHub Pages, with sharing and search metadata.
-PAGES = 'https://christophertanenso.github.io/hiendasia-2026/'
 DESC = ('17-19 Dec 2026, Level 3, Suntec Singapore. Free entry. 150+ high-end audio brands, '
         'listening rooms, keynote talks and live concerts.')
 LD = json.dumps({
@@ -188,7 +235,7 @@ LD = json.dumps({
                              'postalCode': '039593', 'addressCountry': 'SG'}},
     'image': [PAGES + img(0)], 'description': DESC, 'isAccessibleForFree': True,
     'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'SGD', 'availability': 'https://schema.org/InStock',
-               'url': SITE},
+               'url': PAGES},
     'organizer': {'@type': 'Organization', 'name': 'HiEnd Asia + Pte. Ltd', 'url': SITE},
 }, ensure_ascii=False)
 head, body = out.split('<header class="site-head">', 1)
@@ -216,6 +263,7 @@ doc = f'''<!doctype html>
 open(os.path.join(HERE, 'index.html'), 'w', encoding='utf-8').write(doc)
 
 import re
-files = {p: p for p in sorted(set(re.findall(r'(?:src|href|poster)="((?:img|video)/[^"]+)"', out)))}
+files = {p: p for p in sorted(set(re.findall(r'(?:src|href|poster)="((?:img|video)/[^"]+)"', out))
+                              | set(re.findall(r'url\((fonts/[^)]+)\)', out)) | {ICS_FILE})}
 json.dump(files, open(os.path.join(HERE, 'files.json'), 'w'), indent=0)
 print('index.html', len(out), 'bytes;', len(files), 'images referenced')
