@@ -21,6 +21,7 @@ Built on the HiEnd Asia 2026 design system (black ground, peach-gold headings, g
 | `img/` | Poster, floorplan, venue, portraits and brand logos |
 | `video/` | 2025 showcase video (480p) and its poster frame |
 | `fonts/` | Arimo and Open Sans (woff2), served locally |
+| `signage/` | Venue QR signs (PDF, print page, SVGs) |
 | `hiendasia-2026.ics` | Generated. Calendar file for Apple Calendar and other apps |
 
 ## Editing
@@ -61,7 +62,18 @@ The translations were machine-drafted and should be checked by native speakers b
 
 **On-site visitors.** A visit opened with `?here=` (QR signage) is on-site for the rest of the browser session. Its events carry `on_site=yes`, and the two bidding conversions (`add_to_calendar`, `get_directions`) are sent as `onsite_action` with `action=…` instead (Meta: `OnsiteAction`). People already at the show never count as ad conversions.
 
+**Testing locally.** On `localhost`, `127.0.0.1`, `*.localhost` and `*.test`, GA4 hits are sent with `debug_mode`, so they show in GA4 DebugView, and the GA4 "Developer traffic" data filter keeps them out of reports. The Meta Pixel doesn't load. Add `?track=live` to a local URL to send real hits.
+
 Nothing blocks navigation, and the page works if an ad blocker stops the tags. Query strings (UTMs, `?lang=`) are never stripped. Shared links are UTM-tagged so GA4 credits the visits they bring back: WhatsApp `utm_source=whatsapp`, WeChat `utm_source=wechat`, calendar entries `utm_source=calendar`. To track a new link type, add a pattern to `classify()`.
+
+## Venue QR signs
+
+`signage/` holds the "You are here" QR codes for the show floor:
+- `signage/venue-qr-signs.pdf`: print-ready, A4, 4 signs per page.
+- `signage/index.html`: the same sheet as a web page.
+- `signage/qr/*.svg`: one QR code per sign, for larger prints.
+
+There are 20 signs: the entrance and info counter, both escalators, Concourse 2 & 3, and rooms 303–312, 323 and 332–336. Each code opens `?here=<spot>&utm_source=qr&utm_medium=signage&utm_campaign=venue`. The room finder starts its route there, and GA4 logs a `venue_checkin`, which is the show's only attendance signal, so put the signs where people will scan them.
 
 ## Mainland China
 
