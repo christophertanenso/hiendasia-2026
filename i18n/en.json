@@ -72,6 +72,8 @@
   "legend.vip": "VIP rooms",
   "floor.alt": "Show floorplan of Suntec Level 3: exhibition hall, concert hall, VIP room and numbered exhibition rooms along concourses 1 to 4",
   "floor.cap": "Level 3 layout from hiendasia.com. Room allocations may change before the show.",
+  "floor.find": "Find a room",
+  "floor.find.intro": "Search for a brand or exhibitor, or tap a room, to see where it is and how to get there from the escalators.",
 
   "kn.h": "Keynote Speakers",
   "kn.intro": "Renowned experts and thought leaders in high-end audio share their insights in an intimate setting. Held in private rooms, these sessions go deep, from design philosophies to emerging technologies.",

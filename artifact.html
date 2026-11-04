@@ -421,7 +421,14 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <p class="figcap" data-i18n="floor.cap">Level 3 layout from hiendasia.com. Room allocations may change before the show.</p>
       </div>
     </div>
+    <div class="finder" style="margin-top:var(--space-l)">
+      <h3 data-i18n="floor.find" style="margin:0 0 6px;font:700 24px/1.25 var(--font-display);color:var(--heading)">Find a room</h3>
+      <p class="intro" data-i18n="floor.find.intro" style="margin:0 0 20px">Search for a brand or exhibitor, or tap a room, to see where it is and how to get there from the escalators.</p>
+      <div id="hea-map" data-sheet=""></div>
+    </div>
   </div>
+  <link rel="stylesheet" href="floormap/floormap.css">
+  <script src="floormap/floormap.js" defer></script>
 </section>
 
 <section class="block band" id="speakers">
