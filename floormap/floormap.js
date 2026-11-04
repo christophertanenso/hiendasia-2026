@@ -330,8 +330,13 @@
     function render() { drawMap(); drawChips(); drawList(); drawDetail(); drawLegend(); }
 
     function narrow() { return !matchMedia('(min-width: 900px)').matches; }
+    // Analytics hook: the page's trackIntent (if present) reports finder use to GA4. Never throws.
+    function track(action, detail) { try { if (window.trackIntent) window.trackIntent(action, detail); } catch (e) {} }
+    var searchTimer = null, lastSearch = '';
+
     function select(rid, fromList) {
       sel = rid; render();
+      if (rid) track('find_room', { room: rid, search_term: query || undefined, from: fromList ? 'list' : 'map' });
       if (rid && fromList && narrow()) stage.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     }
 
@@ -360,6 +365,11 @@
       var hits = rows.filter(matches);
       if (query && hits.length === 1) sel = hits[0].room;
       render();
+      // Report what people search for once they pause typing (brand demand), once per distinct term
+      clearTimeout(searchTimer);
+      if (query.length >= 2) searchTimer = setTimeout(function () {
+        if (query && query !== lastSearch) { lastSearch = query; track('search', { search_term: query, results: rows.filter(matches).length }); }
+      }, 1500);
     });
     clearBtn.addEventListener('click', function () { input.value = ''; query = ''; clearBtn.hidden = true; render(); input.focus(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && sel) select(null, false); });

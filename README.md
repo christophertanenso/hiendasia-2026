@@ -20,6 +20,8 @@ Built on the HiEnd Asia 2026 design system (black ground, peach-gold headings, g
 | `imgs.json` | Image list scraped from hiendasia.com (alt text = brand names) |
 | `img/` | Poster, floorplan, venue, portraits and brand logos |
 | `video/` | 2025 showcase video (480p) and its poster frame |
+| `fonts/` | Arimo and Open Sans (woff2), served locally |
+| `hiendasia-2026.ics` | Generated. Calendar file for Apple Calendar and other apps |
 
 ## Editing
 
@@ -41,15 +43,33 @@ The translations were machine-drafted and should be checked by native speakers b
 
 ## Tracking
 
-`page.tpl.html` loads GA4 (`G-NED2Z7D1C5`, property 401777091) and the Meta Pixel (`982955510477872`) in the `<head>`. One helper, `trackIntent(action, detail)`, reports intent clicks. A delegated click listener matches link hrefs, so every repeated link, and any added later, is covered:
+`page.tpl.html` loads GA4 (`G-NED2Z7D1C5`, property 401777091) and the Meta Pixel (`982955510477872`) in the `<head>`. One helper, `trackIntent(action, detail)`, reports actions. A delegated click listener matches link hrefs, so every repeated link, and any added later, is covered. Every event carries `page_language`.
 
-| Link | GA4 | Meta |
-| --- | --- | --- |
-| Google, Outlook.com, Office 365 calendar (and any `.ics`) | `add_to_calendar` with `calendar` | `Schedule` |
-| WhatsApp (`wa.me`) | `share` with `method=whatsapp` | `Share` (custom) |
-| Google/Apple Maps | `get_directions` | none |
+| GA4 event | When | Params | Meta |
+| --- | --- | --- | --- |
+| `add_to_calendar` | Google, Outlook.com, Office 365 or `.ics` link | `calendar` | `Schedule` |
+| `get_directions` | Google/Apple Maps link | | `FindLocation` |
+| `share` | WhatsApp, WeChat panel opened, or WeChat "copy link" | `method` = `whatsapp` / `wechat` / `copy_link` | `Share` (custom) |
+| `contact` | Footer phone or email tapped | `method` = `phone` / `email` | `Contact` |
+| `search` | Room finder search, after a 1.5 s pause | `search_term`, `results` | `Search` |
+| `find_room` | Room picked in the finder | `room`, `search_term`, `from` | |
+| `video_start` / `video_progress` / `video_complete` | Showcase video, at 25 / 50 / 75 / 100 % | `video_title`, `video_percent` | |
+| `view_brand_list` | "Show all brands" opened (once per page view) | | |
+| `section_view` | Programme, floorplan, speakers, concerts, brands or visit in view for 1 s (once each) | `section` | |
+| `select_language` | Language menu changed | `language` | |
+| `venue_checkin` | Page opened from a QR sign (`?here=`), once per device per day | `here`, `show_day` | `VenueCheckin` (custom) |
 
-Every event carries `page_language`. Nothing blocks navigation, and the page works if an ad blocker stops the tags. Query strings (UTMs, `?lang=`) are never stripped. To track a new link type, add a host pattern to `classify()`.
+**On-site visitors.** A visit opened with `?here=` (QR signage) is on-site for the rest of the browser session. Its events carry `on_site=yes`, and the two bidding conversions (`add_to_calendar`, `get_directions`) are sent as `onsite_action` with `action=…` instead (Meta: `OnsiteAction`). People already at the show never count as ad conversions.
+
+Nothing blocks navigation, and the page works if an ad blocker stops the tags. Query strings (UTMs, `?lang=`) are never stripped. Shared links are UTM-tagged so GA4 credits the visits they bring back: WhatsApp `utm_source=whatsapp`, WeChat `utm_source=wechat`, calendar entries `utm_source=calendar`. To track a new link type, add a pattern to `classify()`.
+
+## Mainland China
+
+Google services are blocked in mainland China, so the page avoids depending on them for anything essential:
+- **Fonts.** Arimo and Open Sans are served from `fonts/` (Latin, Latin Extended and Vietnamese subsets). Chinese and Thai web fonts still come from Google Fonts, but load after first paint and fall back to system fonts (PingFang, Microsoft YaHei).
+- **Calendar.** "Apple Calendar & others" downloads `hiendasia-2026.ics`, which `build.py` writes. It works with any calendar app.
+- **WeChat.** Simplified Chinese visitors also get a "分享到微信" button with a QR code (`img/wechat-qr.svg`) and a copy-link button. To regenerate the QR: `pip install segno`, then `python -c "import segno; segno.make('<url>', error='m').save('img/wechat-qr.svg', scale=4, border=3)"`, then add `viewBox="0 0 204 204"` to the `<svg>` tag.
+- GA4 and Meta don't load in mainland China, so visits from there aren't counted.
 
 ## Hosted asset URLs
 
