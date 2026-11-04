@@ -44,7 +44,7 @@ The translations were machine-drafted and should be checked by native speakers b
 
 ## Tracking
 
-`page.tpl.html` loads GA4 (`G-NED2Z7D1C5`, property 401777091) and the Meta Pixel (`982955510477872`) in the `<head>`. One helper, `trackIntent(action, detail)`, reports actions. A delegated click listener matches link hrefs, so every repeated link, and any added later, is covered. Every event carries `page_language`.
+`page.tpl.html` loads GA4 (`G-NED2Z7D1C5`, property 401777091) and the Meta Pixel (`9829555510477872`) in the `<head>`. One helper, `trackIntent(action, detail)`, reports actions. A delegated click listener matches link hrefs, so every repeated link, and any added later, is covered. Every event carries `page_language`.
 
 | GA4 event | When | Params | Meta |
 | --- | --- | --- | --- |
