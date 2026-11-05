@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy notice · HiEnd Asia 2026</title>
+<meta name="description" content="How the HiEnd Asia 2026 website uses personal data and cookies, and how to change your choices.">
+<link rel="canonical" href="https://christophertanenso.github.io/hiendasia-2026/privacy.html">
+<link rel="icon" href="img/monogram.svg" type="image/svg+xml">
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag() { dataLayer.push(arguments); }
+gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+gtag('js', new Date());
+var HEA_TEST = /^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$|\.localhost$|\.test$/.test(location.hostname) && !/[?&]track=live\b/.test(location.search);
+gtag('config', 'G-NED2Z7D1C5', HEA_TEST ? { debug_mode: true } : {});
+window.fbq = function () {};
+window.HEA_CONSENT = {"privacy": "privacy.html", "t": {"title": "Your privacy", "text": "We'd like to use analytics cookies to see how this page is used, and marketing cookies from Google and Meta to measure our ads. Nothing is set until you choose, and you can change your mind any time.", "accept": "Accept all", "reject": "Reject all", "settings": "Choose", "save": "Save choices", "necessary": "Strictly necessary", "necessaryD": "Remembers your language and this choice. Always on.", "analytics": "Analytics", "analyticsD": "Google Analytics: which sections are viewed and which buttons are used.", "marketing": "Marketing", "marketingD": "Google Ads and Meta Pixel: measure our ads and show HiEnd Asia ads to past visitors.", "policy": "Privacy notice"}};
+/* HiEnd Asia 2026 – cookie consent (PDPA). build.py inlines this file into every page, after the gtag/fbq stubs.
+   Categories: necessary (language, this choice: always on), analytics (GA4), marketing (Google Ads via the GA4
+   link, Meta Pixel). Nothing optional loads until the visitor chooses. The choice is kept in localStorage
+   ('hea-consent') with a version and date, and can be changed or withdrawn any time from "Cookie settings".
+   Page config: window.HEA_CONSENT = { t: {translated strings}, privacy: 'privacy.html' }. */
+(function () {
+  var VERSION = 1, KEY = 'hea-consent', GA = 'G-NED2Z7D1C5', PIXEL = '9829555510477872';
+  var cfg = window.HEA_CONSENT || {}, T = cfg.t || {};
+  var choice = null, gaLoaded = false, metaLoaded = false;
+
+  function read() {
+    try {
+      var c = JSON.parse(localStorage.getItem(KEY) || 'null');
+      return c && c.v === VERSION ? c : null;
+    } catch (e) { return null; }
+  }
+  function write(c) { try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {} }
+
+  // Vendor scripts wait until the page has loaded and the browser is idle, so they never slow the first paint.
+  function whenIdle(fn) {
+    function go() { (window.requestIdleCallback || function (f) { setTimeout(f, 1); })(fn, { timeout: 3000 }); }
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  }
+  function loadGa() {
+    if (gaLoaded) return; gaLoaded = true;
+    whenIdle(function () {
+      var s = document.createElement('script');
+      s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA;
+      document.head.appendChild(s);
+    });
+  }
+  function loadMeta() {
+    if (metaLoaded || window.HEA_TEST) return; metaLoaded = true;
+    whenIdle(function () {
+      try { delete window.fbq; } catch (e) { window.fbq = undefined; }
+      /* Meta's standard base code */
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      window.fbq('consent', 'grant');
+      window.fbq('init', PIXEL);
+      window.fbq('track', 'PageView');
+    });
+  }
+  // Withdrawal: tell the vendors, then remove the first-party cookies they set on this site.
+  function clearCookies(pattern) {
+    var host = location.hostname, parts = host.split('.'), domains = [''];
+    for (var i = 0; i < parts.length - 1; i++) domains.push('; domain=.' + parts.slice(i).join('.'));
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (!pattern.test(name)) return;
+      domains.forEach(function (d) {
+        ['/', location.pathname].forEach(function (p) {
+          document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=' + p + d;
+        });
+      });
+    });
+  }
+  function apply(c, before) {
+    var g = function (on) { return on ? 'granted' : 'denied'; };
+    gtag('consent', 'update', { analytics_storage: g(c.a), ad_storage: g(c.m), ad_user_data: g(c.m), ad_personalization: g(c.m) });
+    if (c.a || c.m) loadGa();
+    if (c.m) loadMeta();
+    if (before) {
+      if (before.a && !c.a) clearCookies(/^_ga/);
+      if (before.m && !c.m) {
+        clearCookies(/^(_gcl|_fbp|_fbc)/);
+        if (metaLoaded && typeof window.fbq === 'function') window.fbq('consent', 'revoke');
+      }
+    }
+  }
+  function decide(a, m) {
+    var before = choice;
+    choice = { v: VERSION, a: !!a, m: !!m, at: new Date().toISOString() };
+    write(choice);
+    apply(choice, before);
+    close();
+    if (window.trackIntent) window.trackIntent('consent_choice', { analytics: choice.a ? 'yes' : 'no', marketing: choice.m ? 'yes' : 'no' });
+  }
+
+  // ---------- Banner ----------
+  var box = null, lastFocus = null;
+  function el(tag, attrs, html) {
+    var n = document.createElement(tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function row(id, title, desc, on, locked) {
+    return '<label class="cc-row"><span class="cc-txt"><b>' + esc(title) + '</b><small>' + esc(desc) + '</small></span>' +
+      '<input type="checkbox" id="cc-' + id + '"' + (on ? ' checked' : '') + (locked ? ' disabled' : '') + '>' +
+      '<span class="cc-sw" aria-hidden="true"></span></label>';
+  }
+  function open(settings) {
+    if (box) close(true);
+    lastFocus = document.activeElement;
+    var c = choice || { a: false, m: false };
+    box = el('section', { 'class': 'cc' + (settings ? ' cc-open' : ''), role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'cc-h' },
+      '<div class="cc-in">' +
+        '<div class="cc-msg"><h2 id="cc-h">' + esc(T.title) + '</h2>' +
+          '<p>' + esc(T.text) + ' <a href="' + esc(cfg.privacy || 'privacy.html') + '">' + esc(T.policy) + '</a></p></div>' +
+        '<div class="cc-set" id="cc-set">' +
+          row('n', T.necessary, T.necessaryD, true, true) +
+          row('a', T.analytics, T.analyticsD, c.a) +
+          row('m', T.marketing, T.marketingD, c.m) +
+        '</div>' +
+        '<div class="cc-btns">' +
+          '<button type="button" class="cc-b cc-p" data-cc="all">' + esc(T.accept) + '</button>' +
+          '<button type="button" class="cc-b" data-cc="none">' + esc(T.reject) + '</button>' +
+          '<button type="button" class="cc-b cc-l" data-cc="settings" aria-expanded="' + (settings ? 'true' : 'false') + '" aria-controls="cc-set">' + esc(T.settings) + '</button>' +
+          '<button type="button" class="cc-b cc-p cc-save" data-cc="save">' + esc(T.save) + '</button>' +
+        '</div>' +
+      '</div>');
+    box.addEventListener('click', function (ev) {
+      var b = ev.target.closest ? ev.target.closest('[data-cc]') : null;
+      if (!b) return;
+      var k = b.getAttribute('data-cc');
+      if (k === 'all') decide(true, true);
+      else if (k === 'none') decide(false, false);
+      else if (k === 'save') decide(box.querySelector('#cc-a').checked, box.querySelector('#cc-m').checked);
+      else if (k === 'settings') {
+        var openNow = box.classList.toggle('cc-open');
+        b.setAttribute('aria-expanded', String(openNow));
+        if (openNow) box.querySelector('#cc-a').focus();
+      }
+    });
+    box.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && choice) close(); });
+    // Early in the document (right after the skip link), so keyboard and screen-reader users reach it first;
+    // it is shown fixed at the bottom of the screen.
+    var skip = document.querySelector('body > .skip');
+    document.body.insertBefore(box, skip ? skip.nextSibling : document.body.firstChild);
+    document.documentElement.classList.add('cc-showing');
+    if (settings) box.querySelector('#cc-a').focus();
+  }
+  function close(silent) {
+    if (!box) return;
+    box.parentNode.removeChild(box); box = null;
+    document.documentElement.classList.remove('cc-showing');
+    if (!silent && lastFocus && lastFocus.focus && lastFocus !== document.body) { try { lastFocus.focus(); } catch (e) {} }
+  }
+
+  var CSS = '.cc{position:fixed;z-index:60;left:0;right:0;bottom:0;padding:0 max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));pointer-events:none}' +
+    '.cc-in{pointer-events:auto;max-width:980px;margin:0 auto;background:var(--band,#201d17);color:var(--body,#ebebeb);border:1px solid var(--accent,#c6a661);border-radius:12px;padding:18px 20px;display:grid;gap:14px;box-shadow:0 -8px 40px rgba(0,0,0,.6);font:15px/1.6 var(--font-body,sans-serif);max-height:calc(100vh - 24px);overflow:auto}' +
+    '.cc h2{margin:0 0 4px;font:700 17px/1.3 var(--font-display,sans-serif);color:var(--heading,#f0d9a0)}' +
+    '.cc p{margin:0;color:var(--muted,#d2c8b4);font-size:14px}.cc a{color:var(--heading,#f0d9a0)}' +
+    '.cc-set{display:none;flex-direction:column;gap:2px;border-top:1px solid var(--line,#4f4632);padding-top:10px}.cc-open .cc-set{display:flex}' +
+    '.cc-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;padding:8px 0;cursor:pointer;position:relative}' +
+    '.cc-row b{display:block;color:var(--body,#ebebeb);font-size:14px}.cc-row small{display:block;color:var(--muted,#d2c8b4);font-size:13px;line-height:1.45}' +
+    '.cc-row input{position:absolute;opacity:0;width:44px;height:26px;right:0;margin:0;cursor:pointer}' +
+    '.cc-sw{width:44px;height:26px;border-radius:13px;background:#3a352b;border:1px solid var(--line,#4f4632);position:relative;transition:background .15s}' +
+    '.cc-sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#bbb;transition:transform .15s}' +
+    '.cc-row input:checked+.cc-sw{background:var(--accent,#c6a661)}.cc-row input:checked+.cc-sw::after{transform:translateX(18px);background:#000}' +
+    '.cc-row input:disabled+.cc-sw{opacity:.6}.cc-row input:focus-visible+.cc-sw{outline:2px solid var(--accent,#c6a661);outline-offset:2px}' +
+    '.cc-btns{display:flex;flex-wrap:wrap;gap:10px}' +
+    '.cc-b{min-height:44px;padding:0 20px;border-radius:50px;border:1px solid var(--accent,#c6a661);background:transparent;color:var(--heading,#f0d9a0);font:700 13px/1 var(--font-display,sans-serif);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;flex:1 1 auto}' +
+    '.cc-p{background:var(--accent,#c6a661);color:#000}.cc-l{border-color:transparent;text-decoration:underline;text-underline-offset:3px;flex:0 1 auto}' +
+    '.cc-save{display:none}.cc-open .cc-save{display:inline-flex;align-items:center;justify-content:center}.cc-open .cc-l{display:none}' +
+    '@media (min-width:760px){.cc-in{grid-template-columns:1fr auto;align-items:center}.cc-set{grid-column:1/-1;order:2}.cc-btns{flex-wrap:nowrap}.cc-b{flex:0 0 auto}}' +
+    '@media (prefers-reduced-motion:reduce){.cc-sw,.cc-sw::after{transition:none}}';
+
+  function init() {
+    var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    if (!choice) open(false);
+    // Any element with data-consent-open (footer "Cookie settings", the privacy page) reopens the choices.
+    document.addEventListener('click', function (ev) {
+      var t = ev.target.closest ? ev.target.closest('[data-consent-open]') : null;
+      if (!t) return;
+      ev.preventDefault();
+      open(true);
+    });
+  }
+
+  choice = read();
+  if (choice) apply(choice, null);
+  window.HEA_CONSENT_OPEN = function () { open(true); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+<style>
+@font-face { font-family: 'Arimo'; font-weight: 400 700; font-display: swap; src: url(fonts/arimo-latin.woff2) format('woff2'); }
+@font-face { font-family: 'Open Sans'; font-weight: 400 700; font-display: swap; src: url(fonts/opensans-latin.woff2) format('woff2'); }
+:root { --bg: #000; --heading: #f0d9a0; --body: #ebebeb; --muted: #d2c8b4; --accent: #c6a661; --line: #4f4632; --band: #201d17;
+  --font-display: Arimo, Arial, sans-serif; --font-body: "Open Sans", Arial, sans-serif; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--body); font: 16px/1.7 var(--font-body); }
+a { color: var(--heading); } a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 820px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left, 0px)) 96px; }
+header { border-bottom: 1px solid var(--line); margin-bottom: 40px; }
+header .wrap { padding-block: 14px; padding-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+header img { height: 40px; width: auto; display: block; }
+h1 { font: 700 clamp(30px, 5vw, 44px)/1.1 var(--font-display); color: var(--heading); text-transform: uppercase; margin: 0 0 8px; }
+h2 { font: 700 20px/1.3 var(--font-display); color: var(--heading); margin: 40px 0 8px; }
+.meta { color: var(--muted); font-size: 14px; margin: 0 0 24px; }
+.rule { width: 64px; height: 1px; background: var(--accent); margin: 16px 0 24px; }
+p, li { max-width: 70ch; }
+.scroll { overflow-x: auto; margin-top: 12px; }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { color: var(--heading); font: 700 13px/1.3 var(--font-display); letter-spacing: .06em; text-transform: uppercase; }
+code { color: var(--heading); font-size: 13px; }
+.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 50px; border: 1px solid var(--accent);
+  background: var(--accent); color: #000; font: 700 13px/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.back { font-size: 14px; }
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="./"><img src="img/logo.svg" alt="HiEnd Asia 2026 home" width="155" height="40"></a><a class="back" href="./">← Back to the show page</a></div></header>
+<main class="wrap">
+<h1>Privacy notice</h1>
+<p class="meta">HiEnd Asia 2026 website · Last updated 5 November 2026</p>
+<div class="rule"></div>
+<p>This notice explains what personal data the HiEnd Asia 2026 website collects, why, and the choices you have. It is written for the
+Personal Data Protection Act 2012 of Singapore (PDPA) and applies to this website only. The show itself is free to enter and needs no registration.</p>
+
+<h2>Who we are</h2>
+<p>HiEnd Asia + Pte. Ltd, 1093 Lower Delta Road #02-09, Singapore 169204, organises the 2026 Singapore Hi-End Asia International Audio Visual Show
+and runs this website.</p>
+<p><strong>Data protection contact:</strong> <a href="mailto:michelle@hiendasia.com">michelle@hiendasia.com</a> · <a href="tel:+6586681927">+65 8668 1927</a>.
+Write to us for any question, access or correction request, or complaint about your personal data.</p>
+
+<h2>What we collect</h2>
+<ul>
+<li><strong>Nothing you type.</strong> The site has no forms, accounts or tickets. If you email, phone or message us, we use what you send only to reply.</li>
+<li><strong>Analytics, only if you allow it.</strong> Google Analytics records which pages and sections are viewed, which buttons are used (for example
+"Add to calendar", "Get directions", "Share"), the language, device and browser type, approximate location (city level) and how you arrived (for example
+a WhatsApp share or an ad).</li>
+<li><strong>Marketing, only if you allow it.</strong> The Meta Pixel and Google Ads tags record that you visited and the same actions, so we can measure
+our ads on Facebook, Instagram and Google and show HiEnd Asia ads to people who have visited. Meta and Google may link this to your account with them under their own policies.</li>
+<li><strong>QR signs at the show.</strong> If you open the site from a sign at the venue, the page notes which sign, so we can count visits on site.</li>
+</ul>
+
+<h2>Your choice and consent</h2>
+<p>Analytics and marketing tags stay off, and their scripts are not even downloaded, until you choose in the cookie banner. You can accept all, reject all,
+or choose each category. You can change or withdraw your choice at any time; withdrawing stops new collection and removes the analytics and marketing
+cookies this site set in your browser.</p>
+<p><button class="btn" type="button" data-consent-open>Cookie settings</button></p>
+
+<h2>Cookies and browser storage</h2>
+<div class="scroll"><table>
+<thead><tr><th>Name</th><th>Set by</th><th>Category</th><th>Purpose</th><th>Kept for</th></tr></thead>
+<tbody>
+<tr><td><code>hea-lang</code></td><td>This site (browser storage)</td><td>Necessary</td><td>Remembers the language you picked.</td><td>Until you clear it</td></tr>
+<tr><td><code>hea-consent</code></td><td>This site (browser storage)</td><td>Necessary</td><td>Remembers your cookie choice and when you made it.</td><td>Until you clear it</td></tr>
+<tr><td><code>hea-checkin-&lt;date&gt;, hea-onsite</code></td><td>This site (browser storage)</td><td>Necessary</td><td>Set only when you open the page from a QR sign at the show, so a visit is counted once per day.</td><td>One day / this tab</td></tr>
+<tr><td><code>_ga, _ga_&lt;id&gt;</code></td><td>Google Analytics</td><td>Analytics</td><td>Counts visits and tells apart returning browsers.</td><td>2 years</td></tr>
+<tr><td><code>_gcl_au</code></td><td>Google Ads</td><td>Marketing</td><td>Links ad clicks to visits to measure our Google ads.</td><td>90 days</td></tr>
+<tr><td><code>test_cookie, IDE</code></td><td>Google (doubleclick.net)</td><td>Marketing</td><td>Checks the browser accepts cookies; ad measurement.</td><td>15 minutes / 13 months</td></tr>
+<tr><td><code>_fbp</code></td><td>Meta</td><td>Marketing</td><td>Identifies the browser for Meta ad measurement and audiences.</td><td>90 days</td></tr>
+<tr><td><code>fr</code></td><td>Meta (facebook.com)</td><td>Marketing</td><td>Ad delivery and measurement for people logged in to Facebook or Instagram.</td><td>90 days</td></tr>
+</tbody></table></div>
+<p>Pages in Chinese and Thai also load fonts from Google Fonts, which receives your IP address to deliver them. No cookies are set by this.</p>
+
+<h2>Who receives it, and where</h2>
+<p>Google LLC (Google Analytics, Google Ads, Google Fonts) and Meta Platforms Ireland Ltd (Meta Pixel) process this data for us, and may store it outside
+Singapore, including in the United States. We use them under their standard business terms, which include contractual safeguards for transferring personal data
+abroad. We do not sell personal data. The site is hosted on GitHub Pages (GitHub, Inc.), which keeps server logs, including IP addresses, for security.</p>
+<p>Links to Google Calendar, Outlook, WhatsApp, WeChat and Google Maps take you to those services, and their own privacy policies apply there.</p>
+
+<h2>How long we keep it</h2>
+<p>Analytics data is kept for up to 14 months, then deleted. Ad data is kept by Meta and Google for the periods in their policies.
+Emails and messages are kept for as long as we need them to answer and to follow up on the show, then deleted.</p>
+
+<h2>Your rights</h2>
+<p>You can ask us for access to, or correction of, personal data we hold about you, and withdraw consent at any time, using the contact above.
+We will reply within 30 days. If you are not satisfied, you can contact the Personal Data Protection Commission at
+<a href="https://www.pdpc.gov.sg/" target="_blank" rel="noopener">pdpc.gov.sg</a>.</p>
+
+<h2>Changes</h2>
+<p>If we change this notice, we will update the date above. If a change affects what you agreed to, the cookie banner will ask you again.</p>
+</main>
+</body>
+</html>

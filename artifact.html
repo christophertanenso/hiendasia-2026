@@ -1,9 +1,13 @@
 <title>HiEnd Asia 2026</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>
-/* Pick the page language before anything paints: ?lang= link, then the visitor's saved choice,
-   then the first supported language in their browser/device language list, else English. */
+/* Every language is its own pre-rendered page: / is English, /zh-Hans/, /th/ ... carry their text in the HTML,
+   so nothing is hidden while a translation loads and search engines index each language.
+   The English page sends a visitor on to their language before anything paints: a ?lang= link first, then the
+   visitor's saved choice, then the first supported language in their browser/device list. A language URL that
+   was opened directly is respected (only ?lang= moves it). */
 (function () {
+  var PAGE_LANG = 'en', BASE = '', AUTO = false;
   var SUPPORTED = ['en', 'zh-Hans', 'zh-Hant', 'id', 'ms', 'fil', 'th', 'vi'];
   function match(tag) {
     tag = String(tag || '').toLowerCase();
@@ -16,40 +20,227 @@
     if (/^en(-|$)/.test(tag)) return 'en';
     return null;
   }
-  var pick = null;
-  try { pick = new URLSearchParams(location.search).get('lang'); } catch (e) {}
-  if (SUPPORTED.indexOf(pick) < 0) { try { pick = localStorage.getItem('hea-lang'); } catch (e) { pick = null; } }
-  var lang = SUPPORTED.indexOf(pick) >= 0 ? pick : null;
-  var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
-  for (var i = 0; !lang && i < prefs.length; i++) lang = match(prefs[i]);
-  lang = lang || 'en';
-  var root = document.documentElement;
-  window.HEA_LANG = lang;
-  root.lang = lang;
-  if (lang !== 'en') {
-    root.classList.add('i18n-loading');
-    setTimeout(function () { root.classList.remove('i18n-loading'); }, 2500);
+  window.HEA_LANG = PAGE_LANG;
+  window.HEA_BASE = BASE;
+  window.HEA_LANG_URL = function (lang) { return BASE + (lang === 'en' ? '' : lang + '/'); };
+  if (!AUTO) return;
+  var params = null, forced = null, want = null;
+  try { params = new URLSearchParams(location.search); forced = params.get('lang'); } catch (e) {}
+  if (SUPPORTED.indexOf(forced) >= 0) want = forced;
+  else if (PAGE_LANG === 'en') {
+    var saved = null;
+    try { saved = localStorage.getItem('hea-lang'); } catch (e) {}
+    if (SUPPORTED.indexOf(saved) >= 0) want = saved;
+    var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; !want && i < prefs.length; i++) want = match(prefs[i]);
+  }
+  if (params) params.delete('lang');
+  if (want && want !== PAGE_LANG) {
+    var q = params && params.toString();
+    location.replace(window.HEA_LANG_URL(want) + (q ? '?' + q : '') + location.hash);
+  } else if (forced && history.replaceState) {
+    var q2 = params && params.toString();
+    history.replaceState(null, '', location.pathname + (q2 ? '?' + q2 : '') + location.hash);
   }
 })();
 </script>
+
 <link rel="icon" href="img/monogram.svg" type="image/svg+xml">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NED2Z7D1C5"></script>
 <script>
-/* Analytics: GA4 (G-NED2Z7D1C5) and the Meta Pixel (9829555510477872). Both load async. The stubs below are
-   defined inline, so everything still runs if an ad blocker stops the vendor scripts. Query strings (UTMs, ?lang=) are left alone. */
+/* Analytics: GA4 (G-NED2Z7D1C5, also the Google Ads link) and the Meta Pixel (9829555510477872), behind consent.
+   Google Consent Mode v2 starts with everything denied. Neither vendor script is downloaded until the visitor
+   accepts the matching category in the cookie banner (consent.js, inlined below), and even then only once the page
+   has finished loading, so tracking never competes with the first paint. Events raised before consent wait in
+   dataLayer and are sent if analytics is accepted later in the visit; Meta events before marketing consent are dropped.
+   The stubs mean the page runs the same whether or not the vendor scripts ever load (ad blockers, a refusal). */
 window.dataLayer = window.dataLayer || [];
 function gtag() { dataLayer.push(arguments); }
+gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+gtag('set', 'url_passthrough', false);
 gtag('js', new Date());
 /* Local testing (localhost etc.): GA4 hits are sent in debug mode, so the GA4 "Developer traffic" data filter
    keeps them out of reports (they still show in DebugView), and the Meta Pixel is not loaded at all.
    Add ?track=live to a local URL to send real hits anyway. */
 var HEA_TEST = /^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$|\.localhost$|\.test$/.test(location.hostname) && !/[?&]track=live\b/.test(location.search);
 gtag('config', 'G-NED2Z7D1C5', HEA_TEST ? { debug_mode: true } : {});
-if (HEA_TEST) { window.fbq = function () {}; } else {
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '9829555510477872');
-fbq('track', 'PageView');
-}
+window.fbq = function () {}; /* replaced by the real pixel only after marketing consent */
+window.HEA_CONSENT = {"privacy": "privacy.html", "t": {"title": "Your privacy", "text": "We'd like to use analytics cookies to see how this page is used, and marketing cookies from Google and Meta to measure our ads. Nothing is set until you choose, and you can change your mind any time.", "accept": "Accept all", "reject": "Reject all", "settings": "Choose", "save": "Save choices", "necessary": "Strictly necessary", "necessaryD": "Remembers your language and this choice. Always on.", "analytics": "Analytics", "analyticsD": "Google Analytics: which sections are viewed and which buttons are used.", "marketing": "Marketing", "marketingD": "Google Ads and Meta Pixel: measure our ads and show HiEnd Asia ads to past visitors.", "policy": "Privacy notice"}};
+/* HiEnd Asia 2026 – cookie consent (PDPA). build.py inlines this file into every page, after the gtag/fbq stubs.
+   Categories: necessary (language, this choice: always on), analytics (GA4), marketing (Google Ads via the GA4
+   link, Meta Pixel). Nothing optional loads until the visitor chooses. The choice is kept in localStorage
+   ('hea-consent') with a version and date, and can be changed or withdrawn any time from "Cookie settings".
+   Page config: window.HEA_CONSENT = { t: {translated strings}, privacy: 'privacy.html' }. */
+(function () {
+  var VERSION = 1, KEY = 'hea-consent', GA = 'G-NED2Z7D1C5', PIXEL = '9829555510477872';
+  var cfg = window.HEA_CONSENT || {}, T = cfg.t || {};
+  var choice = null, gaLoaded = false, metaLoaded = false;
+
+  function read() {
+    try {
+      var c = JSON.parse(localStorage.getItem(KEY) || 'null');
+      return c && c.v === VERSION ? c : null;
+    } catch (e) { return null; }
+  }
+  function write(c) { try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {} }
+
+  // Vendor scripts wait until the page has loaded and the browser is idle, so they never slow the first paint.
+  function whenIdle(fn) {
+    function go() { (window.requestIdleCallback || function (f) { setTimeout(f, 1); })(fn, { timeout: 3000 }); }
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  }
+  function loadGa() {
+    if (gaLoaded) return; gaLoaded = true;
+    whenIdle(function () {
+      var s = document.createElement('script');
+      s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA;
+      document.head.appendChild(s);
+    });
+  }
+  function loadMeta() {
+    if (metaLoaded || window.HEA_TEST) return; metaLoaded = true;
+    whenIdle(function () {
+      try { delete window.fbq; } catch (e) { window.fbq = undefined; }
+      /* Meta's standard base code */
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      window.fbq('consent', 'grant');
+      window.fbq('init', PIXEL);
+      window.fbq('track', 'PageView');
+    });
+  }
+  // Withdrawal: tell the vendors, then remove the first-party cookies they set on this site.
+  function clearCookies(pattern) {
+    var host = location.hostname, parts = host.split('.'), domains = [''];
+    for (var i = 0; i < parts.length - 1; i++) domains.push('; domain=.' + parts.slice(i).join('.'));
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (!pattern.test(name)) return;
+      domains.forEach(function (d) {
+        ['/', location.pathname].forEach(function (p) {
+          document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=' + p + d;
+        });
+      });
+    });
+  }
+  function apply(c, before) {
+    var g = function (on) { return on ? 'granted' : 'denied'; };
+    gtag('consent', 'update', { analytics_storage: g(c.a), ad_storage: g(c.m), ad_user_data: g(c.m), ad_personalization: g(c.m) });
+    if (c.a || c.m) loadGa();
+    if (c.m) loadMeta();
+    if (before) {
+      if (before.a && !c.a) clearCookies(/^_ga/);
+      if (before.m && !c.m) {
+        clearCookies(/^(_gcl|_fbp|_fbc)/);
+        if (metaLoaded && typeof window.fbq === 'function') window.fbq('consent', 'revoke');
+      }
+    }
+  }
+  function decide(a, m) {
+    var before = choice;
+    choice = { v: VERSION, a: !!a, m: !!m, at: new Date().toISOString() };
+    write(choice);
+    apply(choice, before);
+    close();
+    if (window.trackIntent) window.trackIntent('consent_choice', { analytics: choice.a ? 'yes' : 'no', marketing: choice.m ? 'yes' : 'no' });
+  }
+
+  // ---------- Banner ----------
+  var box = null, lastFocus = null;
+  function el(tag, attrs, html) {
+    var n = document.createElement(tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function row(id, title, desc, on, locked) {
+    return '<label class="cc-row"><span class="cc-txt"><b>' + esc(title) + '</b><small>' + esc(desc) + '</small></span>' +
+      '<input type="checkbox" id="cc-' + id + '"' + (on ? ' checked' : '') + (locked ? ' disabled' : '') + '>' +
+      '<span class="cc-sw" aria-hidden="true"></span></label>';
+  }
+  function open(settings) {
+    if (box) close(true);
+    lastFocus = document.activeElement;
+    var c = choice || { a: false, m: false };
+    box = el('section', { 'class': 'cc' + (settings ? ' cc-open' : ''), role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'cc-h' },
+      '<div class="cc-in">' +
+        '<div class="cc-msg"><h2 id="cc-h">' + esc(T.title) + '</h2>' +
+          '<p>' + esc(T.text) + ' <a href="' + esc(cfg.privacy || 'privacy.html') + '">' + esc(T.policy) + '</a></p></div>' +
+        '<div class="cc-set" id="cc-set">' +
+          row('n', T.necessary, T.necessaryD, true, true) +
+          row('a', T.analytics, T.analyticsD, c.a) +
+          row('m', T.marketing, T.marketingD, c.m) +
+        '</div>' +
+        '<div class="cc-btns">' +
+          '<button type="button" class="cc-b cc-p" data-cc="all">' + esc(T.accept) + '</button>' +
+          '<button type="button" class="cc-b" data-cc="none">' + esc(T.reject) + '</button>' +
+          '<button type="button" class="cc-b cc-l" data-cc="settings" aria-expanded="' + (settings ? 'true' : 'false') + '" aria-controls="cc-set">' + esc(T.settings) + '</button>' +
+          '<button type="button" class="cc-b cc-p cc-save" data-cc="save">' + esc(T.save) + '</button>' +
+        '</div>' +
+      '</div>');
+    box.addEventListener('click', function (ev) {
+      var b = ev.target.closest ? ev.target.closest('[data-cc]') : null;
+      if (!b) return;
+      var k = b.getAttribute('data-cc');
+      if (k === 'all') decide(true, true);
+      else if (k === 'none') decide(false, false);
+      else if (k === 'save') decide(box.querySelector('#cc-a').checked, box.querySelector('#cc-m').checked);
+      else if (k === 'settings') {
+        var openNow = box.classList.toggle('cc-open');
+        b.setAttribute('aria-expanded', String(openNow));
+        if (openNow) box.querySelector('#cc-a').focus();
+      }
+    });
+    box.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && choice) close(); });
+    // Early in the document (right after the skip link), so keyboard and screen-reader users reach it first;
+    // it is shown fixed at the bottom of the screen.
+    var skip = document.querySelector('body > .skip');
+    document.body.insertBefore(box, skip ? skip.nextSibling : document.body.firstChild);
+    document.documentElement.classList.add('cc-showing');
+    if (settings) box.querySelector('#cc-a').focus();
+  }
+  function close(silent) {
+    if (!box) return;
+    box.parentNode.removeChild(box); box = null;
+    document.documentElement.classList.remove('cc-showing');
+    if (!silent && lastFocus && lastFocus.focus && lastFocus !== document.body) { try { lastFocus.focus(); } catch (e) {} }
+  }
+
+  var CSS = '.cc{position:fixed;z-index:60;left:0;right:0;bottom:0;padding:0 max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));pointer-events:none}' +
+    '.cc-in{pointer-events:auto;max-width:980px;margin:0 auto;background:var(--band,#201d17);color:var(--body,#ebebeb);border:1px solid var(--accent,#c6a661);border-radius:12px;padding:18px 20px;display:grid;gap:14px;box-shadow:0 -8px 40px rgba(0,0,0,.6);font:15px/1.6 var(--font-body,sans-serif);max-height:calc(100vh - 24px);overflow:auto}' +
+    '.cc h2{margin:0 0 4px;font:700 17px/1.3 var(--font-display,sans-serif);color:var(--heading,#f0d9a0)}' +
+    '.cc p{margin:0;color:var(--muted,#d2c8b4);font-size:14px}.cc a{color:var(--heading,#f0d9a0)}' +
+    '.cc-set{display:none;flex-direction:column;gap:2px;border-top:1px solid var(--line,#4f4632);padding-top:10px}.cc-open .cc-set{display:flex}' +
+    '.cc-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;padding:8px 0;cursor:pointer;position:relative}' +
+    '.cc-row b{display:block;color:var(--body,#ebebeb);font-size:14px}.cc-row small{display:block;color:var(--muted,#d2c8b4);font-size:13px;line-height:1.45}' +
+    '.cc-row input{position:absolute;opacity:0;width:44px;height:26px;right:0;margin:0;cursor:pointer}' +
+    '.cc-sw{width:44px;height:26px;border-radius:13px;background:#3a352b;border:1px solid var(--line,#4f4632);position:relative;transition:background .15s}' +
+    '.cc-sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#bbb;transition:transform .15s}' +
+    '.cc-row input:checked+.cc-sw{background:var(--accent,#c6a661)}.cc-row input:checked+.cc-sw::after{transform:translateX(18px);background:#000}' +
+    '.cc-row input:disabled+.cc-sw{opacity:.6}.cc-row input:focus-visible+.cc-sw{outline:2px solid var(--accent,#c6a661);outline-offset:2px}' +
+    '.cc-btns{display:flex;flex-wrap:wrap;gap:10px}' +
+    '.cc-b{min-height:44px;padding:0 20px;border-radius:50px;border:1px solid var(--accent,#c6a661);background:transparent;color:var(--heading,#f0d9a0);font:700 13px/1 var(--font-display,sans-serif);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;flex:1 1 auto}' +
+    '.cc-p{background:var(--accent,#c6a661);color:#000}.cc-l{border-color:transparent;text-decoration:underline;text-underline-offset:3px;flex:0 1 auto}' +
+    '.cc-save{display:none}.cc-open .cc-save{display:inline-flex;align-items:center;justify-content:center}.cc-open .cc-l{display:none}' +
+    '@media (min-width:760px){.cc-in{grid-template-columns:1fr auto;align-items:center}.cc-set{grid-column:1/-1;order:2}.cc-btns{flex-wrap:nowrap}.cc-b{flex:0 0 auto}}' +
+    '@media (prefers-reduced-motion:reduce){.cc-sw,.cc-sw::after{transition:none}}';
+
+  function init() {
+    var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    if (!choice) open(false);
+    // Any element with data-consent-open (footer "Cookie settings", the privacy page) reopens the choices.
+    document.addEventListener('click', function (ev) {
+      var t = ev.target.closest ? ev.target.closest('[data-consent-open]') : null;
+      if (!t) return;
+      ev.preventDefault();
+      open(true);
+    });
+  }
+
+  choice = read();
+  if (choice) apply(choice, null);
+  window.HEA_CONSENT_OPEN = function () { open(true); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
 
 /* Intent tracking. trackIntent(action, detail) reports one action to GA4 (and Meta, where it has a matching event).
    Link clicks are caught by event delegation on href patterns, so every repeated link, and any added later, is
@@ -184,8 +375,6 @@ fbq('track', 'PageView');
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady); else onReady();
 })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
 /* Arimo and Open Sans are served from fonts/ (Latin, Latin Extended, Vietnamese), not Google Fonts, so a blocked
    or slow fonts.googleapis.com (e.g. mainland China) can never hold up the first paint. CJK and Thai still load on demand. */
@@ -198,14 +387,15 @@ fbq('track', 'PageView');
 @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/opensans-vietnamese.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
 @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/opensans-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/opensans-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-/* Layout: the HiEnd Asia 2026 design system (black ground, peach-gold heads, gold rules, bronze bands),
+/* Layout: the HiEnd Asia 2026 design system (black ground, champagne-gold heads, gold rules, bronze bands),
    one idea per section, centred bilingual headings, content max 1200px. Dark is the brand, so the page
-   commits to one dark look. */
+   commits to one dark look. Heading and muted colours are sampled from the 2026 poster (img/000.jpg):
+   its title is champagne #f0d9a0 and its line-art gold sits around #c09858. */
 :root {
   --bg: #000000;
-  --heading: #f8c59a;
+  --heading: #f0d9a0;
   --body: #ebebeb;
-  --muted: #d6c9c9;
+  --muted: #d2c8b4;
   --accent: #c6a661;
   --on-accent: #000000;
   --line: #4f4632;
@@ -223,7 +413,13 @@ fbq('track', 'PageView');
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+/* --head-h is the sticky header's real height (it wraps to two rows on phones), kept current by the script at the end,
+   so a jump to #floorplan etc. never lands under the header. */
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--head-h, 88px) + 12px); }
+.skip { position: absolute; left: 12px; top: -100px; z-index: 70; padding: 12px 18px; border-radius: var(--radius-pill, 50px);
+  background: var(--accent, #c6a661); color: #000; font: 700 14px/1 var(--font-display, sans-serif); text-decoration: none; }
+.skip:focus { top: calc(12px + env(safe-area-inset-top, 0px)); color: #000; }
+main:focus { outline: none; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { margin: 0; background: var(--bg); color: var(--body); font: 16px/1.7 var(--font-body); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
@@ -433,8 +629,28 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .copy { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
 .copy .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
 
-/* Languages: text arrives from i18n/<lang>.json; hide the page briefly so English doesn't flash first */
-.i18n-loading body { visibility: hidden; }
+/* Footer legal links */
+.legal { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.legal a, .legal button { color: var(--muted); font: inherit; font-size: 13px; background: none; border: 0; padding: 0; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px; }
+.legal a:hover, .legal button:hover { color: var(--heading); }
+
+/* Phones and tablets: once the hero's buttons scroll away, "Save the date" and "Directions" stay within thumb reach. */
+.mbar { display: none; }
+@media (max-width: 860px) {
+  .mbar { display: flex; position: fixed; z-index: 25; left: 0; right: 0; bottom: 0; gap: 10px; align-items: center;
+    padding: 10px max(12px, env(safe-area-inset-right, 0px)) max(10px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+    background: rgba(0,0,0,.94); backdrop-filter: blur(8px); border-top: 1px solid var(--line);
+    transform: translateY(110%); transition: transform .25s ease; }
+  .mbar.on { transform: none; }
+  .cc-showing .mbar { transform: translateY(110%); }
+  .mbar > * { flex: 1 1 0; min-width: 0; }
+  .mbar .btn { width: 100%; padding: 0 14px; }
+  .mbar .cal-menu { top: auto; bottom: calc(100% + 8px); left: 0; right: auto; }
+  body.mbar-pad { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-width: 860px) and (prefers-reduced-motion: reduce) { .mbar { transition: none; } }
+
 :root[lang="zh-Hans"] { --font-display: Arimo, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; --font-body: "Open Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; }
 :root[lang="zh-Hant"] { --font-display: Arimo, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; --font-body: "Open Sans", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
 :root[lang="th"] { --font-display: Arimo, "Noto Sans Thai", Tahoma, sans-serif; --font-body: "Open Sans", "Noto Sans Thai", Tahoma, sans-serif; }
@@ -453,14 +669,15 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 @media (max-width: 420px) { .head-cta { display: none; } }
 </style>
 
+<a class="skip" href="#main">Skip to content</a>
 <header class="site-head">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="HiEnd Asia home" data-i18n-attr="aria-label:nav.home"><img src="img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
     <nav class="nav" aria-label="Main" data-i18n-attr="aria-label:nav.aria">
-      <a class="txt" href="#programme" data-i18n="nav.programme">Programme</a>
       <a class="txt" href="#floorplan" data-i18n="nav.floorplan">Floorplan</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">Speakers</a>
       <a class="txt" href="#concerts" data-i18n="nav.concerts">Concerts</a>
+      <a class="txt" href="#programme" data-i18n="nav.programme">Programme</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">Brands</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">Visit</a>
     </nav>
@@ -468,7 +685,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <span class="sr" data-i18n="lang.label">Language</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>
       <select id="langSel">
-        <option value="en" lang="en">English</option>
+        <option value="en" lang="en" selected>English</option>
         <option value="zh-Hans" lang="zh-Hans">简体中文</option>
         <option value="zh-Hant" lang="zh-Hant">繁體中文</option>
         <option value="id" lang="id">Bahasa Indonesia</option>
@@ -482,14 +699,14 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 <section class="hero" id="top">
   <div class="wrap">
     <div class="hero-copy">
       <p class="eyebrow" data-i18n="hero.eyebrow">17 – 19 Dec 2026 · Suntec Singapore · Free entry</p>
       <h1><small data-i18n="hero.kicker">2026 Singapore</small><span data-i18n="hero.title">Hi-End Asia International Audio Visual Show</span></h1>
       <div class="rule"></div>
-      <div class="dates" aria-label="Show hours" data-i18n-attr="aria-label:dates.aria">
+      <div class="dates" aria-label="Show hours">
         <span data-i18n="d.thu">17 Dec Thursday</span><span data-i18n="time">10am – 7pm</span>
         <span data-i18n="d.fri">18 Dec Friday</span><span data-i18n="time">10am – 7pm</span>
         <span data-i18n="d.sat">19 Dec Saturday</span><span data-i18n="time">10am – 7pm</span>
@@ -506,19 +723,19 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
             <a href="hiendasia-2026.ics"><span data-i18n="cal.ics">Apple Calendar &amp; others</span><small data-i18n="cal.ics.note">iPhone, Mac or any calendar app (.ics)</small></a>
           </div>
         </details>
-        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17-19%20Dec%202026%2C%2010am-7pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">Share on WhatsApp</span></a>
+        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17%20%E2%80%93%2019%20Dec%202026%2C%2010am%20%E2%80%93%207pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">Share on WhatsApp</span></a>
         <details class="cal wx">
           <summary class="btn btn-outline"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 4C5.1 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.4 2.5.4h.4a5 5 0 0 1-.2-1.4C9.2 11 12.2 8.6 16 8.6h.3C15.6 5.9 12.6 4 9 4Zm-2.4 3.2a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/><path d="M22 14.2c0-2.7-2.7-4.8-6-4.8s-6 2.1-6 4.8 2.7 4.8 6 4.8c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.8Zm-8-.9a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z"/></svg><span data-i18n="share.wx">Share on WeChat</span></summary>
           <div class="cal-menu wx-menu">
-            <img src="img/wechat-qr.svg" width="168" height="168" alt="QR code for this page" data-i18n-attr="alt:share.wx.qr">
+            <img src="img/wechat-qr.svg" width="168" height="168" alt="QR code for this page">
             <p data-i18n="share.wx.scan">Scan with WeChat to share this page with friends.</p>
-            <button class="btn btn-outline btn-sm" type="button" data-copy><span data-i18n="share.wx.copy">Copy link</span></button>
+            <button class="btn btn-outline btn-sm" type="button" data-copy data-copied="Link copied"><span data-i18n="share.wx.copy">Copy link</span></button>
           </div>
         </details>
       </div>
     </div>
     <div class="hero-poster">
-      <button class="poster-btn" type="button" data-zoom aria-label="View the poster full size" data-i18n-attr="aria-label:poster.zoom"><img src="img/000.jpg" alt="Official poster: 2026 Singapore Hi-End Asia International Audio Visual Show, 17 to 19 December, Suntec Singapore Level 3" data-i18n-attr="alt:poster.alt" width="1242" height="1660" fetchpriority="high"></button>
+      <button class="poster-btn" type="button" data-zoom aria-label="View the poster full size" data-i18n-attr="aria-label:poster.zoom"><img src="img/000-1242.webp" srcset="img/000-640.webp 640w, img/000-760.webp 760w, img/000-960.webp 960w, img/000-1242.webp 1242w" sizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" alt="Official poster: 2026 Singapore Hi-End Asia International Audio Visual Show, 17 to 19 December, Suntec Singapore Level 3" data-i18n-attr="alt:poster.alt" width="1242" height="1660" fetchpriority="high"></button>
       <button class="poster-hint" type="button" data-zoom data-i18n="poster.hint">View poster full size</button>
     </div>
   </div>
@@ -541,12 +758,177 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <p class="intro" data-i18n="video.intro">Listening rooms, founders at the turntable and crates of vinyl: a minute at the 2025 show.</p>
     </div>
     <figure class="video-frame">
-      <video controls playsinline preload="metadata" poster="video/showcase-poster.jpg" width="832" height="464" aria-label="Showcase video of HiEnd Asia 2025" data-i18n-attr="aria-label:video.aria">
+      <video controls playsinline preload="metadata" poster="video/showcase-poster.webp" width="832" height="464" aria-label="Showcase video of HiEnd Asia 2025" data-i18n-attr="aria-label:video.aria">
         <source src="video/showcase-2025.mp4" type="video/mp4">
         <a href="https://www.hiendasia.com/" target="_blank" rel="noopener">hiendasia.com</a>
       </video>
     </figure>
     <div class="video-cap"><span data-i18n="video.cap">HiEnd Asia 2025 showcase · 1:06</span><span>Suntec Singapore</span></div>
+  </div>
+</section>
+
+<section class="block" id="floorplan">
+  <div class="wrap">
+    <div class="split">
+      <div class="split-copy">
+        <div class="bh left">
+          <h2 class="bh-en" data-i18n="floor.h">Show Floorplan</h2>
+          <div class="rule"></div>
+        </div>
+        <p class="intro" data-i18n="floor.intro">Explore dedicated listening rooms on Level 3 of the Suntec Singapore Convention &amp; Exhibition Centre. Each space is purpose-built to showcase the finest in audiophile equipment: a curated journey through sound, precision and craftsmanship.</p>
+        <ul class="legend">
+          <li><b data-i18n="legend.hall.k">Hall</b> <span data-i18n="legend.hall">Exhibition Hall</span></li>
+          <li><b data-i18n="legend.stage.k">Stage</b> <span data-i18n="legend.stage">Concert Hall</span></li>
+          <li><b data-i18n="legend.rooms.k">Rooms</b> <span data-i18n="legend.rooms">Listening rooms</span></li>
+          <li><b data-i18n="legend.vip.k">VIP</b> <span data-i18n="legend.vip">VIP rooms</span></li>
+        </ul>
+      </div>
+      <div>
+        <figure class="figure"><img src="img/007.webp" srcset="img/007-760.webp 760w, img/007.webp 1400w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="Show floorplan of Suntec Level 3: exhibition hall, concert hall, VIP room and numbered exhibition rooms along concourses 1 to 4" data-i18n-attr="alt:floor.alt" width="1400" height="927" loading="lazy"></figure>
+        <p class="figcap" data-i18n="floor.cap">Level 3 layout from hiendasia.com. Room allocations may change before the show.</p>
+      </div>
+    </div>
+    <div class="finder" style="margin-top:var(--space-l)">
+      <h3 data-i18n="floor.find" style="margin:0 0 6px;font:700 24px/1.25 var(--font-display);color:var(--heading)">Find a room</h3>
+      <p class="intro" data-i18n="floor.find.intro" style="margin:0 0 20px">Search for a brand or exhibitor, or tap a room, to see where it is and how to get there from the escalators.</p>
+      <div id="hea-map" data-sheet=""></div>
+    </div>
+  </div>
+  <link rel="stylesheet" href="floormap/floormap.css">
+  <script src="floormap/floormap.js" defer></script>
+</section>
+
+<section class="block band" id="speakers">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="kn.h">Keynote Speakers</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="kn.intro">Renowned experts and thought leaders in high-end audio share their insights in an intimate setting. Held in private rooms, these sessions go deep, from design philosophies to emerging technologies.</p>
+    </div>
+    <div class="people">
+<article class="person">
+  <img class="p-photo" src="img/011.jpg" alt="Jack Liu" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.keynote">Keynote</span>
+  <h3 class="p-name" data-i18n="p.11.name">Jack Liu</h3>
+  <span class="p-role" data-i18n="p.11.role">Editor, Audio Art · Taiwan</span>
+  <p class="p-bio" data-i18n="p.11.bio">Liu Hansheng has edited Audio Art, Taiwan&#x27;s leading Hi-End audio magazine, since 1988. The monthly covers global audio equipment, tuning tips and new music, and is a key voice in the Chinese-speaking audio world.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/012.jpg" alt="Patrick Lee" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.keynote">Keynote</span>
+  <h3 class="p-name" data-i18n="p.12.name">Patrick Lee</h3>
+  <span class="p-role" data-i18n="p.12.role">Hi-fi reviewer · Hong Kong</span>
+  <p class="p-bio" data-i18n="p.12.bio">A Hong Kong hi-fi reviewer since the 1980s, Patrick shares decades of expertise through magazines, social media and YouTube. His Hi-Fi Circle community has over 40,000 members across Greater China and Southeast Asia.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/013.jpg" alt="Richard H. Mak" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.keynote">Keynote</span>
+  <h3 class="p-name" data-i18n="p.13.name">Richard H. Mak</h3>
+  <span class="p-role" data-i18n="p.13.role">Analog Equipment Editor · Mono &amp; Stereo</span>
+  <p class="p-bio" data-i18n="p.13.bio">Analog editor for Mono &amp; Stereo and Part Time Audiophile, and Analog Master at TONEAudio. A writer for 25 years and an audiophile for 44, he designed AnalogMagik, the world&#x27;s only all-in-one cartridge setup software.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/014.jpg" alt="AdiLance" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.keynote">Keynote</span>
+  <h3 class="p-name" data-i18n="p.14.name">AdiLance</h3>
+  <span class="p-role" data-i18n="p.14.role">Audiophile and creator</span>
+  <p class="p-bio" data-i18n="p.14.bio">A fellow audiophile who shares his journey into music and hi-fi on social media, in a characteristically frank manner that makes a refreshing change for those following along.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/015.jpg" alt="John Hsu" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.keynote">Keynote</span>
+  <h3 class="p-name" data-i18n="p.15.name">John Hsu</h3>
+  <span class="p-role" data-i18n="p.15.role">Room acoustics · Singapore</span>
+  <p class="p-bio" data-i18n="p.15.bio">An audiophile for 45 years and a Singapore resident, John has built and tuned a dedicated basement listening room. His interactive session covers psychoacoustics, stereo imaging, room treatment and speaker placement.</p>
+</article>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="concerts">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="con.h">Daily Live Concerts</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="con.intro">A curated lineup of international and Asian artists on the grand stage, voices that reflect the region&#x27;s languages, traditions and musical depth. From acoustic purity to cultural nuance, each performance is a tribute to the art of listening.</p>
+    </div>
+    <div class="people">
+<article class="person">
+  <img class="p-photo" src="img/031.jpg" alt="Anette Askvik" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.live">Live</span>
+  <h3 class="p-name" data-i18n="p.31.name">Anette Askvik</h3>
+  <span class="p-role" data-i18n="p.31.role">Singer, composer, producer · Norway</span>
+  <p class="p-bio" data-i18n="p.31.bio">Her voice is vulnerable and powerful at once; her music soft and hypnotic, balanced between acoustic and electronic. Four albums in, her recordings have become a global standard for demonstrating and testing audio equipment.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/036.jpg" alt="STein Austrud" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.live">Live</span>
+  <h3 class="p-name" data-i18n="p.36.name">STein Austrud</h3>
+  <span class="p-role" data-i18n="p.36.role">Pianist, composer, producer · Norway</span>
+  <p class="p-bio" data-i18n="p.36.bio">Blends classical training with contemporary soundscapes, weaving cinematic textures with lyrical piano. Performs with Anette Askvik at HiEnd Asia.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/032.jpg" alt="Anne Bisson" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.live">Live</span>
+  <h3 class="p-name" data-i18n="p.32.name">Anne Bisson</h3>
+  <span class="p-role" data-i18n="p.32.role">Jazz singer, pianist, songwriter · Canada</span>
+  <p class="p-bio" data-i18n="p.32.bio">Celebrated for warm vocals, intimate live performances and audiophile-quality recordings that blend jazz, pop and classical influences.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/033.jpg" alt="Zhong Zhigang" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.live">Live</span>
+  <h3 class="p-name" data-i18n="p.33.name">Zhong Zhigang</h3>
+  <span class="p-role" data-i18n="p.33.role">Singer and producer · China</span>
+  <p class="p-bio" data-i18n="p.33.bio">Second place at the 1994 Hunan MTV Singing Contest and one of Shenzhen&#x27;s Top Ten Singers in 1998 and 1999. Albums include Once Chanted, Night Fire and Just Right.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/034.jpg" alt="Kiva" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.live">Live</span>
+  <h3 class="p-name" data-i18n="p.34.name">Kiva</h3>
+  <span class="p-role" data-i18n="p.34.role">Singer-songwriter</span>
+  <p class="p-bio" data-i18n="p.34.bio">A Mandarin-language singer-songwriter whose music ranges from soulful ballads to cinematic themes. Nominated for Best Jazz Song for Libra at the 2025 Wave Music Awards.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/035.jpg" alt="Henry Heng" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.emcee">Emcee</span>
+  <h3 class="p-name" data-i18n="p.35.name">Henry Heng</h3>
+  <span class="p-role" data-i18n="p.35.role">Emcee · Singapore</span>
+  <p class="p-bio" data-i18n="p.35.bio">A familiar face on Singapore television for over two decades, best known for his work with Mediacorp across dramas, variety shows and films.</p>
+</article>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="guests" style="padding-top:0">
+  <div class="wrap" style="padding-top:0">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="gu.h">Esteemed Guests</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="gu.intro">Respected personalities, industry veterans and passionate voices from the audiophile world walk the halls of HiEnd Asia. Their presence is about shared passion, deep appreciation and meaningful encounters.</p>
+    </div>
+    <div class="people">
+<article class="person">
+  <img class="p-photo" src="img/040.jpg" alt="Arthur Hsieh" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.vip">VIP</span>
+  <h3 class="p-name" data-i18n="p.40.name">Arthur Hsieh</h3>
+  <span class="p-role" data-i18n="p.40.role">Producer and songwriter · Taiwan</span>
+  <p class="p-bio" data-i18n="p.40.bio">Has worked with Golden Melody Award winners including Andy Lau, Ricky Hsiao and Sasha Lee. Founded the LP2D Remaster Station channel in 2012 and the listening space 築SOUND))) in 2022.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/041.jpg" alt="Brother Bok" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.vip">VIP</span>
+  <h3 class="p-name" data-i18n="p.41.name">Brother Bok</h3>
+  <span class="p-role" data-i18n="p.41.role">Audio YouTuber · Malaysia</span>
+  <p class="p-bio" data-i18n="p.41.bio">Malaysia&#x27;s only professional audio YouTuber presenting in Chinese, known for a humorous, straightforward style: unboxings, store visits and audio know-how.</p>
+</article>
+<article class="person">
+  <img class="p-photo" src="img/042.jpg" alt="Hao Wei" loading="lazy" width="640" height="800">
+  <span class="badge" data-i18n="badge.meet">Meet &amp; greet</span>
+  <h3 class="p-name" data-i18n="p.42.name">Hao Wei</h3>
+  <span class="p-role" data-i18n="p.42.role">Soprano · China</span>
+  <p class="p-bio" data-i18n="p.42.bio">A graduate of the Xinghai Conservatory of Music in vocal performance, known for strong performances and emotional depth. Several albums released since 2020.</p>
+</article>
+    </div>
   </div>
 </section>
 
@@ -573,13 +955,13 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
             <a href="hiendasia-2026.ics"><span data-i18n="cal.ics">Apple Calendar &amp; others</span><small data-i18n="cal.ics.note">iPhone, Mac or any calendar app (.ics)</small></a>
           </div>
         </details>
-        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17-19%20Dec%202026%2C%2010am-7pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">Share on WhatsApp</span></a>
+        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17%20%E2%80%93%2019%20Dec%202026%2C%2010am%20%E2%80%93%207pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">Share on WhatsApp</span></a>
         <details class="cal wx">
           <summary class="btn btn-outline"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 4C5.1 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.4 2.5.4h.4a5 5 0 0 1-.2-1.4C9.2 11 12.2 8.6 16 8.6h.3C15.6 5.9 12.6 4 9 4Zm-2.4 3.2a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/><path d="M22 14.2c0-2.7-2.7-4.8-6-4.8s-6 2.1-6 4.8 2.7 4.8 6 4.8c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.8Zm-8-.9a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z"/></svg><span data-i18n="share.wx">Share on WeChat</span></summary>
           <div class="cal-menu wx-menu">
-            <img src="img/wechat-qr.svg" width="168" height="168" alt="QR code for this page" data-i18n-attr="alt:share.wx.qr">
+            <img src="img/wechat-qr.svg" width="168" height="168" alt="QR code for this page">
             <p data-i18n="share.wx.scan">Scan with WeChat to share this page with friends.</p>
-            <button class="btn btn-outline btn-sm" type="button" data-copy><span data-i18n="share.wx.copy">Copy link</span></button>
+            <button class="btn btn-outline btn-sm" type="button" data-copy data-copied="Link copied"><span data-i18n="share.wx.copy">Copy link</span></button>
           </div>
         </details>
       </div>
@@ -587,172 +969,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
 </section>
 
-<section class="block" id="floorplan">
-  <div class="wrap">
-    <div class="split">
-      <div class="split-copy">
-        <div class="bh left">
-          <h2 class="bh-en" data-i18n="floor.h">Show Floorplan</h2>
-          <div class="rule"></div>
-        </div>
-        <p class="intro" data-i18n="floor.intro">Explore dedicated listening rooms on Level 3 of the Suntec Singapore Convention &amp; Exhibition Centre. Each space is purpose-built to showcase the finest in audiophile equipment: a curated journey through sound, precision and craftsmanship.</p>
-        <ul class="legend">
-          <li><b data-i18n="legend.hall.k">Hall</b> <span data-i18n="legend.hall">Exhibition Hall</span></li>
-          <li><b data-i18n="legend.stage.k">Stage</b> <span data-i18n="legend.stage">Concert Hall</span></li>
-          <li><b data-i18n="legend.rooms.k">Rooms</b> <span data-i18n="legend.rooms">Listening rooms</span></li>
-          <li><b data-i18n="legend.vip.k">VIP</b> <span data-i18n="legend.vip">VIP rooms</span></li>
-        </ul>
-      </div>
-      <div>
-        <figure class="figure"><img src="img/007.jpg" alt="Show floorplan of Suntec Level 3: exhibition hall, concert hall, VIP room and numbered exhibition rooms along concourses 1 to 4" data-i18n-attr="alt:floor.alt" width="1400" height="927" loading="lazy"></figure>
-        <p class="figcap" data-i18n="floor.cap">Level 3 layout from hiendasia.com. Room allocations may change before the show.</p>
-      </div>
-    </div>
-    <div class="finder" style="margin-top:var(--space-l)">
-      <h3 data-i18n="floor.find" style="margin:0 0 6px;font:700 24px/1.25 var(--font-display);color:var(--heading)">Find a room</h3>
-      <p class="intro" data-i18n="floor.find.intro" style="margin:0 0 20px">Search for a brand or exhibitor, or tap a room, to see where it is and how to get there from the escalators.</p>
-      <div id="hea-map" data-sheet=""></div>
-    </div>
-  </div>
-  <link rel="stylesheet" href="floormap/floormap.css">
-  <script src="floormap/floormap.js" defer></script>
-</section>
-
-<section class="block band" id="speakers">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="kn.h">Keynote Speakers</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="kn.intro">Renowned experts and thought leaders in high-end audio share their insights in an intimate setting. Held in private rooms, these sessions go deep, from design philosophies to emerging technologies.</p>
-    </div>
-    <div class="people">
-<article class="person">
-  <img class="p-photo" src="img/011.jpg" alt="Jack Liu" data-i18n-attr="alt:p.11.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.keynote">Keynote</span>
-  <h3 class="p-name" data-i18n="p.11.name">Jack Liu</h3>
-  <span class="p-role" data-i18n="p.11.role">Editor, Audio Art · Taiwan</span>
-  <p class="p-bio" data-i18n="p.11.bio">Liu Hansheng has edited Audio Art, Taiwan&#x27;s leading Hi-End audio magazine, since 1988. The monthly covers global audio equipment, tuning tips and new music, and is a key voice in the Chinese-speaking audio world.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/012.jpg" alt="Patrick Lee" data-i18n-attr="alt:p.12.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.keynote">Keynote</span>
-  <h3 class="p-name" data-i18n="p.12.name">Patrick Lee</h3>
-  <span class="p-role" data-i18n="p.12.role">Hi-fi reviewer · Hong Kong</span>
-  <p class="p-bio" data-i18n="p.12.bio">A Hong Kong hi-fi reviewer since the 1980s, Patrick shares decades of expertise through magazines, social media and YouTube. His Hi-Fi Circle community has over 40,000 members across Greater China and Southeast Asia.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/013.jpg" alt="Richard H. Mak" data-i18n-attr="alt:p.13.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.keynote">Keynote</span>
-  <h3 class="p-name" data-i18n="p.13.name">Richard H. Mak</h3>
-  <span class="p-role" data-i18n="p.13.role">Analog Equipment Editor · Mono &amp; Stereo</span>
-  <p class="p-bio" data-i18n="p.13.bio">Analog editor for Mono &amp; Stereo and Part Time Audiophile, and Analog Master at TONEAudio. A writer for 25 years and an audiophile for 44, he designed AnalogMagik, the world&#x27;s only all-in-one cartridge setup software.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/014.jpg" alt="AdiLance" data-i18n-attr="alt:p.14.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.keynote">Keynote</span>
-  <h3 class="p-name" data-i18n="p.14.name">AdiLance</h3>
-  <span class="p-role" data-i18n="p.14.role">Audiophile and creator</span>
-  <p class="p-bio" data-i18n="p.14.bio">A fellow audiophile who shares his journey into music and hi-fi on social media, in a characteristically frank manner that makes a refreshing change for those following along.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/015.jpg" alt="John Hsu" data-i18n-attr="alt:p.15.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.keynote">Keynote</span>
-  <h3 class="p-name" data-i18n="p.15.name">John Hsu</h3>
-  <span class="p-role" data-i18n="p.15.role">Room acoustics · Singapore</span>
-  <p class="p-bio" data-i18n="p.15.bio">An audiophile for 45 years and a Singapore resident, John has built and tuned a dedicated basement listening room. His interactive session covers psychoacoustics, stereo imaging, room treatment and speaker placement.</p>
-</article>
-    </div>
-  </div>
-</section>
-
-<section class="block" id="concerts">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="con.h">Daily Live Concerts</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="con.intro">A curated lineup of international and Asian artists on the grand stage, voices that reflect the region&#x27;s languages, traditions and musical depth. From acoustic purity to cultural nuance, each performance is a tribute to the art of listening.</p>
-    </div>
-    <div class="people">
-<article class="person">
-  <img class="p-photo" src="img/031.jpg" alt="Anette Askvik" data-i18n-attr="alt:p.31.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">Live</span>
-  <h3 class="p-name" data-i18n="p.31.name">Anette Askvik</h3>
-  <span class="p-role" data-i18n="p.31.role">Singer, composer, producer · Norway</span>
-  <p class="p-bio" data-i18n="p.31.bio">Her voice is vulnerable and powerful at once; her music soft and hypnotic, balanced between acoustic and electronic. Four albums in, her recordings have become a global standard for demonstrating and testing audio equipment.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/036.jpg" alt="STein Austrud" data-i18n-attr="alt:p.36.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">Live</span>
-  <h3 class="p-name" data-i18n="p.36.name">STein Austrud</h3>
-  <span class="p-role" data-i18n="p.36.role">Pianist, composer, producer · Norway</span>
-  <p class="p-bio" data-i18n="p.36.bio">Blends classical training with contemporary soundscapes, weaving cinematic textures with lyrical piano. Performs with Anette Askvik at HiEnd Asia.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/032.jpg" alt="Anne Bisson" data-i18n-attr="alt:p.32.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">Live</span>
-  <h3 class="p-name" data-i18n="p.32.name">Anne Bisson</h3>
-  <span class="p-role" data-i18n="p.32.role">Jazz singer, pianist, songwriter · Canada</span>
-  <p class="p-bio" data-i18n="p.32.bio">Celebrated for warm vocals, intimate live performances and audiophile-quality recordings that blend jazz, pop and classical influences.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/033.jpg" alt="Zhong Zhigang" data-i18n-attr="alt:p.33.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">Live</span>
-  <h3 class="p-name" data-i18n="p.33.name">Zhong Zhigang</h3>
-  <span class="p-role" data-i18n="p.33.role">Singer and producer · China</span>
-  <p class="p-bio" data-i18n="p.33.bio">Second place at the 1994 Hunan MTV Singing Contest and one of Shenzhen&#x27;s Top Ten Singers in 1998 and 1999. Albums include Once Chanted, Night Fire and Just Right.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/034.jpg" alt="Kiva" data-i18n-attr="alt:p.34.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">Live</span>
-  <h3 class="p-name" data-i18n="p.34.name">Kiva</h3>
-  <span class="p-role" data-i18n="p.34.role">Singer-songwriter</span>
-  <p class="p-bio" data-i18n="p.34.bio">A Mandarin-language singer-songwriter whose music ranges from soulful ballads to cinematic themes. Nominated for Best Jazz Song for Libra at the 2025 Wave Music Awards.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/035.jpg" alt="Henry Heng" data-i18n-attr="alt:p.35.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.emcee">Emcee</span>
-  <h3 class="p-name" data-i18n="p.35.name">Henry Heng</h3>
-  <span class="p-role" data-i18n="p.35.role">Emcee · Singapore</span>
-  <p class="p-bio" data-i18n="p.35.bio">A familiar face on Singapore television for over two decades, best known for his work with Mediacorp across dramas, variety shows and films.</p>
-</article>
-    </div>
-  </div>
-</section>
-
-<section class="block" id="guests" style="padding-top:0">
-  <div class="wrap" style="padding-top:0">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="gu.h">Esteemed Guests</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="gu.intro">Respected personalities, industry veterans and passionate voices from the audiophile world walk the halls of HiEnd Asia. Their presence is about shared passion, deep appreciation and meaningful encounters.</p>
-    </div>
-    <div class="people">
-<article class="person">
-  <img class="p-photo" src="img/040.jpg" alt="Arthur Hsieh" data-i18n-attr="alt:p.40.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.vip">VIP</span>
-  <h3 class="p-name" data-i18n="p.40.name">Arthur Hsieh</h3>
-  <span class="p-role" data-i18n="p.40.role">Producer and songwriter · Taiwan</span>
-  <p class="p-bio" data-i18n="p.40.bio">Has worked with Golden Melody Award winners including Andy Lau, Ricky Hsiao and Sasha Lee. Founded the LP2D Remaster Station channel in 2012 and the listening space 築SOUND))) in 2022.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/041.jpg" alt="Brother Bok" data-i18n-attr="alt:p.41.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.vip">VIP</span>
-  <h3 class="p-name" data-i18n="p.41.name">Brother Bok</h3>
-  <span class="p-role" data-i18n="p.41.role">Audio YouTuber · Malaysia</span>
-  <p class="p-bio" data-i18n="p.41.bio">Malaysia&#x27;s only professional audio YouTuber presenting in Chinese, known for a humorous, straightforward style: unboxings, store visits and audio know-how.</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="img/042.jpg" alt="Hao Wei" data-i18n-attr="alt:p.42.name" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.meet">Meet &amp; greet</span>
-  <h3 class="p-name" data-i18n="p.42.name">Hao Wei</h3>
-  <span class="p-role" data-i18n="p.42.role">Soprano · China</span>
-  <p class="p-bio" data-i18n="p.42.bio">A graduate of the Xinghai Conservatory of Music in vocal performance, known for strong performances and emotional depth. Several albums released since 2020.</p>
-</article>
-    </div>
-  </div>
-</section>
-
-<section class="block band" id="reps">
+<section class="block" id="reps">
   <div class="wrap">
     <div class="bh">
       <h2 class="bh-en" data-i18n="reps.h">Brand Representatives</h2>
@@ -1173,7 +1390,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <li class="tile"><img src="img/242.jpg" alt="Zensati" loading="lazy" title="Zensati"></li>
       </ul>
     </div>
-    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false" data-i18n="brands.showall">Show all 135 brands</button></div>
+    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false" data-all="Show all 135 brands" data-fewer="Show fewer">Show all 135 brands</button></div>
   </div>
 </section>
 
@@ -1204,7 +1421,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <h2 class="bh-en" data-i18n="visit.h">Strategic Location</h2>
           <div class="rule"></div>
         </div>
-      <div class="dates" aria-label="Show hours" data-i18n-attr="aria-label:dates.aria">
+      <div class="dates" aria-label="Show hours">
         <span data-i18n="d.thu">17 Dec Thursday</span><span data-i18n="time">10am – 7pm</span>
         <span data-i18n="d.fri">18 Dec Friday</span><span data-i18n="time">10am – 7pm</span>
         <span data-i18n="d.sat">19 Dec Saturday</span><span data-i18n="time">10am – 7pm</span>
@@ -1227,20 +1444,20 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
             <a href="hiendasia-2026.ics"><span data-i18n="cal.ics">Apple Calendar &amp; others</span><small data-i18n="cal.ics.note">iPhone, Mac or any calendar app (.ics)</small></a>
           </div>
         </details>
-        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17-19%20Dec%202026%2C%2010am-7pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">Share on WhatsApp</span></a>
+        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17%20%E2%80%93%2019%20Dec%202026%2C%2010am%20%E2%80%93%207pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">Share on WhatsApp</span></a>
         <details class="cal wx">
           <summary class="btn btn-outline"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 4C5.1 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.4 2.5.4h.4a5 5 0 0 1-.2-1.4C9.2 11 12.2 8.6 16 8.6h.3C15.6 5.9 12.6 4 9 4Zm-2.4 3.2a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/><path d="M22 14.2c0-2.7-2.7-4.8-6-4.8s-6 2.1-6 4.8 2.7 4.8 6 4.8c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.8Zm-8-.9a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z"/></svg><span data-i18n="share.wx">Share on WeChat</span></summary>
           <div class="cal-menu wx-menu">
-            <img src="img/wechat-qr.svg" width="168" height="168" alt="QR code for this page" data-i18n-attr="alt:share.wx.qr">
+            <img src="img/wechat-qr.svg" width="168" height="168" alt="QR code for this page">
             <p data-i18n="share.wx.scan">Scan with WeChat to share this page with friends.</p>
-            <button class="btn btn-outline btn-sm" type="button" data-copy><span data-i18n="share.wx.copy">Copy link</span></button>
+            <button class="btn btn-outline btn-sm" type="button" data-copy data-copied="Link copied"><span data-i18n="share.wx.copy">Copy link</span></button>
           </div>
         </details>
       </div>
       </div>
       <div class="photos">
-        <img src="img/008.jpg" alt="Escalators at the entrance to Suntec Singapore Convention Centre" data-i18n-attr="alt:visit.photo1" loading="lazy" width="1333" height="1000">
-        <img src="img/009.jpg" alt="Suntec Singapore&#x27;s glass roof lit blue at night" data-i18n-attr="alt:visit.photo2" loading="lazy" width="1400" height="933">
+        <img src="img/008.webp" alt="Escalators at the entrance to Suntec Singapore Convention Centre" data-i18n-attr="alt:visit.photo1" loading="lazy" width="1333" height="1000">
+        <img src="img/009.webp" alt="Suntec Singapore&#x27;s glass roof lit blue at night" data-i18n-attr="alt:visit.photo2" loading="lazy" width="1400" height="933">
       </div>
     </div>
   </div>
@@ -1301,9 +1518,22 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 </section>
 </main>
 
+<div class="mbar" id="mbar">
+  <details class="cal">
+    <summary class="btn btn-primary btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="nav.save">Save the date</span></summary>
+    <div class="cal-menu">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">Repeats 10am – 7pm, 17 – 19 Dec</small></a>
+            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">Personal Outlook and Hotmail</small></a>
+            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook (work or school)</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
+            <a href="hiendasia-2026.ics"><span data-i18n="cal.ics">Apple Calendar &amp; others</span><small data-i18n="cal.ics.note">iPhone, Mac or any calendar app (.ics)</small></a>
+          </div>
+  </details>
+  <a class="btn btn-outline btn-sm" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener"><span data-i18n="visit.directions">Get directions</span></a>
+</div>
+
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Official poster, full size" data-i18n-attr="aria-label:lb.aria" hidden>
   <button class="btn btn-outline btn-sm lb-close" type="button" id="lbClose" data-i18n="lb.close">Close</button>
-  <img src="img/000.jpg" alt="Official poster: 2026 Singapore Hi-End Asia International Audio Visual Show, 17 to 19 December, Suntec Singapore Level 3" data-i18n-attr="alt:poster.alt" width="1242" height="1660">
+  <img src="img/000-1242.webp" alt="Official poster: 2026 Singapore Hi-End Asia International Audio Visual Show, 17 to 19 December, Suntec Singapore Level 3" data-i18n-attr="alt:poster.alt" width="1242" height="1660" loading="lazy">
 </div>
 
 <footer class="site-foot">
@@ -1325,69 +1555,28 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       </div>
     </div>
   </div>
-  <div class="copy"><div class="wrap"><span>© 2026 HiEnd Asia + Pte. Ltd</span><span><span data-i18n="foot.motto">Be present. The moment is yours.</span> · <a href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17-19%20Dec%202026%2C%2010am-7pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa data-i18n="share.wa">Share on WhatsApp</a></span></div></div>
+  <div class="copy"><div class="wrap"><span>© 2026 HiEnd Asia + Pte. Ltd</span><span class="legal"><a href="privacy.html">Privacy notice</a><button type="button" data-consent-open>Cookie settings</button></span><span><span data-i18n="foot.motto">Be present. The moment is yours.</span> · <a href="https://wa.me/?text=HiEnd%20Asia%202026%2C%20the%20Singapore%20Hi-End%20Asia%20International%20Audio%20Visual%20Show%0A17%20%E2%80%93%2019%20Dec%202026%2C%2010am%20%E2%80%93%207pm%20daily%0ALevel%203%2C%20Suntec%20Singapore%20Convention%20%26%20Exhibition%20Centre%0AFree%20entry%2C%20no%20tickets%20needed.%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa data-i18n="share.wa">Share on WhatsApp</a></span></div></div>
 </footer>
 
 <script>
 (function () {
   var root = document.documentElement;
-  // Shared links point at this site, UTM-tagged so GA4 credits the visits they bring back.
-  var SITE = 'https://christophertanenso.github.io/hiendasia-2026/';
-  var WA_LINK = SITE + '?utm_source=whatsapp&utm_medium=social&utm_campaign=share';
-  var FONTS = { 'zh-Hans': 'Noto+Sans+SC:wght@400;700', 'zh-Hant': 'Noto+Sans+TC:wght@400;700', 'th': 'Noto+Sans+Thai:wght@400;700' };
-  var cache = {}, dict = null;
+  // Shared links point at this language's page, UTM-tagged so GA4 credits the visits they bring back.
+  var PAGE = 'https://christophertanenso.github.io/hiendasia-2026/';
 
-  function loadFont(lang) {
-    if (!FONTS[lang] || document.getElementById('font-' + lang)) return;
-    var l = document.createElement('link');
-    l.id = 'font-' + lang; l.rel = 'stylesheet';
-    l.href = 'https://fonts.googleapis.com/css2?family=' + FONTS[lang] + '&display=swap';
-    document.head.appendChild(l);
-  }
-  function apply(d) {
-    dict = d;
-    document.querySelectorAll('[data-i18n]').forEach(function (el) {
-      var v = d[el.getAttribute('data-i18n')];
-      if (typeof v === 'string' && v !== '') el.textContent = v;
-    });
-    document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
-      el.getAttribute('data-i18n-attr').split(';').forEach(function (pair) {
-        var p = pair.split(':'), v = d[p[1]];
-        if (typeof v === 'string' && v !== '') el.setAttribute(p[0], v);
-      });
-    });
-    if (d['wa.text']) {
-      var href = 'https://wa.me/?text=' + encodeURIComponent(d['wa.text'] + '\n' + WA_LINK);
-      document.querySelectorAll('[data-wa]').forEach(function (a) { a.href = href; });
-    }
-    if (d['meta.title']) document.title = d['meta.title'];
-  }
-  function setLang(lang, save) {
-    root.lang = lang;
-    sel.value = lang;
-    if (save) { try { localStorage.setItem('hea-lang', lang); } catch (e) {} }
-    loadFont(lang);
-    var done = function () { root.classList.remove('i18n-loading'); };
-    if (cache[lang]) { apply(cache[lang]); done(); return; }
-    fetch('i18n/' + lang + '.json')
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (d) { cache[lang] = d; if (root.lang === lang) apply(d); })
-      .catch(function () { /* keep whatever text is showing */ })
-      .then(done);
-  }
-
+  // Language menu: each language is its own page. The choice is remembered, so / sends the visitor back to it.
   var sel = document.getElementById('langSel');
-  sel.addEventListener('change', function () { setLang(sel.value, true); });
-  setLang(window.HEA_LANG || 'en', false);
+  sel.addEventListener('change', function () {
+    try { localStorage.setItem('hea-lang', sel.value); } catch (e) {}
+    location.href = window.HEA_LANG_URL(sel.value) + location.hash;
+  });
 
-  // Brand wall expand / collapse
+  // Brand wall expand / collapse (labels are baked into data attributes in each language)
   var box = document.getElementById('wallBox'), btn = document.getElementById('wallToggle');
   btn.addEventListener('click', function () {
     var open = box.classList.toggle('collapsed') === false;
     btn.setAttribute('aria-expanded', String(open));
-    var key = open ? 'brands.showfewer' : 'brands.showall';
-    btn.setAttribute('data-i18n', key);
-    btn.textContent = (dict && dict[key]) || (open ? 'Show fewer' : 'Show all brands');
+    btn.textContent = btn.getAttribute(open ? 'data-fewer' : 'data-all');
     if (!open) box.scrollIntoView({ block: 'start' });
   });
   // Poster lightbox
@@ -1397,7 +1586,11 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   document.querySelectorAll('[data-zoom]').forEach(function (b) { b.addEventListener('click', openLb); });
   lbClose.addEventListener('click', closeLb);
   lb.addEventListener('click', function (ev) { if (ev.target !== lbClose) closeLb(); });
-  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && !lb.hidden) closeLb(); });
+  document.addEventListener('keydown', function (ev) {
+    if (lb.hidden) return;
+    if (ev.key === 'Escape') closeLb();
+    else if (ev.key === 'Tab') { ev.preventDefault(); lbClose.focus(); } // keep focus inside the open dialog
+  });
   // Close any open "Add to calendar" menu on an outside click or Escape
   var cals = document.querySelectorAll('details.cal');
   document.addEventListener('click', function (ev) {
@@ -1410,9 +1603,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   document.querySelectorAll('[data-copy]').forEach(function (b) {
     var label = b.querySelector('[data-i18n]') || b;
     b.addEventListener('click', function () {
-      var url = SITE + '?lang=' + encodeURIComponent(root.lang) + '&utm_source=wechat&utm_medium=social&utm_campaign=share';
-      function say(k, fb) { label.textContent = (dict && dict[k]) || fb; }
-      function ok() { say('share.wx.copied', 'Link copied'); setTimeout(function () { say('share.wx.copy', 'Copy link'); }, 2000); }
+      var url = PAGE + '?utm_source=wechat&utm_medium=social&utm_campaign=share';
+      var idle = label.textContent;
+      function ok() { label.textContent = b.getAttribute('data-copied') || idle; setTimeout(function () { label.textContent = idle; }, 2000); }
       function fallback() {
         var ta = document.createElement('textarea');
         ta.value = url; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
@@ -1425,5 +1618,28 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       if (window.trackIntent) window.trackIntent('share', { method: 'copy_link' });
     });
   });
+
+  // Keep --head-h equal to the sticky header's height, so #anchor jumps clear it at any width.
+  var head = document.querySelector('.site-head');
+  function headH() { root.style.setProperty('--head-h', head.getBoundingClientRect().height + 'px'); }
+  headH();
+  if ('ResizeObserver' in window) new ResizeObserver(headH).observe(head); else window.addEventListener('resize', headH);
+
+  // Mobile bar: appears once the hero's own buttons have scrolled out of view, hides again near the visit section
+  // (which has the same buttons) and while the cookie banner is open (CSS).
+  var bar = document.getElementById('mbar');
+  var heroBtns = document.querySelector('.hero .btns'), visitBtns = document.querySelector('#visit .btns');
+  if (bar && heroBtns && 'IntersectionObserver' in window) {
+    var update = function () {
+      var h = heroBtns.getBoundingClientRect(), v = visitBtns ? visitBtns.getBoundingClientRect() : null;
+      var visitInView = v && v.top < window.innerHeight && v.bottom > 0;
+      var on = h.bottom < 0 && !visitInView;
+      bar.classList.toggle('on', on);
+      document.body.classList.toggle('mbar-pad', on);
+      if (!on) bar.querySelectorAll('details').forEach(function (d) { d.open = false; });
+    };
+    var io = new IntersectionObserver(update);
+    io.observe(heroBtns); if (visitBtns) io.observe(visitBtns);
+  }
 })();
 </script>

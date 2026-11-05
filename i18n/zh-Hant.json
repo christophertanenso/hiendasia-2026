@@ -200,5 +200,21 @@
   "sp.stardust": "影片與攝影",
   "sp.piano": "Yamaha 音樂會鋼琴",
   "foot.tagline": "與東協知音共賞生活之美：目之所見，耳之所聞，舌之所嘗，指之所觸，鼻之所嗅。",
-  "foot.motto": "靜心聆聽，此刻屬於你。"
+  "foot.motto": "靜心聆聽，此刻屬於你。",
+  "skip": "跳到主要內容",
+  "meta.desc": "2026年12月17–19日，新加坡新達城3樓。免費入場。逾150個高端音響品牌、試聽室、主題演講與現場音樂會。",
+  "consent.title": "您的隱私",
+  "consent.text": "我們希望使用分析 Cookie 了解本頁的使用情況，並使用 Google 和 Meta 的行銷 Cookie 衡量廣告成效。在您選擇之前不會設定任何 Cookie，您可隨時更改選擇。",
+  "consent.accept": "全部接受",
+  "consent.reject": "全部拒絕",
+  "consent.settings": "自訂",
+  "consent.save": "儲存選擇",
+  "consent.necessary": "必要",
+  "consent.necessary.d": "記住您的語言和此項選擇，一律啟用。",
+  "consent.analytics": "分析",
+  "consent.analytics.d": "Google Analytics：了解哪些區塊被瀏覽、哪些按鈕被使用。",
+  "consent.marketing": "行銷",
+  "consent.marketing.d": "Google Ads 和 Meta Pixel：衡量廣告成效，並向曾造訪者顯示 HiEnd Asia 廣告。",
+  "consent.policy": "隱私聲明",
+  "consent.footer": "Cookie 設定"
 }

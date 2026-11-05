@@ -251,11 +251,18 @@
         var big = isNum(r.room) ? r.room : (SHORT[r.room] || r.room);
         var small = r.type === 'vip' ? 'VIP' : r.type === 'tbc' ? STR.tbcShort : '';
         var cls = 'hm-room t-' + r.type + (sel === r.room ? ' is-sel' : '') + (matches(r) ? '' : ' is-dim');
-        var aria = title(r) + ', ' + STR.types[r.type] + (r.exhibitor ? ', ' + r.exhibitor : '');
+        // The accessible name starts with the text drawn on the room (WCAG 2.5.3 label-in-name), then adds
+        // the room's name and type only where they say something new, so nothing is read out twice.
+        var vis = big + (small ? ' ' + small : ''), tt = title(r), ty = STR.types[r.type], parts = [vis];
+        if (tt && tt !== vis && tt !== ty && tt.indexOf(big) < 0) parts.push(tt);
+        if (ty && ty !== vis) parts.push(ty);
+        if (r.exhibitor) parts.push(r.exhibitor);
+        var aria = parts.join(', ');
         o += '<g class="' + cls + '" data-room="' + esc(r.room) + '" tabindex="0" role="button" aria-label="' + esc(aria) + '" aria-pressed="' + (sel === r.room) + '">' +
           '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="5"/>' +
           '<text class="hm-rn" x="' + cx + '" y="' + (small ? cy + 1 : cy + 5.5) + '"' + (big.length > 4 ? ' style="font-size:13px"' : '') + '>' + esc(big) + '</text>' +
-          (small ? '<text class="hm-rs" x="' + cx + '" y="' + (cy + 14) + '">' + esc(small) + '</text>' : '') + '</g>';
+          // the leading space keeps the room's text content "312 VIP" (not "312VIP"); SVG doesn't draw it
+          (small ? '<text class="hm-rs" x="' + cx + '" y="' + (cy + 14) + '"> ' + esc(small) + '</text>' : '') + '</g>';
       });
 
       var s = startPoint(here);

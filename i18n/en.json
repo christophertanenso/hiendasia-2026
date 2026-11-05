@@ -10,7 +10,6 @@
   "nav.brands": "Brands",
   "nav.visit": "Visit",
   "nav.save": "Save the date",
-
   "hero.eyebrow": "17 – 19 Dec 2026 · Suntec Singapore · Free entry",
   "hero.kicker": "2026 Singapore",
   "hero.title": "Hi-End Asia International Audio Visual Show",
@@ -26,7 +25,6 @@
   "free.label": "Free entry",
   "free.hero": "No tickets needed. Walk in any day.",
   "free.short": "No tickets needed.",
-
   "cal.add": "Add to calendar",
   "cal.google": "Google Calendar",
   "cal.google.note": "Repeats 10am – 7pm, 17 – 19 Dec",
@@ -43,13 +41,11 @@
   "share.wx.copied": "Link copied",
   "share.wx.qr": "QR code for this page",
   "wa.text": "HiEnd Asia 2026, the Singapore Hi-End Asia International Audio Visual Show\n17 – 19 Dec 2026, 10am – 7pm daily\nLevel 3, Suntec Singapore Convention & Exhibition Centre\nFree entry, no tickets needed.",
-
   "poster.alt": "Official poster: 2026 Singapore Hi-End Asia International Audio Visual Show, 17 to 19 December, Suntec Singapore Level 3",
   "poster.zoom": "View the poster full size",
   "poster.hint": "View poster full size",
   "lb.aria": "Official poster, full size",
   "lb.close": "Close",
-
   "stats.aria": "The show in numbers",
   "stat.brands": "leading audio brands",
   "stat.visits": "patrons at the 2024 edition",
@@ -57,16 +53,13 @@
   "stat.days": "of listening rooms and live music",
   "stat.free.n": "Free",
   "stat.free": "entry, no tickets needed",
-
   "video.h": "Inside HiEnd Asia",
   "video.intro": "Listening rooms, founders at the turntable and crates of vinyl: a minute at the 2025 show.",
   "video.aria": "Showcase video of HiEnd Asia 2025",
   "video.cap": "HiEnd Asia 2025 showcase · 1:06",
-
   "prog.h": "Programme",
   "prog.intro": "The 2026 programme is yet to be confirmed. Expect keynote talks, daily live concerts and artist meet-and-greets across all three days. The timetable will be published here.",
   "prog.tbc": "To be confirmed",
-
   "floor.h": "Show Floorplan",
   "floor.intro": "Explore dedicated listening rooms on Level 3 of the Suntec Singapore Convention & Exhibition Centre. Each space is purpose-built to showcase the finest in audiophile equipment: a curated journey through sound, precision and craftsmanship.",
   "legend.hall.k": "Hall",
@@ -81,7 +74,6 @@
   "floor.cap": "Level 3 layout from hiendasia.com. Room allocations may change before the show.",
   "floor.find": "Find a room",
   "floor.find.intro": "Search for a brand or exhibitor, or tap a room, to see where it is and how to get there from the escalators.",
-
   "kn.h": "Keynote Speakers",
   "kn.intro": "Renowned experts and thought leaders in high-end audio share their insights in an intimate setting. Held in private rooms, these sessions go deep, from design philosophies to emerging technologies.",
   "con.h": "Daily Live Concerts",
@@ -90,13 +82,11 @@
   "gu.intro": "Respected personalities, industry veterans and passionate voices from the audiophile world walk the halls of HiEnd Asia. Their presence is about shared passion, deep appreciation and meaningful encounters.",
   "reps.h": "Brand Representatives",
   "reps.intro": "From founders to chief engineers, the people shaping the future of high-end audio will be in the room. A rare chance to hear the philosophies, craftsmanship and vision behind the world's most respected brands, directly from their creators.",
-
   "badge.keynote": "Keynote",
   "badge.live": "Live",
   "badge.emcee": "Emcee",
   "badge.vip": "VIP",
   "badge.meet": "Meet & greet",
-
   "p.11.name": "Jack Liu",
   "p.11.role": "Editor, Audio Art · Taiwan",
   "p.11.bio": "Liu Hansheng has edited Audio Art, Taiwan's leading Hi-End audio magazine, since 1988. The monthly covers global audio equipment, tuning tips and new music, and is a key voice in the Chinese-speaking audio world.",
@@ -139,7 +129,6 @@
   "p.42.name": "Hao Wei",
   "p.42.role": "Soprano · China",
   "p.42.bio": "A graduate of the Xinghai Conservatory of Music in vocal performance, known for strong performances and emotional depth. Several albums released since 2020.",
-
   "rep.0.role": "",
   "rep.1.role": "CEO",
   "rep.2.role": "Co-Founder",
@@ -179,14 +168,12 @@
   "rep.36.role": "Developer",
   "rep.37.role": "APAC Sales Director",
   "rep.38.role": "Founder & Chief Designer",
-
   "brands.h": "More Brands",
   "brands.intro": "Over 150 of the world's leading audio brands under one roof, from legendary pioneers to today's most talked-about names, brought by Singapore's dealers and distributors.",
   "brands.dealers": "Dealers & distributors",
   "brands.exhibiting": "Exhibiting brands",
   "brands.showall": "Show all 135 brands",
   "brands.showfewer": "Show fewer",
-
   "story.h": "Why HiEnd Asia",
   "tl.2023": "Debut edition · 6,000 visits",
   "tl.2024": "Expanded showcase · 8,000+ patrons",
@@ -195,7 +182,6 @@
   "tl.2026": "17 – 19 December",
   "story.p1": "HiEnd Asia has quickly become Southeast Asia's most anticipated high-end audio exhibition. At Suntec Singapore Convention & Exhibition Centre, at the heart of the city, it brings more exhibitors, more brands and purpose-built listening rooms, just minutes from three MRT lines.",
   "story.p2": "As Southeast Asia moves towards becoming half of the global economy by 2030, demand for high-end, lifestyle audio is accelerating. Singapore, a gateway to over 4 billion people within a 7-hour flight, offers global access, pro-business infrastructure and Asian elegance.",
-
   "visit.h": "Strategic Location",
   "visit.intro": "Suntec Singapore sits in the heart of the downtown district, near Marina Bay Sands, Gardens by the Bay and the Singapore Flyer.",
   "mrt.aria": "Nearest MRT stations",
@@ -205,7 +191,6 @@
   "visit.directions": "Get directions",
   "visit.photo1": "Escalators at the entrance to Suntec Singapore Convention Centre",
   "visit.photo2": "Suntec Singapore's glass roof lit blue at night",
-
   "partners.h": "Organisers & Partners",
   "partners.main": "Main organisers",
   "partners.co": "Co-organisers",
@@ -216,7 +201,22 @@
   "sp.enso": "Publicity and IT",
   "sp.stardust": "Video and photography",
   "sp.piano": "Yamaha concert piano",
-
   "foot.tagline": "Sharing our passion for the finer things in life for our five senses, sights, sound, taste, touch and smell with our fellow ASEAN brethren.",
-  "foot.motto": "Be present. The moment is yours."
+  "foot.motto": "Be present. The moment is yours.",
+  "skip": "Skip to content",
+  "meta.desc": "17–19 Dec 2026, Level 3, Suntec Singapore. Free entry. 150+ high-end audio brands, listening rooms, keynote talks and live concerts.",
+  "consent.title": "Your privacy",
+  "consent.text": "We'd like to use analytics cookies to see how this page is used, and marketing cookies from Google and Meta to measure our ads. Nothing is set until you choose, and you can change your mind any time.",
+  "consent.accept": "Accept all",
+  "consent.reject": "Reject all",
+  "consent.settings": "Choose",
+  "consent.save": "Save choices",
+  "consent.necessary": "Strictly necessary",
+  "consent.necessary.d": "Remembers your language and this choice. Always on.",
+  "consent.analytics": "Analytics",
+  "consent.analytics.d": "Google Analytics: which sections are viewed and which buttons are used.",
+  "consent.marketing": "Marketing",
+  "consent.marketing.d": "Google Ads and Meta Pixel: measure our ads and show HiEnd Asia ads to past visitors.",
+  "consent.policy": "Privacy notice",
+  "consent.footer": "Cookie settings"
 }
