@@ -195,5 +195,21 @@
   "sp.stardust": "Quay phim và chụp ảnh",
   "sp.piano": "Đàn piano hòa nhạc Yamaha",
   "foot.tagline": "Cùng những người bạn ASEAN thưởng thức vẻ đẹp cuộc sống bằng cả năm giác quan: điều mắt thấy, tai nghe, lưỡi nếm, tay chạm và mũi ngửi.",
-  "foot.motto": "Hãy lắng nghe trọn vẹn. Khoảnh khắc này thuộc về bạn."
+  "foot.motto": "Hãy lắng nghe trọn vẹn. Khoảnh khắc này thuộc về bạn.",
+  "skip": "Chuyển đến nội dung",
+  "meta.desc": "17–19/12/2026, Tầng 3, Suntec Singapore. Vào cửa miễn phí. Hơn 150 thương hiệu âm thanh cao cấp, phòng nghe, bài nói chuyện chính và hòa nhạc trực tiếp.",
+  "consent.title": "Quyền riêng tư của bạn",
+  "consent.text": "Chúng tôi muốn dùng cookie phân tích để biết trang này được sử dụng thế nào, và cookie tiếp thị của Google và Meta để đo lường quảng cáo. Không có gì được thiết lập cho đến khi bạn chọn, và bạn có thể thay đổi bất cứ lúc nào.",
+  "consent.accept": "Chấp nhận tất cả",
+  "consent.reject": "Từ chối tất cả",
+  "consent.settings": "Tùy chọn",
+  "consent.save": "Lưu lựa chọn",
+  "consent.necessary": "Thực sự cần thiết",
+  "consent.necessary.d": "Ghi nhớ ngôn ngữ và lựa chọn này của bạn. Luôn bật.",
+  "consent.analytics": "Phân tích",
+  "consent.analytics.d": "Google Analytics: những phần nào được xem và nút nào được dùng.",
+  "consent.marketing": "Tiếp thị",
+  "consent.marketing.d": "Google Ads và Meta Pixel: đo lường quảng cáo và hiển thị quảng cáo HiEnd Asia cho người đã ghé thăm.",
+  "consent.policy": "Thông báo quyền riêng tư",
+  "consent.footer": "Cài đặt cookie"
 }

@@ -195,5 +195,21 @@
   "sp.stardust": "Video dan fotografi",
   "sp.piano": "Piano konser Yamaha",
   "foot.tagline": "Bersama sahabat ASEAN, kami merayakan keindahan hidup bagi kelima indra: yang terlihat, terdengar, terasa, tersentuh, dan tercium.",
-  "foot.motto": "Hadirlah di sini. Detik ini milikmu."
+  "foot.motto": "Hadirlah di sini. Detik ini milikmu.",
+  "skip": "Langsung ke konten",
+  "meta.desc": "17–19 Des 2026, Lantai 3, Suntec Singapore. Gratis masuk. 150+ merek audio high-end, ruang dengar, sesi keynote, dan konser langsung.",
+  "consent.title": "Privasi Anda",
+  "consent.text": "Kami ingin menggunakan cookie analitik untuk melihat cara halaman ini digunakan, serta cookie pemasaran dari Google dan Meta untuk mengukur iklan kami. Tidak ada yang dipasang sebelum Anda memilih, dan Anda dapat mengubah pilihan kapan saja.",
+  "consent.accept": "Terima semua",
+  "consent.reject": "Tolak semua",
+  "consent.settings": "Pilih",
+  "consent.save": "Simpan pilihan",
+  "consent.necessary": "Sangat diperlukan",
+  "consent.necessary.d": "Mengingat bahasa Anda dan pilihan ini. Selalu aktif.",
+  "consent.analytics": "Analitik",
+  "consent.analytics.d": "Google Analytics: bagian mana yang dilihat dan tombol mana yang digunakan.",
+  "consent.marketing": "Pemasaran",
+  "consent.marketing.d": "Google Ads dan Meta Pixel: mengukur iklan kami dan menampilkan iklan HiEnd Asia kepada pengunjung sebelumnya.",
+  "consent.policy": "Pemberitahuan privasi",
+  "consent.footer": "Pengaturan cookie"
 }

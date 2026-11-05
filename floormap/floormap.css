@@ -2,9 +2,9 @@
    Mobile first. Uses the site's design tokens; the fallbacks let it run standalone. */
 .hm {
   --hm-bg: var(--bg, #000);
-  --hm-heading: var(--heading, #f8c59a);
+  --hm-heading: var(--heading, #f0d9a0);
   --hm-body: var(--body, #ebebeb);
-  --hm-muted: var(--muted, #d6c9c9);
+  --hm-muted: var(--muted, #d2c8b4);
   --hm-accent: var(--accent, #c6a661);
   --hm-line: var(--line, #4f4632);
   --hm-band: var(--band, #201d17);

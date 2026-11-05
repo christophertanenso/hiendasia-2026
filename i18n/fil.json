@@ -195,5 +195,21 @@
   "sp.stardust": "Video at photography",
   "sp.piano": "Yamaha concert piano",
   "foot.tagline": "Kasama ang mga kapatid sa ASEAN, ipinagdiriwang namin ang ganda ng buhay sa limang pandama: ang natatanaw, naririnig, nalalasahan, nadarama at naaamoy.",
-  "foot.motto": "Damhin ang ngayon. Sa iyo ang sandaling ito."
+  "foot.motto": "Damhin ang ngayon. Sa iyo ang sandaling ito.",
+  "skip": "Lumaktaw sa nilalaman",
+  "meta.desc": "17–19 Dis 2026, Level 3, Suntec Singapore. Libre ang pagpasok. 150+ high-end audio brand, listening room, keynote talk at live na konsiyerto.",
+  "consent.title": "Ang iyong privacy",
+  "consent.text": "Gusto naming gumamit ng analytics cookie para makita kung paano ginagamit ang pahinang ito, at marketing cookie mula sa Google at Meta para sukatin ang aming mga ad. Walang itatakda hangga't hindi ka pumipili, at puwede mo itong baguhin anumang oras.",
+  "consent.accept": "Tanggapin lahat",
+  "consent.reject": "Tanggihan lahat",
+  "consent.settings": "Pumili",
+  "consent.save": "I-save ang pinili",
+  "consent.necessary": "Talagang kailangan",
+  "consent.necessary.d": "Tinatandaan ang iyong wika at ang pagpiling ito. Laging naka-on.",
+  "consent.analytics": "Analytics",
+  "consent.analytics.d": "Google Analytics: aling mga seksyon ang tinitingnan at aling mga button ang ginagamit.",
+  "consent.marketing": "Marketing",
+  "consent.marketing.d": "Google Ads at Meta Pixel: sinusukat ang aming mga ad at nagpapakita ng HiEnd Asia ad sa mga dating bisita.",
+  "consent.policy": "Abiso sa privacy",
+  "consent.footer": "Mga setting ng cookie"
 }

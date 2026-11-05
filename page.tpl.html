@@ -1,9 +1,13 @@
-<title>HiEnd Asia 2026</title>
+<title>{{meta.title}}</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>
-/* Pick the page language before anything paints: ?lang= link, then the visitor's saved choice,
-   then the first supported language in their browser/device language list, else English. */
+/* Every language is its own pre-rendered page: / is English, /zh-Hans/, /th/ ... carry their text in the HTML,
+   so nothing is hidden while a translation loads and search engines index each language.
+   The English page sends a visitor on to their language before anything paints: a ?lang= link first, then the
+   visitor's saved choice, then the first supported language in their browser/device list. A language URL that
+   was opened directly is respected (only ?lang= moves it). */
 (function () {
+  var PAGE_LANG = '{{PAGE_LANG}}', BASE = '{{BASE}}', AUTO = {{AUTO_LANG}};
   var SUPPORTED = ['en', 'zh-Hans', 'zh-Hant', 'id', 'ms', 'fil', 'th', 'vi'];
   function match(tag) {
     tag = String(tag || '').toLowerCase();
@@ -16,40 +20,52 @@
     if (/^en(-|$)/.test(tag)) return 'en';
     return null;
   }
-  var pick = null;
-  try { pick = new URLSearchParams(location.search).get('lang'); } catch (e) {}
-  if (SUPPORTED.indexOf(pick) < 0) { try { pick = localStorage.getItem('hea-lang'); } catch (e) { pick = null; } }
-  var lang = SUPPORTED.indexOf(pick) >= 0 ? pick : null;
-  var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
-  for (var i = 0; !lang && i < prefs.length; i++) lang = match(prefs[i]);
-  lang = lang || 'en';
-  var root = document.documentElement;
-  window.HEA_LANG = lang;
-  root.lang = lang;
-  if (lang !== 'en') {
-    root.classList.add('i18n-loading');
-    setTimeout(function () { root.classList.remove('i18n-loading'); }, 2500);
+  window.HEA_LANG = PAGE_LANG;
+  window.HEA_BASE = BASE;
+  window.HEA_LANG_URL = function (lang) { return BASE + (lang === 'en' ? '' : lang + '/'); };
+  if (!AUTO) return;
+  var params = null, forced = null, want = null;
+  try { params = new URLSearchParams(location.search); forced = params.get('lang'); } catch (e) {}
+  if (SUPPORTED.indexOf(forced) >= 0) want = forced;
+  else if (PAGE_LANG === 'en') {
+    var saved = null;
+    try { saved = localStorage.getItem('hea-lang'); } catch (e) {}
+    if (SUPPORTED.indexOf(saved) >= 0) want = saved;
+    var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; !want && i < prefs.length; i++) want = match(prefs[i]);
+  }
+  if (params) params.delete('lang');
+  if (want && want !== PAGE_LANG) {
+    var q = params && params.toString();
+    location.replace(window.HEA_LANG_URL(want) + (q ? '?' + q : '') + location.hash);
+  } else if (forced && history.replaceState) {
+    var q2 = params && params.toString();
+    history.replaceState(null, '', location.pathname + (q2 ? '?' + q2 : '') + location.hash);
   }
 })();
 </script>
+{{LANG_FONT}}
 <link rel="icon" href="img/monogram.svg" type="image/svg+xml">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NED2Z7D1C5"></script>
 <script>
-/* Analytics: GA4 (G-NED2Z7D1C5) and the Meta Pixel (9829555510477872). Both load async. The stubs below are
-   defined inline, so everything still runs if an ad blocker stops the vendor scripts. Query strings (UTMs, ?lang=) are left alone. */
+/* Analytics: GA4 (G-NED2Z7D1C5, also the Google Ads link) and the Meta Pixel (9829555510477872), behind consent.
+   Google Consent Mode v2 starts with everything denied. Neither vendor script is downloaded until the visitor
+   accepts the matching category in the cookie banner (consent.js, inlined below), and even then only once the page
+   has finished loading, so tracking never competes with the first paint. Events raised before consent wait in
+   dataLayer and are sent if analytics is accepted later in the visit; Meta events before marketing consent are dropped.
+   The stubs mean the page runs the same whether or not the vendor scripts ever load (ad blockers, a refusal). */
 window.dataLayer = window.dataLayer || [];
 function gtag() { dataLayer.push(arguments); }
+gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+gtag('set', 'url_passthrough', false);
 gtag('js', new Date());
 /* Local testing (localhost etc.): GA4 hits are sent in debug mode, so the GA4 "Developer traffic" data filter
    keeps them out of reports (they still show in DebugView), and the Meta Pixel is not loaded at all.
    Add ?track=live to a local URL to send real hits anyway. */
 var HEA_TEST = /^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$|\.localhost$|\.test$/.test(location.hostname) && !/[?&]track=live\b/.test(location.search);
 gtag('config', 'G-NED2Z7D1C5', HEA_TEST ? { debug_mode: true } : {});
-if (HEA_TEST) { window.fbq = function () {}; } else {
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '9829555510477872');
-fbq('track', 'PageView');
-}
+window.fbq = function () {}; /* replaced by the real pixel only after marketing consent */
+window.HEA_CONSENT = {{CONSENT_CFG}};
+{{CONSENT_JS}}
 
 /* Intent tracking. trackIntent(action, detail) reports one action to GA4 (and Meta, where it has a matching event).
    Link clicks are caught by event delegation on href patterns, so every repeated link, and any added later, is
@@ -184,8 +200,6 @@ fbq('track', 'PageView');
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady); else onReady();
 })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
 /* Arimo and Open Sans are served from fonts/ (Latin, Latin Extended, Vietnamese), not Google Fonts, so a blocked
    or slow fonts.googleapis.com (e.g. mainland China) can never hold up the first paint. CJK and Thai still load on demand. */
@@ -198,14 +212,15 @@ fbq('track', 'PageView');
 @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/opensans-vietnamese.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
 @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/opensans-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/opensans-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-/* Layout: the HiEnd Asia 2026 design system (black ground, peach-gold heads, gold rules, bronze bands),
+/* Layout: the HiEnd Asia 2026 design system (black ground, champagne-gold heads, gold rules, bronze bands),
    one idea per section, centred bilingual headings, content max 1200px. Dark is the brand, so the page
-   commits to one dark look. */
+   commits to one dark look. Heading and muted colours are sampled from the 2026 poster (img/000.jpg):
+   its title is champagne #f0d9a0 and its line-art gold sits around #c09858. */
 :root {
   --bg: #000000;
-  --heading: #f8c59a;
+  --heading: #f0d9a0;
   --body: #ebebeb;
-  --muted: #d6c9c9;
+  --muted: #d2c8b4;
   --accent: #c6a661;
   --on-accent: #000000;
   --line: #4f4632;
@@ -223,7 +238,13 @@ fbq('track', 'PageView');
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+/* --head-h is the sticky header's real height (it wraps to two rows on phones), kept current by the script at the end,
+   so a jump to #floorplan etc. never lands under the header. */
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--head-h, 88px) + 12px); }
+.skip { position: absolute; left: 12px; top: -100px; z-index: 70; padding: 12px 18px; border-radius: var(--radius-pill, 50px);
+  background: var(--accent, #c6a661); color: #000; font: 700 14px/1 var(--font-display, sans-serif); text-decoration: none; }
+.skip:focus { top: calc(12px + env(safe-area-inset-top, 0px)); color: #000; }
+main:focus { outline: none; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { margin: 0; background: var(--bg); color: var(--body); font: 16px/1.7 var(--font-body); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
@@ -433,8 +454,28 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .copy { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
 .copy .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
 
-/* Languages: text arrives from i18n/<lang>.json; hide the page briefly so English doesn't flash first */
-.i18n-loading body { visibility: hidden; }
+/* Footer legal links */
+.legal { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.legal a, .legal button { color: var(--muted); font: inherit; font-size: 13px; background: none; border: 0; padding: 0; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px; }
+.legal a:hover, .legal button:hover { color: var(--heading); }
+
+/* Phones and tablets: once the hero's buttons scroll away, "Save the date" and "Directions" stay within thumb reach. */
+.mbar { display: none; }
+@media (max-width: 860px) {
+  .mbar { display: flex; position: fixed; z-index: 25; left: 0; right: 0; bottom: 0; gap: 10px; align-items: center;
+    padding: 10px max(12px, env(safe-area-inset-right, 0px)) max(10px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+    background: rgba(0,0,0,.94); backdrop-filter: blur(8px); border-top: 1px solid var(--line);
+    transform: translateY(110%); transition: transform .25s ease; }
+  .mbar.on { transform: none; }
+  .cc-showing .mbar { transform: translateY(110%); }
+  .mbar > * { flex: 1 1 0; min-width: 0; }
+  .mbar .btn { width: 100%; padding: 0 14px; }
+  .mbar .cal-menu { top: auto; bottom: calc(100% + 8px); left: 0; right: auto; }
+  body.mbar-pad { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-width: 860px) and (prefers-reduced-motion: reduce) { .mbar { transition: none; } }
+
 :root[lang="zh-Hans"] { --font-display: Arimo, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; --font-body: "Open Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; }
 :root[lang="zh-Hant"] { --font-display: Arimo, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; --font-body: "Open Sans", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
 :root[lang="th"] { --font-display: Arimo, "Noto Sans Thai", Tahoma, sans-serif; --font-body: "Open Sans", "Noto Sans Thai", Tahoma, sans-serif; }
@@ -453,14 +494,15 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 @media (max-width: 420px) { .head-cta { display: none; } }
 </style>
 
+<a class="skip" href="#main">{{skip}}</a>
 <header class="site-head">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="{{nav.home}}" data-i18n-attr="aria-label:nav.home"><img src="img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
     <nav class="nav" aria-label="{{nav.aria}}" data-i18n-attr="aria-label:nav.aria">
-      <a class="txt" href="#programme" data-i18n="nav.programme">{{nav.programme}}</a>
       <a class="txt" href="#floorplan" data-i18n="nav.floorplan">{{nav.floorplan}}</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">{{nav.speakers}}</a>
       <a class="txt" href="#concerts" data-i18n="nav.concerts">{{nav.concerts}}</a>
+      <a class="txt" href="#programme" data-i18n="nav.programme">{{nav.programme}}</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">{{nav.brands}}</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">{{nav.visit}}</a>
     </nav>
@@ -468,21 +510,14 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <span class="sr" data-i18n="lang.label">{{lang.label}}</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>
       <select id="langSel">
-        <option value="en" lang="en">English</option>
-        <option value="zh-Hans" lang="zh-Hans">简体中文</option>
-        <option value="zh-Hant" lang="zh-Hant">繁體中文</option>
-        <option value="id" lang="id">Bahasa Indonesia</option>
-        <option value="ms" lang="ms">Bahasa Melayu</option>
-        <option value="fil" lang="fil">Filipino</option>
-        <option value="th" lang="th">ไทย</option>
-        <option value="vi" lang="vi">Tiếng Việt</option>
+{{LANG_OPTIONS}}
       </select>
     </label>
     <a class="btn btn-primary btn-sm head-cta" href="{{GCAL}}" target="_blank" rel="noopener" data-i18n="nav.save">{{nav.save}}</a>
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 <section class="hero" id="top">
   <div class="wrap">
     <div class="hero-copy">
@@ -495,7 +530,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 {{ACTIONS}}
     </div>
     <div class="hero-poster">
-      <button class="poster-btn" type="button" data-zoom aria-label="{{poster.zoom}}" data-i18n-attr="aria-label:poster.zoom"><img src="{{POSTER}}" alt="{{poster.alt}}" data-i18n-attr="alt:poster.alt" width="1242" height="1660" fetchpriority="high"></button>
+      <button class="poster-btn" type="button" data-zoom aria-label="{{poster.zoom}}" data-i18n-attr="aria-label:poster.zoom"><img src="{{POSTER}}" srcset="{{POSTER_SRCSET}}" sizes="{{POSTER_SIZES}}" alt="{{poster.alt}}" data-i18n-attr="alt:poster.alt" width="1242" height="1660" fetchpriority="high"></button>
       <button class="poster-hint" type="button" data-zoom data-i18n="poster.hint">{{poster.hint}}</button>
     </div>
   </div>
@@ -518,30 +553,12 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <p class="intro" data-i18n="video.intro">{{video.intro}}</p>
     </div>
     <figure class="video-frame">
-      <video controls playsinline preload="metadata" poster="video/showcase-poster.jpg" width="832" height="464" aria-label="{{video.aria}}" data-i18n-attr="aria-label:video.aria">
+      <video controls playsinline preload="metadata" poster="video/showcase-poster.webp" width="832" height="464" aria-label="{{video.aria}}" data-i18n-attr="aria-label:video.aria">
         <source src="video/showcase-2025.mp4" type="video/mp4">
         <a href="https://www.hiendasia.com/" target="_blank" rel="noopener">hiendasia.com</a>
       </video>
     </figure>
     <div class="video-cap"><span data-i18n="video.cap">{{video.cap}}</span><span>Suntec Singapore</span></div>
-  </div>
-</section>
-
-<section class="block band" id="programme">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="prog.h">{{prog.h}}</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="prog.intro">{{prog.intro}}</p>
-    </div>
-    <ol class="days">
-      <li class="day"><span class="day-date" data-i18n="d.thu.short">{{d.thu.short}}</span><span class="day-time" data-i18n="time">{{time}}</span><span class="tbc" data-i18n="prog.tbc">{{prog.tbc}}</span></li>
-      <li class="day"><span class="day-date" data-i18n="d.fri.short">{{d.fri.short}}</span><span class="day-time" data-i18n="time">{{time}}</span><span class="tbc" data-i18n="prog.tbc">{{prog.tbc}}</span></li>
-      <li class="day"><span class="day-date" data-i18n="d.sat.short">{{d.sat.short}}</span><span class="day-time" data-i18n="time">{{time}}</span><span class="tbc" data-i18n="prog.tbc">{{prog.tbc}}</span></li>
-    </ol>
-    <div class="center">
-{{ACTIONS}}
-    </div>
   </div>
 </section>
 
@@ -562,7 +579,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         </ul>
       </div>
       <div>
-        <figure class="figure"><img src="{{FLOOR}}" alt="{{floor.alt}}" data-i18n-attr="alt:floor.alt" width="1400" height="927" loading="lazy"></figure>
+        <figure class="figure"><img src="{{FLOOR}}" srcset="img/007-760.webp 760w, {{FLOOR}} 1400w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="{{floor.alt}}" data-i18n-attr="alt:floor.alt" width="1400" height="927" loading="lazy"></figure>
         <p class="figcap" data-i18n="floor.cap">{{floor.cap}}</p>
       </div>
     </div>
@@ -615,7 +632,25 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
 </section>
 
-<section class="block band" id="reps">
+<section class="block band" id="programme">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="prog.h">{{prog.h}}</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="prog.intro">{{prog.intro}}</p>
+    </div>
+    <ol class="days">
+      <li class="day"><span class="day-date" data-i18n="d.thu.short">{{d.thu.short}}</span><span class="day-time" data-i18n="time">{{time}}</span><span class="tbc" data-i18n="prog.tbc">{{prog.tbc}}</span></li>
+      <li class="day"><span class="day-date" data-i18n="d.fri.short">{{d.fri.short}}</span><span class="day-time" data-i18n="time">{{time}}</span><span class="tbc" data-i18n="prog.tbc">{{prog.tbc}}</span></li>
+      <li class="day"><span class="day-date" data-i18n="d.sat.short">{{d.sat.short}}</span><span class="day-time" data-i18n="time">{{time}}</span><span class="tbc" data-i18n="prog.tbc">{{prog.tbc}}</span></li>
+    </ol>
+    <div class="center">
+{{ACTIONS}}
+    </div>
+  </div>
+</section>
+
+<section class="block" id="reps">
   <div class="wrap">
     <div class="bh">
       <h2 class="bh-en" data-i18n="reps.h">{{reps.h}}</h2>
@@ -645,7 +680,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 {{BRANDS}}
       </ul>
     </div>
-    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false" data-i18n="brands.showall">{{brands.showall}}</button></div>
+    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false" data-all="{{brands.showall}}" data-fewer="{{brands.showfewer}}">{{brands.showall}}</button></div>
   </div>
 </section>
 
@@ -729,9 +764,11 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 </section>
 </main>
 
+{{MBAR}}
+
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="{{lb.aria}}" data-i18n-attr="aria-label:lb.aria" hidden>
   <button class="btn btn-outline btn-sm lb-close" type="button" id="lbClose" data-i18n="lb.close">{{lb.close}}</button>
-  <img src="{{POSTER}}" alt="{{poster.alt}}" data-i18n-attr="alt:poster.alt" width="1242" height="1660">
+  <img src="{{POSTER}}" alt="{{poster.alt}}" data-i18n-attr="alt:poster.alt" width="1242" height="1660" loading="lazy">
 </div>
 
 <footer class="site-foot">
@@ -753,69 +790,28 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       </div>
     </div>
   </div>
-  <div class="copy"><div class="wrap"><span>© 2026 HiEnd Asia + Pte. Ltd</span><span><span data-i18n="foot.motto">{{foot.motto}}</span> · <a href="{{WA}}" target="_blank" rel="noopener" data-wa data-i18n="share.wa">{{share.wa}}</a></span></div></div>
+  <div class="copy"><div class="wrap"><span>© 2026 HiEnd Asia + Pte. Ltd</span><span class="legal"><a href="privacy.html">{{consent.policy}}</a><button type="button" data-consent-open>{{consent.footer}}</button></span><span><span data-i18n="foot.motto">{{foot.motto}}</span> · <a href="{{WA}}" target="_blank" rel="noopener" data-wa data-i18n="share.wa">{{share.wa}}</a></span></div></div>
 </footer>
 
 <script>
 (function () {
   var root = document.documentElement;
-  // Shared links point at this site, UTM-tagged so GA4 credits the visits they bring back.
-  var SITE = 'https://christophertanenso.github.io/hiendasia-2026/';
-  var WA_LINK = SITE + '?utm_source=whatsapp&utm_medium=social&utm_campaign=share';
-  var FONTS = { 'zh-Hans': 'Noto+Sans+SC:wght@400;700', 'zh-Hant': 'Noto+Sans+TC:wght@400;700', 'th': 'Noto+Sans+Thai:wght@400;700' };
-  var cache = {}, dict = null;
+  // Shared links point at this language's page, UTM-tagged so GA4 credits the visits they bring back.
+  var PAGE = '{{PAGE_URL}}';
 
-  function loadFont(lang) {
-    if (!FONTS[lang] || document.getElementById('font-' + lang)) return;
-    var l = document.createElement('link');
-    l.id = 'font-' + lang; l.rel = 'stylesheet';
-    l.href = 'https://fonts.googleapis.com/css2?family=' + FONTS[lang] + '&display=swap';
-    document.head.appendChild(l);
-  }
-  function apply(d) {
-    dict = d;
-    document.querySelectorAll('[data-i18n]').forEach(function (el) {
-      var v = d[el.getAttribute('data-i18n')];
-      if (typeof v === 'string' && v !== '') el.textContent = v;
-    });
-    document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
-      el.getAttribute('data-i18n-attr').split(';').forEach(function (pair) {
-        var p = pair.split(':'), v = d[p[1]];
-        if (typeof v === 'string' && v !== '') el.setAttribute(p[0], v);
-      });
-    });
-    if (d['wa.text']) {
-      var href = 'https://wa.me/?text=' + encodeURIComponent(d['wa.text'] + '\n' + WA_LINK);
-      document.querySelectorAll('[data-wa]').forEach(function (a) { a.href = href; });
-    }
-    if (d['meta.title']) document.title = d['meta.title'];
-  }
-  function setLang(lang, save) {
-    root.lang = lang;
-    sel.value = lang;
-    if (save) { try { localStorage.setItem('hea-lang', lang); } catch (e) {} }
-    loadFont(lang);
-    var done = function () { root.classList.remove('i18n-loading'); };
-    if (cache[lang]) { apply(cache[lang]); done(); return; }
-    fetch('i18n/' + lang + '.json')
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (d) { cache[lang] = d; if (root.lang === lang) apply(d); })
-      .catch(function () { /* keep whatever text is showing */ })
-      .then(done);
-  }
-
+  // Language menu: each language is its own page. The choice is remembered, so / sends the visitor back to it.
   var sel = document.getElementById('langSel');
-  sel.addEventListener('change', function () { setLang(sel.value, true); });
-  setLang(window.HEA_LANG || 'en', false);
+  sel.addEventListener('change', function () {
+    try { localStorage.setItem('hea-lang', sel.value); } catch (e) {}
+    location.href = window.HEA_LANG_URL(sel.value) + location.hash;
+  });
 
-  // Brand wall expand / collapse
+  // Brand wall expand / collapse (labels are baked into data attributes in each language)
   var box = document.getElementById('wallBox'), btn = document.getElementById('wallToggle');
   btn.addEventListener('click', function () {
     var open = box.classList.toggle('collapsed') === false;
     btn.setAttribute('aria-expanded', String(open));
-    var key = open ? 'brands.showfewer' : 'brands.showall';
-    btn.setAttribute('data-i18n', key);
-    btn.textContent = (dict && dict[key]) || (open ? 'Show fewer' : 'Show all brands');
+    btn.textContent = btn.getAttribute(open ? 'data-fewer' : 'data-all');
     if (!open) box.scrollIntoView({ block: 'start' });
   });
   // Poster lightbox
@@ -825,7 +821,11 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   document.querySelectorAll('[data-zoom]').forEach(function (b) { b.addEventListener('click', openLb); });
   lbClose.addEventListener('click', closeLb);
   lb.addEventListener('click', function (ev) { if (ev.target !== lbClose) closeLb(); });
-  document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && !lb.hidden) closeLb(); });
+  document.addEventListener('keydown', function (ev) {
+    if (lb.hidden) return;
+    if (ev.key === 'Escape') closeLb();
+    else if (ev.key === 'Tab') { ev.preventDefault(); lbClose.focus(); } // keep focus inside the open dialog
+  });
   // Close any open "Add to calendar" menu on an outside click or Escape
   var cals = document.querySelectorAll('details.cal');
   document.addEventListener('click', function (ev) {
@@ -838,9 +838,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   document.querySelectorAll('[data-copy]').forEach(function (b) {
     var label = b.querySelector('[data-i18n]') || b;
     b.addEventListener('click', function () {
-      var url = SITE + '?lang=' + encodeURIComponent(root.lang) + '&utm_source=wechat&utm_medium=social&utm_campaign=share';
-      function say(k, fb) { label.textContent = (dict && dict[k]) || fb; }
-      function ok() { say('share.wx.copied', 'Link copied'); setTimeout(function () { say('share.wx.copy', 'Copy link'); }, 2000); }
+      var url = PAGE + '?utm_source=wechat&utm_medium=social&utm_campaign=share';
+      var idle = label.textContent;
+      function ok() { label.textContent = b.getAttribute('data-copied') || idle; setTimeout(function () { label.textContent = idle; }, 2000); }
       function fallback() {
         var ta = document.createElement('textarea');
         ta.value = url; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
@@ -853,5 +853,28 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       if (window.trackIntent) window.trackIntent('share', { method: 'copy_link' });
     });
   });
+
+  // Keep --head-h equal to the sticky header's height, so #anchor jumps clear it at any width.
+  var head = document.querySelector('.site-head');
+  function headH() { root.style.setProperty('--head-h', head.getBoundingClientRect().height + 'px'); }
+  headH();
+  if ('ResizeObserver' in window) new ResizeObserver(headH).observe(head); else window.addEventListener('resize', headH);
+
+  // Mobile bar: appears once the hero's own buttons have scrolled out of view, hides again near the visit section
+  // (which has the same buttons) and while the cookie banner is open (CSS).
+  var bar = document.getElementById('mbar');
+  var heroBtns = document.querySelector('.hero .btns'), visitBtns = document.querySelector('#visit .btns');
+  if (bar && heroBtns && 'IntersectionObserver' in window) {
+    var update = function () {
+      var h = heroBtns.getBoundingClientRect(), v = visitBtns ? visitBtns.getBoundingClientRect() : null;
+      var visitInView = v && v.top < window.innerHeight && v.bottom > 0;
+      var on = h.bottom < 0 && !visitInView;
+      bar.classList.toggle('on', on);
+      document.body.classList.toggle('mbar-pad', on);
+      if (!on) bar.querySelectorAll('details').forEach(function (d) { d.open = false; });
+    };
+    var io = new IntersectionObserver(update);
+    io.observe(heroBtns); if (visitBtns) io.observe(visitBtns);
+  }
 })();
 </script>
