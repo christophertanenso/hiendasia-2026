@@ -191,7 +191,7 @@ window.HEA_CONSENT = {{CONSENT_CFG}};
             } else clearTimeout(timers[id]);
           });
         }, { rootMargin: '0px 0px -40% 0px' });
-        ['programme', 'floorplan', 'speakers', 'concerts', 'brands', 'visit'].forEach(function (id) {
+        ['floorplan', 'speakers', 'guests', 'brands', 'visit'].forEach(function (id) {
           var el = document.getElementById(id); if (el) io.observe(el);
         });
       }
@@ -380,6 +380,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
+.p-none { display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
+.p-none img { width: 30%; height: auto; opacity: .5; }
 .badge { align-self: flex-start; padding: 4px 12px; background: var(--accent); color: var(--on-accent); border-radius: var(--radius-pill);
   font: 700 11px/1.4 var(--font-display); letter-spacing: .14em; text-transform: uppercase; }
 .p-name { margin: 4px 0 0; font: 700 24px/1.25 var(--font-display); color: var(--heading); }
@@ -501,8 +503,6 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <nav class="nav" aria-label="{{nav.aria}}" data-i18n-attr="aria-label:nav.aria">
       <a class="txt" href="#floorplan" data-i18n="nav.floorplan">{{nav.floorplan}}</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">{{nav.speakers}}</a>
-      <a class="txt" href="#concerts" data-i18n="nav.concerts">{{nav.concerts}}</a>
-      <a class="txt" href="#programme" data-i18n="nav.programme">{{nav.programme}}</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">{{nav.brands}}</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">{{nav.visit}}</a>
     </nav>
@@ -571,15 +571,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <div class="rule"></div>
         </div>
         <p class="intro" data-i18n="floor.intro">{{floor.intro}}</p>
-        <ul class="legend">
-          <li><b data-i18n="legend.hall.k">{{legend.hall.k}}</b> <span data-i18n="legend.hall">{{legend.hall}}</span></li>
-          <li><b data-i18n="legend.stage.k">{{legend.stage.k}}</b> <span data-i18n="legend.stage">{{legend.stage}}</span></li>
-          <li><b data-i18n="legend.rooms.k">{{legend.rooms.k}}</b> <span data-i18n="legend.rooms">{{legend.rooms}}</span></li>
-          <li><b data-i18n="legend.vip.k">{{legend.vip.k}}</b> <span data-i18n="legend.vip">{{legend.vip}}</span></li>
-        </ul>
       </div>
       <div>
-        <figure class="figure"><img src="{{FLOOR}}" srcset="img/007-760.webp 760w, {{FLOOR}} 1400w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="{{floor.alt}}" data-i18n-attr="alt:floor.alt" width="1400" height="927" loading="lazy"></figure>
+        <figure class="figure"><img src="{{FLOOR}}" srcset="img/floorplan-2026-760.webp 760w, {{FLOOR}} 1540w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="{{floor.alt}}" data-i18n-attr="alt:floor.alt" width="1540" height="1021" loading="lazy"></figure>
         <p class="figcap" data-i18n="floor.cap">{{floor.cap}}</p>
       </div>
     </div>
@@ -606,21 +600,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
 </section>
 
-<section class="block" id="concerts">
+<section class="block" id="guests">
   <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="con.h">{{con.h}}</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="con.intro">{{con.intro}}</p>
-    </div>
-    <div class="people">
-{{ARTISTS}}
-    </div>
-  </div>
-</section>
-
-<section class="block" id="guests" style="padding-top:0">
-  <div class="wrap" style="padding-top:0">
     <div class="bh">
       <h2 class="bh-en" data-i18n="gu.h">{{gu.h}}</h2>
       <div class="rule"></div>
@@ -628,24 +609,6 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     </div>
     <div class="people">
 {{GUESTS}}
-    </div>
-  </div>
-</section>
-
-<section class="block band" id="programme">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="prog.h">{{prog.h}}</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="prog.intro">{{prog.intro}}</p>
-    </div>
-    <ol class="days">
-      <li class="day"><span class="day-date" data-i18n="d.thu.short">{{d.thu.short}}</span><span class="day-time" data-i18n="time">{{time}}</span><span class="tbc" data-i18n="prog.tbc">{{prog.tbc}}</span></li>
-      <li class="day"><span class="day-date" data-i18n="d.fri.short">{{d.fri.short}}</span><span class="day-time" data-i18n="time">{{time}}</span><span class="tbc" data-i18n="prog.tbc">{{prog.tbc}}</span></li>
-      <li class="day"><span class="day-date" data-i18n="d.sat.short">{{d.sat.short}}</span><span class="day-time" data-i18n="time">{{time}}</span><span class="tbc" data-i18n="prog.tbc">{{prog.tbc}}</span></li>
-    </ol>
-    <div class="center">
-{{ACTIONS}}
     </div>
   </div>
 </section>

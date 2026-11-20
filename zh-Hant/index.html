@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="2026年12月17–19日，新加坡新達城3樓。免費入場。逾150個高端音響品牌、試聽室、主題演講與現場音樂會。">
+<meta name="description" content="2026年12月17–19日，新加坡新達城3樓。免費入場。逾150個高端音響品牌、試聽室、主題演講與嘉賓現場演出。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="HiEnd Asia 2026 · 免費入場">
-<meta property="og:description" content="2026年12月17–19日，新加坡新達城3樓。免費入場。逾150個高端音響品牌、試聽室、主題演講與現場音樂會。">
+<meta property="og:description" content="2026年12月17–19日，新加坡新達城3樓。免費入場。逾150個高端音響品牌、試聽室、主題演講與嘉賓現場演出。">
 <meta property="og:url" content="https://christophertanenso.github.io/hiendasia-2026/zh-Hant/">
 <meta property="og:image" content="https://christophertanenso.github.io/hiendasia-2026/img/og-2026.jpg">
 <meta property="og:image:width" content="1200">
@@ -24,7 +24,7 @@
 <link rel="alternate" hreflang="vi" href="https://christophertanenso.github.io/hiendasia-2026/vi/">
 <link rel="alternate" hreflang="x-default" href="https://christophertanenso.github.io/hiendasia-2026/">
 <link rel="preload" as="image" href="../img/000-1242.webp" imagesrcset="../img/000-640.webp 640w, ../img/000-760.webp 760w, ../img/000-960.webp 960w, ../img/000-1242.webp 1242w" imagesizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" fetchpriority="high">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "2026 Singapore Hi-End Asia International Audio Visual Show", "inLanguage": "zh-Hant", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hant/", "startDate": "2026-12-17T10:00:00+08:00", "endDate": "2026-12-19T19:00:00+08:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": {"@type": "Place", "name": "Suntec Singapore Convention & Exhibition Centre, Level 3", "address": {"@type": "PostalAddress", "streetAddress": "1 Raffles Boulevard", "postalCode": "039593", "addressCountry": "SG"}}, "image": ["https://christophertanenso.github.io/hiendasia-2026/img/000.jpg", "https://christophertanenso.github.io/hiendasia-2026/img/og-2026.jpg"], "description": "2026年12月17–19日，新加坡新達城3樓。免費入場。逾150個高端音響品牌、試聽室、主題演講與現場音樂會。", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SGD", "availability": "https://schema.org/InStock", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hant/"}, "organizer": {"@type": "Organization", "name": "HiEnd Asia + Pte. Ltd", "url": "https://www.hiendasia.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "2026 Singapore Hi-End Asia International Audio Visual Show", "inLanguage": "zh-Hant", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hant/", "startDate": "2026-12-17T10:00:00+08:00", "endDate": "2026-12-19T19:00:00+08:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": {"@type": "Place", "name": "Suntec Singapore Convention & Exhibition Centre, Level 3", "address": {"@type": "PostalAddress", "streetAddress": "1 Raffles Boulevard", "postalCode": "039593", "addressCountry": "SG"}}, "image": ["https://christophertanenso.github.io/hiendasia-2026/img/000.jpg", "https://christophertanenso.github.io/hiendasia-2026/img/og-2026.jpg"], "description": "2026年12月17–19日，新加坡新達城3樓。免費入場。逾150個高端音響品牌、試聽室、主題演講與嘉賓現場演出。", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SGD", "availability": "https://schema.org/InStock", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hant/"}, "organizer": {"@type": "Organization", "name": "HiEnd Asia + Pte. Ltd", "url": "https://www.hiendasia.com/"}}</script>
 <title>HiEnd Asia 2026</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>
@@ -395,7 +395,7 @@ window.HEA_CONSENT = {"privacy": "../privacy.html", "t": {"title": "您的隱私
             } else clearTimeout(timers[id]);
           });
         }, { rootMargin: '0px 0px -40% 0px' });
-        ['programme', 'floorplan', 'speakers', 'concerts', 'brands', 'visit'].forEach(function (id) {
+        ['floorplan', 'speakers', 'guests', 'brands', 'visit'].forEach(function (id) {
           var el = document.getElementById(id); if (el) io.observe(el);
         });
       }
@@ -584,6 +584,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
+.p-none { display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
+.p-none img { width: 30%; height: auto; opacity: .5; }
 .badge { align-self: flex-start; padding: 4px 12px; background: var(--accent); color: var(--on-accent); border-radius: var(--radius-pill);
   font: 700 11px/1.4 var(--font-display); letter-spacing: .14em; text-transform: uppercase; }
 .p-name { margin: 4px 0 0; font: 700 24px/1.25 var(--font-display); color: var(--heading); }
@@ -706,8 +708,6 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <nav class="nav" aria-label="主選單" data-i18n-attr="aria-label:nav.aria">
       <a class="txt" href="#floorplan" data-i18n="nav.floorplan">平面圖</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">講者</a>
-      <a class="txt" href="#concerts" data-i18n="nav.concerts">音樂會</a>
-      <a class="txt" href="#programme" data-i18n="nav.programme">節目表</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">品牌</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">參觀</a>
     </nav>
@@ -725,7 +725,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <option value="vi" lang="vi">Tiếng Việt</option>
       </select>
     </label>
-    <a class="btn btn-primary btn-sm head-cta" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener" data-i18n="nav.save">加入日曆</a>
+    <a class="btn btn-primary btn-sm head-cta" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener" data-i18n="nav.save">加入日曆</a>
   </div>
 </header>
 
@@ -747,9 +747,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <details class="cal">
           <summary class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="cal.add">加入日曆</span><span class="chev" aria-hidden="true">▾</span></summary>
           <div class="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
-            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
-            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
+            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
+            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
             <a href="../hiendasia-2026.ics"><span data-i18n="cal.ics">Apple 行事曆及其他</span><small data-i18n="cal.ics.note">iPhone、Mac 或任何行事曆 App（.ics）</small></a>
           </div>
         </details>
@@ -806,16 +806,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <div class="rule"></div>
         </div>
         <p class="intro" data-i18n="floor.intro">在新達城新加坡國際會議與展覽中心三樓，探索一間間專屬試聽室。每個空間皆為呈現頂級音響器材而設，帶您走過一段關於聲音、精準與工藝的旅程。</p>
-        <ul class="legend">
-          <li><b data-i18n="legend.hall.k">展廳</b> <span data-i18n="legend.hall">展覽廳</span></li>
-          <li><b data-i18n="legend.stage.k">舞台</b> <span data-i18n="legend.stage">音樂廳</span></li>
-          <li><b data-i18n="legend.rooms.k">試聽室</b> <span data-i18n="legend.rooms">試聽室</span></li>
-          <li><b data-i18n="legend.vip.k">貴賓</b> <span data-i18n="legend.vip">貴賓室</span></li>
-        </ul>
       </div>
       <div>
-        <figure class="figure"><img src="../img/007.webp" srcset="../img/007-760.webp 760w, ../img/007.webp 1400w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="Suntec 三樓展會平面圖：展覽廳、音樂廳、貴賓室，以及沿 1 至 4 號大廳排列並編號的展間" data-i18n-attr="alt:floor.alt" width="1400" height="927" loading="lazy"></figure>
-        <p class="figcap" data-i18n="floor.cap">三樓配置圖取自 hiendasia.com。展間分配或於展前調整。</p>
+        <figure class="figure"><img src="../img/floorplan-2026.webp" srcset="../img/floorplan-2026-760.webp 760w, ../img/floorplan-2026.webp 1540w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="Suntec 三樓展會平面圖：300–336 號試聽室及其參展商、藝術空間、耳機與配件區，以及 1 至 3 號大廳沿線的標準攤位與音響室" data-i18n-attr="alt:floor.alt" width="1540" height="1021" loading="lazy"></figure>
+        <p class="figcap" data-i18n="floor.cap">三樓配置圖由主辦單位提供。展間分配或於展前調整。</p>
       </div>
     </div>
     <div class="finder" style="margin-top:var(--space-l)">
@@ -837,20 +831,6 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     </div>
     <div class="people">
 <article class="person">
-  <img class="p-photo" src="../img/011.jpg" alt="劉漢盛" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.keynote">主題演講</span>
-  <h3 class="p-name" data-i18n="p.11.name">劉漢盛</h3>
-  <span class="p-role" data-i18n="p.11.role">《音響論壇》Audio Art 總編輯 · 台灣</span>
-  <p class="p-bio" data-i18n="p.11.bio">劉漢盛自 1988 年起主編台灣具代表性的高級音響雜誌 Audio Art。這份月刊報導全球音響器材、調聲心得與新音樂，是華語音響界的重要聲音。</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="../img/012.jpg" alt="Patrick Lee" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.keynote">主題演講</span>
-  <h3 class="p-name" data-i18n="p.12.name">Patrick Lee</h3>
-  <span class="p-role" data-i18n="p.12.role">音響評論人 · 香港</span>
-  <p class="p-bio" data-i18n="p.12.bio">自 1980 年代起於香港從事音響評論，透過雜誌、社群媒體與 YouTube 分享數十年的經驗。他創立的 Hi-Fi Circle 社群，在大中華區及東南亞擁有逾 40,000 名成員。</p>
-</article>
-<article class="person">
   <img class="p-photo" src="../img/013.jpg" alt="Richard H. Mak" loading="lazy" width="640" height="800">
   <span class="badge" data-i18n="badge.keynote">主題演講</span>
   <h3 class="p-name" data-i18n="p.13.name">Richard H. Mak</h3>
@@ -858,79 +838,18 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <p class="p-bio" data-i18n="p.13.bio">Mono &amp; Stereo 與 Part Time Audiophile 類比器材編輯，亦為 TONEAudio 的 Analog Master。寫作 25 年、玩音響 44 年，他設計了全球唯一的一站式唱頭調校軟體 AnalogMagik。</p>
 </article>
 <article class="person">
-  <img class="p-photo" src="../img/014.jpg" alt="草爸 AdiLance" loading="lazy" width="640" height="800">
+  <img class="p-photo" src="../img/016.jpg" alt="Daniel Hsu" loading="lazy" width="640" height="800">
   <span class="badge" data-i18n="badge.keynote">主題演講</span>
-  <h3 class="p-name" data-i18n="p.14.name">草爸 AdiLance</h3>
-  <span class="p-role" data-i18n="p.14.role">音響愛好者、內容創作者</span>
-  <p class="p-bio" data-i18n="p.14.bio">同為音響愛好者，他在社群媒體上分享自己的音樂與音響之路，一貫直率的風格，令追蹤者耳目一新。</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="../img/015.jpg" alt="John Hsu" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.keynote">主題演講</span>
-  <h3 class="p-name" data-i18n="p.15.name">John Hsu</h3>
-  <span class="p-role" data-i18n="p.15.role">空間聲學 · 新加坡</span>
-  <p class="p-bio" data-i18n="p.15.bio">玩音響 45 年，定居新加坡，親手打造並調校了一間地下室專屬聆聽室。他的互動講座涵蓋心理聲學、立體聲像、空間處理與喇叭擺位。</p>
+  <h3 class="p-name" data-i18n="p.16.name">Daniel Hsu</h3>
+  <span class="p-role" data-i18n="p.16.role">PaPa Dan 影音實驗室主持人 · 台灣</span>
+  <p class="p-bio" data-i18n="p.16.bio">StormAudio 認證專家級調校師，逾20年多聲道家庭影音系統設計與調校經驗，在亞洲完成超過50套 StormAudio 系統安裝。講題：為發燒友打造的新世代 Hi-Fi 影音沉浸式系統。</p>
 </article>
     </div>
   </div>
 </section>
 
-<section class="block" id="concerts">
+<section class="block" id="guests">
   <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="con.h">每日現場音樂會</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="con.intro">精選國際與亞洲藝人登上主舞台，以歌聲映照這片土地的語言、傳統與音樂底蘊。從聲學的純淨到文化的細膩，每一場演出，都是對聆聽之美的致敬。</p>
-    </div>
-    <div class="people">
-<article class="person">
-  <img class="p-photo" src="../img/031.jpg" alt="安妮特·阿斯克維克" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">現場演出</span>
-  <h3 class="p-name" data-i18n="p.31.name">安妮特·阿斯克維克</h3>
-  <span class="p-role" data-i18n="p.31.role">歌手、作曲人、製作人 · 挪威</span>
-  <p class="p-bio" data-i18n="p.31.bio">她的歌聲脆弱而有力，音樂柔和迷離，遊走於原聲與電子之間。發行四張專輯以來，她的錄音已成為全球展示與測試音響器材的標準。</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="../img/036.jpg" alt="STein Austrud" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">現場演出</span>
-  <h3 class="p-name" data-i18n="p.36.name">STein Austrud</h3>
-  <span class="p-role" data-i18n="p.36.role">鋼琴家、作曲人、製作人 · 挪威</span>
-  <p class="p-bio" data-i18n="p.36.bio">融合古典訓練與當代聲景，以抒情的鋼琴交織電影般的質地。將與安妮特·阿斯克維克同台演出於 HiEnd Asia。</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="../img/032.jpg" alt="Anne Bisson" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">現場演出</span>
-  <h3 class="p-name" data-i18n="p.32.name">Anne Bisson</h3>
-  <span class="p-role" data-i18n="p.32.role">爵士歌手、鋼琴家、詞曲創作人 · 加拿大</span>
-  <p class="p-bio" data-i18n="p.32.bio">以溫暖的嗓音、親密的現場演出，以及融合爵士、流行與古典元素的發燒級錄音著稱。</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="../img/033.jpg" alt="鍾志剛" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">現場演出</span>
-  <h3 class="p-name" data-i18n="p.33.name">鍾志剛</h3>
-  <span class="p-role" data-i18n="p.33.role">歌手、製作人 · 中國</span>
-  <p class="p-bio" data-i18n="p.33.bio">1994 年湖南 MTV 歌唱大賽亞軍，1998 及 1999 年兩度獲選深圳十大歌手。專輯包括 Once Chanted、Night Fire 與 Just Right。</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="../img/034.jpg" alt="Kiva 孫藝匯" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">現場演出</span>
-  <h3 class="p-name" data-i18n="p.34.name">Kiva 孫藝匯</h3>
-  <span class="p-role" data-i18n="p.34.role">創作歌手</span>
-  <p class="p-bio" data-i18n="p.34.bio">華語創作歌手，作品從深情抒情曲到電影感主題曲皆有涉獵。憑〈Libra〉入圍 2025 年 Wave Music Awards 最佳爵士歌曲。</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="../img/035.jpg" alt="王利秦 Henry Heng" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.emcee">主持</span>
-  <h3 class="p-name" data-i18n="p.35.name">王利秦 Henry Heng</h3>
-  <span class="p-role" data-i18n="p.35.role">主持人 · 新加坡</span>
-  <p class="p-bio" data-i18n="p.35.bio">活躍於新加坡電視圈逾二十年的熟悉面孔，以在 Mediacorp 的戲劇、綜藝節目與電影演出最為人熟知。</p>
-</article>
-    </div>
-  </div>
-</section>
-
-<section class="block" id="guests" style="padding-top:0">
-  <div class="wrap" style="padding-top:0">
     <div class="bh">
       <h2 class="bh-en" data-i18n="gu.h">尊貴嘉賓</h2>
       <div class="rule"></div>
@@ -938,63 +857,12 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     </div>
     <div class="people">
 <article class="person">
-  <img class="p-photo" src="../img/040.jpg" alt="謝誌豪" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.vip">貴賓</span>
-  <h3 class="p-name" data-i18n="p.40.name">謝誌豪</h3>
-  <span class="p-role" data-i18n="p.40.role">製作人、詞曲創作人 · 台灣</span>
-  <p class="p-bio" data-i18n="p.40.bio">曾與劉德華、蕭煌奇、Sasha Lee 等金曲獎得主合作。2012 年創立 LP2D Remaster Station 頻道，2022 年成立聆聽空間 築SOUND)))。</p>
+  <div class="p-photo p-none" aria-hidden="true"><img src="../img/monogram.svg" alt="" width="96" height="96"></div>
+  <span class="badge" data-i18n="badge.live">現場演出</span>
+  <h3 class="p-name" data-i18n="p.17.name">Billy Ho</h3>
+  <span class="p-role" data-i18n="p.17.role">吉他手暨製作人，EB Duet · 馬來西亞</span>
+  <p class="p-bio" data-i18n="p.17.bio">與主唱 Eve Wong 組成爵士二人組 EB Duet，自2015年起推出十張英文、國語、粵語及馬來語專輯。本屆展會他將以吉他獨奏演出，包括一首新歌。</p>
 </article>
-<article class="person">
-  <img class="p-photo" src="../img/041.jpg" alt="Brother Bok" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.vip">貴賓</span>
-  <h3 class="p-name" data-i18n="p.41.name">Brother Bok</h3>
-  <span class="p-role" data-i18n="p.41.role">音響 YouTuber · 馬來西亞</span>
-  <p class="p-bio" data-i18n="p.41.bio">馬來西亞唯一以中文主講的專業音響 YouTuber，風格幽默直接：開箱、探店與音響知識。</p>
-</article>
-<article class="person">
-  <img class="p-photo" src="../img/042.jpg" alt="好薇" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.meet">見面會</span>
-  <h3 class="p-name" data-i18n="p.42.name">好薇</h3>
-  <span class="p-role" data-i18n="p.42.role">女高音 · 中國</span>
-  <p class="p-bio" data-i18n="p.42.bio">畢業於星海音樂學院聲樂表演系，以紮實的演唱與深刻的情感著稱。自 2020 年起已發行多張專輯。</p>
-</article>
-    </div>
-  </div>
-</section>
-
-<section class="block band" id="programme">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="prog.h">節目表</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="prog.intro">2026 年節目表尚待確認。三日內將有主題演講、每日現場音樂會及藝人見面會，詳細時間表將於此公布。</p>
-    </div>
-    <ol class="days">
-      <li class="day"><span class="day-date" data-i18n="d.thu.short">12月17日（四）</span><span class="day-time" data-i18n="time">上午10時 – 晚上7時</span><span class="tbc" data-i18n="prog.tbc">待定</span></li>
-      <li class="day"><span class="day-date" data-i18n="d.fri.short">12月18日（五）</span><span class="day-time" data-i18n="time">上午10時 – 晚上7時</span><span class="tbc" data-i18n="prog.tbc">待定</span></li>
-      <li class="day"><span class="day-date" data-i18n="d.sat.short">12月19日（六）</span><span class="day-time" data-i18n="time">上午10時 – 晚上7時</span><span class="tbc" data-i18n="prog.tbc">待定</span></li>
-    </ol>
-    <div class="center">
-      <div class="btns">
-        <details class="cal">
-          <summary class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="cal.add">加入日曆</span><span class="chev" aria-hidden="true">▾</span></summary>
-          <div class="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
-            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
-            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
-            <a href="../hiendasia-2026.ics"><span data-i18n="cal.ics">Apple 行事曆及其他</span><small data-i18n="cal.ics.note">iPhone、Mac 或任何行事曆 App（.ics）</small></a>
-          </div>
-        </details>
-        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%20%E6%96%B0%E5%8A%A0%E5%9D%A1%20Hi-End%20Asia%20%E5%9C%8B%E9%9A%9B%E9%9F%B3%E9%9F%BF%E5%BD%B1%E9%9F%B3%E5%B1%95%0A2026%E5%B9%B412%E6%9C%8817%20%E2%80%93%2019%E6%97%A5%EF%BC%8C%E6%AF%8F%E6%97%A5%E4%B8%8A%E5%8D%8810%E6%99%82%20%E2%80%93%20%E6%99%9A%E4%B8%8A7%E6%99%82%0ASuntec%20Singapore%20%C2%B7%20%E6%96%B0%E9%81%94%E5%9F%8E%E6%96%B0%E5%8A%A0%E5%9D%A1%E5%9C%8B%E9%9A%9B%E6%9C%83%E8%AD%B0%E8%88%87%E5%B1%95%E8%A6%BD%E4%B8%AD%E5%BF%83%20%E4%B8%89%E6%A8%93%0A%E5%85%8D%E8%B2%BB%E5%85%A5%E5%A0%B4%EF%BC%8C%E7%84%A1%E9%9C%80%E9%96%80%E7%A5%A8%E3%80%82%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/zh-Hant/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">分享至 WhatsApp</span></a>
-        <details class="cal wx">
-          <summary class="btn btn-outline"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 4C5.1 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.4 2.5.4h.4a5 5 0 0 1-.2-1.4C9.2 11 12.2 8.6 16 8.6h.3C15.6 5.9 12.6 4 9 4Zm-2.4 3.2a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/><path d="M22 14.2c0-2.7-2.7-4.8-6-4.8s-6 2.1-6 4.8 2.7 4.8 6 4.8c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.8Zm-8-.9a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z"/></svg><span data-i18n="share.wx">分享到微信</span></summary>
-          <div class="cal-menu wx-menu">
-            <img src="../img/wechat-qr.svg" width="168" height="168" alt="本頁 QR 碼">
-            <p data-i18n="share.wx.scan">用微信掃一掃，把本頁分享給朋友。</p>
-            <button class="btn btn-outline btn-sm" type="button" data-copy data-copied="已複製連結"><span data-i18n="share.wx.copy">複製連結</span></button>
-          </div>
-        </details>
-      </div>
     </div>
   </div>
 </section>
@@ -1020,60 +888,6 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <span class="rep-brand">Acoustical Systems</span>
 </li>
 <li class="rep">
-  <img src="../img/045.jpg" alt="Kenneth Lin" loading="lazy" width="400" height="500">
-  <span class="rep-name">Kenneth Lin</span>
-  <span class="rep-role" data-i18n="rep.2.role">共同創辦人</span>
-  <span class="rep-brand">Alexandria Audio</span>
-</li>
-<li class="rep">
-  <img src="../img/046.jpg" alt="Henry Kristanto" loading="lazy" width="400" height="500">
-  <span class="rep-name">Henry Kristanto</span>
-  <span class="rep-role" data-i18n="rep.3.role">共同創辦人</span>
-  <span class="rep-brand">Alexandria Audio</span>
-</li>
-<li class="rep">
-  <img src="../img/047.jpg" alt="Danny Hon" loading="lazy" width="400" height="500">
-  <span class="rep-name">Danny Hon</span>
-  <span class="rep-role" data-i18n="rep.4.role">亞洲區銷售經理</span>
-  <span class="rep-brand">Audio Group Denmark</span>
-</li>
-<li class="rep">
-  <img src="../img/048.jpg" alt="Michael Børresen" loading="lazy" width="400" height="500">
-  <span class="rep-name">Michael Børresen</span>
-  <span class="rep-role" data-i18n="rep.5.role">CTO</span>
-  <span class="rep-brand">Audio Group Denmark</span>
-</li>
-<li class="rep">
-  <img src="../img/049.jpg" alt="Mads Klifoth" loading="lazy" width="400" height="500">
-  <span class="rep-name">Mads Klifoth</span>
-  <span class="rep-role" data-i18n="rep.6.role">CEO</span>
-  <span class="rep-brand">Audiovector</span>
-</li>
-<li class="rep">
-  <img src="../img/050.jpg" alt="Jacky Fong" loading="lazy" width="400" height="500">
-  <span class="rep-name">Jacky Fong</span>
-  <span class="rep-role" data-i18n="rep.7.role">亞洲區銷售經理</span>
-  <span class="rep-brand">Audiovector</span>
-</li>
-<li class="rep">
-  <img src="../img/051.jpg" alt="Felix Avalos, Raul Rangel" loading="lazy" width="400" height="500">
-  <span class="rep-name">Felix Avalos, Raul Rangel</span>
-  <span class="rep-role" data-i18n="rep.8.role">總裁暨 CEO</span>
-  <span class="rep-brand">Avalos Sound Design · Fono Acustica</span>
-</li>
-<li class="rep">
-  <img src="../img/052.jpg" alt="Jerome Andre" loading="lazy" width="400" height="500">
-  <span class="rep-name">Jerome Andre</span>
-  <span class="rep-role" data-i18n="rep.9.role">國際銷售經理</span>
-  <span class="rep-brand">Avantgarde</span>
-</li>
-<li class="rep">
-  <img src="../img/053.jpg" alt="Steve Shade" loading="lazy" width="400" height="500">
-  <span class="rep-name">Steve Shade</span>
-  <span class="rep-role" data-i18n="rep.10.role">國際銷售總監</span>
-  <span class="rep-brand">BAT · MoFi Electronics</span>
-</li>
-<li class="rep">
   <img src="../img/054.jpg" alt="Helmut Brinkmann" loading="lazy" width="400" height="500">
   <span class="rep-name">Helmut Brinkmann</span>
   <span class="rep-role" data-i18n="rep.11.role">創辦人</span>
@@ -1086,28 +900,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <span class="rep-brand">Brinkmann</span>
 </li>
 <li class="rep">
-  <img src="../img/056.jpg" alt="Xu Nuo" loading="lazy" width="400" height="500">
-  <span class="rep-name">Xu Nuo</span>
-  <span class="rep-role" data-i18n="rep.13.role">總經理（中國）</span>
-  <span class="rep-brand">Direct Sound Machine</span>
-</li>
-<li class="rep">
-  <img src="../img/057.jpg" alt="Heng Yi Xiang" loading="lazy" width="400" height="500">
-  <span class="rep-name">Heng Yi Xiang</span>
-  <span class="rep-role" data-i18n="rep.14.role">總經理（新加坡）</span>
-  <span class="rep-brand">Direct Sound Machine</span>
-</li>
-<li class="rep">
   <img src="../img/058.jpg" alt="Maurizio Aterini" loading="lazy" width="400" height="500">
   <span class="rep-name">Maurizio Aterini</span>
   <span class="rep-role" data-i18n="rep.15.role">創辦人暨 CEO</span>
   <span class="rep-brand">Gold Note</span>
-</li>
-<li class="rep">
-  <img src="../img/059.jpg" alt="Micha Huber" loading="lazy" width="400" height="500">
-  <span class="rep-name">Micha Huber</span>
-  <span class="rep-role" data-i18n="rep.16.role">CEO</span>
-  <span class="rep-brand">HiFiction AG</span>
 </li>
 <li class="rep">
   <img src="../img/060.jpg" alt="Hans-Jürgen Kaiser" loading="lazy" width="400" height="500">
@@ -1134,12 +930,6 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <span class="rep-brand">Lyra Analog</span>
 </li>
 <li class="rep">
-  <img src="../img/064.jpg" alt="Bjorn Bengtsson" loading="lazy" width="400" height="500">
-  <span class="rep-name">Bjorn Bengtsson</span>
-  <span class="rep-role" data-i18n="rep.21.role">產品專員</span>
-  <span class="rep-brand">Nordost</span>
-</li>
-<li class="rep">
   <img src="../img/065.jpg" alt="Lennart Asbjørn" loading="lazy" width="400" height="500">
   <span class="rep-name">Lennart Asbjørn</span>
   <span class="rep-role" data-i18n="rep.22.role">CEO</span>
@@ -1152,70 +942,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <span class="rep-brand">Peak Consult</span>
 </li>
 <li class="rep">
-  <img src="../img/067.jpg" alt="Mark Thomsen" loading="lazy" width="400" height="500">
-  <span class="rep-name">Mark Thomsen</span>
-  <span class="rep-role" data-i18n="rep.24.role">國際銷售與行銷</span>
-  <span class="rep-brand">SB Acoustics &amp; SB Audience</span>
-</li>
-<li class="rep">
-  <img src="../img/068.jpg" alt="Melly Wulandari" loading="lazy" width="400" height="500">
-  <span class="rep-name">Melly Wulandari</span>
-  <span class="rep-role" data-i18n="rep.25.role">專案經理</span>
-  <span class="rep-brand">Sinar Bajar Electric</span>
-</li>
-<li class="rep">
-  <img src="../img/069.jpg" alt="Willy S" loading="lazy" width="400" height="500">
-  <span class="rep-name">Willy S</span>
-  <span class="rep-role" data-i18n="rep.26.role">專案經理</span>
-  <span class="rep-brand">Sinar Bajar Electric</span>
-</li>
-<li class="rep">
-  <img src="../img/070.jpg" alt="Ming Yip" loading="lazy" width="400" height="500">
-  <span class="rep-name">Ming Yip</span>
-  <span class="rep-role" data-i18n="rep.27.role">創辦人</span>
-  <span class="rep-brand">Sine</span>
-</li>
-<li class="rep">
-  <img src="../img/071.jpg" alt="James Soh" loading="lazy" width="400" height="500">
-  <span class="rep-name">James Soh</span>
-  <span class="rep-role" data-i18n="rep.28.role">CEO</span>
-  <span class="rep-brand">Sound Affairs</span>
-</li>
-<li class="rep">
-  <img src="../img/072.jpg" alt="Richard Braine" loading="lazy" width="400" height="500">
-  <span class="rep-name">Richard Braine</span>
-  <span class="rep-role" data-i18n="rep.29.role">董事</span>
-  <span class="rep-brand">Supatrac</span>
-</li>
-<li class="rep">
   <img src="../img/073.jpg" alt="Shinji Tarutani" loading="lazy" width="400" height="500">
   <span class="rep-name">Shinji Tarutani</span>
   <span class="rep-role" data-i18n="rep.30.role">總裁</span>
   <span class="rep-brand">TAD</span>
-</li>
-<li class="rep">
-  <img src="../img/074.jpg" alt="Rumen Artaski" loading="lazy" width="400" height="500">
-  <span class="rep-name">Rumen Artaski</span>
-  <span class="rep-role" data-i18n="rep.31.role">CEO</span>
-  <span class="rep-brand">Thrax Audio</span>
-</li>
-<li class="rep">
-  <img src="../img/075.jpg" alt="Masashi Miyake" loading="lazy" width="400" height="500">
-  <span class="rep-name">Masashi Miyake</span>
-  <span class="rep-role" data-i18n="rep.32.role">創辦人</span>
-  <span class="rep-brand">Vinyl Audio Laboratory</span>
-</li>
-<li class="rep">
-  <img src="../img/076.jpg" alt="Hans-Ole Vitus" loading="lazy" width="400" height="500">
-  <span class="rep-name">Hans-Ole Vitus</span>
-  <span class="rep-role" data-i18n="rep.33.role">創辦人</span>
-  <span class="rep-brand">Vitus Audio</span>
-</li>
-<li class="rep">
-  <img src="../img/077.jpg" alt="Inès Adler" loading="lazy" width="400" height="500">
-  <span class="rep-name">Inès Adler</span>
-  <span class="rep-role" data-i18n="rep.34.role">CEO 暨創辦人</span>
-  <span class="rep-brand">Voxativ</span>
 </li>
 <li class="rep">
   <img src="../img/078.jpg" alt="Stefan Trog" loading="lazy" width="400" height="500">
@@ -1228,12 +958,6 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <span class="rep-name">Günther Mania</span>
   <span class="rep-role" data-i18n="rep.36.role">開發人員</span>
   <span class="rep-brand">Westend Audio System</span>
-</li>
-<li class="rep">
-  <img src="../img/080.jpg" alt="Aurèle Docquin" loading="lazy" width="400" height="500">
-  <span class="rep-name">Aurèle Docquin</span>
-  <span class="rep-role" data-i18n="rep.37.role">亞太區銷售總監</span>
-  <span class="rep-brand">YG Acoustics</span>
 </li>
 <li class="rep">
   <img src="../img/081.jpg" alt="Demetris Baklavas" loading="lazy" width="400" height="500">
@@ -1254,173 +978,63 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     </div>
     <h3 class="sub-h" data-i18n="brands.dealers">經銷商與代理商</h3>
     <ul class="wall big">
-<li class="tile"><img src="../img/082.jpg" alt="Aston Martin" loading="lazy" title="Aston Martin"></li>
-<li class="tile"><img src="../img/083.jpg" alt="Audio Maestro" loading="lazy" title="Audio Maestro"></li>
-<li class="tile"><img src="../img/084.jpg" alt="Ong Radio" loading="lazy" title="Ong Radio"></li>
 <li class="tile"><img src="../img/085.jpg" alt="AudioLine" loading="lazy" title="AudioLine"></li>
-<li class="tile"><img src="../img/086.jpg" alt="Audio 88" loading="lazy" title="Audio 88"></li>
-<li class="tile"><img src="../img/087.jpg" alt="Audio Atelier" loading="lazy" title="Audio Atelier"></li>
-<li class="tile"><img src="../img/088.jpg" alt="Hifi.com.sg" loading="lazy" title="Hifi.com.sg"></li>
-<li class="tile"><img src="../img/089.jpg" alt="Analog Playground" loading="lazy" title="Analog Playground"></li>
-<li class="tile"><img src="../img/090.jpg" alt="Audio Exotics" loading="lazy" title="Audio Exotics"></li>
-<li class="tile"><img src="../img/091.jpg" alt="Optivox" loading="lazy" title="Optivox"></li>
-<li class="tile"><img src="../img/092.jpg" alt="MU6" loading="lazy" title="MU6"></li>
-<li class="tile"><img src="../img/093.jpg" alt="Peak Audio" loading="lazy" title="Peak Audio"></li>
-<li class="tile"><img src="../img/094.jpg" alt="Sound Machine" loading="lazy" title="Sound Machine"></li>
-<li class="tile"><img src="../img/095.jpg" alt="Artisan acoustics" loading="lazy" title="Artisan acoustics"></li>
-<li class="tile"><img src="../img/096.jpg" alt="Cancan" loading="lazy" title="Cancan"></li>
-<li class="tile"><img src="../img/097.jpg" alt="McIntosh" loading="lazy" title="McIntosh"></li>
-<li class="tile"><img src="../img/098.jpg" alt="Melodious Piano Boutique" loading="lazy" title="Melodious Piano Boutique"></li>
-<li class="tile"><img src="../img/099.jpg" alt="Westend" loading="lazy" title="Westend"></li>
-<li class="tile"><img src="../img/100.jpg" alt="AV Intelligence" loading="lazy" title="AV Intelligence"></li>
 <li class="tile"><img src="../img/101.jpg" alt="High End Research" loading="lazy" title="High End Research"></li>
-<li class="tile"><img src="../img/102.jpg" alt="Arsham" loading="lazy" title="Arsham"></li>
-<li class="tile"><img src="../img/103.jpg" alt="Lingke" loading="lazy" title="Lingke"></li>
+<li class="tile"><img src="../img/087.jpg" alt="Audio Atelier" loading="lazy" title="Audio Atelier"></li>
+<li class="tile"><img src="../img/084.jpg" alt="Ong Radio" loading="lazy" title="Ong Radio"></li>
+<li class="tile"><img src="../img/089.jpg" alt="Analog Playground" loading="lazy" title="Analog Playground"></li>
+<li class="tile"><img src="../img/099.jpg" alt="Westend" loading="lazy" title="Westend"></li>
+<li class="tile"><img src="../img/093.jpg" alt="Peak Audio" loading="lazy" title="Peak Audio"></li>
 <li class="tile"><img src="../img/104.jpg" alt="SharkWire" loading="lazy" title="SharkWire"></li>
-<li class="tile"><img src="../img/105.jpg" alt="Point" loading="lazy" title="Point"></li>
-<li class="tile"><img src="../img/106.jpg" alt="APL" loading="lazy" title="APL"></li>
     </ul>
     <h3 class="sub-h" data-i18n="brands.exhibiting">參展品牌</h3>
     <div class="wall-box collapsed" id="wallBox">
       <ul class="wall" id="brandWall">
-<li class="tile"><img src="../img/107.jpg" alt="ARTESANIA" loading="lazy" title="ARTESANIA"></li>
-<li class="tile"><img src="../img/108.jpg" alt="Aavik" loading="lazy" title="Aavik"></li>
 <li class="tile"><img src="../img/109.jpg" alt="Accuphase" loading="lazy" title="Accuphase"></li>
 <li class="tile"><img src="../img/110.jpg" alt="Acoustic Signature" loading="lazy" title="Acoustic Signature"></li>
 <li class="tile"><img src="../img/111.jpg" alt="Acoustical Systems" loading="lazy" title="Acoustical Systems"></li>
-<li class="tile"><img src="../img/112.jpg" alt="Air Tight" loading="lazy" title="Air Tight"></li>
-<li class="tile"><img src="../img/113.jpg" alt="Alexandria Audio" loading="lazy" title="Alexandria Audio"></li>
-<li class="tile"><img src="../img/115.jpg" alt="Ansuz" loading="lazy" title="Ansuz"></li>
-<li class="tile"><img src="../img/116.jpg" alt="Audio Bastion" loading="lazy" title="Audio Bastion"></li>
+<li class="tile"><img src="../img/300.jpg" alt="AMR" loading="lazy" title="AMR"></li>
+<li class="tile"><img src="../img/107.jpg" alt="ARTESANIA" loading="lazy" title="ARTESANIA"></li>
 <li class="tile"><img src="../img/117.jpg" alt="Audio Desk" loading="lazy" title="Audio Desk"></li>
-<li class="tile"><img src="../img/118.jpg" alt="Audio Exotics" loading="lazy" title="Audio Exotics"></li>
-<li class="tile"><img src="../img/119.jpg" alt="Audio Group Denmark" loading="lazy" title="Audio Group Denmark"></li>
-<li class="tile"><img src="../img/120.jpg" alt="Audio Note Singapore Pte. Ltd." loading="lazy" title="Audio Note Singapore Pte. Ltd."></li>
 <li class="tile"><img src="../img/121.jpg" alt="Audio-Technica" loading="lazy" title="Audio-Technica"></li>
-<li class="tile"><img src="../img/122.jpg" alt="Audiovector" loading="lazy" title="Audiovector"></li>
-<li class="tile"><img src="../img/123.jpg" alt="Avalos" loading="lazy" title="Avalos"></li>
-<li class="tile"><img src="../img/124.jpg" alt="Avantgarde" loading="lazy" title="Avantgarde"></li>
-<li class="tile"><img src="../img/125.jpg" alt="Axxess" loading="lazy" title="Axxess"></li>
-<li class="tile"><img src="../img/126.jpg" alt="B.Audio" loading="lazy" title="B.Audio"></li>
-<li class="tile"><img src="../img/127.jpg" alt="Balanced Audio Technology" loading="lazy" title="Balanced Audio Technology"></li>
-<li class="tile"><img src="../img/128.jpg" alt="Basso" loading="lazy" title="Basso"></li>
-<li class="tile"><img src="../img/129.jpg" alt="Black Cat" loading="lazy" title="Black Cat"></li>
-<li class="tile"><img src="../img/130.jpg" alt="Borresen" loading="lazy" title="Borresen"></li>
 <li class="tile"><img src="../img/131.jpg" alt="Bowers &amp; Wilkins" loading="lazy" title="Bowers &amp; Wilkins"></li>
 <li class="tile"><img src="../img/132.jpg" alt="Brinkmann Audio" loading="lazy" title="Brinkmann Audio"></li>
-<li class="tile"><img src="../img/133.jpg" alt="Cabasse" loading="lazy" title="Cabasse"></li>
 <li class="tile"><img src="../img/134.jpg" alt="Cary Audio" loading="lazy" title="Cary Audio"></li>
-<li class="tile"><img src="../img/135.jpg" alt="Cessaro" loading="lazy" title="Cessaro"></li>
-<li class="tile"><img src="../img/136.jpg" alt="Classe Audio" loading="lazy" title="Classe Audio"></li>
-<li class="tile"><img src="../img/137.jpg" alt="Consonance Audio" loading="lazy" title="Consonance Audio"></li>
-<li class="tile"><img src="../img/138.jpg" alt="Dalby" loading="lazy" title="Dalby"></li>
+<li class="tile"><img src="../img/308.jpg" alt="Clearaudio" loading="lazy" title="Clearaudio"></li>
 <li class="tile"><img src="../img/139.jpg" alt="Diapason" loading="lazy" title="Diapason"></li>
 <li class="tile"><img src="../img/140.jpg" alt="Diesis Audio" loading="lazy" title="Diesis Audio"></li>
-<li class="tile"><img src="../img/141.jpg" alt="Dohmann" loading="lazy" title="Dohmann"></li>
-<li class="tile"><img src="../img/142.jpg" alt="Dr. Feickhert Analogue" loading="lazy" title="Dr. Feickhert Analogue"></li>
-<li class="tile"><img src="../img/143.jpg" alt="EMT" loading="lazy" title="EMT"></li>
-<li class="tile"><img src="../img/144.jpg" alt="Ediscreation" loading="lazy" title="Ediscreation"></li>
-<li class="tile"><img src="../img/145.jpg" alt="Engstrom" loading="lazy" title="Engstrom"></li>
-<li class="tile"><img src="../img/146.jpg" alt="Enleum" loading="lazy" title="Enleum"></li>
 <li class="tile"><img src="../img/147.jpg" alt="Ensemble Swiss Audio" loading="lazy" title="Ensemble Swiss Audio"></li>
-<li class="tile"><img src="../img/148.jpg" alt="Esprit" loading="lazy" title="Esprit"></li>
-<li class="tile"><img src="../img/149.jpg" alt="Etsuro Urushi" loading="lazy" title="Etsuro Urushi"></li>
-<li class="tile"><img src="../img/150.jpg" alt="Falcon Acoustics" loading="lazy" title="Falcon Acoustics"></li>
 <li class="tile"><img src="../img/151.jpg" alt="Finite Elemente EU" loading="lazy" title="Finite Elemente EU"></li>
-<li class="tile"><img src="../img/152.jpg" alt="Fono Acustica" loading="lazy" title="Fono Acustica"></li>
-<li class="tile"><img src="../img/153.jpg" alt="Gait" loading="lazy" title="Gait"></li>
-<li class="tile"><img src="../img/154.jpg" alt="Genesis Audio" loading="lazy" title="Genesis Audio"></li>
-<li class="tile"><img src="../img/155.jpg" alt="Goal Bon" loading="lazy" title="Goal Bon"></li>
-<li class="tile"><img src="../img/156.jpg" alt="Goebel" loading="lazy" title="Goebel"></li>
 <li class="tile"><img src="../img/157.jpg" alt="Gold Note" loading="lazy" title="Gold Note"></li>
-<li class="tile"><img src="../img/158.jpg" alt="Goldmund Swiss Made" loading="lazy" title="Goldmund Swiss Made"></li>
+<li class="tile"><img src="../img/305.jpg" alt="Graham Engineering" loading="lazy" title="Graham Engineering"></li>
 <li class="tile"><img src="../img/159.jpg" alt="Graham Audio" loading="lazy" title="Graham Audio"></li>
-<li class="tile"><img src="../img/160.jpg" alt="Grand Prix Audio" loading="lazy" title="Grand Prix Audio"></li>
-<li class="tile"><img src="../img/161.jpg" alt="Harmonic Resolution Systems" loading="lazy" title="Harmonic Resolution Systems"></li>
-<li class="tile"><img src="../img/162.jpg" alt="HiFiction AG" loading="lazy" title="HiFiction AG"></li>
 <li class="tile"><img src="../img/163.jpg" alt="Ikeda Sound Labs" loading="lazy" title="Ikeda Sound Labs"></li>
-<li class="tile"><img src="../img/164.jpg" alt="Ikigai" loading="lazy" title="Ikigai"></li>
-<li class="tile"><img src="../img/165.jpg" alt="Innuos" loading="lazy" title="Innuos"></li>
-<li class="tile"><img src="../img/166.jpg" alt="JBL" loading="lazy" title="JBL"></li>
-<li class="tile"><img src="../img/167.jpg" alt="JMF Audio" loading="lazy" title="JMF Audio"></li>
 <li class="tile"><img src="../img/168.jpg" alt="Kaiser" loading="lazy" title="Kaiser"></li>
 <li class="tile"><img src="../img/169.jpg" alt="Kawero" loading="lazy" title="Kawero"></li>
-<li class="tile"><img src="../img/170.jpg" alt="Kinki Studio" loading="lazy" title="Kinki Studio"></li>
-<li class="tile"><img src="../img/171.jpg" alt="Kora High Fidelity" loading="lazy" title="Kora High Fidelity"></li>
-<li class="tile"><img src="../img/172.jpg" alt="LAB 12" loading="lazy" title="LAB 12"></li>
-<li class="tile"><img src="../img/173.jpg" alt="LAIV" loading="lazy" title="LAIV"></li>
-<li class="tile"><img src="../img/174.jpg" alt="Leben" loading="lazy" title="Leben"></li>
-<li class="tile"><img src="../img/175.jpg" alt="Lithosphere Labs (France)" loading="lazy" title="Lithosphere Labs (France)"></li>
+<li class="tile"><img src="../img/304.jpg" alt="Koetsu" loading="lazy" title="Koetsu"></li>
 <li class="tile"><img src="../img/176.jpg" alt="Live Cable" loading="lazy" title="Live Cable"></li>
-<li class="tile"><img src="../img/177.jpg" alt="Loricraft Audio" loading="lazy" title="Loricraft Audio"></li>
-<li class="tile"><img src="../img/178.jpg" alt="Lumin" loading="lazy" title="Lumin"></li>
 <li class="tile"><img src="../img/179.jpg" alt="Lyra Analog" loading="lazy" title="Lyra Analog"></li>
-<li class="tile"><img src="../img/180.jpg" alt="MSB Technology" loading="lazy" title="MSB Technology"></li>
-<li class="tile"><img src="../img/181.jpg" alt="Marten Audio" loading="lazy" title="Marten Audio"></li>
-<li class="tile"><img src="../img/182.jpg" alt="Matrix Audio" loading="lazy" title="Matrix Audio"></li>
-<li class="tile"><img src="../img/183.jpg" alt="Matter" loading="lazy" title="Matter"></li>
+<li class="tile"><img src="../img/307.jpg" alt="Magnum Dynalab" loading="lazy" title="Magnum Dynalab"></li>
+<li class="tile"><img src="../img/097.jpg" alt="McIntosh" loading="lazy" title="McIntosh"></li>
 <li class="tile"><img src="../img/184.jpg" alt="Metronome" loading="lazy" title="Metronome"></li>
-<li class="tile"><img src="../img/185.jpg" alt="Miyajima Laboratory" loading="lazy" title="Miyajima Laboratory"></li>
-<li class="tile"><img src="../img/186.jpg" alt="Mod Audio" loading="lazy" title="Mod Audio"></li>
-<li class="tile"><img src="../img/187.jpg" alt="Mofi Electronics" loading="lazy" title="Mofi Electronics"></li>
 <li class="tile"><img src="../img/188.jpg" alt="MontAudio" loading="lazy" title="MontAudio"></li>
-<li class="tile"><img src="../img/189.jpg" alt="Moon by Sim Audio" loading="lazy" title="Moon by Sim Audio"></li>
-<li class="tile"><img src="../img/190.jpg" alt="Mr. K Audio" loading="lazy" title="Mr. K Audio"></li>
-<li class="tile"><img src="../img/191.jpg" alt="NAGRA" loading="lazy" title="NAGRA"></li>
-<li class="tile"><img src="../img/192.jpg" alt="Nirvana Audio" loading="lazy" title="Nirvana Audio"></li>
-<li class="tile"><img src="../img/193.jpg" alt="Nordost" loading="lazy" title="Nordost"></li>
 <li class="tile"><img src="../img/194.jpg" alt="Obit" loading="lazy" title="Obit"></li>
-<li class="tile"><img src="../img/195.jpg" alt="Opera Loudspeakers" loading="lazy" title="Opera Loudspeakers"></li>
-<li class="tile"><img src="../img/196.jpg" alt="Origin Live" loading="lazy" title="Origin Live"></li>
-<li class="tile"><img src="../img/197.jpg" alt="Ortofon" loading="lazy" title="Ortofon"></li>
 <li class="tile"><img src="../img/198.jpg" alt="Pass Labs" loading="lazy" title="Pass Labs"></li>
-<li class="tile"><img src="../img/199.jpg" alt="Pink Faun" loading="lazy" title="Pink Faun"></li>
-<li class="tile"><img src="../img/200.jpg" alt="PliXir" loading="lazy" title="PliXir"></li>
-<li class="tile"><img src="../img/201.jpg" alt="Purple Qingdao" loading="lazy" title="Purple Qingdao"></li>
-<li class="tile"><img src="../img/202.jpg" alt="Quadraspire" loading="lazy" title="Quadraspire"></li>
-<li class="tile"><img src="../img/203.jpg" alt="Raidho Acoustics" loading="lazy" title="Raidho Acoustics"></li>
-<li class="tile"><img src="../img/204.jpg" alt="Reiki Audio" loading="lazy" title="Reiki Audio"></li>
-<li class="tile"><img src="../img/205.jpg" alt="Richard Gray&#x27;s Power Company" loading="lazy" title="Richard Gray&#x27;s Power Company"></li>
-<li class="tile"><img src="../img/206.jpg" alt="Riviera" loading="lazy" title="Riviera"></li>
+<li class="tile"><img src="../img/309.jpg" alt="Purist Audio Design" loading="lazy" title="Purist Audio Design"></li>
 <li class="tile"><img src="../img/207.jpg" alt="Rogers High Fidelity" loading="lazy" title="Rogers High Fidelity"></li>
-<li class="tile"><img src="../img/208.jpg" alt="Roxy Disc House" loading="lazy" title="Roxy Disc House"></li>
-<li class="tile"><img src="../img/209.jpg" alt="SB Acoustics" loading="lazy" title="SB Acoustics"></li>
-<li class="tile"><img src="../img/210.jpg" alt="Scansonic" loading="lazy" title="Scansonic"></li>
-<li class="tile"><img src="../img/211.jpg" alt="Showfeel" loading="lazy" title="Showfeel"></li>
-<li class="tile"><img src="../img/212.jpg" alt="Shunyata Research" loading="lazy" title="Shunyata Research"></li>
+<li class="tile"><img src="../img/302.jpg" alt="Ronnie" loading="lazy" title="Ronnie"></li>
+<li class="tile"><img src="../img/301.jpg" alt="San Yuan" loading="lazy" title="San Yuan"></li>
 <li class="tile"><img src="../img/213.jpg" alt="Signal Projects" loading="lazy" title="Signal Projects"></li>
-<li class="tile"><img src="../img/214.jpg" alt="Sine" loading="lazy" title="Sine"></li>
-<li class="tile"><img src="../img/215.jpg" alt="Solid Tech" loading="lazy" title="Solid Tech"></li>
-<li class="tile"><img src="../img/216.jpg" alt="Sound Gallery by IMS" loading="lazy" title="Sound Gallery by IMS"></li>
-<li class="tile"><img src="../img/217.jpg" alt="Stellavox" loading="lazy" title="Stellavox"></li>
+<li class="tile"><img src="../img/303.jpg" alt="SME" loading="lazy" title="SME"></li>
 <li class="tile"><img src="../img/218.jpg" alt="Stradius" loading="lazy" title="Stradius"></li>
-<li class="tile"><img src="../img/219.jpg" alt="Supatrac" loading="lazy" title="Supatrac"></li>
 <li class="tile"><img src="../img/220.jpg" alt="Sutherland" loading="lazy" title="Sutherland"></li>
-<li class="tile"><img src="../img/221.jpg" alt="Synastec Audio" loading="lazy" title="Synastec Audio"></li>
 <li class="tile"><img src="../img/222.jpg" alt="TAD" loading="lazy" title="TAD"></li>
-<li class="tile"><img src="../img/223.jpg" alt="Thales Audio" loading="lazy" title="Thales Audio"></li>
-<li class="tile"><img src="../img/224.jpg" alt="Thrax Audio" loading="lazy" title="Thrax Audio"></li>
-<li class="tile"><img src="../img/225.jpg" alt="Tiglon" loading="lazy" title="Tiglon"></li>
-<li class="tile"><img src="../img/226.jpg" alt="Triode Japan" loading="lazy" title="Triode Japan"></li>
-<li class="tile"><img src="../img/227.jpg" alt="TW Acustic" loading="lazy" title="TW Acustic"></li>
-<li class="tile"><img src="../img/228.jpg" alt="Ungnoi" loading="lazy" title="Ungnoi"></li>
-<li class="tile"><img src="../img/229.jpg" alt="Unison Research" loading="lazy" title="Unison Research"></li>
-<li class="tile"><img src="../img/230.jpg" alt="VPI" loading="lazy" title="VPI"></li>
-<li class="tile"><img src="../img/231.jpg" alt="Vertere" loading="lazy" title="Vertere"></li>
-<li class="tile"><img src="../img/232.jpg" alt="Vinshine Audio" loading="lazy" title="Vinshine Audio"></li>
-<li class="tile"><img src="../img/233.jpg" alt="Vinyl Audio Laboratory" loading="lazy" title="Vinyl Audio Laboratory"></li>
-<li class="tile"><img src="../img/234.jpg" alt="Vitus Audio" loading="lazy" title="Vitus Audio"></li>
-<li class="tile"><img src="../img/235.jpg" alt="Voxativ" loading="lazy" title="Voxativ"></li>
-<li class="tile"><img src="../img/236.jpg" alt="Vulcan Fuse" loading="lazy" title="Vulcan Fuse"></li>
-<li class="tile"><img src="../img/237.jpg" alt="Weichen Music" loading="lazy" title="Weichen Music"></li>
+<li class="tile"><img src="../img/306.jpg" alt="Vimberg" loading="lazy" title="Vimberg"></li>
 <li class="tile"><img src="../img/238.jpg" alt="Wilson Audio" loading="lazy" title="Wilson Audio"></li>
-<li class="tile"><img src="../img/239.jpg" alt="Xquisite" loading="lazy" title="Xquisite"></li>
-<li class="tile"><img src="../img/240.jpg" alt="YG Acoustics" loading="lazy" title="YG Acoustics"></li>
 <li class="tile"><img src="../img/241.jpg" alt="Ypsilon Electronics" loading="lazy" title="Ypsilon Electronics"></li>
-<li class="tile"><img src="../img/242.jpg" alt="Zensati" loading="lazy" title="Zensati"></li>
       </ul>
     </div>
-    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false" data-all="顯示全部 135 個品牌" data-fewer="收起">顯示全部 135 個品牌</button></div>
+    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false" data-all="顯示全部 42 個品牌" data-fewer="收起">顯示全部 42 個品牌</button></div>
   </div>
 </section>
 
@@ -1468,9 +1082,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <details class="cal">
           <summary class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="cal.add">加入日曆</span><span class="chev" aria-hidden="true">▾</span></summary>
           <div class="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
-            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
-            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
+            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
+            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
             <a href="../hiendasia-2026.ics"><span data-i18n="cal.ics">Apple 行事曆及其他</span><small data-i18n="cal.ics.note">iPhone、Mac 或任何行事曆 App（.ics）</small></a>
           </div>
         </details>
@@ -1552,9 +1166,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <details class="cal">
     <summary class="btn btn-primary btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="nav.save">加入日曆</span></summary>
     <div class="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
-            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
-            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+live+concerts.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
+            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
+            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
             <a href="../hiendasia-2026.ics"><span data-i18n="cal.ics">Apple 行事曆及其他</span><small data-i18n="cal.ics.note">iPhone、Mac 或任何行事曆 App（.ics）</small></a>
           </div>
   </details>

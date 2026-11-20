@@ -37,9 +37,9 @@ def img(i):
 
 
 # People: (photo id, badge key). Names, roles and bios live in i18n/<lang>.json as p.<id>.name/.role/.bio
-KEYNOTES = [(11, 'keynote'), (12, 'keynote'), (13, 'keynote'), (14, 'keynote'), (15, 'keynote')]
-ARTISTS = [(31, 'live'), (36, 'live'), (32, 'live'), (33, 'live'), (34, 'live'), (35, 'emcee')]
-GUESTS = [(40, 'vip'), (41, 'vip'), (42, 'meet')]
+# 2026: two keynote speakers and one guest. Billy Ho (17) has no photo yet: add img/017.jpg (640x800) to show one.
+KEYNOTES = [(13, 'keynote'), (16, 'keynote')]
+GUESTS = [(17, 'live')]
 
 # Brand representatives: (name, English role for reference, brand). Displayed roles come from rep.<n>.role
 REPS = [
@@ -69,16 +69,25 @@ REPS = [
     ('Demetris Baklavas', 'Founder & Chief Designer', 'Ypsilon Electronic'),
 ]
 assert len(REPS) == 39
+# 2026: only reps of brands exhibiting this year. Indexes stay fixed (photo 43+k, copy rep.<k>.role).
+REP_BRANDS_2026 = {'Acoustic Signature', 'Acoustical Systems', 'Brinkmann', 'Gold Note', 'Kaiser Acoustics', 'Lyra Analog',
+                   'Peak Consult', 'TAD', 'Westend Audio System', 'Ypsilon Electronic'}
 
 # Dealer logos 82-106, brand logos 107-242 (alt text = brand name on the live site)
-DEALER_IDX = list(range(82, 107))
-BRAND_IDX = [i for i in range(107, 243) if i != 114]  # 114 repeats Analog Playground
+# 2026 exhibitors and brands only. 300+ are logos added for 2026 (names in NEW_LOGOS, files img/3xx.jpg).
+DEALER_IDX = [85, 101, 87, 84, 89, 99, 93, 104]  # AudioLine, High End Research, Audio Atelier, Ong Radio, Analog Playground, Westend, Peak, SharkWire
+NEW_LOGOS = {300: 'AMR', 301: 'San Yuan', 302: 'Ronnie', 303: 'SME', 304: 'Koetsu', 305: 'Graham Engineering',
+             306: 'Vimberg', 307: 'Magnum Dynalab', 308: 'Clearaudio', 309: 'Purist Audio Design'}
+BRAND_IDX = [109, 110, 111, 300, 107, 117, 121, 131, 132, 134, 308, 139, 140, 147, 151, 157, 305, 159, 163, 168, 169, 304,
+             176, 179, 307, 97, 184, 188, 194, 198, 309, 207, 302, 301, 213, 303, 218, 220, 222, 306, 238, 241]
 NAME_FIX = {'Opera Loudpseakers': 'Opera Loudspeakers', 'Quadspire': 'Quadraspire', 'Tinglon': 'Tiglon',
             'Tw Acoustics': 'TW Acustic', 'Syntec Audio': 'Synastec Audio', 'Peak': 'Peak Audio',
             'audioexotics.com': 'Audio Exotics', 'VPI made in USA': 'VPI', 'Kinki': 'Kinki Studio'}
 
 
 def logo_name(i):
+    if i in NEW_LOGOS:
+        return NEW_LOGOS[i]
     n = ROWS[i][0].strip()
     return NAME_FIX.get(n, n)
 
@@ -91,8 +100,12 @@ def t(key, tag='span', cls='', attrs=''):
 
 def person_card(i, badge):
     k = 'p.%d.' % i
+    if glob.glob(os.path.join(HERE, 'img', '%03d.*' % i)):
+        photo = f'<img class="p-photo" src="{img(i)}" alt="{e(tr(k + "name"))}" loading="lazy" width="640" height="800">'
+    else:  # no portrait yet: monogram placeholder
+        photo = '<div class="p-photo p-none" aria-hidden="true"><img src="img/monogram.svg" alt="" width="96" height="96"></div>'
     return f'''<article class="person">
-  <img class="p-photo" src="{img(i)}" alt="{e(tr(k + 'name'))}" loading="lazy" width="640" height="800">
+  {photo}
   {t('badge.' + badge, cls='badge')}
   {t(k + 'name', 'h3', 'p-name')}
   {t(k + 'role', cls='p-role')}
@@ -124,7 +137,7 @@ MAPS = 'https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Ce
 # Links people carry away (calendar entries, shares) point at the show site and are UTM-tagged, so GA4
 # credits the visits they bring back to the right source.
 CAL_LINK = PAGES + '?utm_source=calendar&utm_medium=referral&utm_campaign=save_the_date'
-ABOUT = ('Free entry, no tickets needed. 150+ high-end audio brands, listening rooms, keynote talks and live concerts. '
+ABOUT = ('Free entry, no tickets needed. 150+ high-end audio brands, listening rooms, keynote talks and a live guest performance. '
          'Open 10am - 7pm daily. ' + CAL_LINK)
 # Google repeats 10am-7pm SGT for three days; Outlook takes one span from the first opening to the last close.
 GCAL = 'https://calendar.google.com/calendar/render?' + urlencode({
@@ -264,17 +277,16 @@ def render(lang, base, auto, page_url):
   <span class="rep-name">{e(n)}</span>
   {rep_role(k)}
   <span class="rep-brand">{e(b)}</span>
-</li>''' for k, (n, r, b) in enumerate(REPS))
+</li>''' for k, (n, r, b) in enumerate(REPS) if b in REP_BRANDS_2026)
     rep = {
         '{{ACTIONS}}': actions, '{{DATES}}': dates, '{{MBAR}}': mbar, '{{LANG_OPTIONS}}': options,
         '{{GCAL}}': e(GCAL), '{{WA}}': e(wa),
         '{{KEYNOTES}}': '\n'.join(person_card(i, b) for i, b in KEYNOTES),
-        '{{ARTISTS}}': '\n'.join(person_card(i, b) for i, b in ARTISTS),
         '{{GUESTS}}': '\n'.join(person_card(i, b) for i, b in GUESTS),
         '{{REPS}}': rep_html, '{{DEALERS}}': tiles(DEALER_IDX), '{{BRANDS}}': tiles(BRAND_IDX),
         '{{MEDIA}}': '\n'.join('<li>%s</li>' % e(m) for m in MEDIA),
         '{{POSTER}}': POSTER, '{{POSTER_SRCSET}}': POSTER_SRCSET, '{{POSTER_SIZES}}': POSTER_SIZES,
-        '{{FLOOR}}': img(7), '{{SUNTEC_IN}}': img(8), '{{SUNTEC_NIGHT}}': img(9),
+        '{{FLOOR}}': 'img/floorplan-2026.webp', '{{SUNTEC_IN}}': img(8), '{{SUNTEC_NIGHT}}': img(9),
         '{{PAGE_LANG}}': lang, '{{BASE}}': base, '{{AUTO_LANG}}': 'true' if auto else 'false',
         '{{PAGE_URL}}': page_url, '{{LANG_FONT}}': lang_font(lang),
         '{{CONSENT_CFG}}': consent_cfg(base), '{{CONSENT_JS}}': CONSENT_JS,

@@ -1,0 +1,29 @@
+# Run by hand (Actions → "Restyle floor plan" → Run workflow) on the branch to update.
+# Needs the repository secret OPENROUTER_API_KEY. Commits img/floorplan-2026.* back to that branch.
+name: Restyle floor plan
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: OpenRouter image model
+        default: google/gemini-2.5-flash-image
+permissions:
+  contents: write
+jobs:
+  restyle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - run: python tools/clean_floorplan.py --model "${{ inputs.model }}"
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add img/floorplan-2026.png img/floorplan-2026.webp
+          git commit -m "Restyle 2026 floor plan via OpenRouter" || echo "No change"
+          git push
