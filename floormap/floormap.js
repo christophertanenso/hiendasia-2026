@@ -80,20 +80,21 @@
 
   // 2026 rooms (used unless a published sheet is set on the mount). Columns as in rooms-template.csv.
   var DEFAULT_ROWS = [
-    { room: '300', type: 'listening' }, { room: '301', type: 'listening' }, { room: '302', type: 'listening' },
-    { room: '303', type: 'listening', exhibitor: 'Audio Line', brands: 'TAD, Accuphase, Acoustic Signature, Audio-Technica, Artesania Audio, Audiodesk Systeme, Cary Audio, Diapason, Ensemble, Finite Elemente, Graham Audio, Ikeda, Montaudio, Rogers High Fidelity, Signal Projects, Sutherland Engineering' },
-    { room: '304', type: 'listening' },
+    { room: '300', type: 'listening', exhibitor: 'Welchen Music' },
+    { room: '301', type: 'listening', exhibitor: 'Audio Line', note: 'With room 302', brands: 'TAD, Accuphase, Acoustic Signature, Audio-Technica, Artesania Audio, Audiodesk Systeme, Cary Audio, Diapason, Ensemble, Finite Elemente, Graham Audio, Ikeda, Montaudio, Rogers High Fidelity, Signal Projects, Sutherland Engineering' },
+    { room: '302', type: 'listening', exhibitor: 'Audio Line', note: 'With room 301', brands: 'TAD, Accuphase, Acoustic Signature, Audio-Technica, Artesania Audio, Audiodesk Systeme, Cary Audio, Diapason, Ensemble, Finite Elemente, Graham Audio, Ikeda, Montaudio, Rogers High Fidelity, Signal Projects, Sutherland Engineering' },
+    { room: '303', type: 'listening' }, { room: '304', type: 'listening' },
     { room: '305', type: 'listening', exhibitor: 'AOPT', note: 'Taiwan' },
-    { room: '306', type: 'listening', exhibitor: 'High End Research', note: 'With room 307' },
+    { room: '306', type: 'listening' },
     { room: '307', type: 'listening', exhibitor: 'High End Research', brands: 'Wilson Audio, Pass Labs, Metronome, SME, Koetsu, Graham Engineering, Vimberg, Purist Audio Design, Magnum Dynalab, Clearaudio, Live Cables' },
     { room: '308', type: 'listening' }, { room: '309', type: 'listening' }, { room: '310', type: 'listening' }, { room: '311', type: 'listening' },
-    { room: '312', type: 'listening', exhibitor: 'Audio Atelier', brands: 'Kaiser Acoustics, Gold Note, Ypsilon, Brinkmann, Lyra, Acoustical Systems' },
-    { room: '323', type: 'listening', exhibitor: 'Ong Radio', brands: 'McIntosh, Bowers & Wilkins, Stradius, Power Lab' },
-    { room: '332', type: 'listening', exhibitor: 'Analog Playground', brands: 'Aries Cerat, Westend Audio System, Peak Consult, Shark Wire, O-bit' },
-    { room: '333', type: 'listening', exhibitor: 'Analog Playground', brands: 'Diesis Audio' },
+    { room: '312', type: 'listening', exhibitor: 'MU6' },
+    { room: '323', type: 'tbc', name: 'Activities area' },
+    { room: '332', type: 'listening', exhibitor: 'Abbingdon Music Research', brands: 'AMR' },
+    { room: '333', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 336', brands: 'Aries Cerat' },
     { room: '334', type: 'listening', exhibitor: 'Prodigio Audio', brands: 'Prodigio Audio' },
-    { room: '335', type: 'listening', exhibitor: 'San Yuan', brands: 'San Yuan, Ronnie', note: 'Taiwan' },
-    { room: '336', type: 'listening', exhibitor: 'Abbingdon Music Research', brands: 'AMR' },
+    { room: '335', type: 'listening', exhibitor: 'San Yuan', note: 'Taiwan', brands: 'San Yuan, Ronnie' },
+    { room: '336', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 333', brands: 'Aries Cerat' },
     { room: 'C23', type: 'tbc', name: 'Concourse 2 & 3' }
   ];
 
