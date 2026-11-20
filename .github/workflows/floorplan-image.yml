@@ -1,7 +1,10 @@
-# Run by hand (Actions → "Restyle floor plan" → Run workflow) on the branch to update.
+# Runs on push to the update branch (when the source plan, script or this file changes), or by hand once on main.
 # Needs the repository secret OPENROUTER_API_KEY. Commits img/floorplan-2026.* back to that branch.
 name: Restyle floor plan
 on:
+  push:
+    branches: [show-2026-update]
+    paths: [tools/clean_floorplan.py, Layout/floorplan-2026-source.png, .github/workflows/floorplan-image.yml]
   workflow_dispatch:
     inputs:
       model:
@@ -18,7 +21,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install pillow
-      - run: python tools/clean_floorplan.py --model "${{ inputs.model }}"
+      - run: python tools/clean_floorplan.py --model "${{ inputs.model || 'google/gemini-2.5-flash-image' }}"
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       - run: |
