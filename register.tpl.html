@@ -1,0 +1,445 @@
+<title>{{reg.title}}</title>
+<script>
+/* The register page follows the visitor's language like the show page: ?lang= first, then the saved choice, then the
+   browser's language list. Each language is its own pre-rendered page (register.html, th/register.html ...). */
+(function () {
+  var PAGE_LANG = '{{PAGE_LANG}}', BASE = '{{BASE}}';
+  var SUPPORTED = ['en', 'zh-Hans', 'zh-Hant', 'id', 'ms', 'fil', 'th', 'vi'];
+  function match(tag) {
+    tag = String(tag || '').toLowerCase();
+    if (/^zh(-|$)/.test(tag)) return /hant|-tw|-hk|-mo/.test(tag) ? 'zh-Hant' : 'zh-Hans';
+    if (/^(id|in)(-|$)/.test(tag)) return 'id';
+    if (/^ms(-|$)/.test(tag)) return 'ms';
+    if (/^(fil|tl)(-|$)/.test(tag)) return 'fil';
+    if (/^th(-|$)/.test(tag)) return 'th';
+    if (/^vi(-|$)/.test(tag)) return 'vi';
+    if (/^en(-|$)/.test(tag)) return 'en';
+    return null;
+  }
+  window.HEA_LANG = PAGE_LANG;
+  window.HEA_REG_URL = function (lang) { return BASE + (lang === 'en' ? '' : lang + '/') + 'register.html'; };
+  var params = null, forced = null, want = null;
+  try { params = new URLSearchParams(location.search); forced = params.get('lang'); } catch (e) {}
+  if (SUPPORTED.indexOf(forced) >= 0) want = forced;
+  else if (PAGE_LANG === 'en') {
+    var saved = null;
+    try { saved = localStorage.getItem('hea-lang'); } catch (e) {}
+    if (SUPPORTED.indexOf(saved) >= 0) want = saved;
+    else {
+      var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+      for (var i = 0; i < list.length && !want; i++) want = match(list[i]);
+    }
+  }
+  if (params) params.delete('lang');
+  var q = params && params.toString();
+  if (want && want !== PAGE_LANG) location.replace(window.HEA_REG_URL(want) + (q ? '?' + q : '') + location.hash);
+  else if (forced && history.replaceState) history.replaceState(null, '', location.pathname + (q ? '?' + q : '') + location.hash);
+})();
+</script>
+{{LANG_FONT}}
+<link rel="icon" href="img/monogram.svg" type="image/svg+xml">
+<script>
+/* Analytics behind consent, as on the show page: nothing loads until the visitor accepts in the cookie banner. */
+window.dataLayer = window.dataLayer || [];
+function gtag() { dataLayer.push(arguments); }
+gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+gtag('set', 'url_passthrough', false);
+gtag('js', new Date());
+var HEA_TEST = /^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$|\.localhost$|\.test$/.test(location.hostname) && !/[?&]track=live\b/.test(location.search);
+gtag('config', 'G-NED2Z7D1C5', HEA_TEST ? { debug_mode: true } : {});
+window.fbq = function () {};
+window.HEA_CONSENT = {{CONSENT_CFG}};
+{{CONSENT_JS}}
+
+/* A completed registration is the sign_up event (Meta: CompleteRegistration). Someone registering at the door, from a
+   QR sign, is already at the show, so theirs is sent as onsite_action and never counts as an ad conversion. */
+(function () {
+  var here = null, onSite = false;
+  try { here = new URLSearchParams(location.search).get('here'); } catch (err) {}
+  try {
+    if (here) sessionStorage.setItem('hea-onsite', here);
+    here = here || sessionStorage.getItem('hea-onsite');
+  } catch (err) {}
+  onSite = !!here;
+  window.HEA_HERE = here || '';
+  window.trackIntent = function (action, detail) {
+    try {
+      var params = {}, name = action;
+      for (var k in (detail || {})) if (detail[k] !== undefined && detail[k] !== '') params[k] = detail[k];
+      params.page_language = document.documentElement.lang || 'en';
+      if (onSite) { params.on_site = 'yes'; if (action === 'sign_up') { name = 'onsite_action'; params.action = action; } }
+      params.transport_type = 'beacon';
+      gtag('event', name, params);
+      if (action === 'sign_up' && typeof fbq === 'function') {
+        if (onSite) fbq('trackCustom', 'OnsiteAction', { action: action });
+        else fbq('track', 'CompleteRegistration', { content_name: 'HiEnd Asia 2026 ticket', status: params.method });
+      }
+    } catch (err) { /* tracking must never affect the page */ }
+  };
+})();
+</script>
+<style>
+{{FONT_FACES}}
+:root {
+  --bg: #000000; --heading: #f0d9a0; --body: #ebebeb; --muted: #d2c8b4; --accent: #c6a661; --on-accent: #000000;
+  --line: #4f4632; --band: #201d17; --danger: #f2a093;
+  --font-display: Arimo, "Helvetica Neue", Helvetica, Arial, "Noto Sans SC", sans-serif;
+  --font-body: "Open Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --radius-card: 12px; --radius-pill: 50px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--body); font: 16px/1.7 var(--font-body); }
+img { max-width: 100%; display: block; }
+a { color: var(--heading); }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 12px; top: -100px; z-index: 70; padding: 12px 18px; border-radius: var(--radius-pill);
+  background: var(--accent); color: #000; font: 700 14px/1 var(--font-display); text-decoration: none; }
+.skip:focus { top: calc(12px + env(safe-area-inset-top, 0px)); color: #000; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 720px) { .wrap { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); } }
+
+.site-head { border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 12px; padding-block: 14px; }
+.site-head .logo img { height: 44px; width: auto; }
+.site-head .back { margin-left: auto; font: 700 13px/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; color: var(--body); text-decoration: none; white-space: nowrap; }
+.site-head .back:hover { color: var(--heading); }
+.lang { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 10px; border: 1px solid var(--line);
+  border-radius: var(--radius-pill); color: var(--body); }
+.lang:hover, .lang:focus-within { border-color: var(--accent); color: var(--heading); }
+.lang svg { width: 16px; height: 16px; flex: none; }
+.lang select { appearance: none; -webkit-appearance: none; border: 0; background: transparent; color: inherit; font: 600 13px/1 var(--font-body); max-width: 120px; cursor: pointer; }
+.lang select:focus { outline: none; }
+.lang select option { background: var(--band); color: var(--body); }
+@media (max-width: 520px) { .site-head .logo img { height: 36px; } .site-head .back { display: none; } .lang { margin-left: auto; } }
+
+.reg { position: relative; overflow: hidden; }
+.reg::before { content: ""; position: absolute; width: 1100px; height: 1100px; right: -420px; top: -300px; pointer-events: none; opacity: .18;
+  background: repeating-radial-gradient(circle at center, transparent 0 27px, var(--accent) 27px 28px);
+  -webkit-mask: radial-gradient(circle, #000 0 35%, transparent 70%); mask: radial-gradient(circle, #000 0 35%, transparent 70%); }
+.reg .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; padding-block: 56px 96px; }
+.panel { min-width: 0; max-width: 520px; width: 100%; display: flex; flex-direction: column; gap: 18px; }
+.poster { min-width: 0; margin: 0; }
+.poster img { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); }
+@media (max-width: 900px) {
+  .reg .wrap { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-block: 32px 64px; }
+  .panel { margin: 0 auto; }
+  .poster { max-width: 520px; width: 100%; margin: 0 auto; }
+}
+.eyebrow { margin: 0; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+h1:focus { outline: none; }
+h1 { margin: 0; font: 700 clamp(30px, 4vw, 44px)/1.08 var(--font-display); letter-spacing: .005em; text-transform: uppercase; color: var(--heading); text-wrap: balance; overflow-wrap: break-word; }
+.rule { width: 64px; height: 1px; background: var(--accent); }
+.lead { margin: 0; color: var(--muted); max-width: 46ch; }
+
+form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
+.field { display: flex; flex-direction: column; gap: 6px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.field > label, .field > legend { padding: 0; font: 700 13px/1.4 var(--font-display); letter-spacing: .08em; text-transform: uppercase; color: var(--heading); }
+.hint { font-size: 13px; line-height: 1.5; color: var(--muted); }
+.in { width: 100%; min-height: 52px; padding: 0 16px; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--band);
+  color: var(--body); font: 16px/1.4 var(--font-body); }
+.in::placeholder { color: #8f8672; }
+.in:hover { border-color: #6d6145; }
+.in:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.in[aria-invalid="true"], .seg[aria-invalid="true"] label { border-color: var(--danger); }
+.phone { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; }
+.dial { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 52px; padding: 0 14px; border: 1px solid var(--line);
+  border-radius: var(--radius-card); background: var(--band); color: var(--body); font: 16px/1 var(--font-body); white-space: nowrap; }
+.dial:focus-within { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.dial select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+.dial select option { background: var(--band); color: var(--body); }
+.dial i { font-style: normal; color: var(--accent); font-size: 11px; }
+.seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 52px; padding: 6px 8px; border: 1px solid var(--line);
+  border-radius: var(--radius-card); background: var(--band); color: var(--muted); font: 700 14px/1.2 var(--font-display); letter-spacing: .04em; cursor: pointer; }
+.seg label:hover { border-color: #6d6145; color: var(--body); }
+.seg input:checked + label { border-color: var(--accent); background: #2b2619; color: var(--heading); box-shadow: 0 0 0 1px var(--accent); }
+.seg input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 26px; border-radius: var(--radius-pill);
+  border: 1px solid var(--accent); font: 700 14px/1.2 var(--font-display); letter-spacing: .08em; text-transform: uppercase; text-decoration: none;
+  cursor: pointer; background: transparent; color: var(--heading); text-align: center; }
+.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover { color: var(--on-accent); filter: brightness(1.08); }
+.btn-outline:hover { background: rgba(198,166,97,.12); color: var(--heading); }
+.btn[aria-busy="true"] { opacity: .7; cursor: progress; }
+.err { margin: 0; min-height: 24px; color: var(--danger); font-size: 14px; line-height: 1.5; }
+.consent { margin: 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+.ticket { background: var(--band); border: 1px solid var(--accent); border-radius: var(--radius-card); padding: 24px 20px; text-align: center; }
+.ticket .admit { margin: 0; font: 700 12px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.ticket .who { margin: 8px 0 2px; font: 700 clamp(22px, 5vw, 28px)/1.25 var(--font-display); color: var(--heading); overflow-wrap: anywhere; }
+.ticket .no { font: 15px/1.4 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .12em; color: var(--accent); }
+.ticket .qr { width: 196px; height: 196px; margin: 18px auto; padding: 14px; background: #fff; border-radius: 8px; }
+.ticket .qr svg { display: block; width: 100%; height: 100%; }
+.ticket .facts { margin: 0; padding-top: 16px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 14px; line-height: 1.6; }
+.after { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.after .btn { padding: 0 14px; white-space: normal; }
+.another { align-self: flex-start; background: none; border: 0; padding: 8px 0; color: var(--heading); font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }
+.another:hover { color: var(--accent); }
+
+.site-foot { border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.site-foot .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; }
+.legal { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.legal a, .legal button { color: var(--muted); font: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.legal a:hover, .legal button:hover { color: var(--heading); }
+:root:is([lang^="zh"], [lang="th"]) :is(.btn, .eyebrow, .back, .field > label, .field > legend, .ticket .admit, h1) { letter-spacing: .02em; }
+@media (prefers-reduced-motion: no-preference) { .btn, .in, .seg label { transition: border-color .15s, background-color .15s, filter .15s; } }
+</style>
+
+<a class="skip" href="#main">{{skip}}</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="./" aria-label="{{nav.home}}"><img src="img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
+    <a class="back" href="./">{{reg.back}}</a>
+    <label class="lang">
+      <span class="sr">{{lang.label}}</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>
+      <select id="langSel">
+{{LANG_OPTIONS}}
+      </select>
+    </label>
+  </div>
+</header>
+
+<main id="main" class="reg" tabindex="-1">
+  <div class="wrap">
+    <div class="panel" id="formView">
+      <p class="eyebrow">{{reg.eyebrow}}</p>
+      <h1>{{reg.h}}</h1>
+      <div class="rule"></div>
+      <p class="lead">{{reg.lead}}</p>
+      <form id="regForm" novalidate>
+        <div class="field">
+          <label for="f-name">{{reg.name}}</label>
+          <input class="in" id="f-name" name="name" type="text" autocomplete="name" autocapitalize="words" maxlength="80" required aria-describedby="h-name">
+          <span class="hint" id="h-name">{{reg.name.hint}}</span>
+        </div>
+        <div class="field">
+          <label for="f-email">{{reg.email}}</label>
+          <input class="in" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" maxlength="120" required aria-describedby="h-email">
+          <span class="hint" id="h-email">{{reg.email.hint}}</span>
+        </div>
+        <div class="field">
+          <label for="f-phone">{{reg.phone}}</label>
+          <div class="phone">
+            <span class="dial"><span id="dialLabel" aria-hidden="true">SG +65</span><i aria-hidden="true">▾</i>
+              <select id="f-dial" aria-label="{{reg.dial}}" autocomplete="tel-country-code"></select></span>
+            <input class="in" id="f-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="20" required>
+          </div>
+        </div>
+        <fieldset class="field">
+          <legend>{{reg.interest}}</legend>
+          <div class="seg" id="seg" role="radiogroup" aria-label="{{reg.interest}}">
+            <input type="radio" name="interest" id="i-visitor" value="visitor"><label for="i-visitor">{{reg.visitor}}</label>
+            <input type="radio" name="interest" id="i-trade" value="trade"><label for="i-trade">{{reg.trade}}</label>
+            <input type="radio" name="interest" id="i-media" value="media"><label for="i-media">{{reg.media}}</label>
+          </div>
+        </fieldset>
+        <div class="trap" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <button class="btn btn-primary" id="submitBtn" type="submit">{{reg.submit}}</button>
+        <p class="err" id="err" role="alert"></p>
+        <p class="consent">{{reg.consent}} <a href="privacy.html#registration">{{consent.policy}}</a></p>
+      </form>
+    </div>
+
+    <div class="panel" id="ticketView" hidden>
+      <p class="eyebrow" id="doneEyebrow">{{reg.done.eyebrow}}</p>
+      <h1 id="doneH" tabindex="-1">{{reg.done.h}}</h1>
+      <div class="rule"></div>
+      <p class="lead" id="doneLead">{{reg.done.lead}}</p>
+      <div class="ticket" id="ticketCard">
+        <p class="admit">{{reg.admit}}</p>
+        <p class="who" id="tName"></p>
+        <span class="no" id="tNo"></span>
+        <div class="qr" id="tQr" role="img" aria-label="{{reg.qr.alt}}"></div>
+        <p class="facts">{{reg.when}}<br>{{reg.where}}</p>
+      </div>
+      <div class="after">
+        <a class="btn btn-outline" href="{{ICS}}">{{cal.add}}</a>
+        <a class="btn btn-outline" href="{{MAPS}}" target="_blank" rel="noopener">{{visit.directions}}</a>
+      </div>
+      <button class="another" id="another" type="button">{{reg.another}}</button>
+    </div>
+
+    <figure class="poster">
+      <img src="{{POSTER}}" srcset="{{POSTER_SRCSET}}" sizes="(max-width: 900px) min(520px, calc(100vw - 32px)), min(560px, 46vw)" alt="{{poster.alt}}" width="1242" height="1660">
+    </figure>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span>© 2026 HiEnd Asia + Pte. Ltd</span>
+    <span class="legal"><a href="privacy.html">{{consent.policy}}</a><button type="button" data-consent-open>{{consent.footer}}</button></span>
+  </div>
+</footer>
+
+<script>
+{{VALIDATE_JS}}
+{{QR_JS}}
+(function () {
+  var ENDPOINT = '{{ENDPOINT}}';
+  var T = {{REG_STRINGS}};
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('regForm'), err = $('err'), btn = $('submitBtn'), dial = $('f-dial');
+
+  // Language menu: the same page in another language, keeping any campaign tags on the link.
+  $('langSel').addEventListener('change', function () {
+    try { localStorage.setItem('hea-lang', this.value); } catch (e) {}
+    location.href = window.HEA_REG_URL(this.value) + location.search;
+  });
+
+  // Country codes: the region's first, then the rest by name in the page language.
+  var FIRST = 'SG65 MY60 ID62 TH66 VN84 PH63 CN86 HK852 TW886 MO853 JP81 KR82 IN91 AU61 NZ64 GB44 US1';
+  var REST = 'AD376 AE971 AF93 AL355 AM374 AO244 AR54 AT43 AZ994 BA387 BD880 BE32 BF226 BG359 BH973 BI257 BJ229 BN673 BO591 BR55 BT975 ' +
+    'BW267 BY375 BZ501 CA1 CD243 CG242 CH41 CI225 CL56 CM237 CO57 CR506 CU53 CY357 CZ420 DE49 DK45 DO1 DZ213 EC593 EE372 EG20 ES34 ET251 ' +
+    'FI358 FJ679 FR33 GE995 GH233 GR30 GT502 HN504 HR385 HU36 IE353 IL972 IQ964 IR98 IS354 IT39 JM1 JO962 KE254 KG996 KH855 KW965 KZ7 ' +
+    'LA856 LB961 LI423 LK94 LT370 LU352 LV371 LY218 MA212 MC377 MD373 ME382 MG261 MK389 MM95 MN976 MT356 MU230 MV960 MX52 MZ258 NA264 ' +
+    'NG234 NI505 NL31 NO47 NP977 OM968 PA507 PE51 PG675 PK92 PL48 PS970 PT351 PY595 QA974 RO40 RS381 RU7 RW250 SA966 SD249 SE46 SI386 ' +
+    'SK421 SN221 SV503 SY963 TJ992 TL670 TM993 TN216 TR90 TT1 TZ255 UA380 UG256 UY598 UZ998 VE58 YE967 ZA27 ZM260 ZW263';
+  var names = null;
+  try { names = new Intl.DisplayNames([document.documentElement.lang || 'en'], { type: 'region' }); } catch (e) {}
+  function entry(s) { var iso = s.slice(0, 2), n = iso; try { n = names ? names.of(iso) : iso; } catch (e) {} return { iso: iso, code: s.slice(2), name: n || iso }; }
+  var first = FIRST.split(' ').map(entry);
+  var rest = REST.split(' ').map(entry).sort(function (a, b) { return a.name.localeCompare(b.name, document.documentElement.lang || 'en'); });
+  function addOptions(list) {
+    list.forEach(function (c) {
+      var o = document.createElement('option');
+      o.value = c.iso; o.setAttribute('data-code', c.code); o.textContent = c.name + ' +' + c.code;
+      dial.appendChild(o);
+    });
+  }
+  addOptions(first);
+  var sep = document.createElement('option'); sep.disabled = true; sep.textContent = '────────'; dial.appendChild(sep);
+  addOptions(rest);
+  function dialCode() { var o = dial.options[dial.selectedIndex]; return o ? o.getAttribute('data-code') : '65'; }
+  function showDial() { $('dialLabel').textContent = dial.value + ' +' + dialCode(); }
+  dial.addEventListener('change', showDial);
+  dial.value = 'SG'; showDial();
+
+  // How the visitor arrived: tags on this link, or the ones the show page saved earlier in the visit.
+  function arrival() {
+    var out = { source: '', medium: '', campaign: '' };
+    try {
+      var p = new URLSearchParams(location.search), saved = JSON.parse(sessionStorage.getItem('hea-utm') || '{}');
+      out.source = p.get('utm_source') || saved.source || '';
+      out.medium = p.get('utm_medium') || saved.medium || '';
+      out.campaign = p.get('utm_campaign') || saved.campaign || '';
+    } catch (e) {}
+    return out;
+  }
+
+  // Country by IP: asked once, when the visitor starts filling in the form. Only the two-letter country is kept.
+  var ipCountry = '', asked = false;
+  function askCountry() {
+    if (asked || !window.fetch) return; asked = true;
+    var ctl = window.AbortController ? new AbortController() : null;
+    if (ctl) setTimeout(function () { ctl.abort(); }, 4000);
+    fetch('https://api.country.is/', ctl ? { signal: ctl.signal } : {}).then(function (r) { return r.json(); })
+      .then(function (j) { if (j && /^[A-Z]{2}$/.test(j.country)) ipCountry = j.country; }).catch(function () {});
+  }
+  form.addEventListener('focusin', askCountry);
+
+  function fail(msg, el) {
+    err.textContent = msg;
+    if (el) { el.setAttribute('aria-invalid', 'true'); if (el.focus && el.id !== 'seg') el.focus(); else $('i-visitor').focus(); }
+    return false;
+  }
+  function clearErr() {
+    err.textContent = '';
+    [].forEach.call(form.querySelectorAll('[aria-invalid]'), function (n) { n.removeAttribute('aria-invalid'); });
+  }
+  form.addEventListener('input', clearErr);
+  form.addEventListener('change', clearErr);
+
+  var FIELD = { name: 'f-name', email: 'f-email', phone: 'f-phone', interest: 'seg' };
+  var MESSAGE = { name: T.errName, email: T.errEmail, phone: T.errPhone, interest: T.errInterest };
+  function read() {
+    var picked = form.querySelector('input[name="interest"]:checked');
+    // validateRegistration is the backend's own rule set (copied in from apps-script/Code.gs by build.py).
+    var checked = validateRegistration({ name: $('f-name').value, email: $('f-email').value, dial: dialCode(),
+      phone: $('f-phone').value, interest: picked ? picked.value : '' });
+    if (!checked.ok) return fail(MESSAGE[checked.error], $(FIELD[checked.error]));
+    var v = checked.value;
+    var a = arrival(), tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    return { name: v.name, email: v.email, iso: dial.value, dial: v.dial, phone: v.phone, interest: v.interest,
+      website: $('f-website').value, lang: document.documentElement.lang || 'en', tz: tz, ipCountry: ipCountry,
+      source: a.source, medium: a.medium, campaign: a.campaign, here: window.HEA_HERE || '',
+      device: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'phone' : 'desktop' };
+  }
+
+  function send(data) {
+    if (!ENDPOINT) {
+      // No backend connected. On a developer's machine the page issues a sample ticket so the flow can be seen.
+      if (window.HEA_TEST) return new Promise(function (ok) { setTimeout(function () { ok({ ok: true, ticket: 'HEA26-SAMPLE', name: data.name }); }, 600); });
+      return Promise.resolve({ ok: false, error: 'closed' });
+    }
+    var ctl = window.AbortController ? new AbortController() : null;
+    if (ctl) setTimeout(function () { ctl.abort(); }, 30000);
+    // text/plain keeps this a simple request: Apps Script web apps cannot answer a CORS preflight.
+    return fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data),
+      redirect: 'follow', signal: ctl ? ctl.signal : undefined }).then(function (r) { return r.json(); });
+  }
+
+  function drawQr(text) {
+    var m = qrMatrix(text), n = m.length, d = '';
+    for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) if (m[y][x]) d += 'M' + x + ' ' + y + 'h1v1h-1z';
+    $('tQr').innerHTML = '<svg viewBox="0 0 ' + n + ' ' + n + '" shape-rendering="crispEdges" aria-hidden="true"><path fill="#000" d="' + d + '"/></svg>';
+  }
+  function showTicket(t, opts) {
+    opts = opts || {};
+    $('formView').hidden = true; $('ticketView').hidden = false;
+    var has = !!t.ticket;
+    $('ticketCard').hidden = !has;
+    $('doneEyebrow').textContent = has ? T.doneEyebrow : T.resentH;
+    $('doneH').textContent = has ? T.doneH : T.resentH;
+    $('doneEyebrow').hidden = !has;
+    $('doneLead').textContent = !has || opts.resent ? T.resentLead : opts.stored ? T.storedLead : T.doneLead;
+    if (has) { $('tName').textContent = t.name; $('tNo').textContent = t.ticket; drawQr(t.ticket); }
+    if (!opts.stored) { window.scrollTo(0, 0); $('doneH').focus(); }
+  }
+  function store(t) { try { if (t) localStorage.setItem('hea-ticket', JSON.stringify(t)); else localStorage.removeItem('hea-ticket'); } catch (e) {} }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if (btn.getAttribute('aria-busy') === 'true') return;
+    clearErr();
+    var data = read();
+    if (!data) return;
+    btn.setAttribute('aria-busy', 'true'); btn.textContent = T.sending;
+    send(data).then(function (res) {
+      if (res && res.ok) {
+        var t = res.ticket ? { ticket: res.ticket, name: res.name || data.name } : {};
+        if (t.ticket) store(t);
+        showTicket(t, { resent: !!res.resent });
+        if (!res.resent) window.trackIntent('sign_up', { method: data.interest });
+        return;
+      }
+      var code = res && res.error;
+      if (MESSAGE[code]) fail(MESSAGE[code], $(FIELD[code])); else fail(code === 'closed' ? T.errClosed : T.errServer);
+    }).catch(function () { fail(T.errServer); }).then(function () {
+      btn.removeAttribute('aria-busy'); btn.textContent = T.submit;
+    });
+  });
+
+  $('another').addEventListener('click', function () {
+    store(null);
+    form.reset(); dial.value = 'SG'; showDial(); clearErr();
+    $('ticketView').hidden = true; $('formView').hidden = false;
+    $('f-name').focus();
+  });
+
+  // A ticket issued on this device earlier is shown straight away, so it can be pulled up again at the entrance.
+  try {
+    var saved = JSON.parse(localStorage.getItem('hea-ticket') || 'null');
+    if (saved && /^HEA26-[0-9A-Z]{6}$/.test(saved.ticket) && saved.name) showTicket(saved, { stored: true });
+  } catch (e) {}
+})();
+</script>

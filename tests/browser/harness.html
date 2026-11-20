@@ -1,0 +1,227 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>running</title>
+<style>html, body { margin: 0; background: #222; } iframe { border: 0; height: 900px; display: block; }</style>
+<div id="stage"></div>
+<pre id="out" hidden></pre>
+<script>
+/* Drives the real register page inside a frame, one scenario at a time, and writes what it saw as JSON into #out.
+   tests/browser.test.js starts Chrome on this page and checks the JSON. To watch it by eye:
+   node tests/helpers/server.js, open the printed address, then read the console / #out. */
+var RESULTS = {}, ONLY = new URLSearchParams(location.search).get('only');
+var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+async function waitFor(fn, ms) { for (var t = 0; t < (ms || 5000); t += 25) { if (fn()) return true; await sleep(25); } return false; }
+async function api(path, opts) { return (await fetch(path, opts || {})).json(); }
+var VISITOR = { name: 'Tan Wei Ming', email: 'weiming@example.com', iso: 'SG', dial: '65', phone: '91234567', interest: 'trade', lang: 'en' };
+
+async function open(page, o) {
+  o = o || {};
+  if (!o.keep) { localStorage.clear(); sessionStorage.clear(); }
+  if (o.storage) for (var k in o.storage) localStorage.setItem(k, o.storage[k]);
+  if (o.session) for (var s in o.session) sessionStorage.setItem(s, o.session[s]);
+  var f = document.createElement('iframe');
+  f.style.width = (o.width || 390) + 'px';
+  document.getElementById('stage').replaceChildren(f);
+  await new Promise(function (r) { f.onload = r; f.src = page; });
+  var w = f.contentWindow, d = f.contentDocument, ctx = { f: f, w: w, d: d, external: [], posts: [] };
+  // Nothing in a test may reach the outside world: every request goes through here.
+  var real = w.fetch.bind(w);
+  w.fetch = function (url, init) {
+    var u = new URL(url, w.location.href);
+    if (u.host !== location.host) {
+      ctx.external.push(u.host);
+      if (u.host === 'api.country.is') return Promise.resolve(new w.Response(JSON.stringify({ ip: '203.0.113.9', country: 'MY' })));
+      return Promise.reject(new Error('blocked by test harness: ' + u.host));
+    }
+    if (u.pathname === '/__api') ctx.posts.push(JSON.parse(init.body));
+    return real(url, init);
+  };
+  ctx.$ = function (id) { return d.getElementById(id); };
+  ctx.type = function (id, v) { var el = d.getElementById(id); el.focus(); el.value = v; el.dispatchEvent(new w.Event('input', { bubbles: true })); };
+  ctx.pick = function (v) { var el = d.getElementById('i-' + v); el.checked = true; el.dispatchEvent(new w.Event('change', { bubbles: true })); };
+  ctx.fill = function (p) {
+    p = p || {};
+    ctx.type('f-name', p.name === undefined ? VISITOR.name : p.name);
+    ctx.type('f-email', p.email === undefined ? VISITOR.email : p.email);
+    ctx.type('f-phone', p.phone === undefined ? '9123 4567' : p.phone);
+    if (p.interest !== null) ctx.pick(p.interest || 'trade');
+  };
+  ctx.submit = function () { d.getElementById('submitBtn').click(); };
+  ctx.settled = function () {
+    return waitFor(function () { return !d.getElementById('ticketView').hidden || d.getElementById('err').textContent !== ''; });
+  };
+  ctx.view = function () {
+    var path = d.querySelector('#tQr path'), invalid = d.querySelector('[aria-invalid="true"]'), btn = d.getElementById('submitBtn');
+    return {
+      formShown: !d.getElementById('formView').hidden, ticketShown: !d.getElementById('ticketView').hidden,
+      cardShown: !d.getElementById('ticketCard').hidden, err: d.getElementById('err').textContent,
+      invalid: invalid ? invalid.id : null, focus: d.activeElement ? d.activeElement.id : null,
+      heading: d.getElementById('doneH').textContent, lead: d.getElementById('doneLead').textContent,
+      name: d.getElementById('tName').textContent, ticket: d.getElementById('tNo').textContent,
+      qrCells: path ? path.getAttribute('d').split('M').length - 1 : 0,
+      stored: localStorage.getItem('hea-ticket'), busy: btn.getAttribute('aria-busy'), button: btn.textContent,
+      posts: ctx.posts.length, external: ctx.external.slice(),
+      events: (w.dataLayer || []).filter(function (a) { return a[0] === 'event'; }).map(function (a) { return { name: a[1], params: a[2] }; }),
+      scrollW: d.documentElement.scrollWidth, innerW: w.innerWidth, spill: ctx.spill()
+    };
+  };
+  // How many pixels the widest visible element sticks out past the right edge of the screen (0 = everything fits).
+  // Measured element by element, because the page clips overflow and a cut-off button would not widen the page.
+  ctx.spill = function () {
+    var worst = 0, nodes = d.querySelectorAll('.site-head *, .panel, .panel *, .poster img, .site-foot *');
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (!n.getClientRects().length || n.closest('.trap, .sr, select')) continue;
+      var r = n.getBoundingClientRect();
+      if (r.width > 0) worst = Math.max(worst, Math.round(r.right - w.innerWidth));
+    }
+    return worst;
+  };
+  return ctx;
+}
+
+var SCENARIOS = {
+  emptySubmit: async function () { var c = await open('/__e/register.html'); c.submit(); await c.settled(); return c.view(); },
+  badEmail: async function () { var c = await open('/__e/register.html'); c.fill({ email: 'weiming@' }); c.submit(); await c.settled(); return c.view(); },
+  landline: async function () { var c = await open('/__e/register.html'); c.fill({ phone: '6123 4567' }); c.submit(); await c.settled(); return c.view(); },
+  noInterest: async function () { var c = await open('/__e/register.html'); c.fill({ interest: null }); c.submit(); await c.settled(); return c.view(); },
+  errorClears: async function () {
+    var c = await open('/__e/register.html'); c.submit(); await c.settled();
+    var before = c.view(); c.type('f-name', 'T'); return { before: before, after: c.view() };
+  },
+  success: async function () {
+    var c = await open('/__e/register.html'); c.fill(); c.submit(); await c.settled();
+    return { view: c.view(), post: c.posts[0], state: await api('/__state'), headingFocused: c.d.activeElement === c.$('doneH') };
+  },
+  arrivalTags: async function () {
+    var c = await open('/__e/register.html?utm_source=facebook&utm_medium=paid&utm_campaign=dec-launch&here=entrance');
+    c.fill(); c.submit(); await c.settled();
+    return { view: c.view(), state: await api('/__state') };
+  },
+  arrivalFromShowPage: async function () {
+    var c = await open('/__e/register.html', { session: { 'hea-utm': JSON.stringify({ source: 'whatsapp', medium: 'social', campaign: 'share' }) } });
+    c.fill(); c.submit(); await c.settled();
+    return { state: await api('/__state') };
+  },
+  showPageKeepsTags: async function () {
+    await open('/index.html?utm_source=google&utm_medium=cpc&utm_campaign=brand&lang=en');
+    return { saved: sessionStorage.getItem('hea-utm') };
+  },
+  duplicateSamePerson: async function () {
+    await api('/__api', { method: 'POST', body: JSON.stringify(VISITOR) });
+    var c = await open('/__e/register.html'); c.fill(); c.submit(); await c.settled();
+    return { view: c.view(), state: await api('/__state') };
+  },
+  duplicateOtherPerson: async function () {
+    await api('/__api', { method: 'POST', body: JSON.stringify(VISITOR) });
+    var c = await open('/__e/register.html'); c.fill({ name: 'Someone Else' }); c.submit(); await c.settled();
+    return { view: c.view(), state: await api('/__state') };
+  },
+  backendDown: async function () {
+    await api('/__fail');
+    var c = await open('/__e/register.html'); c.fill(); c.submit(); await c.settled();
+    return c.view();
+  },
+  notConnectedLive: async function () {
+    var c = await open('/__none/register.html'); c.w.HEA_TEST = false; c.fill(); c.submit(); await c.settled();
+    return c.view();
+  },
+  notConnectedLocal: async function () {
+    var c = await open('/__none/register.html'); c.fill(); c.submit(); await c.settled();
+    return c.view();
+  },
+  doubleClick: async function () {
+    var c = await open('/__e/register.html'); c.fill(); c.submit(); c.submit(); c.submit(); await c.settled();
+    return { view: c.view(), state: await api('/__state') };
+  },
+  honeypot: async function () {
+    var c = await open('/__e/register.html'); c.fill(); c.$('f-website').value = 'http://spam.example'; c.submit(); await c.settled();
+    return { view: c.view(), state: await api('/__state') };
+  },
+  storedTicket: async function () {
+    var c = await open('/__e/register.html', { storage: { 'hea-ticket': JSON.stringify({ ticket: 'HEA26-7K3M9Q', name: 'Tan Wei Ming' }) } });
+    var shown = c.view();
+    c.$('another').click();
+    return { shown: shown, after: c.view() };
+  },
+  corruptStoredTicket: async function () {
+    var c = await open('/__e/register.html', { storage: { 'hea-ticket': '{"ticket":"<img src=x onerror=alert(1)>","name":"x"}' } });
+    var a = c.view();
+    var c2 = await open('/__e/register.html', { storage: { 'hea-ticket': 'not json' } });
+    return { tampered: a, garbage: c2.view() };
+  },
+  nameIsNotMarkup: async function () {
+    var c = await open('/__e/register.html'); c.fill({ name: 'Tan <b id="x">Wei</b>' }); c.submit(); await c.settled();
+    return { injected: !!c.d.getElementById('x'), name: c.view().name };
+  },
+  typedWithCountryCode: async function () {
+    var c = await open('/__e/register.html'); c.fill({ phone: '+65 9123 4567' }); c.submit(); await c.settled();
+    return { view: c.view(), state: await api('/__state') };
+  },
+  foreignNumber: async function () {
+    var c = await open('/__e/register.html');
+    var sel = c.$('f-dial'); sel.value = 'MY'; sel.dispatchEvent(new c.w.Event('change', { bubbles: true }));
+    var label = c.$('dialLabel').textContent;
+    c.fill({ phone: '012-345 6789' }); c.submit(); await c.settled();
+    return { label: label, view: c.view(), state: await api('/__state') };
+  },
+  countryLookup: async function () {
+    var c = await open('/__e/register.html');
+    var atLoad = c.external.slice();
+    c.fill(); c.type('f-name', 'Tan Wei Ming'); await sleep(50);
+    var afterTyping = c.external.slice();
+    c.submit(); await c.settled();
+    return { atLoad: atLoad, afterTyping: afterTyping, state: await api('/__state') };
+  },
+  thaiPage: async function () {
+    var c = await open('/__e/th/register.html'); c.submit(); await c.settled();
+    var v = c.view();
+    c.fill(); c.submit(); await waitFor(function () { return !c.$('ticketView').hidden; });
+    return { lang: c.d.documentElement.lang, button: v.button, err: v.err, firstCountry: c.$('f-dial').options[0].textContent,
+      doneHeading: c.view().heading, state: await api('/__state') };
+  },
+  languageMenu: async function () {
+    var c = await open('/__e/register.html?utm_source=facebook');
+    var sel = c.$('langSel'); sel.value = 'vi';
+    var loaded = new Promise(function (r) { c.f.onload = r; });
+    sel.dispatchEvent(new c.w.Event('change', { bubbles: true }));
+    await loaded;
+    return { path: c.f.contentWindow.location.pathname, search: c.f.contentWindow.location.search,
+      lang: c.f.contentDocument.documentElement.lang, saved: localStorage.getItem('hea-lang') };
+  },
+  savedLanguageForwards: async function () {
+    var c = await open('/__e/register.html?here=entrance', { storage: { 'hea-lang': 'zh-Hans' } });
+    await waitFor(function () { try { return c.f.contentDocument.documentElement.lang === 'zh-Hans'; } catch (e) { return false; } }, 3000);
+    return { path: c.f.contentWindow.location.pathname, search: c.f.contentWindow.location.search };
+  },
+  narrowPhone: async function () {
+    var out = {}, langs = ['en', 'zh-Hans', 'zh-Hant', 'id', 'ms', 'fil', 'th', 'vi'];
+    for (var i = 0; i < langs.length; i++) {
+      await api('/__reset');
+      var c = await open('/__e/' + (langs[i] === 'en' ? '' : langs[i] + '/') + 'register.html', { width: 320 });
+      var form = c.view(); c.fill(); c.submit(); await c.settled(); var t = c.view();
+      out[langs[i]] = { form: Math.max(form.scrollW - form.innerW, form.spill), ticket: Math.max(t.scrollW - t.innerW, t.spill), ticketShown: t.ticketShown };
+    }
+    return out;
+  },
+  tapTargets: async function () {
+    var c = await open('/__e/register.html');
+    var ids = ['f-name', 'f-email', 'f-phone', 'submitBtn'], out = {};
+    ids.forEach(function (id) { out[id] = Math.round(c.$(id).getBoundingClientRect().height); });
+    out.interest = Math.round(c.d.querySelector('label[for="i-trade"]').getBoundingClientRect().height);
+    out.inputFont = c.w.getComputedStyle(c.$('f-name')).fontSize;
+    return out;
+  }
+};
+
+(async function () {
+  var names = Object.keys(SCENARIOS).filter(function (n) { return !ONLY || n === ONLY; });
+  for (var i = 0; i < names.length; i++) {
+    try { await api('/__reset'); RESULTS[names[i]] = await SCENARIOS[names[i]](); }
+    catch (e) { RESULTS[names[i]] = { crashed: String(e && e.stack || e) }; }
+  }
+  document.getElementById('out').textContent = JSON.stringify(RESULTS);
+  document.title = 'DONE';
+  console.log(JSON.stringify(RESULTS, null, 1));
+})();
+</script>

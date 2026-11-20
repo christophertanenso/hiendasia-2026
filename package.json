@@ -1,0 +1,11 @@
+{
+  "name": "hiendasia-2026",
+  "private": true,
+  "description": "HiEnd Asia 2026 show site. The site itself is static (python build.py); this file only names the test commands.",
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "test:fast": "node --test tests/backend.test.js tests/validate.test.js tests/qr.test.js",
+    "test:mutation": "node tests/mutation.js"
+  },
+  "engines": { "node": ">=22" }
+}

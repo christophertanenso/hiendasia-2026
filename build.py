@@ -1,6 +1,7 @@
 # Builds the HiEnd Asia 2026 site for GitHub Pages:
 #   index.html            English (also the landing page: it forwards visitors to their own language)
 #   <lang>/index.html     zh-Hans, zh-Hant, id, ms, fil, th, vi, each with its text baked into the HTML
+#   register.html         free-ticket registration form (and <lang>/register.html for each language)
 #   privacy.html          privacy notice and cookie table (English)
 #   artifact.html         the English page as a fragment for the Claude artifact preview
 # Copy lives in i18n/<lang>.json (English is the source and the fallback for any missing key).
@@ -124,7 +125,7 @@ MAPS = 'https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Ce
 # Links people carry away (calendar entries, shares) point at the show site and are UTM-tagged, so GA4
 # credits the visits they bring back to the right source.
 CAL_LINK = PAGES + '?utm_source=calendar&utm_medium=referral&utm_campaign=save_the_date'
-ABOUT = ('Free entry, no tickets needed. 150+ high-end audio brands, listening rooms, keynote talks and live concerts. '
+ABOUT = ('Free entry. A ticket is required: register at ' + PAGES + 'register.html. 150+ high-end audio brands, listening rooms, keynote talks and live concerts. '
          'Open 10am - 7pm daily. ' + CAL_LINK)
 # Google repeats 10am-7pm SGT for three days; Outlook takes one span from the first opening to the last close.
 GCAL = 'https://calendar.google.com/calendar/render?' + urlencode({
@@ -138,6 +139,8 @@ def outlook(host):
         'location': VENUE, 'body': EVENT + '\n\n' + ABOUT})
 
 
+ICON_TICKET = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true">'
+               '<path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg>')
 ICON_CAL = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">'
             '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>')
 
@@ -184,6 +187,16 @@ OG_IMAGE = 'img/og-2026.jpg'  # 1200x630 landscape for WhatsApp, Facebook, Linke
 
 CONSENT_JS = open(os.path.join(HERE, 'consent.js'), encoding='utf-8').read().strip()
 TPL = open(os.path.join(HERE, 'page.tpl.html'), encoding='utf-8').read()
+REG_TPL = open(os.path.join(HERE, 'register.tpl.html'), encoding='utf-8').read()
+# The registration backend: the "Web app URL" Google gives when apps-script/Code.gs is deployed (apps-script/README.md).
+# While this is empty the form answers "Registration is not open yet" (and issues a sample ticket on localhost).
+REGISTER_ENDPOINT = ''
+# The ticket's QR code is drawn by the same function in the browser and in the email, so it lives once, in Code.gs.
+# The same goes for the validation rules: the form and the backend must accept and reject the same input.
+CODE_GS = open(os.path.join(HERE, 'apps-script', 'Code.gs'), encoding='utf-8').read()
+QR_JS = re.search(r'// <qr>\n(.*?)// </qr>', CODE_GS, re.S).group(1).strip()
+VALIDATE_JS = re.search(r'// <validate>\n(.*?)// </validate>', CODE_GS, re.S).group(1).strip()
+FONT_FACES = '\n'.join(l for l in TPL.splitlines() if l.startswith('@font-face'))
 
 
 def lang_path(lang):
@@ -195,7 +208,7 @@ def rebase(doc, base):
     if not base:
         return doc
     doc = re.sub(r'(?<=["\'(,\s])((?:img|video|fonts|floormap)/)', base + r'\1', doc)
-    return doc.replace('href="%s"' % ICS_FILE, 'href="%s%s"' % (base, ICS_FILE)).replace('href="privacy.html"', 'href="%sprivacy.html"' % base)
+    return doc.replace('href="%s"' % ICS_FILE, 'href="%s%s"' % (base, ICS_FILE)).replace('href="privacy.html', 'href="%sprivacy.html' % base)
 
 
 def consent_cfg(base):
@@ -231,8 +244,9 @@ def render(lang, base, auto, page_url):
             <a href="{ICS_FILE}">{t('cal.ics')}{t('cal.ics.note', 'small')}</a>
           </div>'''
     actions = f'''      <div class="btns">
+        <a class="btn btn-primary" href="register.html">{ICON_TICKET}{t('reg.cta')}</a>
         <details class="cal">
-          <summary class="btn btn-primary">{ICON_CAL}{t('cal.add')}<span class="chev" aria-hidden="true">▾</span></summary>
+          <summary class="btn btn-outline">{ICON_CAL}{t('cal.add')}<span class="chev" aria-hidden="true">▾</span></summary>
           {cal_menu}
         </details>
         <a class="btn btn-outline" href="{e(wa)}" target="_blank" rel="noopener" data-wa>{ICON_WA}{t('share.wa')}</a>
@@ -246,10 +260,7 @@ def render(lang, base, auto, page_url):
         </details>
       </div>'''
     mbar = f'''<div class="mbar" id="mbar">
-  <details class="cal">
-    <summary class="btn btn-primary btn-sm">{ICON_CAL}{t('nav.save')}</summary>
-    {cal_menu}
-  </details>
+  <a class="btn btn-primary btn-sm" href="register.html">{ICON_TICKET}{t('reg.cta.short')}</a>
   <a class="btn btn-outline btn-sm" href="{MAPS}" target="_blank" rel="noopener">{t('visit.directions')}</a>
 </div>'''
     dates = '''      <div class="dates" aria-label="%s">
@@ -305,7 +316,7 @@ def document(lang):
                                  'postalCode': '039593', 'addressCountry': 'SG'}},
         'image': [PAGES + 'img/000.jpg', PAGES + OG_IMAGE], 'description': desc, 'isAccessibleForFree': True,
         'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'SGD', 'availability': 'https://schema.org/InStock',
-                   'url': url},
+                   'url': url + 'register.html'},
         'organizer': {'@type': 'Organization', 'name': 'HiEnd Asia + Pte. Ltd', 'url': SITE},
     }, ensure_ascii=False).replace('</', '<\\/')
     head, rest = body.split('<a class="skip"', 1)
@@ -350,13 +361,77 @@ for lang in LANGS:
 artifact = render('en', '', False, PAGES)
 open(os.path.join(HERE, 'artifact.html'), 'w', encoding='utf-8').write(artifact)
 
+# ---------- Registration page ----------
+def register_page(lang):
+    """register.html for one language: the free-ticket form, and the ticket itself once issued."""
+    global CUR
+    CUR = I18N[lang]
+    base = '' if lang == 'en' else '../'
+    url = PAGES + lang_path(lang) + 'register.html'
+    k = lambda s: tr('reg.' + s)
+    strings = {'errName': k('err.name'), 'errEmail': k('err.email'), 'errPhone': k('err.phone'), 'errInterest': k('err.interest'),
+               'errServer': k('err.server'), 'errClosed': k('err.closed'), 'submit': k('submit'), 'sending': k('sending'),
+               'doneEyebrow': k('done.eyebrow'), 'doneH': k('done.h'), 'doneLead': k('done.lead'), 'storedLead': k('stored.lead'),
+               'resentH': k('resent.h'), 'resentLead': k('resent.lead')}
+    options = '\n'.join('        <option value="%s" lang="%s"%s>%s</option>' % (l, l, ' selected' if l == lang else '', LANG_NAMES[l])
+                        for l in LANGS)
+    rep = {
+        '{{PAGE_LANG}}': lang, '{{BASE}}': base, '{{LANG_FONT}}': lang_font(lang), '{{LANG_OPTIONS}}': options,
+        '{{CONSENT_CFG}}': consent_cfg(base), '{{CONSENT_JS}}': CONSENT_JS, '{{FONT_FACES}}': FONT_FACES, '{{QR_JS}}': QR_JS, '{{VALIDATE_JS}}': VALIDATE_JS,
+        '{{ENDPOINT}}': REGISTER_ENDPOINT, '{{REG_STRINGS}}': json.dumps(strings, ensure_ascii=False).replace('</', '<\\/'),
+        '{{POSTER}}': POSTER, '{{POSTER_SRCSET}}': POSTER_SRCSET, '{{ICS}}': ICS_FILE, '{{MAPS}}': MAPS,
+    }
+    body = REG_TPL
+    for key, v in rep.items():
+        body = body.replace(key, v)
+    body = re.sub(r'\{\{([a-z][\w.]*)\}\}', lambda m: e(tr(m.group(1))), body)
+    assert '{{' not in body, re.findall(r'\{\{[^}]*\}\}', body)[:5]
+    body = rebase(body, base)
+    alternates = '\n'.join('<link rel="alternate" hreflang="%s" href="%s%sregister.html">' % (l, PAGES, lang_path(l)) for l in LANGS)
+    head, rest = body.split('<a class="skip"', 1)
+    return f'''<!doctype html>
+<html lang="{lang}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="{e(k('meta'))}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{e(k('title'))}">
+<meta property="og:description" content="{e(k('meta'))}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{PAGES}{OG_IMAGE}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="{OG_LOCALE[lang]}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="{url}">
+{alternates}
+<link rel="alternate" hreflang="x-default" href="{PAGES}register.html">
+{head.strip()}
+</head>
+<body>
+<a class="skip"{rest}
+</body>
+</html>
+'''
+
+
+for lang in LANGS:
+    path = os.path.join(HERE, lang_path(lang), 'register.html')
+    open(path, 'w', encoding='utf-8').write(register_page(lang))
+    written.append(os.path.relpath(path, HERE))
+
 # ---------- Privacy notice ----------
 CUR = EN
-PRIVACY_UPDATED = '5 November 2026'
+PRIVACY_UPDATED = '20 November 2026'
 DPO_EMAIL = 'michelle@hiendasia.com'  # data protection contact; replace with a dedicated dpo@ address when one exists
 COOKIES = [
     ('hea-lang', 'This site (browser storage)', 'Necessary', 'Remembers the language you picked.', 'Until you clear it'),
     ('hea-consent', 'This site (browser storage)', 'Necessary', 'Remembers your cookie choice and when you made it.', 'Until you clear it'),
+    ('hea-ticket', 'This site (browser storage)', 'Necessary',
+     'Keeps the ticket you registered for on this device, so you can show it again at the entrance.', 'Until you clear it'),
+    ('hea-utm', 'This site (browser storage)', 'Necessary',
+     'Notes which link, ad or sign brought you here, and is saved with your registration if you register.', 'This tab'),
     ('hea-checkin-&lt;date&gt;, hea-onsite', 'This site (browser storage)', 'Necessary',
      'Set only when you open the page from a QR sign at the show, so a visit is counted once per day.', 'One day / this tab'),
     ('_ga, _ga_&lt;id&gt;', 'Google Analytics', 'Analytics', 'Counts visits and tells apart returning browsers.', '2 years'),
@@ -372,7 +447,7 @@ PRIVACY = f'''<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Privacy notice · HiEnd Asia 2026</title>
-<meta name="description" content="How the HiEnd Asia 2026 website uses personal data and cookies, and how to change your choices.">
+<meta name="description" content="How HiEnd Asia 2026 uses personal data from ticket registration and from this website, and how to change your choices.">
 <link rel="canonical" href="{PAGES}privacy.html">
 <link rel="icon" href="img/monogram.svg" type="image/svg+xml">
 <script>
@@ -418,10 +493,10 @@ code {{ color: var(--heading); font-size: 13px; }}
 <header><div class="wrap"><a href="./"><img src="img/logo.svg" alt="HiEnd Asia 2026 home" width="155" height="40"></a><a class="back" href="./">← Back to the show page</a></div></header>
 <main class="wrap">
 <h1>Privacy notice</h1>
-<p class="meta">HiEnd Asia 2026 website · Last updated {PRIVACY_UPDATED}</p>
+<p class="meta">HiEnd Asia 2026 · Last updated {PRIVACY_UPDATED}</p>
 <div class="rule"></div>
-<p>This notice explains what personal data the HiEnd Asia 2026 website collects, why, and the choices you have. It is written for the
-Personal Data Protection Act 2012 of Singapore (PDPA) and applies to this website only. The show itself is free to enter and needs no registration.</p>
+<p>This notice explains what personal data HiEnd Asia 2026 collects through ticket registration and through this website, why, and the choices
+you have. It is written for the Personal Data Protection Act 2012 of Singapore (PDPA). Entry to the show is free. A registered ticket is required.</p>
 
 <h2>Who we are</h2>
 <p>HiEnd Asia + Pte. Ltd, 1093 Lower Delta Road #02-09, Singapore 169204, organises the 2026 Singapore Hi-End Asia International Audio Visual Show
@@ -429,9 +504,31 @@ and runs this website.</p>
 <p><strong>Data protection contact:</strong> <a href="mailto:{DPO_EMAIL}">{DPO_EMAIL}</a> · <a href="tel:+6586681927">+65 8668 1927</a>.
 Write to us for any question, access or correction request, or complaint about your personal data.</p>
 
-<h2>What we collect</h2>
+<h2 id="registration">Ticket registration</h2>
+<p>To issue your free ticket we ask for your <strong>full name</strong>, <strong>email address</strong>, <strong>mobile number</strong> and whether you
+attend as a <strong>visitor, trade or media</strong>. With each registration we also record the date and time, the language of the page, the country
+of your mobile number, the country your internet connection is in, your time zone, phone or desktop, the link, ad or QR sign that brought you
+to the form, and the consent wording you agreed to.</p>
+<p><strong>What we use it for.</strong></p>
 <ul>
-<li><strong>Nothing you type.</strong> The site has no forms, accounts or tickets. If you email, phone or message us, we use what you send only to reply.</li>
+<li>To issue a ticket in your name, email it to you, and admit you at the entrance.</li>
+<li>To contact you about the show, for example a change of hours or venue.</li>
+<li>To send you news of HiEnd Asia and NOWASIA, by email and by WhatsApp. You agree to this when you register.</li>
+<li>To count registrations and plan the show.</li>
+</ul>
+<p><strong>What we do not do.</strong> We do not telephone you. We do not sell your details, and we do not give them to exhibitors or other
+companies for their own marketing.</p>
+<p><strong>Stopping the news.</strong> Every email carries an unsubscribe link. You can also reply STOP to a WhatsApp message, or write to the contact
+below. We act on it within 30 days. Your ticket stays valid.</p>
+<p><strong>Who handles it for us.</strong> Registrations are kept in Google Sheets and tickets are sent by Gmail (Google LLC), in an account run for us
+by Enso Consult, the agency that built this site, which may only use the data on our instructions. Your internet address is sent to
+country.is, a lookup service, to find your country; we keep the two-letter country only.</p>
+<p><strong>How long we keep it.</strong> Until you unsubscribe or ask us to delete it. We review the list every two years and remove contacts who
+no longer hear from us.</p>
+
+<h2>What the website collects</h2>
+<ul>
+<li><strong>Messages.</strong> If you email, phone or message us, we use what you send only to reply.</li>
 <li><strong>Analytics, only if you allow it.</strong> Google Analytics records which pages and sections are viewed, which buttons are used (for example
 "Add to calendar", "Get directions", "Share"), the language, device and browser type, approximate location (city level) and how you arrived (for example
 a WhatsApp share or an ad).</li>
@@ -470,7 +567,8 @@ We will reply within 30 days. If you are not satisfied, you can contact the Pers
 <a href="https://www.pdpc.gov.sg/" target="_blank" rel="noopener">pdpc.gov.sg</a>.</p>
 
 <h2>Changes</h2>
-<p>If we change this notice, we will update the date above. If a change affects what you agreed to, the cookie banner will ask you again.</p>
+<p>If we change this notice, we will update the date above. If a change affects what you agreed to, the cookie banner will ask you again,
+and we will not use registration details for a new purpose without asking you.</p>
 </main>
 </body>
 </html>
@@ -481,4 +579,4 @@ files = {p: p for p in sorted(set(re.findall(r'(?:src|href|poster)="((?:img|vide
                               | set(re.findall(r'((?:img|video)/[\w.-]+\.webp)', artifact))
                               | set(re.findall(r'url\((fonts/[^)]+)\)', artifact)) | {ICS_FILE, OG_IMAGE})}
 json.dump(files, open(os.path.join(HERE, 'files.json'), 'w'), indent=0)
-print('wrote', ', '.join(written), '+ privacy.html, artifact.html;', len(files), 'files referenced')
+print('wrote', len(written), 'pages + privacy.html, artifact.html;', len(files), 'files referenced')
