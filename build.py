@@ -195,6 +195,10 @@ ICON_WA = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><pat
 # Hero poster: responsive WebP made from img/000.jpg (see README). The JPEG stays for search/structured data.
 POSTER = 'img/000-1242.webp'
 POSTER_SRCSET = 'img/000-640.webp 640w, img/000-760.webp 760w, img/000-960.webp 960w, img/000-1242.webp 1242w'
+def pz(v, lang):
+    """Chinese pages get the Chinese edition of the poster."""
+    return v.replace('img/000-', 'img/000zh-') if lang.startswith('zh') else v
+
 POSTER_SIZES = '(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)'
 OG_IMAGE = 'img/og-2026.jpg'  # 1200x630 landscape for WhatsApp, Facebook, LinkedIn, X
 
@@ -295,7 +299,7 @@ def render(lang, base, auto, page_url):
         '{{GUESTS}}': '\n'.join(person_card(i, b) for i, b in GUESTS),
         '{{REPS}}': rep_html, '{{DEALERS}}': tiles(DEALER_IDX), '{{BRANDS}}': tiles(BRAND_IDX),
         '{{MEDIA}}': '\n'.join('<li>%s</li>' % e(m) for m in MEDIA),
-        '{{POSTER}}': POSTER, '{{POSTER_SRCSET}}': POSTER_SRCSET, '{{POSTER_SIZES}}': POSTER_SIZES,
+        '{{POSTER}}': pz(POSTER, lang), '{{POSTER_SRCSET}}': pz(POSTER_SRCSET, lang), '{{POSTER_SIZES}}': POSTER_SIZES,
         '{{FLOOR}}': 'img/floorplan-2026.webp', '{{SUNTEC_IN}}': img(8), '{{SUNTEC_NIGHT}}': img(9),
         '{{PAGE_LANG}}': lang, '{{BASE}}': base, '{{AUTO_LANG}}': 'true' if auto else 'false',
         '{{PAGE_URL}}': page_url, '{{LANG_FONT}}': lang_font(lang),
@@ -350,7 +354,7 @@ def document(lang):
 <link rel="canonical" href="{url}">
 {alternates}
 <link rel="alternate" hreflang="x-default" href="{PAGES}">
-<link rel="preload" as="image" href="{base}{POSTER}" imagesrcset="{re.sub(r'(^|, )img/', lambda m: m.group(1) + base + 'img/', POSTER_SRCSET)}" imagesizes="{POSTER_SIZES}" fetchpriority="high">
+<link rel="preload" as="image" href="{base}{pz(POSTER, lang)}" imagesrcset="{re.sub(r'(^|, )img/', lambda m: m.group(1) + base + 'img/', pz(POSTER_SRCSET, lang))}" imagesizes="{POSTER_SIZES}" fetchpriority="high">
 <script type="application/ld+json">{ld}</script>
 {head.strip()}
 </head>
