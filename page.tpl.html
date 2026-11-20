@@ -495,6 +495,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .lang select option { background: var(--band); color: var(--body); }
 @media (max-width: 860px) { .lang { margin-left: auto; } .head-cta { margin-left: 0; } }
 @media (max-width: 420px) { .head-cta { display: none; } }
+.head-extra { margin-left: 8px; }
+@media (max-width: 1180px) { .head-extra { display: none; } }
+@media (min-width: 1181px) { .nav a.dup { display: none; } .site-head .logo { flex: none; } .site-head .lang { min-width: 0; } }
 </style>
 
 <a class="skip" href="#main">{{skip}}</a>
@@ -506,6 +509,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <a class="txt" href="#speakers" data-i18n="nav.speakers">{{nav.speakers}}</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">{{nav.brands}}</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">{{nav.visit}}</a>
+      <a class="txt dup" href="hotel.html" data-i18n="nav.hotel">{{nav.hotel}}</a>
+      <a class="txt dup" href="exhibitor-login.html" data-i18n="nav.login">{{nav.login}}</a>
     </nav>
     <label class="lang">
       <span class="sr" data-i18n="lang.label">{{lang.label}}</span>
@@ -514,6 +519,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 {{LANG_OPTIONS}}
       </select>
     </label>
+    <a class="btn btn-outline btn-sm head-extra" href="hotel.html" data-i18n="cta.hotel">{{cta.hotel}}</a>
+    <a class="btn btn-outline btn-sm head-extra" href="exhibitor-login.html" data-i18n="cta.login">{{cta.login}}</a>
     <a class="btn btn-primary btn-sm head-cta" href="{{GCAL}}" target="_blank" rel="noopener" data-i18n="nav.save">{{nav.save}}</a>
   </div>
 </header>
@@ -683,7 +690,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <li><b>City Hall</b><span data-i18n="mrt.cityhall">{{mrt.cityhall}}</span></li>
         </ul>
         <p class="free"><b data-i18n="free.label">{{free.label}}</b><span data-i18n="free.short">{{free.short}}</span></p>
-        <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">{{visit.directions}}</a></div>
+        <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">{{visit.directions}}</a> <a class="btn btn-outline" href="{{WA_MICHELLE}}" target="_blank" rel="noopener" data-wa-contact>{{ICON_WA}}<span data-i18n="cta.wa">{{cta.wa}}</span></a></div>
 {{ACTIONS}}
       </div>
       <div class="photos">

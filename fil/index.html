@@ -697,6 +697,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .lang select option { background: var(--band); color: var(--body); }
 @media (max-width: 860px) { .lang { margin-left: auto; } .head-cta { margin-left: 0; } }
 @media (max-width: 420px) { .head-cta { display: none; } }
+.head-extra { margin-left: 8px; }
+@media (max-width: 1180px) { .head-extra { display: none; } }
+@media (min-width: 1181px) { .nav a.dup { display: none; } .site-head .logo { flex: none; } .site-head .lang { min-width: 0; } }
 </style>
 </head>
 <body>
@@ -709,6 +712,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <a class="txt" href="#speakers" data-i18n="nav.speakers">Speakers</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">Brands</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">Pagbisita</a>
+      <a class="txt dup" href="../hotel.html" data-i18n="nav.hotel">Hotel</a>
+      <a class="txt dup" href="../exhibitor-login.html" data-i18n="nav.login">Exhibitor login</a>
     </nav>
     <label class="lang">
       <span class="sr" data-i18n="lang.label">Wika</span>
@@ -724,6 +729,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <option value="vi" lang="vi">Tiếng Việt</option>
       </select>
     </label>
+    <a class="btn btn-outline btn-sm head-extra" href="../hotel.html" data-i18n="cta.hotel">Hotel booking</a>
+    <a class="btn btn-outline btn-sm head-extra" href="../exhibitor-login.html" data-i18n="cta.login">Exhibitor login</a>
     <a class="btn btn-primary btn-sm head-cta" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener" data-i18n="nav.save">I-save ang petsa</a>
   </div>
 </header>
@@ -983,7 +990,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <li><b>City Hall</b><span data-i18n="mrt.cityhall">North-South Line o East-West Line</span></li>
         </ul>
         <p class="free"><b data-i18n="free.label">Libreng pasok</b><span data-i18n="free.short">Hindi kailangan ng tiket.</span></p>
-        <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">Kumuha ng direksyon</a></div>
+        <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">Kumuha ng direksyon</a> <a class="btn btn-outline" href="https://wa.me/6586681927?text=Hi%20Michelle%2C%20I%20have%20a%20question%20about%20HiEnd%20Asia%202026." target="_blank" rel="noopener" data-wa-contact><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="cta.wa">WhatsApp Michelle</span></a></div>
       <div class="btns">
         <details class="cal">
           <summary class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="cal.add">Idagdag sa kalendaryo</span><span class="chev" aria-hidden="true">▾</span></summary>
