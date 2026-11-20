@@ -380,6 +380,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
+@media (max-width: 640px) { #floorplan .split > div:last-child { display: none; } } /* static plan is desktop-only; phones use the interactive map */
 .p-none { display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
 .p-none img { width: 30%; height: auto; opacity: .5; }
 .badge { align-self: flex-start; padding: 4px 12px; background: var(--accent); color: var(--on-accent); border-radius: var(--radius-pill);
@@ -573,7 +574,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <p class="intro" data-i18n="floor.intro">{{floor.intro}}</p>
       </div>
       <div>
-        <figure class="figure"><img src="{{FLOOR}}" srcset="img/floorplan-2026-760.webp 760w, {{FLOOR}} 1540w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="{{floor.alt}}" data-i18n-attr="alt:floor.alt" width="1540" height="1021" loading="lazy"></figure>
+        <figure class="figure"><img src="{{FLOOR}}" srcset="img/floorplan-2026-760.webp 760w, {{FLOOR}} 1024w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="{{floor.alt}}" data-i18n-attr="alt:floor.alt" width="1024" height="678" loading="lazy"></figure>
         <p class="figcap" data-i18n="floor.cap">{{floor.cap}}</p>
       </div>
     </div>

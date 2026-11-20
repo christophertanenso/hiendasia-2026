@@ -582,6 +582,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
+@media (max-width: 640px) { #floorplan .split > div:last-child { display: none; } } /* static plan is desktop-only; phones use the interactive map */
 .p-none { display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
 .p-none img { width: 30%; height: auto; opacity: .5; }
 .badge { align-self: flex-start; padding: 4px 12px; background: var(--accent); color: var(--on-accent); border-radius: var(--radius-pill);
@@ -806,7 +807,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <p class="intro" data-i18n="floor.intro">Terokai bilik dengar khas di Aras 3 Pusat Konvensyen &amp; Pameran Suntec Singapore. Setiap ruang dibina khusus untuk mempamerkan peralatan audiofil terbaik: satu perjalanan pilihan menerusi bunyi, ketelitian dan ketukangan.</p>
       </div>
       <div>
-        <figure class="figure"><img src="../img/floorplan-2026.webp" srcset="../img/floorplan-2026-760.webp 760w, ../img/floorplan-2026.webp 1540w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="Pelan lantai pameran Aras 3 Suntec: bilik dengar 300–336 bersama pempamernya, ruang seni, kawasan fon kepala dan aksesori, serta gerai dan bilik bunyi di sepanjang Concourse 1 hingga 3" data-i18n-attr="alt:floor.alt" width="1540" height="1021" loading="lazy"></figure>
+        <figure class="figure"><img src="../img/floorplan-2026.webp" srcset="../img/floorplan-2026-760.webp 760w, ../img/floorplan-2026.webp 1024w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="Pelan lantai pameran Aras 3 Suntec: bilik dengar 300–336 bersama pempamernya, ruang seni, kawasan fon kepala dan aksesori, serta gerai dan bilik bunyi di sepanjang Concourse 1 hingga 3" data-i18n-attr="alt:floor.alt" width="1024" height="678" loading="lazy"></figure>
         <p class="figcap" data-i18n="floor.cap">Susun atur Aras 3 daripada penganjur. Peruntukan bilik mungkin berubah sebelum pameran.</p>
       </div>
     </div>

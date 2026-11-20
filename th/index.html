@@ -584,6 +584,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
+@media (max-width: 640px) { #floorplan .split > div:last-child { display: none; } } /* static plan is desktop-only; phones use the interactive map */
 .p-none { display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
 .p-none img { width: 30%; height: auto; opacity: .5; }
 .badge { align-self: flex-start; padding: 4px 12px; background: var(--accent); color: var(--on-accent); border-radius: var(--radius-pill);
@@ -808,7 +809,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <p class="intro" data-i18n="floor.intro">สำรวจห้องฟังเสียงเฉพาะบนชั้น 3 ของศูนย์ประชุมและนิทรรศการ Suntec Singapore แต่ละห้องออกแบบมาเพื่อนำเสนออุปกรณ์เครื่องเสียงระดับออดิโอไฟล์ที่ดีที่สุด เส้นทางที่คัดสรรมาแล้วผ่านเสียง ความแม่นยำ และงานฝีมือ</p>
       </div>
       <div>
-        <figure class="figure"><img src="../img/floorplan-2026.webp" srcset="../img/floorplan-2026-760.webp 760w, ../img/floorplan-2026.webp 1540w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="ผังงานชั้น 3 ซันเทค: ห้องฟังเพลง 300–336 พร้อมผู้จัดแสดง พื้นที่ศิลปะ โซนหูฟังและอุปกรณ์เสริม รวมถึงบูธและห้องเสียงตามแนว Concourse 1 ถึง 3" data-i18n-attr="alt:floor.alt" width="1540" height="1021" loading="lazy"></figure>
+        <figure class="figure"><img src="../img/floorplan-2026.webp" srcset="../img/floorplan-2026-760.webp 760w, ../img/floorplan-2026.webp 1024w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="ผังงานชั้น 3 ซันเทค: ห้องฟังเพลง 300–336 พร้อมผู้จัดแสดง พื้นที่ศิลปะ โซนหูฟังและอุปกรณ์เสริม รวมถึงบูธและห้องเสียงตามแนว Concourse 1 ถึง 3" data-i18n-attr="alt:floor.alt" width="1024" height="678" loading="lazy"></figure>
         <p class="figcap" data-i18n="floor.cap">ผังชั้น 3 จากผู้จัดงาน การจัดสรรห้องอาจเปลี่ยนแปลงก่อนวันงาน</p>
       </div>
     </div>

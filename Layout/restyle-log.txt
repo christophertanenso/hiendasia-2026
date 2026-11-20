@@ -1,1 +1,0 @@
-Set OPENROUTER_API_KEY first.
