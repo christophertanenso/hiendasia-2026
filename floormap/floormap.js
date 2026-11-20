@@ -95,7 +95,7 @@
     { room: '334', type: 'listening', exhibitor: 'Prodigio Audio', brands: 'Prodigio Audio' },
     { room: '335', type: 'listening', exhibitor: 'San Yuan', note: 'Taiwan', brands: 'San Yuan, Ronnie' },
     { room: '336', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 333', brands: 'Aries Cerat' },
-    { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'Patrick Bezalel · Extra•Ordinary People', brands: 'Art gallery', note: 'Extra•Ordinary People is a Singapore charity; artists with autism sell their work here. Donate $50 to receive a bear.' }
+    { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'Patrick Bezalel · Extra•Ordinary People', brands: 'Art gallery', note: 'Gallery walls along Concourses 2–3, with more art along Links 2 and 3. Extra•Ordinary People is a Singapore charity: artists with autism sell their work here. Donate $50 to receive a bear.' }
   ];
 
   // ---------- Helpers ----------
