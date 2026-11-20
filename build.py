@@ -70,19 +70,18 @@ REPS = [
 ]
 assert len(REPS) == 39
 # 2026: only reps of brands exhibiting this year. Indexes stay fixed (photo 43+k, copy rep.<k>.role).
-REP_BRANDS_2026 = {'Acoustic Signature', 'Acoustical Systems', 'Brinkmann', 'Gold Note', 'Kaiser Acoustics', 'Lyra Analog',
-                   'Peak Consult', 'TAD', 'Westend Audio System', 'Ypsilon Electronic'}
+REP_BRANDS_2026 = {'Acoustic Signature', 'TAD'}
 
 # Dealer logos 82-106, brand logos 107-242 (alt text = brand name on the live site)
 # 2026 exhibitors and brands only. 300+ are logos added for 2026 (names in NEW_LOGOS, files img/3xx.jpg).
-DEALER_IDX = [85, 101, 87, 84, 89, 99, 93, 104]  # AudioLine, High End Research, Audio Atelier, Ong Radio, Analog Playground, Westend, Peak, SharkWire
+DEALER_IDX = [85, 101, 92, 237]  # AudioLine, High End Research, MU6, Welchen Music
 NEW_LOGOS = {300: 'AMR', 301: 'San Yuan', 302: 'Ronnie', 303: 'SME', 304: 'Koetsu', 305: 'Graham Engineering',
-             306: 'Vimberg', 307: 'Magnum Dynalab', 308: 'Clearaudio', 309: 'Purist Audio Design'}
-BRAND_IDX = [109, 110, 111, 300, 107, 117, 121, 131, 132, 134, 308, 139, 140, 147, 151, 157, 305, 159, 163, 168, 169, 304,
-             176, 179, 307, 97, 184, 188, 194, 198, 309, 207, 302, 301, 213, 303, 218, 220, 222, 306, 238, 241]
+             306: 'Vimberg', 307: 'Magnum Dynalab', 308: 'Clearaudio', 309: 'Purist Audio Design', 310: 'Aries Cerat'}
+BRAND_IDX = [109, 110, 300, 310, 107, 117, 121, 134, 308, 139, 147, 151, 305, 159, 163, 304,
+             176, 307, 184, 188, 198, 309, 207, 302, 301, 213, 303, 220, 222, 306, 238]
 NAME_FIX = {'Opera Loudpseakers': 'Opera Loudspeakers', 'Quadspire': 'Quadraspire', 'Tinglon': 'Tiglon',
             'Tw Acoustics': 'TW Acustic', 'Syntec Audio': 'Synastec Audio', 'Peak': 'Peak Audio',
-            'audioexotics.com': 'Audio Exotics', 'VPI made in USA': 'VPI', 'Kinki': 'Kinki Studio'}
+            'audioexotics.com': 'Audio Exotics', 'VPI made in USA': 'VPI', 'Kinki': 'Kinki Studio', 'Weichen Music': 'Welchen Music'}
 
 
 def logo_name(i):
