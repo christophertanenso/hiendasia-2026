@@ -71,6 +71,8 @@ REPS = [
 assert len(REPS) == 39
 # 2026: only reps of brands exhibiting this year. Indexes stay fixed (photo 43+k, copy rep.<k>.role).
 REP_BRANDS_2026 = {'Acoustic Signature', 'TAD'}
+# 2026 reps not in the 2025 list: (name, role key, brand, photo)
+EXTRA_REPS = [('Stavros Danos', 'rep.stavros.role', 'Aries Cerat', 'img/rep-stavros-danos.webp')]
 
 # Dealer logos 82-106, brand logos 107-242 (alt text = brand name on the live site)
 # 2026 exhibitors and brands only. 300+ are logos added for 2026 (names in NEW_LOGOS, files img/3xx.jpg).
@@ -280,6 +282,12 @@ def render(lang, base, auto, page_url):
   {rep_role(k)}
   <span class="rep-brand">{e(b)}</span>
 </li>''' for k, (n, r, b) in enumerate(REPS) if b in REP_BRANDS_2026)
+    rep_html += '\n' + '\n'.join(f'''<li class="rep">
+  <img src="{src}" alt="{e(n)}" loading="lazy" width="400" height="500">
+  <span class="rep-name">{e(n)}</span>
+  {t(key, cls='rep-role')}
+  <span class="rep-brand">{e(b)}</span>
+</li>''' for n, key, b, src in EXTRA_REPS)
     rep = {
         '{{ACTIONS}}': actions, '{{DATES}}': dates, '{{MBAR}}': mbar, '{{LANG_OPTIONS}}': options,
         '{{GCAL}}': e(GCAL), '{{WA}}': e(wa), '{{WA_MICHELLE}}': e(WA_MICHELLE), '{{ICON_WA}}': ICON_WA,
