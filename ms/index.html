@@ -654,6 +654,20 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 /* Footer */
 .site-foot { border-top: 1px solid var(--line); }
 .site-foot .wrap { padding-block: 64px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+.hero-tag { margin: 0; font: 700 15px/1 var(--font-display); letter-spacing: .32em; text-transform: uppercase; color: var(--accent); }
+.cobrand { display: flex; align-items: center; gap: 18px; }
+.cobrand img { height: 40px; width: auto; }
+.cobrand img + .cobrand-bar + img { height: 44px; }
+.cobrand-bar { width: 1px; align-self: stretch; background: var(--line); }
+.art-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.art-points li { display: flex; flex-direction: column; gap: 2px; padding-left: 14px; border-left: 2px solid var(--accent); }
+.art-points b { font: 700 17px/1.3 var(--font-display); color: var(--heading); }
+.art-points span { color: var(--muted); }
+.art-figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.art-figure video { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); background: #000; }
+.art-partner { height: 36px; width: auto; align-self: flex-end; }
+.foot-partner { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 14px; }
+.foot-brand .foot-partner img { height: 32px; }
 .foot-brand { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
 .foot-brand img { height: 44px; width: auto; align-self: flex-start; }
 .foot-brand b { font: 700 18px/1.3 var(--font-display); color: var(--heading); }
@@ -703,6 +717,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .lang select option { background: var(--band); color: var(--body); }
 @media (max-width: 860px) { .lang { margin-left: auto; } .head-cta { margin-left: 0; } }
 @media (max-width: 420px) { .head-cta { display: none; } }
+.head-extra { margin-left: 8px; }
+@media (max-width: 1400px) { .head-extra { display: none; } }
+@media (min-width: 1401px) { .nav a.dup { display: none; } .site-head .logo { flex: none; } .site-head .lang { min-width: 0; } }
 </style>
 </head>
 <body>
@@ -712,9 +729,12 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <a class="logo" href="#top" aria-label="Laman utama HiEnd Asia" data-i18n-attr="aria-label:nav.home"><img src="../img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
     <nav class="nav" aria-label="Utama" data-i18n-attr="aria-label:nav.aria">
       <a class="txt" href="#floorplan" data-i18n="nav.floorplan">Pelan Lantai</a>
+      <a class="txt" href="#art" data-i18n="nav.art">Art</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">Penceramah</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">Jenama</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">Lawatan</a>
+      <a class="txt dup" href="../hotel.html" data-i18n="nav.hotel">Hotel</a>
+      <a class="txt dup" href="../exhibitor-login.html" data-i18n="nav.login">Exhibitor login</a>
     </nav>
     <label class="lang">
       <span class="sr" data-i18n="lang.label">Bahasa</span>
@@ -730,6 +750,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <option value="vi" lang="vi">Tiếng Việt</option>
       </select>
     </label>
+    <a class="btn btn-outline btn-sm head-extra" href="../hotel.html" data-i18n="cta.hotel">Hotel booking</a>
+    <a class="btn btn-outline btn-sm head-extra" href="../exhibitor-login.html" data-i18n="cta.login">Exhibitor login</a>
     <a class="btn btn-primary btn-sm head-cta" href="register.html" data-i18n="reg.cta.short">Daftar</a>
   </div>
 </header>
@@ -740,6 +762,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="hero-copy">
       <p class="eyebrow" data-i18n="hero.eyebrow">17 – 19 Dis 2026 · Suntec Singapore · Masuk percuma</p>
       <h1><small data-i18n="hero.kicker">2026 Singapura</small><span data-i18n="hero.title">Pameran Audio Visual Antarabangsa Hi-End Asia</span></h1>
+      <p class="hero-tag" data-i18n="hero.tag">Audio × Art</p>
+      <div class="cobrand" role="img" aria-label="HiEnd Asia in partnership with NOWASIA" data-i18n-attr="aria-label:cobrand.aria"><img src="../img/logo.svg" alt="" width="170" height="44"><span class="cobrand-bar"></span><img src="../img/nowasia-logo.webp" alt="" width="435" height="160"></div>
       <div class="rule"></div>
       <div class="dates" aria-label="Waktu pameran">
         <span data-i18n="d.thu">Khamis, 17 Dis</span><span data-i18n="time">10 pagi – 7 malam</span>
@@ -814,7 +838,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <p class="intro" data-i18n="floor.intro">Terokai bilik dengar khas di Aras 3 Pusat Konvensyen &amp; Pameran Suntec Singapore. Setiap ruang dibina khusus untuk mempamerkan peralatan audiofil terbaik: satu perjalanan pilihan menerusi bunyi, ketelitian dan ketukangan.</p>
       </div>
       <div>
-        <figure class="figure"><img src="../img/floorplan-2026.webp" srcset="../img/floorplan-2026-760.webp 760w, ../img/floorplan-2026.webp 1024w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="Pelan lantai pameran Aras 3 Suntec: bilik dengar 300–336 bersama pempamernya, ruang seni, kawasan fon kepala dan aksesori, serta gerai dan bilik bunyi di sepanjang Concourse 1 hingga 3" data-i18n-attr="alt:floor.alt" width="1024" height="678" loading="lazy"></figure>
+        <figure class="figure"><img src="../img/floorplan-2026.webp" srcset="../img/floorplan-2026-760.webp 760w, ../img/floorplan-2026.webp 1024w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="Pelan lantai pameran Aras 3 Suntec: bilik dengar 300–336 bersama pempamernya, ruang seni, kawasan fon kepala dan aksesori, serta zon pameran seni dan gerai di sepanjang Concourse 1 hingga 3" data-i18n-attr="alt:floor.alt" width="1024" height="678" loading="lazy"></figure>
         <p class="figcap" data-i18n="floor.cap">Susun atur Aras 3 daripada penganjur. Peruntukan bilik mungkin berubah sebelum pameran.</p>
       </div>
     </div>
@@ -826,6 +850,33 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
   <link rel="stylesheet" href="../floormap/floormap.css">
   <script src="../floormap/floormap.js" defer></script>
+</section>
+
+<section class="block band" id="art">
+  <div class="wrap">
+    <div class="split art-split">
+      <div class="split-copy">
+        <div class="bh left">
+          <h2 class="bh-en" data-i18n="art.h">Audio × Art</h2>
+          <div class="rule"></div>
+        </div>
+        <p class="intro" data-i18n="art.intro">This year HiEnd Asia teams up with NOWASIA. Its art galleries fill the whole front of Level 3, so you walk through art on the way to the listening rooms.</p>
+        <ul class="art-points">
+          <li><b data-i18n="art.p1.h">Art Exhibition Zone, C1–C4</b><span data-i18n="art.p1">Art galleries from NOWASIA across the full front concourse.</span></li>
+          <li><b data-i18n="art.p2.h">Art walls, Links 2–4</b><span data-i18n="art.p2">More gallery walls along the links between the listening rooms.</span></li>
+          <li><b data-i18n="art.p3.h">Extra•Ordinary People, L4-1</b><span data-i18n="art.p3">A Singapore charity: artists with autism sell their work. Donate $50 to receive a bear.</span></li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="#floorplan" data-i18n="art.cta">Find the art on the floor plan</a></div>
+      </div>
+      <figure class="art-figure">
+        <img class="art-partner" src="../img/nowasia-logo.webp" alt="NOWASIA" width="435" height="160" loading="lazy">
+        <video id="artLoop" muted loop playsinline preload="none" poster="../img/art/nowasia-walk.webp" width="960" height="540" aria-label="Walking through the NOWASIA Art Fair at Suntec Singapore" data-i18n-attr="aria-label:art.aria">
+          <source src="../img/art/nowasia-walk.mp4" type="../video/mp4">
+        </video>
+        <figcaption class="figcap" data-i18n="art.cap">NOWASIA Art Fair, Suntec Singapore, August 2026</figcaption>
+      </figure>
+    </div>
+  </div>
 </section>
 
 <section class="block band" id="speakers">
@@ -888,88 +939,16 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <span class="rep-brand">Acoustic Signature</span>
 </li>
 <li class="rep">
-  <img src="../img/044.jpg" alt="Dietrich Brakemeier" loading="lazy" width="400" height="500">
-  <span class="rep-name">Dietrich Brakemeier</span>
-  <span class="rep-role" data-i18n="rep.1.role">CEO</span>
-  <span class="rep-brand">Acoustical Systems</span>
-</li>
-<li class="rep">
-  <img src="../img/054.jpg" alt="Helmut Brinkmann" loading="lazy" width="400" height="500">
-  <span class="rep-name">Helmut Brinkmann</span>
-  <span class="rep-role" data-i18n="rep.11.role">Pengasas</span>
-  <span class="rep-brand">Brinkmann</span>
-</li>
-<li class="rep">
-  <img src="../img/055.jpg" alt="Matthias Lock" loading="lazy" width="400" height="500">
-  <span class="rep-name">Matthias Lock</span>
-  <span class="rep-role" data-i18n="rep.12.role">Pemilik Bersama</span>
-  <span class="rep-brand">Brinkmann</span>
-</li>
-<li class="rep">
-  <img src="../img/058.jpg" alt="Maurizio Aterini" loading="lazy" width="400" height="500">
-  <span class="rep-name">Maurizio Aterini</span>
-  <span class="rep-role" data-i18n="rep.15.role">Pengasas &amp; CEO</span>
-  <span class="rep-brand">Gold Note</span>
-</li>
-<li class="rep">
-  <img src="../img/060.jpg" alt="Hans-Jürgen Kaiser" loading="lazy" width="400" height="500">
-  <span class="rep-name">Hans-Jürgen Kaiser</span>
-  <span class="rep-role" data-i18n="rep.17.role">CEO dan Pengarah Urusan</span>
-  <span class="rep-brand">Kaiser Acoustics</span>
-</li>
-<li class="rep">
-  <img src="../img/061.jpg" alt="Rainer Weber" loading="lazy" width="400" height="500">
-  <span class="rep-name">Rainer Weber</span>
-  <span class="rep-role" data-i18n="rep.18.role">Pengarah Teknikal</span>
-  <span class="rep-brand">Kaiser Acoustics</span>
-</li>
-<li class="rep">
-  <img src="../img/062.jpg" alt="Jonathan Carr" loading="lazy" width="400" height="500">
-  <span class="rep-name">Jonathan Carr</span>
-  <span class="rep-role" data-i18n="rep.19.role">Ketua Jurutera</span>
-  <span class="rep-brand">Lyra Analog</span>
-</li>
-<li class="rep">
-  <img src="../img/063.jpg" alt="Stig Bjorge" loading="lazy" width="400" height="500">
-  <span class="rep-name">Stig Bjorge</span>
-  <span class="rep-role" data-i18n="rep.20.role">CEO</span>
-  <span class="rep-brand">Lyra Analog</span>
-</li>
-<li class="rep">
-  <img src="../img/065.jpg" alt="Lennart Asbjørn" loading="lazy" width="400" height="500">
-  <span class="rep-name">Lennart Asbjørn</span>
-  <span class="rep-role" data-i18n="rep.22.role">CEO</span>
-  <span class="rep-brand">Peak Consult</span>
-</li>
-<li class="rep">
-  <img src="../img/066.jpg" alt="Wilfried Ehrenholz" loading="lazy" width="400" height="500">
-  <span class="rep-name">Wilfried Ehrenholz</span>
-  <span class="rep-role" data-i18n="rep.23.role">Pembangunan Produk</span>
-  <span class="rep-brand">Peak Consult</span>
-</li>
-<li class="rep">
   <img src="../img/073.jpg" alt="Shinji Tarutani" loading="lazy" width="400" height="500">
   <span class="rep-name">Shinji Tarutani</span>
   <span class="rep-role" data-i18n="rep.30.role">Presiden</span>
   <span class="rep-brand">TAD</span>
 </li>
 <li class="rep">
-  <img src="../img/078.jpg" alt="Stefan Trog" loading="lazy" width="400" height="500">
-  <span class="rep-name">Stefan Trog</span>
-  <span class="rep-role" data-i18n="rep.35.role">Pengarah Urusan</span>
-  <span class="rep-brand">Westend Audio System</span>
-</li>
-<li class="rep">
-  <img src="../img/079.jpg" alt="Günther Mania" loading="lazy" width="400" height="500">
-  <span class="rep-name">Günther Mania</span>
-  <span class="rep-role" data-i18n="rep.36.role">Pembangun</span>
-  <span class="rep-brand">Westend Audio System</span>
-</li>
-<li class="rep">
-  <img src="../img/081.jpg" alt="Demetris Baklavas" loading="lazy" width="400" height="500">
-  <span class="rep-name">Demetris Baklavas</span>
-  <span class="rep-role" data-i18n="rep.38.role">Pengasas &amp; Ketua Pereka</span>
-  <span class="rep-brand">Ypsilon Electronic</span>
+  <img src="../img/rep-stavros-danos.webp" alt="Stavros Danos" loading="lazy" width="400" height="500">
+  <span class="rep-name">Stavros Danos</span>
+  <span class="rep-role" data-i18n="rep.stavros.role">Founder &amp; Designer</span>
+  <span class="rep-brand">Aries Cerat</span>
 </li>
     </ul>
   </div>
@@ -986,45 +965,32 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <ul class="wall big">
 <li class="tile"><img src="../img/085.jpg" alt="AudioLine" loading="lazy" title="AudioLine"></li>
 <li class="tile"><img src="../img/101.jpg" alt="High End Research" loading="lazy" title="High End Research"></li>
-<li class="tile"><img src="../img/087.jpg" alt="Audio Atelier" loading="lazy" title="Audio Atelier"></li>
-<li class="tile"><img src="../img/084.jpg" alt="Ong Radio" loading="lazy" title="Ong Radio"></li>
-<li class="tile"><img src="../img/089.jpg" alt="Analog Playground" loading="lazy" title="Analog Playground"></li>
-<li class="tile"><img src="../img/099.jpg" alt="Westend" loading="lazy" title="Westend"></li>
-<li class="tile"><img src="../img/093.jpg" alt="Peak Audio" loading="lazy" title="Peak Audio"></li>
-<li class="tile"><img src="../img/104.jpg" alt="SharkWire" loading="lazy" title="SharkWire"></li>
+<li class="tile"><img src="../img/092.jpg" alt="MU6" loading="lazy" title="MU6"></li>
+<li class="tile"><img src="../img/237.jpg" alt="Welchen Music" loading="lazy" title="Welchen Music"></li>
     </ul>
     <h3 class="sub-h" data-i18n="brands.exhibiting">Jenama yang mempamer</h3>
     <div class="wall-box collapsed" id="wallBox">
       <ul class="wall" id="brandWall">
 <li class="tile"><img src="../img/109.jpg" alt="Accuphase" loading="lazy" title="Accuphase"></li>
 <li class="tile"><img src="../img/110.jpg" alt="Acoustic Signature" loading="lazy" title="Acoustic Signature"></li>
-<li class="tile"><img src="../img/111.jpg" alt="Acoustical Systems" loading="lazy" title="Acoustical Systems"></li>
 <li class="tile"><img src="../img/300.jpg" alt="AMR" loading="lazy" title="AMR"></li>
+<li class="tile"><img src="../img/310.jpg" alt="Aries Cerat" loading="lazy" title="Aries Cerat"></li>
 <li class="tile"><img src="../img/107.jpg" alt="ARTESANIA" loading="lazy" title="ARTESANIA"></li>
 <li class="tile"><img src="../img/117.jpg" alt="Audio Desk" loading="lazy" title="Audio Desk"></li>
 <li class="tile"><img src="../img/121.jpg" alt="Audio-Technica" loading="lazy" title="Audio-Technica"></li>
-<li class="tile"><img src="../img/131.jpg" alt="Bowers &amp; Wilkins" loading="lazy" title="Bowers &amp; Wilkins"></li>
-<li class="tile"><img src="../img/132.jpg" alt="Brinkmann Audio" loading="lazy" title="Brinkmann Audio"></li>
 <li class="tile"><img src="../img/134.jpg" alt="Cary Audio" loading="lazy" title="Cary Audio"></li>
 <li class="tile"><img src="../img/308.jpg" alt="Clearaudio" loading="lazy" title="Clearaudio"></li>
 <li class="tile"><img src="../img/139.jpg" alt="Diapason" loading="lazy" title="Diapason"></li>
-<li class="tile"><img src="../img/140.jpg" alt="Diesis Audio" loading="lazy" title="Diesis Audio"></li>
 <li class="tile"><img src="../img/147.jpg" alt="Ensemble Swiss Audio" loading="lazy" title="Ensemble Swiss Audio"></li>
 <li class="tile"><img src="../img/151.jpg" alt="Finite Elemente EU" loading="lazy" title="Finite Elemente EU"></li>
-<li class="tile"><img src="../img/157.jpg" alt="Gold Note" loading="lazy" title="Gold Note"></li>
 <li class="tile"><img src="../img/305.jpg" alt="Graham Engineering" loading="lazy" title="Graham Engineering"></li>
 <li class="tile"><img src="../img/159.jpg" alt="Graham Audio" loading="lazy" title="Graham Audio"></li>
 <li class="tile"><img src="../img/163.jpg" alt="Ikeda Sound Labs" loading="lazy" title="Ikeda Sound Labs"></li>
-<li class="tile"><img src="../img/168.jpg" alt="Kaiser" loading="lazy" title="Kaiser"></li>
-<li class="tile"><img src="../img/169.jpg" alt="Kawero" loading="lazy" title="Kawero"></li>
 <li class="tile"><img src="../img/304.jpg" alt="Koetsu" loading="lazy" title="Koetsu"></li>
 <li class="tile"><img src="../img/176.jpg" alt="Live Cable" loading="lazy" title="Live Cable"></li>
-<li class="tile"><img src="../img/179.jpg" alt="Lyra Analog" loading="lazy" title="Lyra Analog"></li>
 <li class="tile"><img src="../img/307.jpg" alt="Magnum Dynalab" loading="lazy" title="Magnum Dynalab"></li>
-<li class="tile"><img src="../img/097.jpg" alt="McIntosh" loading="lazy" title="McIntosh"></li>
 <li class="tile"><img src="../img/184.jpg" alt="Metronome" loading="lazy" title="Metronome"></li>
 <li class="tile"><img src="../img/188.jpg" alt="MontAudio" loading="lazy" title="MontAudio"></li>
-<li class="tile"><img src="../img/194.jpg" alt="Obit" loading="lazy" title="Obit"></li>
 <li class="tile"><img src="../img/198.jpg" alt="Pass Labs" loading="lazy" title="Pass Labs"></li>
 <li class="tile"><img src="../img/309.jpg" alt="Purist Audio Design" loading="lazy" title="Purist Audio Design"></li>
 <li class="tile"><img src="../img/207.jpg" alt="Rogers High Fidelity" loading="lazy" title="Rogers High Fidelity"></li>
@@ -1032,15 +998,13 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <li class="tile"><img src="../img/301.jpg" alt="San Yuan" loading="lazy" title="San Yuan"></li>
 <li class="tile"><img src="../img/213.jpg" alt="Signal Projects" loading="lazy" title="Signal Projects"></li>
 <li class="tile"><img src="../img/303.jpg" alt="SME" loading="lazy" title="SME"></li>
-<li class="tile"><img src="../img/218.jpg" alt="Stradius" loading="lazy" title="Stradius"></li>
 <li class="tile"><img src="../img/220.jpg" alt="Sutherland" loading="lazy" title="Sutherland"></li>
 <li class="tile"><img src="../img/222.jpg" alt="TAD" loading="lazy" title="TAD"></li>
 <li class="tile"><img src="../img/306.jpg" alt="Vimberg" loading="lazy" title="Vimberg"></li>
 <li class="tile"><img src="../img/238.jpg" alt="Wilson Audio" loading="lazy" title="Wilson Audio"></li>
-<li class="tile"><img src="../img/241.jpg" alt="Ypsilon Electronics" loading="lazy" title="Ypsilon Electronics"></li>
       </ul>
     </div>
-    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false" data-all="Tunjuk semua 42 jenama" data-fewer="Tunjuk kurang">Tunjuk semua 42 jenama</button></div>
+    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false" data-all="Tunjuk semua 31 jenama" data-fewer="Tunjuk kurang">Tunjuk semua 31 jenama</button></div>
   </div>
 </section>
 
@@ -1083,7 +1047,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <li><b>City Hall</b><span data-i18n="mrt.cityhall">North-South Line atau East-West Line</span></li>
         </ul>
         <p class="free"><b data-i18n="free.label">Masuk percuma</b><span data-i18n="free.short">Tiket diperlukan.</span></p>
-        <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">Dapatkan arah</a></div>
+        <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">Dapatkan arah</a> <a class="btn btn-outline" href="https://wa.me/6586681927?text=Hi%20Michelle%2C%20I%20have%20a%20question%20about%20HiEnd%20Asia%202026." target="_blank" rel="noopener" data-wa-contact><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="cta.wa">WhatsApp Michelle</span></a></div>
       <div class="btns">
         <a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="reg.cta">Daftar tiket percuma</span></a>
         <details class="cal">
@@ -1183,6 +1147,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <div class="wrap">
     <div class="foot-brand">
       <img src="../img/logo.svg" alt="HiEnd Asia" width="170" height="44">
+      <div class="foot-partner"><span data-i18n="cobrand.with">In partnership with</span><img src="../img/nowasia-logo.webp" alt="NOWASIA" width="435" height="160" loading="lazy"></div>
       <b>HiEnd Asia + Pte. Ltd</b>
       <p data-i18n="foot.tagline">Bersama saudara ASEAN, kami meraikan keindahan hidup buat kelima-lima deria: yang dilihat, didengar, dirasa, disentuh dan dihidu.</p>
     </div>
@@ -1285,6 +1250,17 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     io.observe(heroBtns); if (visitBtns) io.observe(visitBtns);
   }
 })();
+
+  // Art loop: plays only while on screen; stays on its poster for people who prefer reduced motion
+  (function () {
+    var v = document.getElementById('artLoop');
+    if (!v) return;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.controls = true; return; }
+    if (!('IntersectionObserver' in window)) { v.controls = true; return; }
+    new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); } else v.pause(); });
+    }, { threshold: 0.35 }).observe(v);
+  })();
 </script>
 
 </body>

@@ -71,19 +71,20 @@ REPS = [
 ]
 assert len(REPS) == 39
 # 2026: only reps of brands exhibiting this year. Indexes stay fixed (photo 43+k, copy rep.<k>.role).
-REP_BRANDS_2026 = {'Acoustic Signature', 'Acoustical Systems', 'Brinkmann', 'Gold Note', 'Kaiser Acoustics', 'Lyra Analog',
-                   'Peak Consult', 'TAD', 'Westend Audio System', 'Ypsilon Electronic'}
+REP_BRANDS_2026 = {'Acoustic Signature', 'TAD'}
+# 2026 reps not in the 2025 list: (name, role key, brand, photo)
+EXTRA_REPS = [('Stavros Danos', 'rep.stavros.role', 'Aries Cerat', 'img/rep-stavros-danos.webp')]
 
 # Dealer logos 82-106, brand logos 107-242 (alt text = brand name on the live site)
 # 2026 exhibitors and brands only. 300+ are logos added for 2026 (names in NEW_LOGOS, files img/3xx.jpg).
-DEALER_IDX = [85, 101, 87, 84, 89, 99, 93, 104]  # AudioLine, High End Research, Audio Atelier, Ong Radio, Analog Playground, Westend, Peak, SharkWire
+DEALER_IDX = [85, 101, 92, 237]  # AudioLine, High End Research, MU6, Welchen Music
 NEW_LOGOS = {300: 'AMR', 301: 'San Yuan', 302: 'Ronnie', 303: 'SME', 304: 'Koetsu', 305: 'Graham Engineering',
-             306: 'Vimberg', 307: 'Magnum Dynalab', 308: 'Clearaudio', 309: 'Purist Audio Design'}
-BRAND_IDX = [109, 110, 111, 300, 107, 117, 121, 131, 132, 134, 308, 139, 140, 147, 151, 157, 305, 159, 163, 168, 169, 304,
-             176, 179, 307, 97, 184, 188, 194, 198, 309, 207, 302, 301, 213, 303, 218, 220, 222, 306, 238, 241]
+             306: 'Vimberg', 307: 'Magnum Dynalab', 308: 'Clearaudio', 309: 'Purist Audio Design', 310: 'Aries Cerat'}
+BRAND_IDX = [109, 110, 300, 310, 107, 117, 121, 134, 308, 139, 147, 151, 305, 159, 163, 304,
+             176, 307, 184, 188, 198, 309, 207, 302, 301, 213, 303, 220, 222, 306, 238]
 NAME_FIX = {'Opera Loudpseakers': 'Opera Loudspeakers', 'Quadspire': 'Quadraspire', 'Tinglon': 'Tiglon',
             'Tw Acoustics': 'TW Acustic', 'Syntec Audio': 'Synastec Audio', 'Peak': 'Peak Audio',
-            'audioexotics.com': 'Audio Exotics', 'VPI made in USA': 'VPI', 'Kinki': 'Kinki Studio'}
+            'audioexotics.com': 'Audio Exotics', 'VPI made in USA': 'VPI', 'Kinki': 'Kinki Studio', 'Weichen Music': 'Welchen Music'}
 
 
 def logo_name(i):
@@ -190,11 +191,17 @@ with open(os.path.join(HERE, ICS_FILE), 'w', encoding='utf-8', newline='') as f:
 
 ICON_WX = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 4C5.1 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.4 2.5.4h.4a5 5 0 0 1-.2-1.4C9.2 11 12.2 8.6 16 8.6h.3C15.6 5.9 12.6 4 9 4Zm-2.4 3.2a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/>'
            '<path d="M22 14.2c0-2.7-2.7-4.8-6-4.8s-6 2.1-6 4.8 2.7 4.8 6 4.8c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.8Zm-8-.9a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z"/></svg>')
+# WhatsApp contact for visitor questions (organiser: Michelle)
+WA_MICHELLE = 'https://wa.me/6586681927?text=' + quote('Hi Michelle, I have a question about HiEnd Asia 2026.')
 ICON_WA = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>')
 
 # Hero poster: responsive WebP made from img/000.jpg (see README). The JPEG stays for search/structured data.
 POSTER = 'img/000-1242.webp'
 POSTER_SRCSET = 'img/000-640.webp 640w, img/000-760.webp 760w, img/000-960.webp 960w, img/000-1242.webp 1242w'
+def pz(v, lang):
+    """Chinese pages get the Chinese edition of the poster."""
+    return v.replace('img/000-', 'img/000zh-') if lang.startswith('zh') else v
+
 POSTER_SIZES = '(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)'
 OG_IMAGE = 'img/og-2026.jpg'  # 1200x630 landscape for WhatsApp, Facebook, LinkedIn, X
 
@@ -221,6 +228,7 @@ def rebase(doc, base):
     if not base:
         return doc
     doc = re.sub(r'(?<=["\'(,\s])((?:img|video|fonts|floormap)/)', base + r'\1', doc)
+    doc = doc.replace('href="hotel.html"', 'href="%shotel.html"' % base).replace('href="exhibitor-login.html"', 'href="%sexhibitor-login.html"' % base)
     return doc.replace('href="%s"' % ICS_FILE, 'href="%s%s"' % (base, ICS_FILE)).replace('href="privacy.html', 'href="%sprivacy.html' % base)
 
 
@@ -289,14 +297,20 @@ def render(lang, base, auto, page_url):
   {rep_role(k)}
   <span class="rep-brand">{e(b)}</span>
 </li>''' for k, (n, r, b) in enumerate(REPS) if b in REP_BRANDS_2026)
+    rep_html += '\n' + '\n'.join(f'''<li class="rep">
+  <img src="{src}" alt="{e(n)}" loading="lazy" width="400" height="500">
+  <span class="rep-name">{e(n)}</span>
+  {t(key, cls='rep-role')}
+  <span class="rep-brand">{e(b)}</span>
+</li>''' for n, key, b, src in EXTRA_REPS)
     rep = {
         '{{ACTIONS}}': actions, '{{DATES}}': dates, '{{MBAR}}': mbar, '{{LANG_OPTIONS}}': options,
-        '{{GCAL}}': e(GCAL), '{{WA}}': e(wa),
+        '{{GCAL}}': e(GCAL), '{{WA}}': e(wa), '{{WA_MICHELLE}}': e(WA_MICHELLE), '{{ICON_WA}}': ICON_WA,
         '{{KEYNOTES}}': '\n'.join(person_card(i, b) for i, b in KEYNOTES),
         '{{GUESTS}}': '\n'.join(person_card(i, b) for i, b in GUESTS),
         '{{REPS}}': rep_html, '{{DEALERS}}': tiles(DEALER_IDX), '{{BRANDS}}': tiles(BRAND_IDX),
         '{{MEDIA}}': '\n'.join('<li>%s</li>' % e(m) for m in MEDIA),
-        '{{POSTER}}': POSTER, '{{POSTER_SRCSET}}': POSTER_SRCSET, '{{POSTER_SIZES}}': POSTER_SIZES,
+        '{{POSTER}}': pz(POSTER, lang), '{{POSTER_SRCSET}}': pz(POSTER_SRCSET, lang), '{{POSTER_SIZES}}': POSTER_SIZES,
         '{{FLOOR}}': 'img/floorplan-2026.webp', '{{SUNTEC_IN}}': img(8), '{{SUNTEC_NIGHT}}': img(9),
         '{{PAGE_LANG}}': lang, '{{BASE}}': base, '{{AUTO_LANG}}': 'true' if auto else 'false',
         '{{PAGE_URL}}': page_url, '{{LANG_FONT}}': lang_font(lang),
@@ -351,7 +365,7 @@ def document(lang):
 <link rel="canonical" href="{url}">
 {alternates}
 <link rel="alternate" hreflang="x-default" href="{PAGES}">
-<link rel="preload" as="image" href="{base}{POSTER}" imagesrcset="{re.sub(r'(^|, )img/', lambda m: m.group(1) + base + 'img/', POSTER_SRCSET)}" imagesizes="{POSTER_SIZES}" fetchpriority="high">
+<link rel="preload" as="image" href="{base}{pz(POSTER, lang)}" imagesrcset="{re.sub(r'(^|, )img/', lambda m: m.group(1) + base + 'img/', pz(POSTER_SRCSET, lang))}" imagesizes="{POSTER_SIZES}" fetchpriority="high">
 <script type="application/ld+json">{ld}</script>
 {head.strip()}
 </head>

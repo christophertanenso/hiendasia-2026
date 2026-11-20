@@ -18,7 +18,7 @@
     clear: 'Clear search',
     all: 'All',
     zones: { east: 'East wing', west: 'West wing', centre: 'Front' },
-    zoneRooms: { east: 'Rooms 300–312', west: 'Rooms 332–336', centre: 'Room 323, Concourse 2 & 3' },
+    zoneRooms: { east: 'Rooms 300–312', west: 'Rooms 332–336, Foyer 5', centre: 'Room 323, Link 4, Art Exhibition Zone' },
     room: 'Room',
     tba: 'Exhibitor to be announced',
     none: 'No rooms match your search.',
@@ -60,11 +60,15 @@
     '304': [292, 84, 344, 122, 'farEast'], '303': [292, 126, 344, 164, 'farEast'], '302': [292, 168, 344, 206, 'farEast'],
     '301': [292, 210, 344, 248, 'farEast'], '300': [292, 256, 344, 294, 'farEast'],
     '323': [124, 256, 176, 294, 'centre'],
-    'C23': [96, 438, 264, 470, 'concourse']
+    'C23': [16, 438, 344, 470, 'concourse'],
+    'L4-1': [16, 376, 80, 408, 'concourse'], 'F5-7': [16, 252, 82, 290, 'west']
   };
   var ZONE = { west: 'west', top: 'east', east: 'east', farEast: 'east', centre: 'centre', concourse: 'centre' };
   var ORDER = { east: ['312', '311', '310', '309', '308'], farEast: ['300', '301', '302', '303', '304'], top: ['307', '306', '305'], west: ['336', '335', '334', '333', '332'] };
-  var SHORT = { C23: 'Concourse 2 & 3' };
+  var SHORT = { C23: 'Art Exhibition Zone · C1–C4', 'F5-7': 'F5-7/8' };
+  // Spots outside the numbered rooms get their own directions
+  var SPOT_DIR = { 'L4-1': 'Link 4 is at the front left of the floor, past the left escalators. Look for the art walls.',
+    'F5-7': 'From {from}, walk left along Foyer 6, then up Foyer 5. Display tables F5-7 and F5-8 are along the foyer.' };
   var VENUE = [ // other Level 3 rooms, drawn faintly for orientation
     { r: [112, 20, 182, 62], t: '327–330' }, { r: [100, 84, 192, 240], t: 'Summit 1 & 2|324–326' }
   ];
@@ -80,21 +84,24 @@
 
   // 2026 rooms (used unless a published sheet is set on the mount). Columns as in rooms-template.csv.
   var DEFAULT_ROWS = [
-    { room: '300', type: 'listening' }, { room: '301', type: 'listening' }, { room: '302', type: 'listening' },
-    { room: '303', type: 'listening', exhibitor: 'Audio Line', brands: 'TAD, Accuphase, Acoustic Signature, Audio-Technica, Artesania Audio, Audiodesk Systeme, Cary Audio, Diapason, Ensemble, Finite Elemente, Graham Audio, Ikeda, Montaudio, Rogers High Fidelity, Signal Projects, Sutherland Engineering' },
-    { room: '304', type: 'listening' },
+    { room: '300', type: 'listening', exhibitor: 'Welchen Music' },
+    { room: '301', type: 'listening', exhibitor: 'Audio Line', note: 'With room 302', brands: 'TAD, Accuphase, Acoustic Signature, Audio-Technica, Artesania Audio, Audiodesk Systeme, Cary Audio, Diapason, Ensemble, Finite Elemente, Graham Audio, Ikeda, Montaudio, Rogers High Fidelity, Signal Projects, Sutherland Engineering' },
+    { room: '302', type: 'listening', exhibitor: 'Audio Line', note: 'With room 301', brands: 'TAD, Accuphase, Acoustic Signature, Audio-Technica, Artesania Audio, Audiodesk Systeme, Cary Audio, Diapason, Ensemble, Finite Elemente, Graham Audio, Ikeda, Montaudio, Rogers High Fidelity, Signal Projects, Sutherland Engineering' },
+    { room: '303', type: 'listening' }, { room: '304', type: 'listening' },
     { room: '305', type: 'listening', exhibitor: 'AOPT', note: 'Taiwan' },
-    { room: '306', type: 'listening', exhibitor: 'High End Research', note: 'With room 307' },
+    { room: '306', type: 'listening' },
     { room: '307', type: 'listening', exhibitor: 'High End Research', brands: 'Wilson Audio, Pass Labs, Metronome, SME, Koetsu, Graham Engineering, Vimberg, Purist Audio Design, Magnum Dynalab, Clearaudio, Live Cables' },
     { room: '308', type: 'listening' }, { room: '309', type: 'listening' }, { room: '310', type: 'listening' }, { room: '311', type: 'listening' },
-    { room: '312', type: 'listening', exhibitor: 'Audio Atelier', brands: 'Kaiser Acoustics, Gold Note, Ypsilon, Brinkmann, Lyra, Acoustical Systems' },
-    { room: '323', type: 'listening', exhibitor: 'Ong Radio', brands: 'McIntosh, Bowers & Wilkins, Stradius, Power Lab' },
-    { room: '332', type: 'listening', exhibitor: 'Analog Playground', brands: 'Aries Cerat, Westend Audio System, Peak Consult, Shark Wire, O-bit' },
-    { room: '333', type: 'listening', exhibitor: 'Analog Playground', brands: 'Diesis Audio' },
+    { room: '312', type: 'listening', exhibitor: 'MU6' },
+    { room: '323', type: 'tbc', name: 'Activities area' },
+    { room: '332', type: 'listening', exhibitor: 'Abbingdon Music Research', brands: 'AMR' },
+    { room: '333', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 336', brands: 'Aries Cerat' },
     { room: '334', type: 'listening', exhibitor: 'Prodigio Audio', brands: 'Prodigio Audio' },
-    { room: '335', type: 'listening', exhibitor: 'San Yuan', brands: 'San Yuan, Ronnie', note: 'Taiwan' },
-    { room: '336', type: 'listening', exhibitor: 'Abbingdon Music Research', brands: 'AMR' },
-    { room: 'C23', type: 'tbc', name: 'Concourse 2 & 3' }
+    { room: '335', type: 'listening', exhibitor: 'San Yuan', note: 'Taiwan', brands: 'San Yuan, Ronnie' },
+    { room: '336', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 333', brands: 'Aries Cerat' },
+    { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'NOWASIA art galleries', brands: 'Art galleries, C1–C4', note: 'Gallery bays C1 to C4 along the whole front, with more art walls along Links 2, 3 and 4. Sound rooms S-1 to S-3 beside Concourse 2 are to be confirmed.' },
+    { room: 'L4-1', type: 'hall', name: 'Link 4 · L4-1', exhibitor: 'Extra•Ordinary People', brands: 'Art gallery, charity', note: 'A Singapore charity: artists with autism sell their work here. Donate $50 to receive a bear.' },
+    { room: 'F5-7', type: 'listening', name: 'Foyer 5 · F5-7 & F5-8', exhibitor: 'Simply Music', note: 'Display tables F5-7 and F5-8' }
   ];
 
   // ---------- Helpers ----------
@@ -232,6 +239,7 @@
       if (here && here === r.room) return STR.dir.same;
       var kind = ROOMS[r.room][4], from = fromText();
       if (ROOMS[here]) return fill(STR.dir.follow, { from: from });
+      if (SPOT_DIR[r.room]) return fill(SPOT_DIR[r.room], { from: from });
       if (kind === 'concourse') return STR.dir.concourse;
       if (kind === 'centre') return fill(STR.dir.centre, { from: from, n: r.room });
       var i = ORDER[kind].indexOf(r.room);
@@ -315,7 +323,7 @@
             var main = r.exhibitor || r.name || (r.type === 'listening' ? STR.tba : STR.types[r.type]);
             var sub = [STR.types[r.type], r.brands].filter(Boolean).join(' · ');
             return '<li><button type="button" data-room="' + esc(r.room) + '" aria-pressed="' + (sel === r.room) + '">' +
-              '<span class="n t-' + r.type + '">' + esc(isNum(r.room) ? r.room : 'C2–3') + '</span>' +
+              '<span class="n t-' + r.type + '">' + esc(isNum(r.room) ? r.room : r.room === 'C23' ? 'C1–4' : r.room) + '</span>' +
               '<span class="b"><span class="m">' + esc(main) + '</span><span class="s">' + esc(sub) + '</span></span>' +
               '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg></button></li>';
           }).join('') + '</ul></section>';

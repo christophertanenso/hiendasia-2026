@@ -23,7 +23,7 @@
 <link rel="alternate" hreflang="th" href="https://christophertanenso.github.io/hiendasia-2026/th/">
 <link rel="alternate" hreflang="vi" href="https://christophertanenso.github.io/hiendasia-2026/vi/">
 <link rel="alternate" hreflang="x-default" href="https://christophertanenso.github.io/hiendasia-2026/">
-<link rel="preload" as="image" href="../img/000-1242.webp" imagesrcset="../img/000-640.webp 640w, ../img/000-760.webp 760w, ../img/000-960.webp 960w, ../img/000-1242.webp 1242w" imagesizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" fetchpriority="high">
+<link rel="preload" as="image" href="../img/000zh-1242.webp" imagesrcset="../img/000zh-640.webp 640w, ../img/000zh-760.webp 760w, ../img/000zh-960.webp 960w, ../img/000zh-1242.webp 1242w" imagesizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "2026 Singapore Hi-End Asia International Audio Visual Show", "inLanguage": "zh-Hans", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hans/", "startDate": "2026-12-17T10:00:00+08:00", "endDate": "2026-12-19T19:00:00+08:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": {"@type": "Place", "name": "Suntec Singapore Convention & Exhibition Centre, Level 3", "address": {"@type": "PostalAddress", "streetAddress": "1 Raffles Boulevard", "postalCode": "039593", "addressCountry": "SG"}}, "image": ["https://christophertanenso.github.io/hiendasia-2026/img/000.jpg", "https://christophertanenso.github.io/hiendasia-2026/img/og-2026.jpg"], "description": "2026年12月17–19日，新加坡新达城3楼。免费入场。150多个高端音响品牌、试听室、主题演讲与嘉宾现场演出。", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SGD", "availability": "https://schema.org/InStock", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hans/register.html"}, "organizer": {"@type": "Organization", "name": "HiEnd Asia + Pte. Ltd", "url": "https://www.hiendasia.com/"}}</script>
 <title>HiEnd Asia 2026</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -656,6 +656,20 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 /* Footer */
 .site-foot { border-top: 1px solid var(--line); }
 .site-foot .wrap { padding-block: 64px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+.hero-tag { margin: 0; font: 700 15px/1 var(--font-display); letter-spacing: .32em; text-transform: uppercase; color: var(--accent); }
+.cobrand { display: flex; align-items: center; gap: 18px; }
+.cobrand img { height: 40px; width: auto; }
+.cobrand img + .cobrand-bar + img { height: 44px; }
+.cobrand-bar { width: 1px; align-self: stretch; background: var(--line); }
+.art-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.art-points li { display: flex; flex-direction: column; gap: 2px; padding-left: 14px; border-left: 2px solid var(--accent); }
+.art-points b { font: 700 17px/1.3 var(--font-display); color: var(--heading); }
+.art-points span { color: var(--muted); }
+.art-figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.art-figure video { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); background: #000; }
+.art-partner { height: 36px; width: auto; align-self: flex-end; }
+.foot-partner { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 14px; }
+.foot-brand .foot-partner img { height: 32px; }
 .foot-brand { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
 .foot-brand img { height: 44px; width: auto; align-self: flex-start; }
 .foot-brand b { font: 700 18px/1.3 var(--font-display); color: var(--heading); }
@@ -705,6 +719,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .lang select option { background: var(--band); color: var(--body); }
 @media (max-width: 860px) { .lang { margin-left: auto; } .head-cta { margin-left: 0; } }
 @media (max-width: 420px) { .head-cta { display: none; } }
+.head-extra { margin-left: 8px; }
+@media (max-width: 1400px) { .head-extra { display: none; } }
+@media (min-width: 1401px) { .nav a.dup { display: none; } .site-head .logo { flex: none; } .site-head .lang { min-width: 0; } }
 </style>
 </head>
 <body>
@@ -714,9 +731,12 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <a class="logo" href="#top" aria-label="HiEnd Asia 首页" data-i18n-attr="aria-label:nav.home"><img src="../img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
     <nav class="nav" aria-label="主导航" data-i18n-attr="aria-label:nav.aria">
       <a class="txt" href="#floorplan" data-i18n="nav.floorplan">平面图</a>
+      <a class="txt" href="#art" data-i18n="nav.art">Art</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">演讲</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">品牌</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">参观</a>
+      <a class="txt dup" href="../hotel.html" data-i18n="nav.hotel">Hotel</a>
+      <a class="txt dup" href="../exhibitor-login.html" data-i18n="nav.login">Exhibitor login</a>
     </nav>
     <label class="lang">
       <span class="sr" data-i18n="lang.label">语言</span>
@@ -732,6 +752,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <option value="vi" lang="vi">Tiếng Việt</option>
       </select>
     </label>
+    <a class="btn btn-outline btn-sm head-extra" href="../hotel.html" data-i18n="cta.hotel">Hotel booking</a>
+    <a class="btn btn-outline btn-sm head-extra" href="../exhibitor-login.html" data-i18n="cta.login">Exhibitor login</a>
     <a class="btn btn-primary btn-sm head-cta" href="register.html" data-i18n="reg.cta.short">登记</a>
   </div>
 </header>
@@ -742,6 +764,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="hero-copy">
       <p class="eyebrow" data-i18n="hero.eyebrow">2026年12月17 – 19日 · Suntec Singapore · 免费入场</p>
       <h1><small data-i18n="hero.kicker">2026 新加坡</small><span data-i18n="hero.title">Hi-End Asia 国际视听展</span></h1>
+      <p class="hero-tag" data-i18n="hero.tag">Audio × Art</p>
+      <div class="cobrand" role="img" aria-label="HiEnd Asia in partnership with NOWASIA" data-i18n-attr="aria-label:cobrand.aria"><img src="../img/logo.svg" alt="" width="170" height="44"><span class="cobrand-bar"></span><img src="../img/nowasia-logo.webp" alt="" width="435" height="160"></div>
       <div class="rule"></div>
       <div class="dates" aria-label="开放时间">
         <span data-i18n="d.thu">12月17日 星期四</span><span data-i18n="time">上午10时 – 晚上7时</span>
@@ -773,7 +797,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       </div>
     </div>
     <div class="hero-poster">
-      <button class="poster-btn" type="button" data-zoom aria-label="查看海报原尺寸" data-i18n-attr="aria-label:poster.zoom"><img src="../img/000-1242.webp" srcset="../img/000-640.webp 640w, ../img/000-760.webp 760w, ../img/000-960.webp 960w, ../img/000-1242.webp 1242w" sizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" alt="官方海报：2026 新加坡 Hi-End Asia 国际视听展，12月17日至19日，Suntec Singapore 三楼" data-i18n-attr="alt:poster.alt" width="1242" height="1660" fetchpriority="high"></button>
+      <button class="poster-btn" type="button" data-zoom aria-label="查看海报原尺寸" data-i18n-attr="aria-label:poster.zoom"><img src="../img/000zh-1242.webp" srcset="../img/000zh-640.webp 640w, ../img/000zh-760.webp 760w, ../img/000zh-960.webp 960w, ../img/000zh-1242.webp 1242w" sizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" alt="官方海报：2026 新加坡 Hi-End Asia 国际视听展，12月17日至19日，Suntec Singapore 三楼" data-i18n-attr="alt:poster.alt" width="1242" height="1660" fetchpriority="high"></button>
       <button class="poster-hint" type="button" data-zoom data-i18n="poster.hint">查看海报大图</button>
     </div>
   </div>
@@ -816,7 +840,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <p class="intro" data-i18n="floor.intro">在新达城新加坡国际会议与展览中心三楼，探索专属试听室。每一个空间都为呈现顶级音响器材而精心打造，带您踏上一段精挑细选的声音之旅，细品精准与工艺。</p>
       </div>
       <div>
-        <figure class="figure"><img src="../img/floorplan-2026.webp" srcset="../img/floorplan-2026-760.webp 760w, ../img/floorplan-2026.webp 1024w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="Suntec 三楼展会平面图：300–336 号试听室及其参展商、艺术空间、耳机与配件区，以及 1 至 3 号大堂沿线的标准展位和音响室" data-i18n-attr="alt:floor.alt" width="1024" height="678" loading="lazy"></figure>
+        <figure class="figure"><img src="../img/floorplan-2026.webp" srcset="../img/floorplan-2026-760.webp 760w, ../img/floorplan-2026.webp 1024w" sizes="(max-width: 860px) calc(100vw - 32px), 680px" alt="Suntec 三楼展会平面图：300–336 号试听室及其参展商、艺术空间、耳机与配件区，以及 1 至 3 号大堂沿线的艺术展区和标准展位" data-i18n-attr="alt:floor.alt" width="1024" height="678" loading="lazy"></figure>
         <p class="figcap" data-i18n="floor.cap">三楼布局由主办方提供。展室分配在开展前或有调整。</p>
       </div>
     </div>
@@ -828,6 +852,33 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
   <link rel="stylesheet" href="../floormap/floormap.css">
   <script src="../floormap/floormap.js" defer></script>
+</section>
+
+<section class="block band" id="art">
+  <div class="wrap">
+    <div class="split art-split">
+      <div class="split-copy">
+        <div class="bh left">
+          <h2 class="bh-en" data-i18n="art.h">Audio × Art</h2>
+          <div class="rule"></div>
+        </div>
+        <p class="intro" data-i18n="art.intro">This year HiEnd Asia teams up with NOWASIA. Its art galleries fill the whole front of Level 3, so you walk through art on the way to the listening rooms.</p>
+        <ul class="art-points">
+          <li><b data-i18n="art.p1.h">Art Exhibition Zone, C1–C4</b><span data-i18n="art.p1">Art galleries from NOWASIA across the full front concourse.</span></li>
+          <li><b data-i18n="art.p2.h">Art walls, Links 2–4</b><span data-i18n="art.p2">More gallery walls along the links between the listening rooms.</span></li>
+          <li><b data-i18n="art.p3.h">Extra•Ordinary People, L4-1</b><span data-i18n="art.p3">A Singapore charity: artists with autism sell their work. Donate $50 to receive a bear.</span></li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="#floorplan" data-i18n="art.cta">Find the art on the floor plan</a></div>
+      </div>
+      <figure class="art-figure">
+        <img class="art-partner" src="../img/nowasia-logo.webp" alt="NOWASIA" width="435" height="160" loading="lazy">
+        <video id="artLoop" muted loop playsinline preload="none" poster="../img/art/nowasia-walk.webp" width="960" height="540" aria-label="Walking through the NOWASIA Art Fair at Suntec Singapore" data-i18n-attr="aria-label:art.aria">
+          <source src="../img/art/nowasia-walk.mp4" type="../video/mp4">
+        </video>
+        <figcaption class="figcap" data-i18n="art.cap">NOWASIA Art Fair, Suntec Singapore, August 2026</figcaption>
+      </figure>
+    </div>
+  </div>
 </section>
 
 <section class="block band" id="speakers">
@@ -890,88 +941,16 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <span class="rep-brand">Acoustic Signature</span>
 </li>
 <li class="rep">
-  <img src="../img/044.jpg" alt="Dietrich Brakemeier" loading="lazy" width="400" height="500">
-  <span class="rep-name">Dietrich Brakemeier</span>
-  <span class="rep-role" data-i18n="rep.1.role">首席执行官</span>
-  <span class="rep-brand">Acoustical Systems</span>
-</li>
-<li class="rep">
-  <img src="../img/054.jpg" alt="Helmut Brinkmann" loading="lazy" width="400" height="500">
-  <span class="rep-name">Helmut Brinkmann</span>
-  <span class="rep-role" data-i18n="rep.11.role">创始人</span>
-  <span class="rep-brand">Brinkmann</span>
-</li>
-<li class="rep">
-  <img src="../img/055.jpg" alt="Matthias Lock" loading="lazy" width="400" height="500">
-  <span class="rep-name">Matthias Lock</span>
-  <span class="rep-role" data-i18n="rep.12.role">联合东主</span>
-  <span class="rep-brand">Brinkmann</span>
-</li>
-<li class="rep">
-  <img src="../img/058.jpg" alt="Maurizio Aterini" loading="lazy" width="400" height="500">
-  <span class="rep-name">Maurizio Aterini</span>
-  <span class="rep-role" data-i18n="rep.15.role">创始人兼首席执行官</span>
-  <span class="rep-brand">Gold Note</span>
-</li>
-<li class="rep">
-  <img src="../img/060.jpg" alt="Hans-Jürgen Kaiser" loading="lazy" width="400" height="500">
-  <span class="rep-name">Hans-Jürgen Kaiser</span>
-  <span class="rep-role" data-i18n="rep.17.role">首席执行官兼董事总经理</span>
-  <span class="rep-brand">Kaiser Acoustics</span>
-</li>
-<li class="rep">
-  <img src="../img/061.jpg" alt="Rainer Weber" loading="lazy" width="400" height="500">
-  <span class="rep-name">Rainer Weber</span>
-  <span class="rep-role" data-i18n="rep.18.role">技术总监</span>
-  <span class="rep-brand">Kaiser Acoustics</span>
-</li>
-<li class="rep">
-  <img src="../img/062.jpg" alt="Jonathan Carr" loading="lazy" width="400" height="500">
-  <span class="rep-name">Jonathan Carr</span>
-  <span class="rep-role" data-i18n="rep.19.role">首席工程师</span>
-  <span class="rep-brand">Lyra Analog</span>
-</li>
-<li class="rep">
-  <img src="../img/063.jpg" alt="Stig Bjorge" loading="lazy" width="400" height="500">
-  <span class="rep-name">Stig Bjorge</span>
-  <span class="rep-role" data-i18n="rep.20.role">首席执行官</span>
-  <span class="rep-brand">Lyra Analog</span>
-</li>
-<li class="rep">
-  <img src="../img/065.jpg" alt="Lennart Asbjørn" loading="lazy" width="400" height="500">
-  <span class="rep-name">Lennart Asbjørn</span>
-  <span class="rep-role" data-i18n="rep.22.role">首席执行官</span>
-  <span class="rep-brand">Peak Consult</span>
-</li>
-<li class="rep">
-  <img src="../img/066.jpg" alt="Wilfried Ehrenholz" loading="lazy" width="400" height="500">
-  <span class="rep-name">Wilfried Ehrenholz</span>
-  <span class="rep-role" data-i18n="rep.23.role">产品开发</span>
-  <span class="rep-brand">Peak Consult</span>
-</li>
-<li class="rep">
   <img src="../img/073.jpg" alt="Shinji Tarutani" loading="lazy" width="400" height="500">
   <span class="rep-name">Shinji Tarutani</span>
   <span class="rep-role" data-i18n="rep.30.role">总裁</span>
   <span class="rep-brand">TAD</span>
 </li>
 <li class="rep">
-  <img src="../img/078.jpg" alt="Stefan Trog" loading="lazy" width="400" height="500">
-  <span class="rep-name">Stefan Trog</span>
-  <span class="rep-role" data-i18n="rep.35.role">董事总经理</span>
-  <span class="rep-brand">Westend Audio System</span>
-</li>
-<li class="rep">
-  <img src="../img/079.jpg" alt="Günther Mania" loading="lazy" width="400" height="500">
-  <span class="rep-name">Günther Mania</span>
-  <span class="rep-role" data-i18n="rep.36.role">开发者</span>
-  <span class="rep-brand">Westend Audio System</span>
-</li>
-<li class="rep">
-  <img src="../img/081.jpg" alt="Demetris Baklavas" loading="lazy" width="400" height="500">
-  <span class="rep-name">Demetris Baklavas</span>
-  <span class="rep-role" data-i18n="rep.38.role">创始人兼首席设计师</span>
-  <span class="rep-brand">Ypsilon Electronic</span>
+  <img src="../img/rep-stavros-danos.webp" alt="Stavros Danos" loading="lazy" width="400" height="500">
+  <span class="rep-name">Stavros Danos</span>
+  <span class="rep-role" data-i18n="rep.stavros.role">Founder &amp; Designer</span>
+  <span class="rep-brand">Aries Cerat</span>
 </li>
     </ul>
   </div>
@@ -988,45 +967,32 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <ul class="wall big">
 <li class="tile"><img src="../img/085.jpg" alt="AudioLine" loading="lazy" title="AudioLine"></li>
 <li class="tile"><img src="../img/101.jpg" alt="High End Research" loading="lazy" title="High End Research"></li>
-<li class="tile"><img src="../img/087.jpg" alt="Audio Atelier" loading="lazy" title="Audio Atelier"></li>
-<li class="tile"><img src="../img/084.jpg" alt="Ong Radio" loading="lazy" title="Ong Radio"></li>
-<li class="tile"><img src="../img/089.jpg" alt="Analog Playground" loading="lazy" title="Analog Playground"></li>
-<li class="tile"><img src="../img/099.jpg" alt="Westend" loading="lazy" title="Westend"></li>
-<li class="tile"><img src="../img/093.jpg" alt="Peak Audio" loading="lazy" title="Peak Audio"></li>
-<li class="tile"><img src="../img/104.jpg" alt="SharkWire" loading="lazy" title="SharkWire"></li>
+<li class="tile"><img src="../img/092.jpg" alt="MU6" loading="lazy" title="MU6"></li>
+<li class="tile"><img src="../img/237.jpg" alt="Welchen Music" loading="lazy" title="Welchen Music"></li>
     </ul>
     <h3 class="sub-h" data-i18n="brands.exhibiting">参展品牌</h3>
     <div class="wall-box collapsed" id="wallBox">
       <ul class="wall" id="brandWall">
 <li class="tile"><img src="../img/109.jpg" alt="Accuphase" loading="lazy" title="Accuphase"></li>
 <li class="tile"><img src="../img/110.jpg" alt="Acoustic Signature" loading="lazy" title="Acoustic Signature"></li>
-<li class="tile"><img src="../img/111.jpg" alt="Acoustical Systems" loading="lazy" title="Acoustical Systems"></li>
 <li class="tile"><img src="../img/300.jpg" alt="AMR" loading="lazy" title="AMR"></li>
+<li class="tile"><img src="../img/310.jpg" alt="Aries Cerat" loading="lazy" title="Aries Cerat"></li>
 <li class="tile"><img src="../img/107.jpg" alt="ARTESANIA" loading="lazy" title="ARTESANIA"></li>
 <li class="tile"><img src="../img/117.jpg" alt="Audio Desk" loading="lazy" title="Audio Desk"></li>
 <li class="tile"><img src="../img/121.jpg" alt="Audio-Technica" loading="lazy" title="Audio-Technica"></li>
-<li class="tile"><img src="../img/131.jpg" alt="Bowers &amp; Wilkins" loading="lazy" title="Bowers &amp; Wilkins"></li>
-<li class="tile"><img src="../img/132.jpg" alt="Brinkmann Audio" loading="lazy" title="Brinkmann Audio"></li>
 <li class="tile"><img src="../img/134.jpg" alt="Cary Audio" loading="lazy" title="Cary Audio"></li>
 <li class="tile"><img src="../img/308.jpg" alt="Clearaudio" loading="lazy" title="Clearaudio"></li>
 <li class="tile"><img src="../img/139.jpg" alt="Diapason" loading="lazy" title="Diapason"></li>
-<li class="tile"><img src="../img/140.jpg" alt="Diesis Audio" loading="lazy" title="Diesis Audio"></li>
 <li class="tile"><img src="../img/147.jpg" alt="Ensemble Swiss Audio" loading="lazy" title="Ensemble Swiss Audio"></li>
 <li class="tile"><img src="../img/151.jpg" alt="Finite Elemente EU" loading="lazy" title="Finite Elemente EU"></li>
-<li class="tile"><img src="../img/157.jpg" alt="Gold Note" loading="lazy" title="Gold Note"></li>
 <li class="tile"><img src="../img/305.jpg" alt="Graham Engineering" loading="lazy" title="Graham Engineering"></li>
 <li class="tile"><img src="../img/159.jpg" alt="Graham Audio" loading="lazy" title="Graham Audio"></li>
 <li class="tile"><img src="../img/163.jpg" alt="Ikeda Sound Labs" loading="lazy" title="Ikeda Sound Labs"></li>
-<li class="tile"><img src="../img/168.jpg" alt="Kaiser" loading="lazy" title="Kaiser"></li>
-<li class="tile"><img src="../img/169.jpg" alt="Kawero" loading="lazy" title="Kawero"></li>
 <li class="tile"><img src="../img/304.jpg" alt="Koetsu" loading="lazy" title="Koetsu"></li>
 <li class="tile"><img src="../img/176.jpg" alt="Live Cable" loading="lazy" title="Live Cable"></li>
-<li class="tile"><img src="../img/179.jpg" alt="Lyra Analog" loading="lazy" title="Lyra Analog"></li>
 <li class="tile"><img src="../img/307.jpg" alt="Magnum Dynalab" loading="lazy" title="Magnum Dynalab"></li>
-<li class="tile"><img src="../img/097.jpg" alt="McIntosh" loading="lazy" title="McIntosh"></li>
 <li class="tile"><img src="../img/184.jpg" alt="Metronome" loading="lazy" title="Metronome"></li>
 <li class="tile"><img src="../img/188.jpg" alt="MontAudio" loading="lazy" title="MontAudio"></li>
-<li class="tile"><img src="../img/194.jpg" alt="Obit" loading="lazy" title="Obit"></li>
 <li class="tile"><img src="../img/198.jpg" alt="Pass Labs" loading="lazy" title="Pass Labs"></li>
 <li class="tile"><img src="../img/309.jpg" alt="Purist Audio Design" loading="lazy" title="Purist Audio Design"></li>
 <li class="tile"><img src="../img/207.jpg" alt="Rogers High Fidelity" loading="lazy" title="Rogers High Fidelity"></li>
@@ -1034,15 +1000,13 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <li class="tile"><img src="../img/301.jpg" alt="San Yuan" loading="lazy" title="San Yuan"></li>
 <li class="tile"><img src="../img/213.jpg" alt="Signal Projects" loading="lazy" title="Signal Projects"></li>
 <li class="tile"><img src="../img/303.jpg" alt="SME" loading="lazy" title="SME"></li>
-<li class="tile"><img src="../img/218.jpg" alt="Stradius" loading="lazy" title="Stradius"></li>
 <li class="tile"><img src="../img/220.jpg" alt="Sutherland" loading="lazy" title="Sutherland"></li>
 <li class="tile"><img src="../img/222.jpg" alt="TAD" loading="lazy" title="TAD"></li>
 <li class="tile"><img src="../img/306.jpg" alt="Vimberg" loading="lazy" title="Vimberg"></li>
 <li class="tile"><img src="../img/238.jpg" alt="Wilson Audio" loading="lazy" title="Wilson Audio"></li>
-<li class="tile"><img src="../img/241.jpg" alt="Ypsilon Electronics" loading="lazy" title="Ypsilon Electronics"></li>
       </ul>
     </div>
-    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false" data-all="查看全部 42 个品牌" data-fewer="收起">查看全部 42 个品牌</button></div>
+    <div class="center"><button class="btn btn-outline" id="wallToggle" type="button" aria-controls="brandWall" aria-expanded="false" data-all="查看全部 31 个品牌" data-fewer="收起">查看全部 31 个品牌</button></div>
   </div>
 </section>
 
@@ -1085,7 +1049,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <li><b>City Hall</b><span data-i18n="mrt.cityhall">南北线或东西线</span></li>
         </ul>
         <p class="free"><b data-i18n="free.label">免费入场</b><span data-i18n="free.short">凭票入场。</span></p>
-        <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">交通指南</a></div>
+        <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">交通指南</a> <a class="btn btn-outline" href="https://wa.me/6586681927?text=Hi%20Michelle%2C%20I%20have%20a%20question%20about%20HiEnd%20Asia%202026." target="_blank" rel="noopener" data-wa-contact><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="cta.wa">WhatsApp Michelle</span></a></div>
       <div class="btns">
         <a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="reg.cta">登记领取免费门票</span></a>
         <details class="cal">
@@ -1178,13 +1142,14 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="官方海报原尺寸" data-i18n-attr="aria-label:lb.aria" hidden>
   <button class="btn btn-outline btn-sm lb-close" type="button" id="lbClose" data-i18n="lb.close">关闭</button>
-  <img src="../img/000-1242.webp" alt="官方海报：2026 新加坡 Hi-End Asia 国际视听展，12月17日至19日，Suntec Singapore 三楼" data-i18n-attr="alt:poster.alt" width="1242" height="1660" loading="lazy">
+  <img src="../img/000zh-1242.webp" alt="官方海报：2026 新加坡 Hi-End Asia 国际视听展，12月17日至19日，Suntec Singapore 三楼" data-i18n-attr="alt:poster.alt" width="1242" height="1660" loading="lazy">
 </div>
 
 <footer class="site-foot">
   <div class="wrap">
     <div class="foot-brand">
       <img src="../img/logo.svg" alt="HiEnd Asia" width="170" height="44">
+      <div class="foot-partner"><span data-i18n="cobrand.with">In partnership with</span><img src="../img/nowasia-logo.webp" alt="NOWASIA" width="435" height="160" loading="lazy"></div>
       <b>HiEnd Asia + Pte. Ltd</b>
       <p data-i18n="foot.tagline">与东盟知音共赏生活之美：目之所见，耳之所闻，舌之所尝，指之所触，鼻之所嗅。</p>
     </div>
@@ -1287,6 +1252,17 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     io.observe(heroBtns); if (visitBtns) io.observe(visitBtns);
   }
 })();
+
+  // Art loop: plays only while on screen; stays on its poster for people who prefer reduced motion
+  (function () {
+    var v = document.getElementById('artLoop');
+    if (!v) return;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.controls = true; return; }
+    if (!('IntersectionObserver' in window)) { v.controls = true; return; }
+    new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); } else v.pause(); });
+    }, { threshold: 0.35 }).observe(v);
+  })();
 </script>
 
 </body>
