@@ -99,7 +99,7 @@
     { room: '334', type: 'listening', exhibitor: 'Prodigio Audio', brands: 'Prodigio Audio' },
     { room: '335', type: 'listening', exhibitor: 'San Yuan', note: 'Taiwan', brands: 'San Yuan, Ronnie' },
     { room: '336', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 333', brands: 'Aries Cerat' },
-    { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'Patrick Bezalel and art galleries', brands: 'Art gallery, C1–C4', note: 'Gallery bays C1 to C4 along the whole front, with more art walls along Links 2, 3 and 4. Sound rooms S-1 to S-3 beside Concourse 2 are to be confirmed.' },
+    { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'NOWASIA art galleries', brands: 'Art galleries, C1–C4', note: 'Gallery bays C1 to C4 along the whole front, with more art walls along Links 2, 3 and 4. Sound rooms S-1 to S-3 beside Concourse 2 are to be confirmed.' },
     { room: 'L4-1', type: 'hall', name: 'Link 4 · L4-1', exhibitor: 'Extra•Ordinary People', brands: 'Art gallery, charity', note: 'A Singapore charity: artists with autism sell their work here. Donate $50 to receive a bear.' },
     { room: 'F5-7', type: 'listening', name: 'Foyer 5 · F5-7 & F5-8', exhibitor: 'Simply Music', note: 'Display tables F5-7 and F5-8' }
   ];

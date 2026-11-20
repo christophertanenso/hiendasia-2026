@@ -23,7 +23,7 @@
 <link rel="alternate" hreflang="th" href="https://christophertanenso.github.io/hiendasia-2026/th/">
 <link rel="alternate" hreflang="vi" href="https://christophertanenso.github.io/hiendasia-2026/vi/">
 <link rel="alternate" hreflang="x-default" href="https://christophertanenso.github.io/hiendasia-2026/">
-<link rel="preload" as="image" href="../img/000-1242.webp" imagesrcset="../img/000-640.webp 640w, ../img/000-760.webp 760w, ../img/000-960.webp 960w, ../img/000-1242.webp 1242w" imagesizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" fetchpriority="high">
+<link rel="preload" as="image" href="../img/000zh-1242.webp" imagesrcset="../img/000zh-640.webp 640w, ../img/000zh-760.webp 760w, ../img/000zh-960.webp 960w, ../img/000zh-1242.webp 1242w" imagesizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" fetchpriority="high">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "2026 Singapore Hi-End Asia International Audio Visual Show", "inLanguage": "zh-Hans", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hans/", "startDate": "2026-12-17T10:00:00+08:00", "endDate": "2026-12-19T19:00:00+08:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": {"@type": "Place", "name": "Suntec Singapore Convention & Exhibition Centre, Level 3", "address": {"@type": "PostalAddress", "streetAddress": "1 Raffles Boulevard", "postalCode": "039593", "addressCountry": "SG"}}, "image": ["https://christophertanenso.github.io/hiendasia-2026/img/000.jpg", "https://christophertanenso.github.io/hiendasia-2026/img/og-2026.jpg"], "description": "2026年12月17–19日，新加坡新达城3楼。免费入场。150多个高端音响品牌、试听室、主题演讲与嘉宾现场演出。", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SGD", "availability": "https://schema.org/InStock", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hans/"}, "organizer": {"@type": "Organization", "name": "HiEnd Asia + Pte. Ltd", "url": "https://www.hiendasia.com/"}}</script>
 <title>HiEnd Asia 2026</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -650,6 +650,20 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 /* Footer */
 .site-foot { border-top: 1px solid var(--line); }
 .site-foot .wrap { padding-block: 64px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+.hero-tag { margin: 0; font: 700 15px/1 var(--font-display); letter-spacing: .32em; text-transform: uppercase; color: var(--accent); }
+.cobrand { display: flex; align-items: center; gap: 18px; }
+.cobrand img { height: 40px; width: auto; }
+.cobrand img + .cobrand-bar + img { height: 44px; }
+.cobrand-bar { width: 1px; align-self: stretch; background: var(--line); }
+.art-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.art-points li { display: flex; flex-direction: column; gap: 2px; padding-left: 14px; border-left: 2px solid var(--accent); }
+.art-points b { font: 700 17px/1.3 var(--font-display); color: var(--heading); }
+.art-points span { color: var(--muted); }
+.art-figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.art-figure video { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); background: #000; }
+.art-partner { height: 36px; width: auto; align-self: flex-end; }
+.foot-partner { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 14px; }
+.foot-brand .foot-partner img { height: 32px; }
 .foot-brand { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
 .foot-brand img { height: 44px; width: auto; align-self: flex-start; }
 .foot-brand b { font: 700 18px/1.3 var(--font-display); color: var(--heading); }
@@ -700,8 +714,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 @media (max-width: 860px) { .lang { margin-left: auto; } .head-cta { margin-left: 0; } }
 @media (max-width: 420px) { .head-cta { display: none; } }
 .head-extra { margin-left: 8px; }
-@media (max-width: 1180px) { .head-extra { display: none; } }
-@media (min-width: 1181px) { .nav a.dup { display: none; } .site-head .logo { flex: none; } .site-head .lang { min-width: 0; } }
+@media (max-width: 1400px) { .head-extra { display: none; } }
+@media (min-width: 1401px) { .nav a.dup { display: none; } .site-head .logo { flex: none; } .site-head .lang { min-width: 0; } }
 </style>
 </head>
 <body>
@@ -711,6 +725,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <a class="logo" href="#top" aria-label="HiEnd Asia 首页" data-i18n-attr="aria-label:nav.home"><img src="../img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
     <nav class="nav" aria-label="主导航" data-i18n-attr="aria-label:nav.aria">
       <a class="txt" href="#floorplan" data-i18n="nav.floorplan">平面图</a>
+      <a class="txt" href="#art" data-i18n="nav.art">Art</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">演讲</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">品牌</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">参观</a>
@@ -743,6 +758,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="hero-copy">
       <p class="eyebrow" data-i18n="hero.eyebrow">2026年12月17 – 19日 · Suntec Singapore · 免费入场</p>
       <h1><small data-i18n="hero.kicker">2026 新加坡</small><span data-i18n="hero.title">Hi-End Asia 国际视听展</span></h1>
+      <p class="hero-tag" data-i18n="hero.tag">Audio × Art</p>
+      <div class="cobrand" role="img" aria-label="HiEnd Asia in partnership with NOWASIA" data-i18n-attr="aria-label:cobrand.aria"><img src="../img/logo.svg" alt="" width="170" height="44"><span class="cobrand-bar"></span><img src="../img/nowasia-logo.webp" alt="" width="435" height="160"></div>
       <div class="rule"></div>
       <div class="dates" aria-label="开放时间">
         <span data-i18n="d.thu">12月17日 星期四</span><span data-i18n="time">上午10时 – 晚上7时</span>
@@ -773,7 +790,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       </div>
     </div>
     <div class="hero-poster">
-      <button class="poster-btn" type="button" data-zoom aria-label="查看海报原尺寸" data-i18n-attr="aria-label:poster.zoom"><img src="../img/000-1242.webp" srcset="../img/000-640.webp 640w, ../img/000-760.webp 760w, ../img/000-960.webp 960w, ../img/000-1242.webp 1242w" sizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" alt="官方海报：2026 新加坡 Hi-End Asia 国际视听展，12月17日至19日，Suntec Singapore 三楼" data-i18n-attr="alt:poster.alt" width="1242" height="1660" fetchpriority="high"></button>
+      <button class="poster-btn" type="button" data-zoom aria-label="查看海报原尺寸" data-i18n-attr="aria-label:poster.zoom"><img src="../img/000zh-1242.webp" srcset="../img/000zh-640.webp 640w, ../img/000zh-760.webp 760w, ../img/000zh-960.webp 960w, ../img/000zh-1242.webp 1242w" sizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" alt="官方海报：2026 新加坡 Hi-End Asia 国际视听展，12月17日至19日，Suntec Singapore 三楼" data-i18n-attr="alt:poster.alt" width="1242" height="1660" fetchpriority="high"></button>
       <button class="poster-hint" type="button" data-zoom data-i18n="poster.hint">查看海报大图</button>
     </div>
   </div>
@@ -828,6 +845,33 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
   <link rel="stylesheet" href="../floormap/floormap.css">
   <script src="../floormap/floormap.js" defer></script>
+</section>
+
+<section class="block band" id="art">
+  <div class="wrap">
+    <div class="split art-split">
+      <div class="split-copy">
+        <div class="bh left">
+          <h2 class="bh-en" data-i18n="art.h">Audio × Art</h2>
+          <div class="rule"></div>
+        </div>
+        <p class="intro" data-i18n="art.intro">This year HiEnd Asia teams up with NOWASIA. Its art galleries fill the whole front of Level 3, so you walk through art on the way to the listening rooms.</p>
+        <ul class="art-points">
+          <li><b data-i18n="art.p1.h">Art Exhibition Zone, C1–C4</b><span data-i18n="art.p1">Art galleries from NOWASIA across the full front concourse.</span></li>
+          <li><b data-i18n="art.p2.h">Art walls, Links 2–4</b><span data-i18n="art.p2">More gallery walls along the links between the listening rooms.</span></li>
+          <li><b data-i18n="art.p3.h">Extra•Ordinary People, L4-1</b><span data-i18n="art.p3">A Singapore charity: artists with autism sell their work. Donate $50 to receive a bear.</span></li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="#floorplan" data-i18n="art.cta">Find the art on the floor plan</a></div>
+      </div>
+      <figure class="art-figure">
+        <img class="art-partner" src="../img/nowasia-logo.webp" alt="NOWASIA" width="435" height="160" loading="lazy">
+        <video id="artLoop" muted loop playsinline preload="none" poster="../img/art/nowasia-walk.webp" width="960" height="540" aria-label="Walking through the NOWASIA Art Fair at Suntec Singapore" data-i18n-attr="aria-label:art.aria">
+          <source src="../img/art/nowasia-walk.mp4" type="../video/mp4">
+        </video>
+        <figcaption class="figcap" data-i18n="art.cap">NOWASIA Art Fair, Suntec Singapore, August 2026</figcaption>
+      </figure>
+    </div>
+  </div>
 </section>
 
 <section class="block band" id="speakers">
@@ -894,6 +938,12 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <span class="rep-name">Shinji Tarutani</span>
   <span class="rep-role" data-i18n="rep.30.role">总裁</span>
   <span class="rep-brand">TAD</span>
+</li>
+<li class="rep">
+  <img src="../img/rep-stavros-danos.webp" alt="Stavros Danos" loading="lazy" width="400" height="500">
+  <span class="rep-name">Stavros Danos</span>
+  <span class="rep-role" data-i18n="rep.stavros.role">Founder &amp; Designer</span>
+  <span class="rep-brand">Aries Cerat</span>
 </li>
     </ul>
   </div>
@@ -1092,13 +1142,14 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="官方海报原尺寸" data-i18n-attr="aria-label:lb.aria" hidden>
   <button class="btn btn-outline btn-sm lb-close" type="button" id="lbClose" data-i18n="lb.close">关闭</button>
-  <img src="../img/000-1242.webp" alt="官方海报：2026 新加坡 Hi-End Asia 国际视听展，12月17日至19日，Suntec Singapore 三楼" data-i18n-attr="alt:poster.alt" width="1242" height="1660" loading="lazy">
+  <img src="../img/000zh-1242.webp" alt="官方海报：2026 新加坡 Hi-End Asia 国际视听展，12月17日至19日，Suntec Singapore 三楼" data-i18n-attr="alt:poster.alt" width="1242" height="1660" loading="lazy">
 </div>
 
 <footer class="site-foot">
   <div class="wrap">
     <div class="foot-brand">
       <img src="../img/logo.svg" alt="HiEnd Asia" width="170" height="44">
+      <div class="foot-partner"><span data-i18n="cobrand.with">In partnership with</span><img src="../img/nowasia-logo.webp" alt="NOWASIA" width="435" height="160" loading="lazy"></div>
       <b>HiEnd Asia + Pte. Ltd</b>
       <p data-i18n="foot.tagline">与东盟知音共赏生活之美：目之所见，耳之所闻，舌之所尝，指之所触，鼻之所嗅。</p>
     </div>
@@ -1201,6 +1252,17 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     io.observe(heroBtns); if (visitBtns) io.observe(visitBtns);
   }
 })();
+
+  // Art loop: plays only while on screen; stays on its poster for people who prefer reduced motion
+  (function () {
+    var v = document.getElementById('artLoop');
+    if (!v) return;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.controls = true; return; }
+    if (!('IntersectionObserver' in window)) { v.controls = true; return; }
+    new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); } else v.pause(); });
+    }, { threshold: 0.35 }).observe(v);
+  })();
 </script>
 
 </body>
