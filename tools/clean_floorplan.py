@@ -5,7 +5,7 @@
 #
 # Image models can misspell small text, so always check every room number and name in the result
 # against the source before committing it. Re-run (or try another model) until it is right.
-import argparse, base64, io, json, os, sys, urllib.request
+import argparse, base64, io, json, os, sys, urllib.error, urllib.request
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(HERE, 'Layout', 'floorplan-2026-source.png')
@@ -41,7 +41,12 @@ def main():
                                  {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json',
                                   'HTTP-Referer': 'https://christophertanenso.github.io/hiendasia-2026/',
                                   'X-Title': 'HiEnd Asia 2026 floor plan'})
-    res = json.load(urllib.request.urlopen(req, timeout=300))
+    try:
+        res = json.load(urllib.request.urlopen(req, timeout=300))
+    except urllib.error.HTTPError as err:
+        sys.exit('OpenRouter HTTP %s: %s' % (err.code, err.read().decode()[:1500]))
+    if 'choices' not in res:
+        sys.exit('Unexpected response: ' + json.dumps(res)[:1500])
     msg = res['choices'][0]['message']
     imgs = msg.get('images') or []
     if not imgs:

@@ -4,7 +4,7 @@ name: Restyle floor plan
 on:
   push:
     branches: [show-2026-update]
-    paths: [tools/clean_floorplan.py, Layout/floorplan-2026-source.png, .github/workflows/floorplan-image.yml]
+    paths: [tools/clean_floorplan.py, Layout/restyle-trigger.txt, Layout/floorplan-2026-source.png, .github/workflows/floorplan-image.yml]
   workflow_dispatch:
     inputs:
       model:
@@ -21,12 +21,15 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install pillow
-      - run: python tools/clean_floorplan.py --model "${{ inputs.model || 'google/gemini-2.5-flash-image' }}"
+      - name: Restyle via OpenRouter
+        run: python tools/clean_floorplan.py --model "${{ inputs.model || 'google/gemini-2.5-flash-image' }}" 2>&1 | tee Layout/restyle-log.txt
+        continue-on-error: true
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add img/floorplan-2026.png img/floorplan-2026.webp
-          git commit -m "Restyle 2026 floor plan via OpenRouter" || echo "No change"
+          git add Layout/restyle-log.txt
+          git add img/floorplan-2026.png img/floorplan-2026.webp 2>/dev/null || true
+          git commit -m "Restyle 2026 floor plan via OpenRouter (log)" || echo "No change"
           git push
