@@ -37,7 +37,7 @@ def img(i):
 
 
 # People: (photo id, badge key). Names, roles and bios live in i18n/<lang>.json as p.<id>.name/.role/.bio
-# 2026: two keynote speakers and one guest. Billy Ho (17) has no photo yet: add img/017.jpg (640x800) to show one.
+# 2026: two keynote speakers and one guest.
 KEYNOTES = [(13, 'keynote'), (16, 'keynote')]
 GUESTS = [(17, 'live')]
 
