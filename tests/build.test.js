@@ -151,6 +151,38 @@ describe('register pages', () => {
   }
 });
 
+describe('mystery blind box', () => {
+  const BB = ['bb.eyebrow', 'bb.h', 'bb.lead', 'bb.s1', 'bb.s2', 'bb.s3', 'bb.terms', 'bb.alt'];
+  const CDS = ['img/cd-2023.webp', 'img/cd-2024.webp', 'img/cd-2025.webp'];
+  it('English gives the deadline, the daily draw time and what to bring', () => {
+    const all = BB.map(k => i18n.en[k]).join(' ');
+    for (const s of ['30 November 2026', '5pm', 'ticket email', 'valid ID']) assert.ok(all.includes(s), s);
+  });
+  it('the CD images exist and are small enough for phones', () => {
+    for (const f of CDS) { assert.ok(fs.existsSync(path.join(ROOT, f)), f); assert.ok(fs.statSync(path.join(ROOT, f)).size < 120000, f + ' too large'); }
+  });
+  for (const l of LANGS) {
+    const html = read(dir(l) + 'register.html');
+    const t = text(html);
+    it(`${l}: has every blind box string, without exclamation marks`, () => {
+      assert.deepEqual(BB.filter(k => typeof i18n[l][k] !== 'string' || !i18n[l][k].trim()), []);
+      assert.deepEqual(BB.filter(k => /[!！]/.test(i18n[l][k] || '')), []);
+    });
+    if (l !== 'en') it(`${l}: blind box copy is translated`, () => {
+      assert.deepEqual(['bb.h', 'bb.lead', 'bb.s2', 'bb.terms'].filter(k => i18n[l][k] === i18n.en[k]), []);
+    });
+    it(`${l}: shows the blind box section after the form`, () => {
+      const at = html.indexOf('id="blindbox"');
+      assert.ok(at > html.indexOf('</form>'), 'section missing or before the form');
+      for (const k of BB.filter(k => k !== 'bb.alt')) assert.ok(t.includes(i18n[l][k]), k);
+    });
+    it(`${l}: shows the three commemorative CDs, sized to avoid layout shift`, () => {
+      const p = l === 'en' ? '' : '../';
+      for (const f of CDS) assert.match(html, new RegExp(`<img[^>]*src="${p}${f}"[^>]*width="\\d+" height="\\d+"`), f);
+    });
+  }
+});
+
 describe('privacy notice', () => {
   const html = read('privacy.html'), t = text(html);
   it('has the section the form links to', () => { assert.ok(html.includes('id="registration"')); });

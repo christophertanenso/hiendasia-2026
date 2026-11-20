@@ -393,6 +393,23 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
 .another { align-self: flex-start; background: none; border: 0; padding: 8px 0; color: var(--heading); font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }
 .another:hover { color: var(--accent); }
 
+.bb { position: relative; border-top: 1px solid var(--line); background: var(--band); }
+.reg .bb .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; padding-block: 64px; }
+.bb-text { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.bb h2 { margin: 0; font: 700 clamp(26px, 3.2vw, 36px)/1.1 var(--font-display); text-transform: uppercase; color: var(--heading); overflow-wrap: break-word; }
+.steps { list-style: none; counter-reset: s; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 14px; align-items: baseline; color: var(--body); }
+.steps li::before { content: counter(s); display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid var(--accent);
+  border-radius: 50%; color: var(--accent); font: 700 14px/1 var(--font-display); transform: translateY(-2px); }
+.terms { margin: 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
+.cds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; min-width: 0; }
+.cds img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); }
+@media (max-width: 900px) {
+  .reg .bb .wrap { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-block: 48px; }
+  .bb-text, .cds { max-width: 520px; width: 100%; margin: 0 auto; }
+  .cds { gap: 8px; }
+}
+
 .site-foot { border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
 .site-foot .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; }
 .legal { display: flex; flex-wrap: wrap; gap: 6px 18px; }
@@ -489,6 +506,28 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
       <img src="../img/000-1242.webp" srcset="../img/000-640.webp 640w, ../img/000-760.webp 760w, ../img/000-960.webp 960w, ../img/000-1242.webp 1242w" sizes="(max-width: 900px) min(520px, calc(100vw - 32px)), min(560px, 46vw)" alt="โปสเตอร์อย่างเป็นทางการ: งานแสดงเครื่องเสียงและภาพนานาชาติ Hi-End Asia 2026 สิงคโปร์ วันที่ 17 ถึง 19 ธันวาคม ที่ Suntec Singapore ชั้น 3" width="1242" height="1660">
     </figure>
   </div>
+
+  <section class="bb" id="blindbox" aria-labelledby="bbH">
+    <div class="wrap">
+      <div class="bb-text">
+        <p class="eyebrow">สำหรับผู้ลงทะเบียน</p>
+        <h2 id="bbH">กล่องสุ่มปริศนา</h2>
+        <div class="rule"></div>
+        <p class="lead">กล่องปิดผนึกบรรจุซีดีที่ระลึก HiEnd Asia หนึ่งแผ่น จับรางวัลทุกวันระหว่างงาน เฉพาะผู้ลงทะเบียนเท่านั้น</p>
+        <ol class="steps">
+          <li>ลงทะเบียนภายในวันที่ 30 พฤศจิกายน 2026</li>
+          <li>รับบัตรจับรางวัลด้วยตนเองที่งาน</li>
+          <li>จับรางวัลทุกวันเวลา 17.00 น.</li>
+        </ol>
+        <p class="terms">แสดงอีเมลบัตรเข้างานและบัตรประจำตัวที่ยังไม่หมดอายุเพื่อรับบัตรจับรางวัล</p>
+      </div>
+      <div class="cds" role="img" aria-label="ซีดีที่ระลึก HiEnd Asia ปี 2023, 2024 และ 2025">
+        <img src="../img/cd-2023.webp" alt="" width="640" height="480" loading="lazy" decoding="async">
+        <img src="../img/cd-2024.webp" alt="" width="640" height="480" loading="lazy" decoding="async">
+        <img src="../img/cd-2025.webp" alt="" width="640" height="480" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="site-foot">
