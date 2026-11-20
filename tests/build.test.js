@@ -70,7 +70,9 @@ describe('show pages', () => {
   for (const l of LANGS) {
     const html = read(dir(l) + 'index.html');
     it(`${l}: header, hero and mobile bar link to the register page`, () => {
-      assert.ok((html.match(/href="register\.html"/g) || []).length >= 5);
+      assert.match(html, /class="[^"]*head-cta[^"]*" href="register\.html"/, 'header');
+      assert.match(html, /<p class="free">[\s\S]*?<div class="btns">\s*<a class="btn btn-primary" href="register\.html"/, 'hero');
+      assert.match(html, /<div class="mbar" id="mbar">\s*<a [^>]*href="register\.html"/, 'mobile bar');
     });
     it(`${l}: says a ticket is required`, () => { assert.ok(text(html).includes(i18n[l]['free.hero'])); });
     it(`${l}: its register link resolves to a page that exists`, () => { assert.ok(fs.existsSync(path.join(ROOT, dir(l), 'register.html'))); });

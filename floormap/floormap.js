@@ -18,7 +18,7 @@
     clear: 'Clear search',
     all: 'All',
     zones: { east: 'East wing', west: 'West wing', centre: 'Front' },
-    zoneRooms: { east: 'Rooms 303–312', west: 'Rooms 332–336', centre: 'Room 323, Concourse 2 & 3' },
+    zoneRooms: { east: 'Rooms 300–312', west: 'Rooms 332–336', centre: 'Room 323, Concourse 2 & 3' },
     room: 'Room',
     tba: 'Exhibitor to be announced',
     none: 'No rooms match your search.',
@@ -57,16 +57,16 @@
     '307': [208, 20, 250, 62, 'top'], '306': [254, 20, 296, 62, 'top'], '305': [300, 20, 342, 62, 'top'],
     '308': [208, 84, 282, 122, 'east'], '309': [208, 126, 282, 164, 'east'], '310': [208, 168, 282, 206, 'east'],
     '311': [208, 210, 282, 248, 'east'], '312': [208, 256, 282, 294, 'east'],
-    '304': [292, 84, 344, 130, 'farEast'], '303': [292, 134, 344, 180, 'farEast'],
+    '304': [292, 84, 344, 122, 'farEast'], '303': [292, 126, 344, 164, 'farEast'], '302': [292, 168, 344, 206, 'farEast'],
+    '301': [292, 210, 344, 248, 'farEast'], '300': [292, 256, 344, 294, 'farEast'],
     '323': [124, 256, 176, 294, 'centre'],
     'C23': [96, 438, 264, 470, 'concourse']
   };
   var ZONE = { west: 'west', top: 'east', east: 'east', farEast: 'east', centre: 'centre', concourse: 'centre' };
-  var ORDER = { east: ['312', '311', '310', '309', '308'], farEast: ['303', '304'], top: ['307', '306', '305'], west: ['336', '335', '334', '333', '332'] };
+  var ORDER = { east: ['312', '311', '310', '309', '308'], farEast: ['300', '301', '302', '303', '304'], top: ['307', '306', '305'], west: ['336', '335', '334', '333', '332'] };
   var SHORT = { C23: 'Concourse 2 & 3' };
   var VENUE = [ // other Level 3 rooms, drawn faintly for orientation
-    { r: [112, 20, 182, 62], t: '327–330' }, { r: [100, 84, 192, 240], t: 'Summit 1 & 2|324–326' },
-    { r: [292, 184, 344, 294], t: '300–302' }
+    { r: [112, 20, 182, 62], t: '327–330' }, { r: [100, 84, 192, 240], t: 'Summit 1 & 2|324–326' }
   ];
   var WC = [[100, 41], [194, 41], [106, 275], [192, 275]];
   var ESC = [[88, 360, 152, 387], [88, 390, 124, 406], [88, 413, 124, 430], [206, 360, 269, 387],
@@ -78,14 +78,24 @@
   var N = { Wtop: [91, 30], Wt: [91, 72], Wf: [91, 312], Et: [200, 72], Ef: [200, 312], Ft: [287, 72], Ff: [287, 312], Tr: [344, 72] };
   var SEG = [['Wtop', 'Wt'], ['Wt', 'Wf'], ['Wt', 'Et'], ['Et', 'Ft'], ['Ft', 'Tr'], ['Et', 'Ef'], ['Ft', 'Ff'], ['Wf', 'Ef'], ['Ef', 'Ff']];
 
-  // Default rows, used until the sheet loads (or if it fails)
-  var DEFAULT_ROWS = [];
-  ['332', '333', '334', '335', '336', '303', '304', '305', '306', '307', '308', '309', '310', '311'].forEach(function (r) {
-    DEFAULT_ROWS.push({ room: r, type: 'listening' });
-  });
-  DEFAULT_ROWS.push({ room: '312', type: 'vip', name: 'VIP room' });
-  DEFAULT_ROWS.push({ room: '323', type: 'tbc' });
-  DEFAULT_ROWS.push({ room: 'C23', type: 'tbc', name: 'Concourse 2 & 3' });
+  // 2026 rooms (used unless a published sheet is set on the mount). Columns as in rooms-template.csv.
+  var DEFAULT_ROWS = [
+    { room: '300', type: 'listening' }, { room: '301', type: 'listening' }, { room: '302', type: 'listening' },
+    { room: '303', type: 'listening', exhibitor: 'Audio Line', brands: 'TAD, Accuphase, Acoustic Signature, Audio-Technica, Artesania Audio, Audiodesk Systeme, Cary Audio, Diapason, Ensemble, Finite Elemente, Graham Audio, Ikeda, Montaudio, Rogers High Fidelity, Signal Projects, Sutherland Engineering' },
+    { room: '304', type: 'listening' },
+    { room: '305', type: 'listening', exhibitor: 'AOPT', note: 'Taiwan' },
+    { room: '306', type: 'listening', exhibitor: 'High End Research', note: 'With room 307' },
+    { room: '307', type: 'listening', exhibitor: 'High End Research', brands: 'Wilson Audio, Pass Labs, Metronome, SME, Koetsu, Graham Engineering, Vimberg, Purist Audio Design, Magnum Dynalab, Clearaudio, Live Cables' },
+    { room: '308', type: 'listening' }, { room: '309', type: 'listening' }, { room: '310', type: 'listening' }, { room: '311', type: 'listening' },
+    { room: '312', type: 'listening', exhibitor: 'Audio Atelier', brands: 'Kaiser Acoustics, Gold Note, Ypsilon, Brinkmann, Lyra, Acoustical Systems' },
+    { room: '323', type: 'listening', exhibitor: 'Ong Radio', brands: 'McIntosh, Bowers & Wilkins, Stradius, Power Lab' },
+    { room: '332', type: 'listening', exhibitor: 'Analog Playground', brands: 'Aries Cerat, Westend Audio System, Peak Consult, Shark Wire, O-bit' },
+    { room: '333', type: 'listening', exhibitor: 'Analog Playground', brands: 'Diesis Audio' },
+    { room: '334', type: 'listening', exhibitor: 'Prodigio Audio', brands: 'Prodigio Audio' },
+    { room: '335', type: 'listening', exhibitor: 'San Yuan', brands: 'San Yuan, Ronnie', note: 'Taiwan' },
+    { room: '336', type: 'listening', exhibitor: 'Abbingdon Music Research', brands: 'AMR' },
+    { room: 'C23', type: 'tbc', name: 'Concourse 2 & 3' }
+  ];
 
   // ---------- Helpers ----------
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
