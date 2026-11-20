@@ -64,7 +64,7 @@
   };
   var ZONE = { west: 'west', top: 'east', east: 'east', farEast: 'east', centre: 'centre', concourse: 'centre' };
   var ORDER = { east: ['312', '311', '310', '309', '308'], farEast: ['300', '301', '302', '303', '304'], top: ['307', '306', '305'], west: ['336', '335', '334', '333', '332'] };
-  var SHORT = { C23: 'Concourse 2 & 3' };
+  var SHORT = { C23: 'Art Exhibition Zone' };
   var VENUE = [ // other Level 3 rooms, drawn faintly for orientation
     { r: [112, 20, 182, 62], t: '327–330' }, { r: [100, 84, 192, 240], t: 'Summit 1 & 2|324–326' }
   ];
@@ -95,7 +95,7 @@
     { room: '334', type: 'listening', exhibitor: 'Prodigio Audio', brands: 'Prodigio Audio' },
     { room: '335', type: 'listening', exhibitor: 'San Yuan', note: 'Taiwan', brands: 'San Yuan, Ronnie' },
     { room: '336', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 333', brands: 'Aries Cerat' },
-    { room: 'C23', type: 'tbc', name: 'Concourse 2 & 3' }
+    { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'Patrick Bezalel · Extra•Ordinary People', brands: 'Art gallery', note: 'Extra•Ordinary People is a Singapore charity; artists with autism sell their work here. Donate $50 to receive a bear.' }
   ];
 
   // ---------- Helpers ----------
