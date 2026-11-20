@@ -20,7 +20,8 @@ var CONFIG = {
   TIMEZONE: 'Asia/Singapore',
   SHEET_REG: 'Registrations',
   SHEET_RECIPIENTS: 'Recipients',
-  MAX_RESENDS: 5                                                   // times one ticket can be emailed again
+  MAX_RESENDS: 5,                                                  // times one ticket can be emailed again
+  BLINDBOX_UNTIL: '2026-12-01T00:00:00+08:00'                      // registered before this: the ticket email mentions the blind box
 };
 
 // The wording people agreed to, kept with the version so the Sheet shows exactly what each row consented to.
@@ -102,14 +103,14 @@ function register_(d) {
   var sheet = regSheet_();
   var lock = LockService.getScriptLock();
   lock.waitLock(25000);
-  var ticket, token, existing = false, sameVisitor = true, canSend = true;
+  var ticket, token, registered = new Date(), existing = false, sameVisitor = true, canSend = true;
   try {
     var row = findRow_(sheet, C['Email'], email);
     if (row) {
       // Already registered: the same ticket goes out again. Nothing new is written.
       existing = true;
       var v = sheet.getRange(row, 1, 1, COLS.length).getValues()[0];
-      ticket = v[C['Ticket'] - 1]; token = v[C['Token'] - 1];
+      ticket = v[C['Ticket'] - 1]; token = v[C['Token'] - 1]; registered = v[C['Registered at'] - 1];
       var storedName = String(v[C['Name'] - 1]);
       sameVisitor = storedName.toLowerCase() === name.toLowerCase() && String(v[C['Mobile'] - 1]) === phone;
       name = storedName; lang = v[C['Language'] - 1] || lang;
@@ -120,7 +121,7 @@ function register_(d) {
       ticket = newTicket_(sheet);
       token = Utilities.getUuid();
       var r = [];
-      r[C['Registered at'] - 1] = new Date();
+      r[C['Registered at'] - 1] = registered;
       r[C['Ticket'] - 1] = ticket;
       r[C['Name'] - 1] = name;
       r[C['Email'] - 1] = email;
@@ -148,7 +149,7 @@ function register_(d) {
   }
 
   if (canSend) {
-    var sent = sendTicket_({ name: name, email: email, ticket: ticket, token: token, lang: lang });
+    var sent = sendTicket_({ name: name, email: email, ticket: ticket, token: token, lang: lang, registered: registered });
     if (sent && !existing) markEmailed_(sheet, ticket);
   }
   // A repeat registration only shows the ticket on screen to the person who holds it (same name and mobile).
@@ -194,6 +195,8 @@ var MAIL = {
     when: '17 – 19 Dec 2026 · 10am – 7pm daily',
     where: 'Level 3, Suntec Singapore Convention & Exhibition Centre',
     site: 'Programme, floorplan and directions',
+    bbH: 'Mystery blind box',
+    bb: 'A sealed box holding one HiEnd Asia commemorative CD, drawn daily at 5pm during the show. Keep this email. Bring it with valid ID to collect a draw ticket at the show.',
     why: 'You are receiving news of HiEnd Asia and NOWASIA by email and WhatsApp because you registered for this ticket. We do not call. We do not sell your details.',
     unsub: 'Unsubscribe', privacy: 'Privacy notice'
   },
@@ -205,6 +208,8 @@ var MAIL = {
     when: '2026年12月17 – 19日 · 每日上午10时 – 晚上7时',
     where: '新达城新加坡国际会议与展览中心 三楼',
     site: '活动日程、展位图与路线',
+    bbH: '神秘盲盒',
+    bb: '密封盒内装有一张 HiEnd Asia 纪念 CD，展会期间每日下午5时抽奖。请保留此电邮，凭此电邮及有效身份证件于展会现场领取抽奖券。',
     why: '您已登记领取门票，因此将通过电邮和 WhatsApp 收到 HiEnd Asia 与 NOWASIA 的资讯。我们不会致电，也不会出售您的资料。',
     unsub: '退订', privacy: '隐私声明'
   },
@@ -216,6 +221,8 @@ var MAIL = {
     when: '2026年12月17 – 19日 · 每日上午10時 – 晚上7時',
     where: '新達城新加坡國際會議與展覽中心 三樓',
     site: '活動日程、展位圖與路線',
+    bbH: '神秘盲盒',
+    bb: '密封盒內裝有一張 HiEnd Asia 紀念 CD，展會期間每日下午5時抽獎。請保留此電郵，憑此電郵及有效身分證件於展會現場領取抽獎券。',
     why: '您已登記領取門票，因此將透過電郵和 WhatsApp 收到 HiEnd Asia 與 NOWASIA 的資訊。我們不會致電，也不會出售您的資料。',
     unsub: '取消訂閱', privacy: '私隱聲明'
   }
@@ -247,12 +254,21 @@ function ticketHtml_(p) {
       '<div style="border-top:1px dashed #4f4632;padding-top:14px;' + font + 'color:#d2c8b4;font-size:14px;line-height:1.6">' +
         esc_(t.when) + '<br>' + esc_(t.where) + '</div>' +
     '</td></tr></table></td></tr>' +
+    (blindBox_(p) ? '<tr><td style="padding:24px 8px 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" ' +
+      'style="border:1px solid #4f4632;border-radius:12px"><tr><td style="padding:18px 20px;' + font + 'color:#d2c8b4;font-size:14px;line-height:1.6">' +
+      '<div style="color:#c6a661;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:bold;padding-bottom:6px">' + esc_(t.bbH) + '</div>' +
+      esc_(t.bb) + '</td></tr></table></td></tr>' : '') +
     '<tr><td align="center" style="padding:24px 8px"><a href="' + site + '" style="display:inline-block;border:1px solid #c6a661;border-radius:50px;' +
       'padding:13px 26px;' + font + 'color:#f0d9a0;font-size:13px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;text-decoration:none">' + esc_(t.site) + '</a></td></tr>' +
     '<tr><td style="padding:16px 8px 0;border-top:1px solid #4f4632;' + font + 'color:#a89f8c;font-size:12px;line-height:1.6">' + esc_(t.why) +
       ' <a href="' + unsub + '" style="color:#f0d9a0">' + esc_(t.unsub) + '</a> · <a href="' + CONFIG.SITE + 'privacy.html" style="color:#f0d9a0">' + esc_(t.privacy) + '</a>' +
       '<br>HiEnd Asia + Pte. Ltd · 1093 Lower Delta Road #02-09, Singapore 169204</td></tr>' +
     '</table></td></tr></table></div>';
+}
+
+/** True when this visitor registered in time for the blind box draw. */
+function blindBox_(p) {
+  return !!p.registered && new Date(p.registered) < new Date(CONFIG.BLINDBOX_UNTIL);
 }
 
 function sendTicket_(p) {
@@ -265,7 +281,7 @@ function sendTicket_(p) {
       name: CONFIG.FROM_NAME,
       replyTo: CONFIG.REPLY_TO,
       body: t.head(p.name) + '\n' + t.lead + '\n\n' + p.name + '\n' + p.ticket + '\n' + t.when + '\n' + t.where + '\n\n' +
-        t.why + '\n' + t.unsub + ': ' + ScriptApp.getService().getUrl() + '?u=' + p.token,
+        (blindBox_(p) ? t.bbH + '\n' + t.bb + '\n\n' : '') + t.why + '\n' + t.unsub + ': ' + ScriptApp.getService().getUrl() + '?u=' + p.token,
       htmlBody: ticketHtml_(p),
       inlineImages: { qr: qrPng_(p.ticket) }
     });
@@ -287,7 +303,7 @@ function sendPending() {
     if (new Date() - new Date(v[C['Registered at'] - 1]) < 2 * 60 * 1000) continue;   // doPost may still be sending it
     if (MailApp.getRemainingDailyQuota() < 1) return;
     var ok = sendTicket_({ name: v[C['Name'] - 1], email: v[C['Email'] - 1], ticket: v[C['Ticket'] - 1],
-      token: v[C['Token'] - 1], lang: v[C['Language'] - 1] });
+      token: v[C['Token'] - 1], lang: v[C['Language'] - 1], registered: v[C['Registered at'] - 1] });
     if (ok) markEmailed_(sheet, v[C['Ticket'] - 1]);
   }
 }
@@ -378,7 +394,7 @@ function setup() {
 /** Run by hand to see the ticket email: sends a sample to your own address. */
 function sendSampleTicket() {
   var me = Session.getEffectiveUser().getEmail();
-  sendTicket_({ name: 'Tan Wei Ming', email: me, ticket: CONFIG.TICKET_PREFIX + '7K3M9Q', token: '00000000-0000-0000-0000-000000000000', lang: 'en' });
+  sendTicket_({ name: 'Tan Wei Ming', email: me, ticket: CONFIG.TICKET_PREFIX + '7K3M9Q', token: '00000000-0000-0000-0000-000000000000', lang: 'en', registered: new Date() });
 }
 
 // ---------- Shared with the web page ----------

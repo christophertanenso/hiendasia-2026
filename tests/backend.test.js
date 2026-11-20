@@ -243,6 +243,41 @@ describe('the ticket email', () => {
   });
 });
 
+describe('the blind box note in the ticket email', () => {
+  const BEFORE = Date.UTC(2026, 10, 30, 15, 59, 0);   // 30 Nov 2026, 11:59pm Singapore time
+  const AFTER = Date.UTC(2026, 10, 30, 16, 0, 0);     // 1 Dec 2026, midnight Singapore time
+  const at = t => mock.timers.enable({ apis: ['Date'], now: t });
+  afterEach(() => { mock.timers.reset(); });
+  it('tells an English registrant how to take part, in both versions', () => {
+    at(BEFORE); b.post(VISITOR);
+    for (const part of [b.state.mails[0].htmlBody, b.state.mails[0].body]) {
+      for (const s of ['Mystery blind box', '5pm', 'valid ID']) assert.ok(part.includes(s), s);
+    }
+  });
+  it('is in Simplified Chinese for a zh-Hans registrant', () => {
+    at(BEFORE); b.post({ ...VISITOR, lang: 'zh-Hans' });
+    assert.ok(b.state.mails[0].htmlBody.includes('神秘盲盒') && b.state.mails[0].htmlBody.includes('抽奖券'));
+  });
+  it('is in Traditional Chinese for a zh-Hant registrant', () => {
+    at(BEFORE); b.post({ ...VISITOR, lang: 'zh-Hant' });
+    assert.ok(b.state.mails[0].htmlBody.includes('神秘盲盒') && b.state.mails[0].htmlBody.includes('抽獎券'));
+  });
+  it('is left out for someone who registers after 30 November', () => {
+    at(AFTER); b.post(VISITOR);
+    assert.ok(!b.state.mails[0].htmlBody.includes('blind box') && !b.state.mails[0].body.includes('blind box'));
+  });
+  it('stays in a ticket resent after 30 November to someone who registered in time', () => {
+    at(BEFORE); b.post(VISITOR);
+    mock.timers.setTime(AFTER + 3600000); b.post(VISITOR);
+    assert.ok(b.state.mails[1].htmlBody.includes('Mystery blind box'));
+  });
+  it('stays in a delayed ticket sent after 30 November for someone who registered in time', () => {
+    at(BEFORE); b.state.quota = 0; b.post(VISITOR);
+    b.state.quota = 10; mock.timers.setTime(AFTER + 3600000); b.gs.sendPending();
+    assert.ok(b.state.mails[0].htmlBody.includes('Mystery blind box'));
+  });
+});
+
 describe('registering again with the same email', () => {
   let first;
   beforeEach(() => { first = b.post(VISITOR); });
