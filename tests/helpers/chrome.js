@@ -52,7 +52,9 @@ async function evaluateWhen(chrome, url, { until, value, timeoutMs = 90000 }) {
     try { if (ws) ws.close(); } catch (e) { /* closing */ }
     proc.kill();
     await new Promise(r => { if (proc.exitCode !== null) r(); else { proc.on('exit', r); setTimeout(r, 3000); } });
-    fs.rmSync(profile, { recursive: true, force: true, maxRetries: 3 });
+    // Chrome's helper processes can still be writing to the profile after the main one exits, so the
+    // folder may refuse to go at first. It is a throwaway temp folder: retry, then leave it to the OS.
+    try { fs.rmSync(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 }); } catch (e) { /* temp dir, best effort */ }
   }
 }
 
