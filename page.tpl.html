@@ -97,6 +97,12 @@ window.HEA_CONSENT = {{CONSENT_CFG}};
     onSite = !!here || !!(ss && ss.getItem('hea-onsite'));
   } catch (err) { onSite = !!here; }
   function lang() { return document.documentElement.lang || window.HEA_LANG || 'en'; }
+  // Campaign tags on the link that brought the visitor are kept for this tab, so a registration made later in the
+  // visit (register.html) can record which ad, share or sign it came from.
+  try {
+    var qs = new URLSearchParams(location.search);
+    if (qs.get('utm_source') && ss) ss.setItem('hea-utm', JSON.stringify({ source: qs.get('utm_source'), medium: qs.get('utm_medium') || '', campaign: qs.get('utm_campaign') || '' }));
+  } catch (err) {}
 
   window.trackIntent = function (action, detail) {
     try {
@@ -536,7 +542,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     </label>
     <a class="btn btn-outline btn-sm head-extra" href="hotel.html" data-i18n="cta.hotel">{{cta.hotel}}</a>
     <a class="btn btn-outline btn-sm head-extra" href="exhibitor-login.html" data-i18n="cta.login">{{cta.login}}</a>
-    <a class="btn btn-primary btn-sm head-cta" href="{{GCAL}}" target="_blank" rel="noopener" data-i18n="nav.save">{{nav.save}}</a>
+    <a class="btn btn-primary btn-sm head-cta" href="register.html" data-i18n="reg.cta.short">{{reg.cta.short}}</a>
   </div>
 </header>
 

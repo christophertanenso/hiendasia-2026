@@ -1,6 +1,6 @@
 # HiEnd Asia 2026
 
-One-page site, in eight languages, for the **2026 Singapore Hi-End Asia International Audio Visual Show**, 17–19 December 2026, Level 3, Suntec Singapore Convention & Exhibition Centre. Free entry.
+One-page site, in eight languages, for the **2026 Singapore Hi-End Asia International Audio Visual Show**, 17–19 December 2026, Level 3, Suntec Singapore Convention & Exhibition Centre. Free entry with a registered ticket.
 
 Live: https://christophertanenso.github.io/hiendasia-2026/
 
@@ -15,7 +15,11 @@ Built on the HiEnd Asia 2026 design system (black ground, champagne-gold heading
 | `consent.js` | Cookie banner and consent logic. `build.py` inlines it into every page |
 | `index.html` | Generated. The English page, and the landing page that forwards visitors to their language |
 | `<lang>/index.html` | Generated. One page per language, with its text in the HTML |
-| `privacy.html` | Generated. Privacy notice and cookie table (PDPA) |
+| `register.tpl.html` | Template for the free-ticket registration page |
+| `register.html`, `<lang>/register.html` | Generated. The registration form, and the ticket once issued |
+| `tests/`, `package.json` | Tests for ticket registration (`npm test`) |
+| `apps-script/` | `Code.gs`, the Google Apps Script behind the form (Sheet, ticket email, daily count), and its setup guide |
+| `privacy.html` | Generated. Privacy notice (ticket registration and cookies, PDPA) |
 | `artifact.html` | Generated. The same page as a fragment for the Claude artifact preview |
 | `i18n/en.json` | All English copy, by key. The source for every translation |
 | `i18n/<lang>.json` | Translations: `zh-Hans`, `zh-Hant`, `id`, `ms`, `fil`, `th`, `vi`. Same keys as `en.json` |
@@ -36,6 +40,27 @@ python build.py
 ```
 
 Commit all generated pages (`index.html`, the language folders, `privacy.html`, `artifact.html`). GitHub Pages redeploys from `main` on every push.
+
+## Ticket registration
+
+Entry is free but needs a ticket. `register.html` (one per language) asks for name, email, mobile number and
+visitor / trade / media, and shows the ticket on screen at once. The form posts to a Google Apps Script bound to a
+Google Sheet, which adds the row, emails the ticket (English or Chinese) and sends a daily count to the addresses
+on the Sheet's `Recipients` tab. Set-up is in [`apps-script/README.md`](apps-script/README.md): deploy the script,
+paste its URL into `REGISTER_ENDPOINT` in `build.py`, rebuild.
+
+- **Consent (PDPA).** Registering is consent to news of HiEnd Asia and NOWASIA by email and WhatsApp, stated under
+  the button; no calls, no selling. Each row stores the consent version and wording, and every email has an
+  unsubscribe link. Have the wording reviewed by a lawyer; the seven translations are machine-drafted.
+- **One email, one ticket.** Registering again with the same email resends the same ticket.
+- **At the door.** `signage/register.html` is a printable sign whose QR code opens the form. The ticket is also
+  kept on the visitor's device (`hea-ticket`), so reopening the page shows it again.
+- **What is stored besides the fields.** Language, country (from the phone code and, via country.is, from the IP),
+  time zone, UTM source / medium / campaign, the QR sign (`here`), phone or desktop.
+- **Testing locally.** With `REGISTER_ENDPOINT` empty, the page on `localhost` issues a sample ticket.
+- **Tests.** `npm test` checks the form, the backend and the generated pages (527 cases, about 10 seconds; needs
+  Node 22 and Chrome). They run on GitHub for every pull request. See [`tests/README.md`](tests/README.md), and write
+  the test first when changing the form.
 
 ## Languages
 
@@ -70,6 +95,7 @@ One helper, `trackIntent(action, detail)`, reports actions. One helper, `trackIn
 | `section_view` | Programme, floorplan, speakers, concerts, brands or visit in view for 1 s (once each) | `section` | |
 | `select_language` | Language menu changed | `language` | |
 | `consent_choice` | Cookie banner answered (sent only if analytics was allowed) | `analytics`, `marketing` | |
+| `sign_up` | Ticket registration completed on `register.html` | `method` = `visitor` / `trade` / `media` | `CompleteRegistration` |
 | `venue_checkin` | Page opened from a QR sign (`?here=`), once per device per day | `here`, `show_day` | `VenueCheckin` (custom) |
 
 **On-site visitors.** A visit opened with `?here=` (QR signage) is on-site for the rest of the browser session. Its events carry `on_site=yes`, and the two bidding conversions (`add_to_calendar`, `get_directions`) are sent as `onsite_action` with `action=…` instead (Meta: `OnsiteAction`). People already at the show never count as ad conversions.
@@ -80,7 +106,7 @@ Nothing blocks navigation, and the page works if an ad blocker stops the tags. Q
 
 ## Venue QR signs
 
-`signage/` holds the "You are here" QR codes for the show floor:
+`signage/` holds the "You are here" QR codes for the show floor, and `signage/register.html`, the entrance sign for ticket registration:
 - `signage/venue-qr-signs.pdf`: print-ready, A4, 4 signs per page.
 - `signage/index.html`: the same sheet as a web page.
 - `signage/qr/*.svg`: one QR code per sign, for larger prints.
