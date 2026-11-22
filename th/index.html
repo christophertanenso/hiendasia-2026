@@ -401,7 +401,7 @@ window.HEA_CONSENT = {"privacy": "../privacy.html", "t": {"title": "ความ
             } else clearTimeout(timers[id]);
           });
         }, { rootMargin: '0px 0px -40% 0px' });
-        ['floorplan', 'speakers', 'guests', 'brands', 'visit'].forEach(function (id) {
+        ['floorplan', 'speakers', 'guests', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
           var el = document.getElementById(id); if (el) io.observe(el);
         });
       }
@@ -653,6 +653,49 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .media { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .media li { padding: 6px 14px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; color: var(--body); }
 
+/* Talk schedule */
+.sch { display: flex; flex-direction: column; gap: var(--space-m); }
+.sch-days { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-m); }
+.sch-day { border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px; background: #000; }
+.sch-day h4 { margin: 0 0 8px; font: 700 20px/1.3 var(--font-display); color: var(--heading); }
+.sch-list { list-style: none; margin: 0; padding: 0; }
+.sch-row { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 2px 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.sch-time { grid-row: span 2; font: 700 14px/1.5 var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.sch-who { font-size: 15px; line-height: 1.5; }
+.sch-who b { display: block; color: var(--heading); font-family: var(--font-display); }
+.sch-tag { display: inline-block; margin-left: 6px; padding: 0 8px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 11px; color: var(--muted); vertical-align: 1px; }
+.sch-where { font-size: 13px; color: var(--muted); }
+
+/* Commemorative CDs */
+.cd-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: var(--space-m); }
+.cd { display: flex; flex-direction: column; gap: 4px; }
+.cd img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); border: 1px solid var(--line); margin-bottom: 10px; }
+.cd-name { font: 700 18px/1.3 var(--font-display); color: var(--heading); }
+.cd-note { font-size: 14px; color: var(--muted); }
+
+/* Lucky draw */
+.ld { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-l); align-items: start; }
+@media (max-width: 860px) { .ld { grid-template-columns: minmax(0, 1fr); } }
+.ld-box { border: 1px solid var(--accent); border-radius: var(--radius-card); padding: 24px; background: #000; }
+.ld-big { margin: 0 0 18px; font: 700 clamp(22px, 3vw, 30px)/1.2 var(--font-display); color: var(--heading); text-align: center; }
+.ld-head, .ld-rows li { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr) minmax(0, 1fr); gap: 12px; align-items: center; }
+.ld-head { padding: 0 0 8px; font: 700 12px/1.4 var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.ld-rows { list-style: none; margin: 0; padding: 0; }
+.ld-rows li { padding: 12px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.ld-rows li span { color: var(--heading); font-weight: 700; font-variant-numeric: tabular-nums; }
+.ld-rows li b { font: 700 16px/1.3 var(--font-display); color: var(--heading); }
+.ld-terms h3 { margin: 0 0 10px; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.ld-terms ul { margin: 0 0 24px; padding-left: 18px; color: var(--body); font-size: 15px; line-height: 1.7; }
+
+/* Sponsor and hotel logos */
+.sp-wall { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); gap: 24px 16px; }
+.sp { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sp .tile { margin-bottom: 8px; aspect-ratio: auto; height: 112px; }
+.sp .tile img { max-height: 84px; max-width: 86%; }
+.sp-word { font: 700 17px/1.25 var(--font-display); color: #1a1a1a; text-align: center; }
+.sp-name { color: var(--body); font-weight: 700; line-height: 1.4; }
+.sp small { color: var(--muted); font-size: 13px; }
+
 /* Footer */
 .site-foot { border-top: 1px solid var(--line); }
 .site-foot .wrap { padding-block: 64px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
@@ -677,6 +720,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .foot-contact { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
 .foot-contact > a { color: inherit; text-decoration: none; }
 .foot-contact > a:hover, .foot-contact > a:focus-visible { color: var(--heading); text-decoration: underline; }
+.foot-qr { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 160px; text-decoration: none; color: var(--muted); font-size: 13px; line-height: 1.4; text-align: center; }
+.foot-qr img { width: 160px; height: 160px; border-radius: 12px; background: #fff; }
+.foot-qr:hover { color: var(--heading); }
 .foot-contact .social { display: flex; flex-wrap: wrap; gap: 20px; padding-top: 8px; }
 .copy { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
 .copy .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
@@ -734,6 +780,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <a class="txt" href="#art" data-i18n="nav.art">Art</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">วิทยากร</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">แบรนด์</a>
+      <a class="txt" href="#luckydraw" data-i18n="nav.draw">จับรางวัล</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">การเดินทาง</a>
       <a class="txt dup" href="../hotel.html" data-i18n="nav.hotel">Hotel</a>
       <a class="txt dup" href="../exhibitor-login.html" data-i18n="nav.login">Exhibitor login</a>
@@ -904,6 +951,15 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <p class="p-bio" data-i18n="p.16.bio">ผู้เชี่ยวชาญด้านการปรับจูนที่ได้รับการรับรองจาก StormAudio ประสบการณ์กว่า 20 ปีในการออกแบบและปรับจูนระบบเสียงหลายแชนเนลในบ้าน และติดตั้งระบบ StormAudio กว่า 50 ระบบทั่วเอเชีย หัวข้อ: ระบบภาพและเสียงแบบอิมเมอร์ซีฟไฮไฟยุคใหม่สำหรับนักเล่นเครื่องเสียง</p>
 </article>
     </div>
+    <div class="sch">
+      <h3 class="sub-h" data-i18n="sched.h">ตารางการบรรยาย</h3>
+      <div class="sch-days">
+<div class="sch-day"><h4 data-i18n="d.thu">วันพฤหัสบดีที่ 17 ธันวาคม</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">ระบบเสียงและภาพ Hi-Fi แบบ Immersive ยุคใหม่</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 323 · MU6</span></li><li class="sch-row"><span class="sch-time">4–5pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">ระบบเสียงและภาพ Hi-Fi แบบ Immersive ยุคใหม่</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 323 · Activities Room</span></li></ol></div>
+<div class="sch-day"><h4 data-i18n="d.fri">วันศุกร์ที่ 18 ธันวาคม</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">11am–12pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">ระบบเสียงและภาพ Hi-Fi แบบ Immersive ยุคใหม่</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 301 · Audioline</span></li><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">ศาสตร์และศิลป์ของแผ่นเสียง</span> <span class="sch-tag">หัวข้อเสนอ</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 333 · Aries Cerat</span></li><li class="sch-row"><span class="sch-time">3–4pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">ระบบเสียงและภาพ Hi-Fi แบบ Immersive ยุคใหม่</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 335 · San Yuan</span></li><li class="sch-row"><span class="sch-time">4–5pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">ศาสตร์และศิลป์ของแผ่นเสียง</span> <span class="sch-tag">หัวข้อเสนอ</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 301 · Audioline</span></li></ol></div>
+<div class="sch-day"><h4 data-i18n="d.sat">วันเสาร์ที่ 19 ธันวาคม</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">10–11am</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">ระบบเสียงและภาพ Hi-Fi แบบ Immersive ยุคใหม่</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 335 · San Yuan</span></li><li class="sch-row"><span class="sch-time">11am–12pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">ศาสตร์และศิลป์ของแผ่นเสียง</span> <span class="sch-tag">หัวข้อเสนอ</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 332 · AMR</span></li><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">ระบบเสียงและภาพ Hi-Fi แบบ Immersive ยุคใหม่</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 333 · Aries Cerat</span></li><li class="sch-row"><span class="sch-time">2–3pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">ศาสตร์และศิลป์ของแผ่นเสียง</span> <span class="sch-tag">หัวข้อเสนอ</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 307 · High End Research</span></li><li class="sch-row"><span class="sch-time">3–4pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">ระบบเสียงและภาพ Hi-Fi แบบ Immersive ยุคใหม่</span></span><span class="sch-where"><span data-i18n="sched.room">ห้อง</span> 323 · Activities Room</span></li></ol></div>
+      </div>
+      <p class="figcap" data-i18n="sched.note">หัวข้ออาจแตกต่างกันในแต่ละห้อง หัวข้อของ Richard H. Mak ยังเป็นหัวข้อเสนอ รอการยืนยัน ทุกรอบใช้เวลา 60 นาที</p>
+    </div>
   </div>
 </section>
 
@@ -1029,6 +1085,52 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
 </section>
 
+<section class="block" id="cds">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="cd.h">ซีดีและแผ่นเสียงที่ระลึก</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="cd.intro">ผลงานบันทึกเสียงที่ระลึกของ HiEnd Asia ปี 2024 และ 2025 วางจำหน่ายภายในงาน</p>
+    </div>
+    <ul class="cd-grid">
+      <li class="cd"><img src="../img/cds/hea6-1000.webp" srcset="../img/cds/hea6-600.webp 600w, ../img/cds/hea6-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="ซีดีที่ระลึก 2024" data-i18n-attr="alt:cd.2024" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.2024">ซีดีที่ระลึก 2024</span><span class="cd-note" data-i18n="cd.sale">จำหน่ายภายในงาน</span></li>
+      <li class="cd"><img src="../img/cds/hea5-1000.webp" srcset="../img/cds/hea5-600.webp 600w, ../img/cds/hea5-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="ซีดีที่ระลึก 2025" data-i18n-attr="alt:cd.2025" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.2025">ซีดีที่ระลึก 2025</span><span class="cd-note" data-i18n="cd.sale">จำหน่ายภายในงาน</span></li>
+      <li class="cd"><img src="../img/cds/hea7-1000.webp" srcset="../img/cds/hea7-600.webp 600w, ../img/cds/hea7-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="แผ่นเสียงคู่ที่ระลึก 2025" data-i18n-attr="alt:cd.lp" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.lp">แผ่นเสียงคู่ที่ระลึก 2025</span><span class="cd-note" data-i18n="cd.lp.note">รุ่นจำนวนจำกัด · 45 rpm</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="block band" id="luckydraw">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="ld.h">จับรางวัลและกล่องสุ่มปริศนา</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="ld.intro">ลงทะเบียนรับบัตรเข้างานฟรีภายในวันที่ 5 ธันวาคม 2026 เพื่อร่วมสนุก</p>
+    </div>
+    <div class="ld">
+      <div class="ld-box">
+        <p class="ld-big" data-i18n="ld.winners">ผู้โชคดีสามรางวัลทุกวัน</p>
+        <div class="ld-head" aria-hidden="true"><span data-i18n="ld.date">วันจับรางวัล</span><span data-i18n="ld.time">เวลาจับรางวัล</span><span data-i18n="ld.venue">สถานที่</span></div>
+        <ul class="ld-rows">
+<li><span data-i18n="d.thu">วันพฤหัสบดีที่ 17 ธันวาคม</span><span>16.00 น.</span><b>The Link 2</b></li>
+<li><span data-i18n="d.fri">วันศุกร์ที่ 18 ธันวาคม</span><span>16.00 น.</span><b>Foyer 1</b></li>
+<li><span data-i18n="d.sat">วันเสาร์ที่ 19 ธันวาคม</span><span>16.00 น.</span><b>Foyer 5</b></li>
+        </ul>
+      </div>
+      <div class="ld-terms">
+        <h3 data-i18n="ld.terms.h">ข้อกำหนดและเงื่อนไข</h3>
+        <ul>
+          <li data-i18n="ld.t1">ต้องลงทะเบียนล่วงหน้า</li>
+          <li data-i18n="ld.t2">ผู้ร่วมกิจกรรมต้องเป็นผู้เข้าชมที่ลงทะเบียนแล้ว</li>
+          <li data-i18n="ld.t3">ผู้ได้รับรางวัลต้องมาด้วยตนเองพร้อมบัตรประจำตัวที่ยังไม่หมดอายุเพื่อยืนยันตัวตน</li>
+          <li data-i18n="ld.t4">ของรางวัลมีจำนวนจำกัด</li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="ld.cta">ลงทะเบียนภายใน 5 ธันวาคม</span></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="block" id="visit">
   <div class="wrap">
     <div class="visit-grid">
@@ -1048,10 +1150,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <li><b>Promenade</b><span data-i18n="mrt.promenade">Circle Line หรือ Downtown Line</span></li>
           <li><b>City Hall</b><span data-i18n="mrt.cityhall">North-South Line หรือ East-West Line</span></li>
         </ul>
-        <p class="free"><b data-i18n="free.label">เข้าชมฟรี</b><span data-i18n="free.short">ต้องใช้บัตรเข้างาน</span></p>
+        <div class="btns"><a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="visit.tickets">รับบัตรเข้างานฟรี</span></a></div>
         <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">ดูเส้นทาง</a> <a class="btn btn-outline" href="https://wa.me/6586681927?text=Hi%20Michelle%2C%20I%20have%20a%20question%20about%20HiEnd%20Asia%202026." target="_blank" rel="noopener" data-wa-contact><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="cta.wa">WhatsApp Michelle</span></a></div>
       <div class="btns">
-        <a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="reg.cta">ลงทะเบียนรับบัตรฟรี</span></a>
         <details class="cal">
           <summary class="btn btn-outline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="cal.add">เพิ่มในปฏิทิน</span><span class="chev" aria-hidden="true">▾</span></summary>
           <div class="cal-menu">
@@ -1089,20 +1190,30 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="partners">
       <div>
         <h3 data-i18n="partners.main">ผู้จัดงานหลัก</h3>
-        <ul class="plist"><li>HiEnd Asia + Pte. Ltd</li><li>SIEC<small>上海市国际展览（集团）有限公司</small></li></ul>
+        <ul class="plist"><li>HiEnd Asia + Pte. Ltd</li></ul>
       </div>
       <div>
         <h3 data-i18n="partners.co">ผู้ร่วมจัดงาน</h3>
         <ul class="plist"><li>Taipei Electrical Commercial Association</li><li>SIAV</li><li>Taichung City Electric Business Association</li></ul>
       </div>
-      <div>
-        <h3 data-i18n="partners.sponsors">ผู้สนับสนุน</h3>
-        <ul class="plist"><li>MU6<small data-i18n="sp.mu6">ผู้สนับสนุนด้านเงินทุน</small></li><li>Enso Consult<small data-i18n="sp.enso">ประชาสัมพันธ์และไอที</small></li><li>Stardust Pictures<small data-i18n="sp.stardust">วิดีโอและภาพถ่าย</small></li><li>Melodious Piano House<small data-i18n="sp.piano">เปียโนคอนเสิร์ต Yamaha</small></li></ul>
-      </div>
-      <div>
-        <h3 data-i18n="partners.hotels">โรงแรมพันธมิตร</h3>
-        <ul class="plist"><li>Pullman Singapore</li><li>lyf Funan Singapore</li></ul>
-      </div>
+    </div>
+    <div>
+      <h3 class="sub-h" data-i18n="partners.sponsors">ผู้สนับสนุน</h3>
+      <ul class="sp-wall">
+<li class="sp"><span class="tile"><img src="../img/sponsors/mu6.webp" alt="MU6" loading="lazy"></span><span class="sp-name">MU6</span><small data-i18n="sp.mu6">ผู้สนับสนุนด้านเงินทุน</small></li>
+<li class="sp"><span class="tile"><img src="../img/sponsors/enso.webp" alt="Enso Consult" loading="lazy"></span><span class="sp-name">Enso Consult</span><small data-i18n="sp.enso">ประชาสัมพันธ์และไอที</small></li>
+<li class="sp"><span class="tile"><img src="../img/sponsors/stardust.webp" alt="Stardust Pictures" loading="lazy"></span><span class="sp-name">Stardust Pictures</span><small data-i18n="sp.stardust">วิดีโอและภาพถ่าย</small></li>
+<li class="sp"><span class="tile"><span class="sp-word">Melodious Piano House</span></span><span class="sp-name">Melodious Piano House</span><small data-i18n="sp.piano">เปียโนคอนเสิร์ต Yamaha</small></li>
+<li class="sp"><span class="tile"><img src="../img/sponsors/sharkwire.webp" alt="Sharkwire" loading="lazy"></span><span class="sp-name">Sharkwire</span></li>
+<li class="sp"><span class="tile"><img src="../img/sponsors/tuanyuan.webp" alt="Tuan Yuan Pork Ribs Soup" loading="lazy"></span><span class="sp-name">Tuan Yuan Pork Ribs Soup</span></li>
+<li class="sp"><span class="tile"><img src="../img/sponsors/creative-district.webp" alt="Creative District" loading="lazy"></span><span class="sp-name">Creative District</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="sub-h" data-i18n="partners.hotels">โรงแรมพันธมิตร</h3>
+      <ul class="sp-wall">
+<li class="sp"><span class="tile"><img src="../img/sponsors/pullman.webp" alt="Pullman Singapore Hill Street" loading="lazy"></span><span class="sp-name">Pullman Singapore Hill Street</span></li>
+      </ul>
     </div>
     <div>
       <h3 class="sub-h" data-i18n="partners.media">พันธมิตรสื่อ</h3>
@@ -1155,7 +1266,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     </div>
     <div class="foot-contact">
       <span>1093 Lower Delta Road #02-09, Singapore 169204</span>
-      <a href="tel:+6586681927">+65 8668 1927</a>
+      <a href="https://wa.me/6586681927?text=Hi%20Michelle%2C%20I%20have%20a%20question%20about%20HiEnd%20Asia%202026." target="_blank" rel="noopener">+65 8668 1927</a>
       <a href="mailto:michelle@hiendasia.com">michelle@hiendasia.com</a>
       <div class="social">
         <a href="https://www.facebook.com/hiendasia.sg/" target="_blank" rel="noopener">Facebook</a>
@@ -1164,6 +1275,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <a href="https://www.hiendasia.com/" target="_blank" rel="noopener">hiendasia.com</a>
       </div>
     </div>
+    <a class="foot-qr" href="https://wa.me/6586681927?text=Hi%20Michelle%2C%20I%20have%20a%20question%20about%20HiEnd%20Asia%202026." target="_blank" rel="noopener">
+      <img src="../img/whatsapp-qr.png" alt="สแกนเพื่อแชทกับเราทาง WhatsApp" data-i18n-attr="alt:foot.waqr" width="670" height="670" loading="lazy">
+      <span data-i18n="foot.waqr">สแกนเพื่อแชทกับเราทาง WhatsApp</span>
+    </a>
   </div>
   <div class="copy"><div class="wrap"><span>© 2026 HiEnd Asia + Pte. Ltd</span><span class="legal"><a href="../privacy.html">ประกาศความเป็นส่วนตัว</a><button type="button" data-consent-open>การตั้งค่าคุกกี้</button></span><span><span data-i18n="foot.motto">อยู่ตรงนี้ ฟังให้สุดใจ ห้วงเวลานี้เป็นของคุณ</span> · <a href="https://wa.me/?text=HiEnd%20Asia%202026%20%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%AA%E0%B8%94%E0%B8%87%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%99%E0%B8%B2%E0%B8%99%E0%B8%B2%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%20Hi-End%20Asia%20%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B4%E0%B8%87%E0%B8%84%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%8C%0A17%20%E2%80%93%2019%20%E0%B8%98.%E0%B8%84.%202026%20%E0%B8%97%E0%B8%B8%E0%B8%81%E0%B8%A7%E0%B8%B1%E0%B8%99%2010.00%20%E2%80%93%2019.00%20%E0%B8%99.%0ASuntec%20Singapore%20%C2%B7%20%E0%B8%8A%E0%B8%B1%E0%B9%89%E0%B8%99%203%20%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B8%E0%B8%A1%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%99%E0%B8%B4%E0%B8%97%E0%B8%A3%E0%B8%A3%E0%B8%A8%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%8B%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%84%20%E0%B8%AA%E0%B8%B4%E0%B8%87%E0%B8%84%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%8C%0A%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%8A%E0%B8%A1%E0%B8%9F%E0%B8%A3%E0%B8%B5%20%E0%B8%A5%E0%B8%87%E0%B8%97%E0%B8%B0%E0%B9%80%E0%B8%9A%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B9%80%E0%B8%9E%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%A3%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/th/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa data-i18n="share.wa">แชร์ทาง WhatsApp</a></span></div></div>
 </footer>

@@ -156,7 +156,7 @@ describe('mystery blind box', () => {
   const CDS = ['img/cd-2023.webp', 'img/cd-2024.webp', 'img/cd-2025.webp'];
   it('English gives the deadline, the daily draw time and what to bring', () => {
     const all = BB.map(k => i18n.en[k]).join(' ');
-    for (const s of ['30 November 2026', '5pm', 'ticket email', 'valid ID']) assert.ok(all.includes(s), s);
+    for (const s of ['5 December 2026', '4pm', 'ticket email', 'valid ID']) assert.ok(all.includes(s), s);
   });
   it('the CD images exist and are small enough for phones', () => {
     for (const f of CDS) { assert.ok(fs.existsSync(path.join(ROOT, f)), f); assert.ok(fs.statSync(path.join(ROOT, f)).size < 120000, f + ' too large'); }

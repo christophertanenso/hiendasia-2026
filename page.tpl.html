@@ -197,7 +197,7 @@ window.HEA_CONSENT = {{CONSENT_CFG}};
             } else clearTimeout(timers[id]);
           });
         }, { rootMargin: '0px 0px -40% 0px' });
-        ['floorplan', 'speakers', 'guests', 'brands', 'visit'].forEach(function (id) {
+        ['floorplan', 'speakers', 'guests', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
           var el = document.getElementById(id); if (el) io.observe(el);
         });
       }
@@ -449,6 +449,49 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .media { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .media li { padding: 6px 14px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; color: var(--body); }
 
+/* Talk schedule */
+.sch { display: flex; flex-direction: column; gap: var(--space-m); }
+.sch-days { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-m); }
+.sch-day { border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px; background: #000; }
+.sch-day h4 { margin: 0 0 8px; font: 700 20px/1.3 var(--font-display); color: var(--heading); }
+.sch-list { list-style: none; margin: 0; padding: 0; }
+.sch-row { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 2px 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.sch-time { grid-row: span 2; font: 700 14px/1.5 var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.sch-who { font-size: 15px; line-height: 1.5; }
+.sch-who b { display: block; color: var(--heading); font-family: var(--font-display); }
+.sch-tag { display: inline-block; margin-left: 6px; padding: 0 8px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 11px; color: var(--muted); vertical-align: 1px; }
+.sch-where { font-size: 13px; color: var(--muted); }
+
+/* Commemorative CDs */
+.cd-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: var(--space-m); }
+.cd { display: flex; flex-direction: column; gap: 4px; }
+.cd img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); border: 1px solid var(--line); margin-bottom: 10px; }
+.cd-name { font: 700 18px/1.3 var(--font-display); color: var(--heading); }
+.cd-note { font-size: 14px; color: var(--muted); }
+
+/* Lucky draw */
+.ld { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-l); align-items: start; }
+@media (max-width: 860px) { .ld { grid-template-columns: minmax(0, 1fr); } }
+.ld-box { border: 1px solid var(--accent); border-radius: var(--radius-card); padding: 24px; background: #000; }
+.ld-big { margin: 0 0 18px; font: 700 clamp(22px, 3vw, 30px)/1.2 var(--font-display); color: var(--heading); text-align: center; }
+.ld-head, .ld-rows li { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr) minmax(0, 1fr); gap: 12px; align-items: center; }
+.ld-head { padding: 0 0 8px; font: 700 12px/1.4 var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.ld-rows { list-style: none; margin: 0; padding: 0; }
+.ld-rows li { padding: 12px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.ld-rows li span { color: var(--heading); font-weight: 700; font-variant-numeric: tabular-nums; }
+.ld-rows li b { font: 700 16px/1.3 var(--font-display); color: var(--heading); }
+.ld-terms h3 { margin: 0 0 10px; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.ld-terms ul { margin: 0 0 24px; padding-left: 18px; color: var(--body); font-size: 15px; line-height: 1.7; }
+
+/* Sponsor and hotel logos */
+.sp-wall { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); gap: 24px 16px; }
+.sp { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sp .tile { margin-bottom: 8px; aspect-ratio: auto; height: 112px; }
+.sp .tile img { max-height: 84px; max-width: 86%; }
+.sp-word { font: 700 17px/1.25 var(--font-display); color: #1a1a1a; text-align: center; }
+.sp-name { color: var(--body); font-weight: 700; line-height: 1.4; }
+.sp small { color: var(--muted); font-size: 13px; }
+
 /* Footer */
 .site-foot { border-top: 1px solid var(--line); }
 .site-foot .wrap { padding-block: 64px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
@@ -473,6 +516,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .foot-contact { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
 .foot-contact > a { color: inherit; text-decoration: none; }
 .foot-contact > a:hover, .foot-contact > a:focus-visible { color: var(--heading); text-decoration: underline; }
+.foot-qr { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 160px; text-decoration: none; color: var(--muted); font-size: 13px; line-height: 1.4; text-align: center; }
+.foot-qr img { width: 160px; height: 160px; border-radius: 12px; background: #fff; }
+.foot-qr:hover { color: var(--heading); }
 .foot-contact .social { display: flex; flex-wrap: wrap; gap: 20px; padding-top: 8px; }
 .copy { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
 .copy .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
@@ -529,6 +575,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <a class="txt" href="#art" data-i18n="nav.art">{{nav.art}}</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">{{nav.speakers}}</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">{{nav.brands}}</a>
+      <a class="txt" href="#luckydraw" data-i18n="nav.draw">{{nav.draw}}</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">{{nav.visit}}</a>
       <a class="txt dup" href="hotel.html" data-i18n="nav.hotel">{{nav.hotel}}</a>
       <a class="txt dup" href="exhibitor-login.html" data-i18n="nav.login">{{nav.login}}</a>
@@ -655,6 +702,13 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="people">
 {{KEYNOTES}}
     </div>
+    <div class="sch">
+      <h3 class="sub-h" data-i18n="sched.h">{{sched.h}}</h3>
+      <div class="sch-days">
+{{SCHEDULE}}
+      </div>
+      <p class="figcap" data-i18n="sched.note">{{sched.note}}</p>
+    </div>
   </div>
 </section>
 
@@ -724,6 +778,50 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
 </section>
 
+<section class="block" id="cds">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="cd.h">{{cd.h}}</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="cd.intro">{{cd.intro}}</p>
+    </div>
+    <ul class="cd-grid">
+      <li class="cd"><img src="img/cds/hea6-1000.webp" srcset="img/cds/hea6-600.webp 600w, img/cds/hea6-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="{{cd.2024}}" data-i18n-attr="alt:cd.2024" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.2024">{{cd.2024}}</span><span class="cd-note" data-i18n="cd.sale">{{cd.sale}}</span></li>
+      <li class="cd"><img src="img/cds/hea5-1000.webp" srcset="img/cds/hea5-600.webp 600w, img/cds/hea5-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="{{cd.2025}}" data-i18n-attr="alt:cd.2025" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.2025">{{cd.2025}}</span><span class="cd-note" data-i18n="cd.sale">{{cd.sale}}</span></li>
+      <li class="cd"><img src="img/cds/hea7-1000.webp" srcset="img/cds/hea7-600.webp 600w, img/cds/hea7-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="{{cd.lp}}" data-i18n-attr="alt:cd.lp" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.lp">{{cd.lp}}</span><span class="cd-note" data-i18n="cd.lp.note">{{cd.lp.note}}</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="block band" id="luckydraw">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="ld.h">{{ld.h}}</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="ld.intro">{{ld.intro}}</p>
+    </div>
+    <div class="ld">
+      <div class="ld-box">
+        <p class="ld-big" data-i18n="ld.winners">{{ld.winners}}</p>
+        <div class="ld-head" aria-hidden="true"><span data-i18n="ld.date">{{ld.date}}</span><span data-i18n="ld.time">{{ld.time}}</span><span data-i18n="ld.venue">{{ld.venue}}</span></div>
+        <ul class="ld-rows">
+{{DRAWS}}
+        </ul>
+      </div>
+      <div class="ld-terms">
+        <h3 data-i18n="ld.terms.h">{{ld.terms.h}}</h3>
+        <ul>
+          <li data-i18n="ld.t1">{{ld.t1}}</li>
+          <li data-i18n="ld.t2">{{ld.t2}}</li>
+          <li data-i18n="ld.t3">{{ld.t3}}</li>
+          <li data-i18n="ld.t4">{{ld.t4}}</li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="register.html">{{ICON_TICKET}}<span data-i18n="ld.cta">{{ld.cta}}</span></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="block" id="visit">
   <div class="wrap">
     <div class="visit-grid">
@@ -739,9 +837,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <li><b>Promenade</b><span data-i18n="mrt.promenade">{{mrt.promenade}}</span></li>
           <li><b>City Hall</b><span data-i18n="mrt.cityhall">{{mrt.cityhall}}</span></li>
         </ul>
-        <p class="free"><b data-i18n="free.label">{{free.label}}</b><span data-i18n="free.short">{{free.short}}</span></p>
+        <div class="btns"><a class="btn btn-primary" href="register.html">{{ICON_TICKET}}<span data-i18n="visit.tickets">{{visit.tickets}}</span></a></div>
         <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">{{visit.directions}}</a> <a class="btn btn-outline" href="{{WA_MICHELLE}}" target="_blank" rel="noopener" data-wa-contact>{{ICON_WA}}<span data-i18n="cta.wa">{{cta.wa}}</span></a></div>
-{{ACTIONS}}
+{{ACTIONS_VISIT}}
       </div>
       <div class="photos">
         <img src="{{SUNTEC_IN}}" alt="{{visit.photo1}}" data-i18n-attr="alt:visit.photo1" loading="lazy" width="1333" height="1000">
@@ -760,20 +858,24 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="partners">
       <div>
         <h3 data-i18n="partners.main">{{partners.main}}</h3>
-        <ul class="plist"><li>HiEnd Asia + Pte. Ltd</li><li>SIEC<small>上海市国际展览（集团）有限公司</small></li></ul>
+        <ul class="plist"><li>HiEnd Asia + Pte. Ltd</li></ul>
       </div>
       <div>
         <h3 data-i18n="partners.co">{{partners.co}}</h3>
         <ul class="plist"><li>Taipei Electrical Commercial Association</li><li>SIAV</li><li>Taichung City Electric Business Association</li></ul>
       </div>
-      <div>
-        <h3 data-i18n="partners.sponsors">{{partners.sponsors}}</h3>
-        <ul class="plist"><li>MU6<small data-i18n="sp.mu6">{{sp.mu6}}</small></li><li>Enso Consult<small data-i18n="sp.enso">{{sp.enso}}</small></li><li>Stardust Pictures<small data-i18n="sp.stardust">{{sp.stardust}}</small></li><li>Melodious Piano House<small data-i18n="sp.piano">{{sp.piano}}</small></li></ul>
-      </div>
-      <div>
-        <h3 data-i18n="partners.hotels">{{partners.hotels}}</h3>
-        <ul class="plist"><li>Pullman Singapore</li><li>lyf Funan Singapore</li></ul>
-      </div>
+    </div>
+    <div>
+      <h3 class="sub-h" data-i18n="partners.sponsors">{{partners.sponsors}}</h3>
+      <ul class="sp-wall">
+{{SPONSORS}}
+      </ul>
+    </div>
+    <div>
+      <h3 class="sub-h" data-i18n="partners.hotels">{{partners.hotels}}</h3>
+      <ul class="sp-wall">
+{{HOTELS}}
+      </ul>
     </div>
     <div>
       <h3 class="sub-h" data-i18n="partners.media">{{partners.media}}</h3>
@@ -802,7 +904,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     </div>
     <div class="foot-contact">
       <span>1093 Lower Delta Road #02-09, Singapore 169204</span>
-      <a href="tel:+6586681927">+65 8668 1927</a>
+      <a href="{{WA_MICHELLE}}" target="_blank" rel="noopener">+65 8668 1927</a>
       <a href="mailto:michelle@hiendasia.com">michelle@hiendasia.com</a>
       <div class="social">
         <a href="https://www.facebook.com/hiendasia.sg/" target="_blank" rel="noopener">Facebook</a>
@@ -811,6 +913,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <a href="https://www.hiendasia.com/" target="_blank" rel="noopener">hiendasia.com</a>
       </div>
     </div>
+    <a class="foot-qr" href="{{WA_MICHELLE}}" target="_blank" rel="noopener">
+      <img src="img/whatsapp-qr.png" alt="{{foot.waqr}}" data-i18n-attr="alt:foot.waqr" width="670" height="670" loading="lazy">
+      <span data-i18n="foot.waqr">{{foot.waqr}}</span>
+    </a>
   </div>
   <div class="copy"><div class="wrap"><span>© 2026 HiEnd Asia + Pte. Ltd</span><span class="legal"><a href="privacy.html">{{consent.policy}}</a><button type="button" data-consent-open>{{consent.footer}}</button></span><span><span data-i18n="foot.motto">{{foot.motto}}</span> · <a href="{{WA}}" target="_blank" rel="noopener" data-wa data-i18n="share.wa">{{share.wa}}</a></span></div></div>
 </footer>

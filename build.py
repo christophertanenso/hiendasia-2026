@@ -125,6 +125,54 @@ def tiles(idx):
                      for i in idx)
 
 
+# Sponsors and partner hotel: (name, logo in img/sponsors/ or None, i18n key of what they give or None).
+# Logos come from the organiser's Drive folder "LOGO Exhibitor 2026 / Sponsor 2026", trimmed and saved as WebP.
+SPONSORS = [
+    ('MU6', 'mu6', 'sp.mu6'), ('Enso Consult', 'enso', 'sp.enso'), ('Stardust Pictures', 'stardust', 'sp.stardust'),
+    ('Melodious Piano House', None, 'sp.piano'), ('Sharkwire', 'sharkwire', None),
+    ('Tuan Yuan Pork Ribs Soup', 'tuanyuan', None), ('Creative District', 'creative-district', None),
+]
+HOTELS = [('Pullman Singapore Hill Street', 'pullman', None)]
+
+# Keynote talk schedule (organiser's programme, 2026-11-23): (day key, time, speaker photo id, room, exhibitor, topic key)
+SCHEDULE = [
+    ('d.thu', '1–2pm', 16, '323', 'MU6', 'sched.dan'),
+    ('d.thu', '4–5pm', 16, '323', 'Activities Room', 'sched.dan'),
+    ('d.fri', '11am–12pm', 16, '301', 'Audioline', 'sched.dan'),
+    ('d.fri', '1–2pm', 13, '333', 'Aries Cerat', 'sched.mak'),
+    ('d.fri', '3–4pm', 16, '335', 'San Yuan', 'sched.dan'),
+    ('d.fri', '4–5pm', 13, '301', 'Audioline', 'sched.mak'),
+    ('d.sat', '10–11am', 16, '335', 'San Yuan', 'sched.dan'),
+    ('d.sat', '11am–12pm', 13, '332', 'AMR', 'sched.mak'),
+    ('d.sat', '1–2pm', 16, '333', 'Aries Cerat', 'sched.dan'),
+    ('d.sat', '2–3pm', 13, '307', 'High End Research', 'sched.mak'),
+    ('d.sat', '3–4pm', 16, '323', 'Activities Room', 'sched.dan'),
+]
+# Lucky draw: (day key, venue). Every draw is at 4pm.
+DRAWS = [('d.thu', 'The Link 2'), ('d.fri', 'Foyer 1'), ('d.sat', 'Foyer 5')]
+
+
+def sponsor_cards(rows):
+    out = []
+    for name, logo, key in rows:
+        mark = (f'<img src="img/sponsors/{logo}.webp" alt="{e(name)}" loading="lazy">' if logo
+                else f'<span class="sp-word">{e(name)}</span>')
+        out.append(f'<li class="sp"><span class="tile">{mark}</span><span class="sp-name">{e(name)}</span>'
+                   + (t(key, 'small') if key else '') + '</li>')
+    return '\n'.join(out)
+
+
+def schedule_html():
+    days = []
+    for d in ('d.thu', 'd.fri', 'd.sat'):
+        rows = []
+        for _, time, pid, room, where, topic in [s for s in SCHEDULE if s[0] == d]:
+            extra = f' <span class="sch-tag">{e(tr("sched.proposed"))}</span>' if topic == 'sched.mak' else ''
+            rows.append(f'''<li class="sch-row"><span class="sch-time">{time}</span><span class="sch-who"><b>{e(tr('p.%d.name' % pid))}</b>{t(topic)}{extra}</span><span class="sch-where">{t('sched.room')} {room} · {e(where)}</span></li>''')
+        days.append(f'<div class="sch-day">{t(d, "h4")}<ol class="sch-list">' + ''.join(rows) + '</ol></div>')
+    return '\n'.join(days)
+
+
 MEDIA = ['HiFi PiG Magazine', 'AudioNet', 'Lee388', 'The AudiophileLance', 'Brother Bok', 'AudioArt', 'Mono & Stereo',
          'Part-Time Audiophile', 'The Listening Chair with Howard Kneller', 'AMPED', 'New Audiophile', 'STHIFI.COM',
          'iAVlife.com', 'PSV PerfectSoundVision', 'PrimeAV', 'The Greater Toronto Area Audiophile Club',
@@ -310,6 +358,11 @@ def render(lang, base, auto, page_url):
         '{{GUESTS}}': '\n'.join(person_card(i, b) for i, b in GUESTS),
         '{{REPS}}': rep_html, '{{DEALERS}}': tiles(DEALER_IDX), '{{BRANDS}}': tiles(BRAND_IDX),
         '{{MEDIA}}': '\n'.join('<li>%s</li>' % e(m) for m in MEDIA),
+        '{{SPONSORS}}': sponsor_cards(SPONSORS), '{{HOTELS}}': sponsor_cards(HOTELS), '{{SCHEDULE}}': schedule_html(),
+        '{{DRAWS}}': '\n'.join(f'<li>{t(d)}<span>{e(tr("ld.4pm"))}</span><b>{e(v)}</b></li>' for d, v in DRAWS),
+        # The visit section has its own "Get your free tickets" button, so its button row leaves out "Register".
+        '{{ACTIONS_VISIT}}': actions.replace(f'''        <a class="btn btn-primary" href="register.html">{ICON_TICKET}{t('reg.cta')}</a>\n''', '', 1),
+        '{{ICON_TICKET}}': ICON_TICKET,
         '{{POSTER}}': pz(POSTER, lang), '{{POSTER_SRCSET}}': pz(POSTER_SRCSET, lang), '{{POSTER_SIZES}}': POSTER_SIZES,
         '{{FLOOR}}': 'img/floorplan-2026.webp', '{{SUNTEC_IN}}': img(8), '{{SUNTEC_NIGHT}}': img(9),
         '{{PAGE_LANG}}': lang, '{{BASE}}': base, '{{AUTO_LANG}}': 'true' if auto else 'false',
