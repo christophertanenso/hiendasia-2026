@@ -284,6 +284,11 @@ describe('registering again with the same email', () => {
   it('returns the same ticket to the same person', () => {
     assert.equal(b.post(VISITOR).ticket, first.ticket);
   });
+  it('recognises the same person on a row saved before the mobile was kept as text', () => {
+    // Rows from the first live day hold 6591234567: Sheets had turned "+6591234567" into a number.
+    b.reg.rows[1][b.reg.rows[0].indexOf('Mobile')] = 6591234567;
+    assert.equal(b.post(VISITOR).ticket, first.ticket);
+  });
   it('is marked as a resend', () => {
     assert.equal(b.post(VISITOR).resent, true);
   });

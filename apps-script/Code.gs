@@ -112,7 +112,8 @@ function register_(d) {
       var v = sheet.getRange(row, 1, 1, COLS.length).getValues()[0];
       ticket = v[C['Ticket'] - 1]; token = v[C['Token'] - 1]; registered = v[C['Registered at'] - 1];
       var storedName = String(v[C['Name'] - 1]);
-      sameVisitor = storedName.toLowerCase() === name.toLowerCase() && String(v[C['Mobile'] - 1]) === phone;
+      // Older rows hold the mobile as a number (6591234567): Sheets dropped the +. Compare the digits.
+      sameVisitor = storedName.toLowerCase() === name.toLowerCase() && String(v[C['Mobile'] - 1]).replace(/^\+/, '') === phone.slice(1);
       name = storedName; lang = v[C['Language'] - 1] || lang;
       var resends = Number(v[C['Resends'] - 1]) || 0;
       canSend = resends < CONFIG.MAX_RESENDS;
@@ -125,7 +126,7 @@ function register_(d) {
       r[C['Ticket'] - 1] = ticket;
       r[C['Name'] - 1] = name;
       r[C['Email'] - 1] = email;
-      r[C['Mobile'] - 1] = phone;
+      r[C['Mobile'] - 1] = "'" + phone;   // the apostrophe keeps it text; without it Sheets drops the +
       r[C['Attending as'] - 1] = interest;
       r[C['Country (phone)'] - 1] = iso;
       r[C['Country (IP)'] - 1] = /^[A-Z]{2}$/.test(d.ipCountry) ? d.ipCountry : '';

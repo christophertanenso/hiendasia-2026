@@ -7,6 +7,11 @@ const crypto = require('node:crypto');
 
 const CODE_PATH = process.env.CODE_GS || path.join(__dirname, '..', '..', 'apps-script', 'Code.gs');
 
+// Like Google Sheets: a string that looks like a number is stored as a number ("+6591234567" becomes 6591234567),
+// and a leading apostrophe keeps it as text, the apostrophe itself not stored.
+const sheetValue = v => (v === undefined ? '' : typeof v !== 'string' ? v : v.startsWith("'") ? v.slice(1)
+  : /^[+-]?\d+(\.\d+)?$/.test(v.trim()) ? Number(v) : v);
+
 function makeSheet() {
   const rows = [];
   const cell = (r, c) => { const v = (rows[r - 1] || [])[c - 1]; return v === undefined ? '' : v; };
@@ -14,14 +19,14 @@ function makeSheet() {
     rows,
     getLastRow: () => rows.length,
     getMaxRows: () => 1000,
-    appendRow(r) { rows.push(Array.from(r, v => (v === undefined ? '' : v))); },
+    appendRow(r) { rows.push(Array.from(r, sheetValue)); },
     getRange(r, c, nr = 1, nc = 1) {
       const range = {
         getValues: () => Array.from({ length: nr }, (_, i) => Array.from({ length: nc }, (_, j) => cell(r + i, c + j))),
         getValue: () => cell(r, c),
-        setValue(v) { while (rows.length < r) rows.push([]); rows[r - 1][c - 1] = v; return range; },
+        setValue(v) { while (rows.length < r) rows.push([]); rows[r - 1][c - 1] = sheetValue(v); return range; },
         setValues(vs) {
-          vs.forEach((row, i) => { while (rows.length < r + i) rows.push([]); row.forEach((v, j) => { rows[r - 1 + i][c - 1 + j] = v; }); });
+          vs.forEach((row, i) => { while (rows.length < r + i) rows.push([]); row.forEach((v, j) => { rows[r - 1 + i][c - 1 + j] = sheetValue(v); }); });
           return range;
         },
         setFontWeight: () => range,
