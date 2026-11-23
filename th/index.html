@@ -668,6 +668,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .talk-day li { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; font-size: 14px; line-height: 1.5; }
 .talk-time { font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
 .talk-where { color: var(--muted); }
+.kn-open { display: inline-block; margin: 14px 0 0; padding: 8px 18px; border: 1px solid var(--accent); border-radius: var(--radius-pill); font: 700 15px/1.4 var(--font-display); color: var(--heading); }
 .talk-note { max-width: 1040px; margin: var(--space-m) auto 0; }
 .sch { display: flex; flex-direction: column; gap: var(--space-m); }
 .sch-days { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-m); }
@@ -949,6 +950,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <h2 class="bh-en" data-i18n="kn.h">วิทยากรปาฐกถาพิเศษ</h2>
       <div class="rule"></div>
       <p class="intro" data-i18n="kn.intro">วิทยากรสองท่าน สิบเอ็ดรอบตลอดสามวัน แต่ละรอบจัดในห้องฟังของผู้ร่วมแสดงสินค้า Richard H. Mak พูดเรื่องศิลปะและศาสตร์ของแผ่นเสียง Daniel Hsu พูดเรื่องระบบภาพและเสียงไฮไฟแบบอิมเมอร์ซีฟ</p>
+      <p class="kn-open" data-i18n="kn.opening">พิธีเปิด: วันพฤหัสบดีที่ 17 ธันวาคม เวลา 10.00 น.</p>
     </div>
     <div class="people duo">
 <article class="person">
@@ -957,7 +959,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <h3 class="p-name" data-i18n="p.13.name">Richard H. Mak</h3>
   <span class="p-role" data-i18n="p.13.role">บรรณาธิการด้านอุปกรณ์อนาล็อก · Mono &amp; Stereo</span>
   <p class="p-bio" data-i18n="p.13.bio">บรรณาธิการด้านอนาล็อกของ Mono &amp; Stereo และ Part Time Audiophile และ Analog Master ของ TONEAudio เป็นนักเขียนมา 25 ปีและออดิโอไฟล์มา 44 ปี เขาออกแบบ AnalogMagik ซอฟต์แวร์ตั้งค่าหัวเข็มแบบครบวงจรหนึ่งเดียวในโลก</p>
-<div class="talk"><p class="talk-k">หัวข้อ</p><p class="talk-t">ศาสตร์และศิลป์ของแผ่นเสียง <span class="sch-tag">หัวข้อเสนอ</span></p><p class="talk-n">4 รอบ · รอบละ 60 นาที</p><div class="talk-day"><h4 data-i18n="d.fri">วันศุกร์ที่ 18 ธันวาคม</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 333 · Aries Cerat</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 301 · Audioline</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">วันเสาร์ที่ 19 ธันวาคม</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 332 · AMR</span></li><li><span class="talk-time">2–3pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 307 · High End Research</span></li></ul></div></div>
+<div class="talk"><p class="talk-k">หัวข้อ</p><p class="talk-t">ศาสตร์และศิลป์ของแผ่นเสียง <span class="sch-tag">หัวข้อเสนอ</span></p><p class="talk-n">4 รอบ · รอบละ 60 นาที</p><div class="talk-day"><h4 data-i18n="d.fri">วันศุกร์ที่ 18 ธันวาคม</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 333 · Aries Cerat</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 332 · AMR</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">วันเสาร์ที่ 19 ธันวาคม</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> S-3 · OBIT sound room</span></li><li><span class="talk-time">2–3pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 307 · High End Research</span></li></ul></div></div>
 </article>
 <article class="person">
   <img class="p-photo" src="../img/016.jpg" alt="Daniel Hsu" loading="lazy" width="640" height="800">
@@ -965,7 +967,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <h3 class="p-name" data-i18n="p.16.name">Daniel Hsu</h3>
   <span class="p-role" data-i18n="p.16.role">พิธีกร PaPa Dan AV Lab · ไต้หวัน</span>
   <p class="p-bio" data-i18n="p.16.bio">ผู้เชี่ยวชาญด้านการปรับจูนที่ได้รับการรับรองจาก StormAudio ประสบการณ์กว่า 20 ปีในการออกแบบและปรับจูนระบบเสียงหลายแชนเนลในบ้าน และติดตั้งระบบ StormAudio กว่า 50 ระบบทั่วเอเชีย</p>
-<div class="talk"><p class="talk-k">หัวข้อ</p><p class="talk-t">ระบบเสียงและภาพ Hi-Fi แบบ Immersive ยุคใหม่</p><p class="talk-n">7 รอบ · รอบละ 60 นาที</p><div class="talk-day"><h4 data-i18n="d.thu">วันพฤหัสบดีที่ 17 ธันวาคม</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 323 · MU6</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 323 · Activities Room</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.fri">วันศุกร์ที่ 18 ธันวาคม</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 301 · Audioline</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 335 · San Yuan</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">วันเสาร์ที่ 19 ธันวาคม</h4><ul><li><span class="talk-time">10–11am</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 335 · San Yuan</span></li><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 333 · Aries Cerat</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 323 · Activities Room</span></li></ul></div></div>
+<div class="talk"><p class="talk-k">หัวข้อ</p><p class="talk-t">ระบบเสียงและภาพ Hi-Fi แบบ Immersive ยุคใหม่</p><p class="talk-n">7 รอบ · รอบละ 60 นาที</p><div class="talk-day"><h4 data-i18n="d.thu">วันพฤหัสบดีที่ 17 ธันวาคม</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 323 · MU6</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 323 · Activities Room</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.fri">วันศุกร์ที่ 18 ธันวาคม</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 301 · Audioline</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 307 · High End Research</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">วันเสาร์ที่ 19 ธันวาคม</h4><ul><li><span class="talk-time">10–11am</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 312 · Sharkwire</span></li><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 333 · Aries Cerat</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">ห้อง</span> 335 · San Yuan</span></li></ul></div></div>
 </article>
     </div>
     <p class="figcap talk-note" data-i18n="sched.note">หัวข้ออาจแตกต่างกันในแต่ละห้อง หัวข้อของ Richard H. Mak ยังเป็นข้อเสนอและรอการยืนยัน</p>
@@ -1121,9 +1123,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <p class="ld-big" data-i18n="ld.winners">ผู้โชคดีสามรางวัลทุกวัน</p>
         <div class="ld-head" aria-hidden="true"><span data-i18n="ld.date">วันจับรางวัล</span><span data-i18n="ld.time">เวลาจับรางวัล</span><span data-i18n="ld.venue">สถานที่</span></div>
         <ul class="ld-rows">
-<li><span data-i18n="d.thu">วันพฤหัสบดีที่ 17 ธันวาคม</span><span>16.00 น.</span><b>The Link 2</b></li>
-<li><span data-i18n="d.fri">วันศุกร์ที่ 18 ธันวาคม</span><span>16.00 น.</span><b>Foyer 1</b></li>
-<li><span data-i18n="d.sat">วันเสาร์ที่ 19 ธันวาคม</span><span>16.00 น.</span><b>Foyer 5</b></li>
+<li><span data-i18n="d.thu">วันพฤหัสบดีที่ 17 ธันวาคม</span><span>17.00 น.</span><b>The Link 2</b></li>
+<li><span data-i18n="d.fri">วันศุกร์ที่ 18 ธันวาคม</span><span>17.00 น.</span><b>Foyer 1</b></li>
+<li><span data-i18n="d.sat">วันเสาร์ที่ 19 ธันวาคม</span><span>17.00 น.</span><b>Foyer 5</b></li>
         </ul>
       </div>
       <div class="ld-terms">

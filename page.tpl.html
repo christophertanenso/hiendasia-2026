@@ -464,6 +464,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .talk-day li { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; font-size: 14px; line-height: 1.5; }
 .talk-time { font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
 .talk-where { color: var(--muted); }
+.kn-open { display: inline-block; margin: 14px 0 0; padding: 8px 18px; border: 1px solid var(--accent); border-radius: var(--radius-pill); font: 700 15px/1.4 var(--font-display); color: var(--heading); }
 .talk-note { max-width: 1040px; margin: var(--space-m) auto 0; }
 .sch { display: flex; flex-direction: column; gap: var(--space-m); }
 .sch-days { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-m); }
@@ -713,6 +714,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <h2 class="bh-en" data-i18n="kn.h">{{kn.h}}</h2>
       <div class="rule"></div>
       <p class="intro" data-i18n="kn.intro">{{kn.intro}}</p>
+      <p class="kn-open" data-i18n="kn.opening">{{kn.opening}}</p>
     </div>
     <div class="people duo">
 {{KEYNOTES}}

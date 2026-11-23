@@ -251,7 +251,7 @@ describe('the blind box note in the ticket email', () => {
   it('tells an English registrant how to take part, in both versions', () => {
     at(BEFORE); b.post(VISITOR);
     for (const part of [b.state.mails[0].htmlBody, b.state.mails[0].body]) {
-      for (const s of ['Mystery blind box', '4pm', 'valid ID']) assert.ok(part.includes(s), s);
+      for (const s of ['Mystery blind box', '5pm', 'valid ID']) assert.ok(part.includes(s), s);
     }
   });
   it('is in Simplified Chinese for a zh-Hans registrant', () => {
