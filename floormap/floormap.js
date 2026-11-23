@@ -18,7 +18,7 @@
     clear: 'Clear search',
     all: 'All',
     zones: { east: 'East wing', west: 'West wing', centre: 'Front' },
-    zoneRooms: { east: 'Rooms 300–312', west: 'Rooms 332–336, Foyer 5', centre: 'Room 323, Link 4, Art Exhibition Zone' },
+    zoneRooms: { east: 'Rooms 300–312', west: 'Rooms 332–336, Foyer 5', centre: 'Room 323, Links 2–4, Art Exhibition Zone' },
     room: 'Room',
     tba: 'Exhibitor to be announced',
     none: 'No rooms match your search.',
@@ -61,13 +61,19 @@
     '301': [292, 210, 344, 248, 'farEast'], '300': [292, 256, 344, 294, 'farEast'],
     '323': [124, 256, 176, 294, 'centre'],
     'C23': [16, 438, 344, 470, 'concourse'],
-    'L4-1': [16, 376, 80, 408, 'concourse'], 'F5-7': [16, 252, 82, 290, 'west']
+    // Links 2–4: the booths along the top of the escalator wells (Suntec plan 2026-11-17: L2-1 to L2-10, L3-1 to L3-6,
+    // L4-1 to L4-3). What they hold is set in the rows below, so a link can change from art to anything else there.
+    'L3': [90, 326, 142, 350, 'link'], 'L2': [218, 326, 344, 350, 'link'],
+    'L4-1': [16, 362, 80, 386, 'concourse'], 'L4-2': [16, 390, 80, 412, 'concourse'], 'F5-7': [16, 252, 82, 290, 'west']
   };
-  var ZONE = { west: 'west', top: 'east', east: 'east', farEast: 'east', centre: 'centre', concourse: 'centre' };
+  var ZONE = { west: 'west', top: 'east', east: 'east', farEast: 'east', centre: 'centre', concourse: 'centre', link: 'centre' };
   var ORDER = { east: ['312', '311', '310', '309', '308'], farEast: ['300', '301', '302', '303', '304'], top: ['307', '306', '305'], west: ['336', '335', '334', '333', '332'] };
-  var SHORT = { C23: 'Art Exhibition Zone · C1–C4', 'F5-7': 'F5-7/8' };
+  var SHORT = { C23: 'Art Exhibition Zone · C1–C4', 'F5-7': 'F5-7/8', L2: 'Link 2', L3: 'Link 3', 'L4-2': 'L4-2/3' };
   // Spots outside the numbered rooms get their own directions
   var SPOT_DIR = { 'L4-1': 'Link 4 is at the front left of the floor, past the left escalators. Look for the art walls.',
+    'L4-2': 'Link 4 is at the front left of the floor, past the left escalators. L4-2 and L4-3 are next to L4-1.',
+    L3: 'From {from}, Link 3 is on your left, along the top of the left escalators.',
+    L2: 'From {from}, Link 2 is on your right, along the top of the right escalators and the wall of Room 323.',
     'F5-7': 'From {from}, walk left along Foyer 6, then up Foyer 5. Display tables F5-7 and F5-8 are along the foyer.' };
   var VENUE = [ // other Level 3 rooms, drawn faintly for orientation
     { r: [112, 20, 182, 62], t: '327–330' }, { r: [100, 84, 192, 240], t: 'Summit 1 & 2|324–326' }
@@ -101,6 +107,9 @@
     { room: '336', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 333', brands: 'Aries Cerat' },
     { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'NOWASIA art galleries', brands: 'Art galleries, C1–C4', note: 'Gallery bays C1 to C4 along the whole front, with more art walls along Links 2, 3 and 4. Sound rooms S-1 to S-3 beside Concourse 2 are to be confirmed.' },
     { room: 'L4-1', type: 'hall', name: 'Link 4 · L4-1', exhibitor: 'Extra•Ordinary People', brands: 'Art gallery, charity', note: 'A Singapore charity: artists with autism sell their work here. Donate $50 to receive a bear.' },
+    { room: 'L4-2', type: 'hall', name: 'Link 4 · L4-2 & L4-3', exhibitor: 'Art booths', note: 'Two booths next to L4-1.' },
+    { room: 'L3', type: 'hall', name: 'Link 3 · L3-1 to L3-6', exhibitor: 'Art booths', note: 'Six booths along the top of the left escalators.' },
+    { room: 'L2', type: 'hall', name: 'Link 2 · L2-1 to L2-10', exhibitor: 'Art booths', note: 'Ten booths: six along the top of the right escalators, four against the wall of Room 323.' },
     { room: 'F5-7', type: 'listening', name: 'Foyer 5 · F5-7 & F5-8', exhibitor: 'Simply Music', note: 'Display tables F5-7 and F5-8' }
   ];
 
@@ -119,6 +128,7 @@
       case 'farEast': return { d: [g[0], cy], a: [287, cy] };
       case 'top': return { d: [cx, g[3]], a: [cx, 72] };
       case 'centre': return { d: [cx, g[3]], a: [cx, 312] };
+      case 'link': return { d: [cx, g[3]], a: [cx, 312], lobby: true }; // reached from the front, below the booths
       default: return { d: [cx, g[1]], a: [cx, 312], lobby: true }; // concourse: open front area
     }
   }
