@@ -692,7 +692,7 @@ function qrMatrix(text) {
   return m;
 }
 (function () {
-  var ENDPOINT = '';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzXhnZISem_HhZU0oBYNkhdm8AwThYFWHAQ_q9YoU-PWAlJgwgmPWptpn8dGq-VzIYD/exec';
   var T = {"errName": "請輸入姓名。", "errEmail": "請輸入有效的電郵地址。", "errPhone": "請輸入有效的手機號碼。", "errInterest": "請選擇參觀身份。", "errServer": "未能出票，請再試一次。", "errClosed": "登記尚未開放。", "submit": "領取門票", "sending": "正在出票", "doneEyebrow": "已登記", "doneH": "您的門票", "doneLead": "請於入口處出示此畫面。門票副本已發送至您的電郵。", "storedLead": "請於入口處出示此畫面。", "resentH": "已登記", "resentLead": "此電郵已領取門票，現已重新發送。"};
   var $ = function (id) { return document.getElementById(id); };
   var form = $('regForm'), err = $('err'), btn = $('submitBtn'), dial = $('f-dial');

@@ -258,7 +258,7 @@ TPL = open(os.path.join(HERE, 'page.tpl.html'), encoding='utf-8').read()
 REG_TPL = open(os.path.join(HERE, 'register.tpl.html'), encoding='utf-8').read()
 # The registration backend: the "Web app URL" Google gives when apps-script/Code.gs is deployed (apps-script/README.md).
 # While this is empty the form answers "Registration is not open yet" (and issues a sample ticket on localhost).
-REGISTER_ENDPOINT = ''
+REGISTER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzXhnZISem_HhZU0oBYNkhdm8AwThYFWHAQ_q9YoU-PWAlJgwgmPWptpn8dGq-VzIYD/exec'
 # The ticket's QR code is drawn by the same function in the browser and in the email, so it lives once, in Code.gs.
 # The same goes for the validation rules: the form and the backend must accept and reject the same input.
 CODE_GS = open(os.path.join(HERE, 'apps-script', 'Code.gs'), encoding='utf-8').read()
