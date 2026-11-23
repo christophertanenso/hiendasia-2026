@@ -148,7 +148,7 @@ SCHEDULE = [
     ('d.sat', '2–3pm', 13, '307', 'High End Research', 'sched.mak'),
     ('d.sat', '3–4pm', 16, '335', 'San Yuan', 'sched.dan'),
 ]
-# Lucky draw: (day key, venue). Every draw is at 5pm (ld.hour), after the last talk ends.
+# Lucky draw: (day key, venue). Every draw is at 4pm (ld.hour).
 DRAWS = [('d.thu', 'The Link 2'), ('d.fri', 'Foyer 1'), ('d.sat', 'Foyer 5')]
 
 
@@ -465,6 +465,7 @@ def register_page(lang):
         '{{PAGE_LANG}}': lang, '{{BASE}}': base, '{{LANG_FONT}}': lang_font(lang), '{{LANG_OPTIONS}}': options,
         '{{CONSENT_CFG}}': consent_cfg(base), '{{CONSENT_JS}}': CONSENT_JS, '{{FONT_FACES}}': FONT_FACES, '{{QR_JS}}': QR_JS, '{{VALIDATE_JS}}': VALIDATE_JS,
         '{{ENDPOINT}}': REGISTER_ENDPOINT, '{{SITE_URL}}': PAGES, '{{REG_STRINGS}}': json.dumps(strings, ensure_ascii=False).replace('</', '<\\/'),
+        '{{DRAWS}}': '\n'.join(f'            <li>{t(d)}<span>{e(tr("ld.hour"))}</span><b>{e(v)}</b></li>' for d, v in DRAWS),
         '{{POSTER}}': POSTER, '{{POSTER_SRCSET}}': POSTER_SRCSET, '{{ICS}}': ICS_FILE, '{{MAPS}}': MAPS,
     }
     body = REG_TPL
