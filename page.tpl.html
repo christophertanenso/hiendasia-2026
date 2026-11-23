@@ -520,6 +520,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .art-points li { display: flex; flex-direction: column; gap: 2px; padding-left: 14px; border-left: 2px solid var(--accent); }
 .art-points b { font: 700 17px/1.3 var(--font-display); color: var(--heading); }
 .art-points span { color: var(--muted); }
+.art-points .art-link { align-self: flex-start; margin-top: 6px; color: var(--accent); font-weight: 700; text-underline-offset: 3px; }
 .art-figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
 .art-figure video { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); background: #000; }
 .art-partner { height: 36px; width: auto; align-self: flex-end; }
@@ -693,7 +694,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <ul class="art-points">
           <li><b data-i18n="art.p1.h">{{art.p1.h}}</b><span data-i18n="art.p1">{{art.p1}}</span></li>
           <li><b data-i18n="art.p2.h">{{art.p2.h}}</b><span data-i18n="art.p2">{{art.p2}}</span></li>
-          <li><b data-i18n="art.p3.h">{{art.p3.h}}</b><span data-i18n="art.p3">{{art.p3}}</span></li>
+          <li><b data-i18n="art.pb.h">{{art.pb.h}}</b><span data-i18n="art.pb">{{art.pb}}</span></li>
+          <li><b data-i18n="art.p3.h">{{art.p3.h}}</b><span data-i18n="art.p3">{{art.p3}}</span><a class="art-link" href="https://shorturl.at/7veEO" target="_blank" rel="noopener" data-i18n="art.p3.link">{{art.p3.link}}</a></li>
         </ul>
         <div class="btns"><a class="btn btn-primary" href="#floorplan" data-i18n="art.cta">{{art.cta}}</a></div>
       </div>

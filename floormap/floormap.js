@@ -118,7 +118,7 @@
     { room: '335', type: 'listening', exhibitor: 'San Yuan', note: 'Taiwan', brands: 'San Yuan, Ronnie' },
     { room: '336', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 333', brands: 'Aries Cerat' },
     { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'NOWASIA art galleries', brands: 'Art galleries, C1–C4', note: 'Gallery bays C1 to C4 along the whole front, with more art walls along Links 2, 3 and 4. Sound rooms S-1 to S-3 are beside them at Concourse 2.' },
-    { room: 'L4-1', type: 'hall', name: 'Link 4 · L4-1', exhibitor: 'Extra•Ordinary People', brands: 'Art gallery, charity', note: 'A Singapore charity: artists with autism sell their work here. Donate $50 to receive a bear.' },
+    { room: 'L4-1', type: 'hall', name: 'Link 4 · L4-1', exhibitor: 'Extra•Ordinary People', brands: 'Art gallery, charity', note: 'A Singapore charity for persons with diverse abilities: artists with autism sell their work here. Bears For Good: donate S$50 to adopt a bear, for yourself or as a gift.' },
     { room: 'S-1', type: 'listening', name: 'Sound rooms S-1 & S-2', exhibitor: 'Audiomis', note: 'Taiwan. Two sound rooms side by side at Concourse 2.', brands: 'Audiomis' },
     { room: 'S-3', type: 'listening', name: 'Sound room S-3', exhibitor: 'OBIT', note: 'At Concourse 2. Richard H. Mak speaks here on Saturday at 11am.' },
     { room: 'F5-1', type: 'display', name: 'Foyer 5 · F5-1', exhibitor: 'Media area', note: 'Planned for display table F5-1.' },
