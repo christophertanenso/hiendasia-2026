@@ -587,6 +587,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 
 /* People cards */
 .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: var(--space-m); padding: 0; margin: 0; }
+/* The two keynote speakers: side by side from tablet width, each card with photo beside its text on wide screens */
+.people.duo { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); max-width: 1040px; margin: 0 auto; }
+@media (min-width: 1100px) { .people.duo .person { display: grid; grid-template-columns: 200px minmax(0, 1fr); grid-template-rows: auto auto auto auto 1fr; column-gap: 24px; align-content: start; align-self: start; }
+  .people.duo .person > .p-photo { grid-row: 1 / span 5; } .people.duo .person > .talk { grid-column: 1 / -1; } .people.duo .person > .badge { justify-self: start; } }
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
@@ -654,6 +658,17 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .media li { padding: 6px 14px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; color: var(--body); }
 
 /* Talk schedule */
+.talk { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.talk-k { margin: 0; font: 700 11px/1.4 var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.talk-t { margin: 4px 0 0; font: 700 18px/1.35 var(--font-display); color: var(--heading); }
+.talk-n { margin: 2px 0 8px; font-size: 14px; color: var(--accent); }
+.talk-day { padding: 10px 0; border-top: 1px solid var(--line); }
+.talk-day h4 { margin: 0 0 6px; font: 700 15px/1.3 var(--font-display); color: var(--heading); }
+.talk-day ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.talk-day li { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; font-size: 14px; line-height: 1.5; }
+.talk-time { font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.talk-where { color: var(--muted); }
+.talk-note { max-width: 1040px; margin: var(--space-m) auto 0; }
 .sch { display: flex; flex-direction: column; gap: var(--space-m); }
 .sch-days { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-m); }
 .sch-day { border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px; background: #000; }
@@ -933,33 +948,27 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="bh">
       <h2 class="bh-en" data-i18n="kn.h">主题演讲嘉宾</h2>
       <div class="rule"></div>
-      <p class="intro" data-i18n="kn.intro">多位高端音响领域的权威专家将于专属空间内，深入分享他们的见解与经验。从设计理念到前沿技术，带您探讨音响艺术的更深层次。</p>
+      <p class="intro" data-i18n="kn.intro">两位主讲嘉宾，三天共十一场讲座，均在参展商的聆听室举行。Richard H. Mak 讲黑胶的艺术与科学，Daniel Hsu 讲沉浸式 Hi-Fi 影音系统。</p>
     </div>
-    <div class="people">
+    <div class="people duo">
 <article class="person">
   <img class="p-photo" src="../img/013.jpg" alt="Richard H. Mak" loading="lazy" width="640" height="800">
   <span class="badge" data-i18n="badge.keynote">主题演讲</span>
   <h3 class="p-name" data-i18n="p.13.name">Richard H. Mak</h3>
   <span class="p-role" data-i18n="p.13.role">模拟器材编辑 · Mono &amp; Stereo</span>
   <p class="p-bio" data-i18n="p.13.bio">Mono &amp; Stereo 与 Part Time Audiophile 模拟音源编辑，TONEAudio 的 Analog Master。执笔 25 年、玩音响 44 年，他设计了全球唯一的一体化唱头调校软件 AnalogMagik。</p>
+<div class="talk"><p class="talk-k">讲题</p><p class="talk-t">黑胶的艺术与科学 <span class="sch-tag">暂定</span></p><p class="talk-n">共 4 场 · 每场 60 分钟</p><div class="talk-day"><h4 data-i18n="d.fri">12月18日 星期五</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 333 · Aries Cerat</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 301 · Audioline</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">12月19日 星期六</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 332 · AMR</span></li><li><span class="talk-time">2–3pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 307 · High End Research</span></li></ul></div></div>
 </article>
 <article class="person">
   <img class="p-photo" src="../img/016.jpg" alt="Daniel Hsu" loading="lazy" width="640" height="800">
   <span class="badge" data-i18n="badge.keynote">主题演讲</span>
   <h3 class="p-name" data-i18n="p.16.name">Daniel Hsu</h3>
   <span class="p-role" data-i18n="p.16.role">PaPa Dan 影音实验室主持人 · 台湾</span>
-  <p class="p-bio" data-i18n="p.16.bio">StormAudio 认证专家级调校师，20多年多声道家庭影音系统设计与调校经验，在亚洲完成逾50套 StormAudio 系统安装。讲题：为发烧友打造的新一代 Hi-Fi 影音沉浸式系统。</p>
+  <p class="p-bio" data-i18n="p.16.bio">StormAudio 认证专家级调校师，20多年多声道家庭影音系统设计与调校经验，在亚洲完成逾50套 StormAudio 系统安装。</p>
+<div class="talk"><p class="talk-k">讲题</p><p class="talk-t">新一代 Hi-Fi 影音沉浸式系统</p><p class="talk-n">共 7 场 · 每场 60 分钟</p><div class="talk-day"><h4 data-i18n="d.thu">12月17日 星期四</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 323 · MU6</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 323 · Activities Room</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.fri">12月18日 星期五</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 301 · Audioline</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 335 · San Yuan</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">12月19日 星期六</h4><ul><li><span class="talk-time">10–11am</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 335 · San Yuan</span></li><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 333 · Aries Cerat</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 323 · Activities Room</span></li></ul></div></div>
 </article>
     </div>
-    <div class="sch">
-      <h3 class="sub-h" data-i18n="sched.h">讲座时间表</h3>
-      <div class="sch-days">
-<div class="sch-day"><h4 data-i18n="d.thu">12月17日 星期四</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系统</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 323 · MU6</span></li><li class="sch-row"><span class="sch-time">4–5pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系统</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 323 · Activities Room</span></li></ol></div>
-<div class="sch-day"><h4 data-i18n="d.fri">12月18日 星期五</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">11am–12pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系统</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 301 · Audioline</span></li><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">黑胶的艺术与科学</span> <span class="sch-tag">暂定</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 333 · Aries Cerat</span></li><li class="sch-row"><span class="sch-time">3–4pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系统</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 335 · San Yuan</span></li><li class="sch-row"><span class="sch-time">4–5pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">黑胶的艺术与科学</span> <span class="sch-tag">暂定</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 301 · Audioline</span></li></ol></div>
-<div class="sch-day"><h4 data-i18n="d.sat">12月19日 星期六</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">10–11am</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系统</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 335 · San Yuan</span></li><li class="sch-row"><span class="sch-time">11am–12pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">黑胶的艺术与科学</span> <span class="sch-tag">暂定</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 332 · AMR</span></li><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系统</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 333 · Aries Cerat</span></li><li class="sch-row"><span class="sch-time">2–3pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">黑胶的艺术与科学</span> <span class="sch-tag">暂定</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 307 · High End Research</span></li><li class="sch-row"><span class="sch-time">3–4pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系统</span></span><span class="sch-where"><span data-i18n="sched.room">房间</span> 323 · Activities Room</span></li></ol></div>
-      </div>
-      <p class="figcap" data-i18n="sched.note">各房间讲题或有不同。Richard H. Mak 的讲题为暂定，待确认。每场讲座 60 分钟。</p>
-    </div>
+    <p class="figcap talk-note" data-i18n="sched.note">各房间讲题或有不同。Richard H. Mak 的讲题为暂定，待确认。</p>
   </div>
 </section>
 

@@ -585,6 +585,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 
 /* People cards */
 .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: var(--space-m); padding: 0; margin: 0; }
+/* The two keynote speakers: side by side from tablet width, each card with photo beside its text on wide screens */
+.people.duo { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); max-width: 1040px; margin: 0 auto; }
+@media (min-width: 1100px) { .people.duo .person { display: grid; grid-template-columns: 200px minmax(0, 1fr); grid-template-rows: auto auto auto auto 1fr; column-gap: 24px; align-content: start; align-self: start; }
+  .people.duo .person > .p-photo { grid-row: 1 / span 5; } .people.duo .person > .talk { grid-column: 1 / -1; } .people.duo .person > .badge { justify-self: start; } }
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
@@ -652,6 +656,17 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .media li { padding: 6px 14px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; color: var(--body); }
 
 /* Talk schedule */
+.talk { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.talk-k { margin: 0; font: 700 11px/1.4 var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.talk-t { margin: 4px 0 0; font: 700 18px/1.35 var(--font-display); color: var(--heading); }
+.talk-n { margin: 2px 0 8px; font-size: 14px; color: var(--accent); }
+.talk-day { padding: 10px 0; border-top: 1px solid var(--line); }
+.talk-day h4 { margin: 0 0 6px; font: 700 15px/1.3 var(--font-display); color: var(--heading); }
+.talk-day ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.talk-day li { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; font-size: 14px; line-height: 1.5; }
+.talk-time { font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.talk-where { color: var(--muted); }
+.talk-note { max-width: 1040px; margin: var(--space-m) auto 0; }
 .sch { display: flex; flex-direction: column; gap: var(--space-m); }
 .sch-days { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-m); }
 .sch-day { border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px; background: #000; }
@@ -931,33 +946,27 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="bh">
       <h2 class="bh-en" data-i18n="kn.h">Diễn giả chính</h2>
       <div class="rule"></div>
-      <p class="intro" data-i18n="kn.intro">Những chuyên gia danh tiếng và người dẫn dắt tư tưởng trong lĩnh vực âm thanh cao cấp chia sẻ góc nhìn trong không gian thân mật. Diễn ra tại các phòng riêng, mỗi buổi đi sâu từ triết lý thiết kế đến những công nghệ mới.</p>
+      <p class="intro" data-i18n="kn.intro">Hai diễn giả, mười một buổi trong ba ngày, mỗi buổi tại một phòng nghe của nhà triển lãm. Richard H. Mak nói về nghệ thuật và khoa học của đĩa than, Daniel Hsu nói về hệ thống nghe nhìn hi-fi nhập vai.</p>
     </div>
-    <div class="people">
+    <div class="people duo">
 <article class="person">
   <img class="p-photo" src="../img/013.jpg" alt="Richard H. Mak" loading="lazy" width="640" height="800">
   <span class="badge" data-i18n="badge.keynote">Diễn giả</span>
   <h3 class="p-name" data-i18n="p.13.name">Richard H. Mak</h3>
   <span class="p-role" data-i18n="p.13.role">Biên tập viên thiết bị analog · Mono &amp; Stereo</span>
   <p class="p-bio" data-i18n="p.13.bio">Biên tập viên analog của Mono &amp; Stereo và Part Time Audiophile, đồng thời là Analog Master tại TONEAudio. Với 25 năm viết lách và 44 năm chơi audio, ông là người thiết kế AnalogMagik, phần mềm cân chỉnh kim đĩa than tất cả trong một duy nhất trên thế giới.</p>
+<div class="talk"><p class="talk-k">Chủ đề</p><p class="talk-t">Nghệ thuật và khoa học của đĩa than <span class="sch-tag">Dự kiến</span></p><p class="talk-n">4 buổi · mỗi buổi 60 phút</p><div class="talk-day"><h4 data-i18n="d.fri">Thứ Sáu, 18/12</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 333 · Aries Cerat</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 301 · Audioline</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">Thứ Bảy, 19/12</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 332 · AMR</span></li><li><span class="talk-time">2–3pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 307 · High End Research</span></li></ul></div></div>
 </article>
 <article class="person">
   <img class="p-photo" src="../img/016.jpg" alt="Daniel Hsu" loading="lazy" width="640" height="800">
   <span class="badge" data-i18n="badge.keynote">Diễn giả</span>
   <h3 class="p-name" data-i18n="p.16.name">Daniel Hsu</h3>
   <span class="p-role" data-i18n="p.16.role">Người dẫn chương trình, PaPa Dan AV Lab · Đài Loan</span>
-  <p class="p-bio" data-i18n="p.16.bio">Chuyên gia hiệu chỉnh được StormAudio chứng nhận, hơn 20 năm thiết kế và hiệu chỉnh hệ thống đa kênh gia đình, cùng hơn 50 hệ thống StormAudio đã lắp đặt khắp châu Á. Chủ đề: Hệ thống nghe nhìn Hi-Fi sống động thế hệ mới cho người mê âm thanh.</p>
+  <p class="p-bio" data-i18n="p.16.bio">Chuyên gia hiệu chỉnh được StormAudio chứng nhận, hơn 20 năm thiết kế và hiệu chỉnh hệ thống đa kênh gia đình, cùng hơn 50 hệ thống StormAudio đã lắp đặt khắp châu Á.</p>
+<div class="talk"><p class="talk-k">Chủ đề</p><p class="talk-t">Hệ thống nghe nhìn Hi-Fi nhập vai thế hệ mới</p><p class="talk-n">7 buổi · mỗi buổi 60 phút</p><div class="talk-day"><h4 data-i18n="d.thu">Thứ Năm, 17/12</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 323 · MU6</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 323 · Activities Room</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.fri">Thứ Sáu, 18/12</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 301 · Audioline</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 335 · San Yuan</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">Thứ Bảy, 19/12</h4><ul><li><span class="talk-time">10–11am</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 335 · San Yuan</span></li><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 333 · Aries Cerat</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 323 · Activities Room</span></li></ul></div></div>
 </article>
     </div>
-    <div class="sch">
-      <h3 class="sub-h" data-i18n="sched.h">Lịch các buổi nói chuyện</h3>
-      <div class="sch-days">
-<div class="sch-day"><h4 data-i18n="d.thu">Thứ Năm, 17/12</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">Hệ thống nghe nhìn Hi-Fi nhập vai thế hệ mới</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 323 · MU6</span></li><li class="sch-row"><span class="sch-time">4–5pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">Hệ thống nghe nhìn Hi-Fi nhập vai thế hệ mới</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 323 · Activities Room</span></li></ol></div>
-<div class="sch-day"><h4 data-i18n="d.fri">Thứ Sáu, 18/12</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">11am–12pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">Hệ thống nghe nhìn Hi-Fi nhập vai thế hệ mới</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 301 · Audioline</span></li><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">Nghệ thuật và khoa học của đĩa than</span> <span class="sch-tag">Dự kiến</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 333 · Aries Cerat</span></li><li class="sch-row"><span class="sch-time">3–4pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">Hệ thống nghe nhìn Hi-Fi nhập vai thế hệ mới</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 335 · San Yuan</span></li><li class="sch-row"><span class="sch-time">4–5pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">Nghệ thuật và khoa học của đĩa than</span> <span class="sch-tag">Dự kiến</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 301 · Audioline</span></li></ol></div>
-<div class="sch-day"><h4 data-i18n="d.sat">Thứ Bảy, 19/12</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">10–11am</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">Hệ thống nghe nhìn Hi-Fi nhập vai thế hệ mới</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 335 · San Yuan</span></li><li class="sch-row"><span class="sch-time">11am–12pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">Nghệ thuật và khoa học của đĩa than</span> <span class="sch-tag">Dự kiến</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 332 · AMR</span></li><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">Hệ thống nghe nhìn Hi-Fi nhập vai thế hệ mới</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 333 · Aries Cerat</span></li><li class="sch-row"><span class="sch-time">2–3pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">Nghệ thuật và khoa học của đĩa than</span> <span class="sch-tag">Dự kiến</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 307 · High End Research</span></li><li class="sch-row"><span class="sch-time">3–4pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">Hệ thống nghe nhìn Hi-Fi nhập vai thế hệ mới</span></span><span class="sch-where"><span data-i18n="sched.room">Phòng</span> 323 · Activities Room</span></li></ol></div>
-      </div>
-      <p class="figcap" data-i18n="sched.note">Chủ đề có thể khác nhau tùy phòng. Chủ đề của Richard H. Mak là dự kiến, đang chờ xác nhận. Mỗi buổi kéo dài 60 phút.</p>
-    </div>
+    <p class="figcap talk-note" data-i18n="sched.note">Chủ đề có thể khác nhau tùy phòng. Chủ đề của Richard H. Mak là đề xuất, đang chờ xác nhận.</p>
   </div>
 </section>
 

@@ -100,7 +100,7 @@ def t(key, tag='span', cls='', attrs=''):
     return '<%s%s data-i18n="%s"%s>%s</%s>' % (tag, c, key, attrs, e(tr(key)), tag)
 
 
-def person_card(i, badge):
+def person_card(i, badge, extra=''):
     k = 'p.%d.' % i
     if glob.glob(os.path.join(HERE, 'img', '%03d.*' % i)):
         photo = f'<img class="p-photo" src="{img(i)}" alt="{e(tr(k + "name"))}" loading="lazy" width="640" height="800">'
@@ -112,7 +112,7 @@ def person_card(i, badge):
   {t(k + 'name', 'h3', 'p-name')}
   {t(k + 'role', cls='p-role')}
   {t(k + 'bio', 'p', 'p-bio')}
-</article>'''
+{extra}</article>'''
 
 
 def rep_role(k):
@@ -162,15 +162,22 @@ def sponsor_cards(rows):
     return '\n'.join(out)
 
 
-def schedule_html():
+def talk_html(pid):
+    """A keynote speaker's own talk: its title and every session, by day (from SCHEDULE)."""
+    mine = [x for x in SCHEDULE if x[2] == pid]
+    if not mine:
+        return ''
+    topic = mine[0][5]
+    tag = f' <span class="sch-tag">{e(tr("sched.proposed"))}</span>' if topic == 'sched.mak' else ''
     days = []
     for d in ('d.thu', 'd.fri', 'd.sat'):
-        rows = []
-        for _, time, pid, room, where, topic in [s for s in SCHEDULE if s[0] == d]:
-            extra = f' <span class="sch-tag">{e(tr("sched.proposed"))}</span>' if topic == 'sched.mak' else ''
-            rows.append(f'''<li class="sch-row"><span class="sch-time">{time}</span><span class="sch-who"><b>{e(tr('p.%d.name' % pid))}</b>{t(topic)}{extra}</span><span class="sch-where">{t('sched.room')} {room} · {e(where)}</span></li>''')
-        days.append(f'<div class="sch-day">{t(d, "h4")}<ol class="sch-list">' + ''.join(rows) + '</ol></div>')
-    return '\n'.join(days)
+        rows = ''.join(f'<li><span class="talk-time">{time}</span><span class="talk-where">{t("sched.room")} {room} · {e(where)}</span></li>'
+                       for dd, time, _, room, where, _x in mine if dd == d)
+        if rows:
+            days.append(f'<div class="talk-day">{t(d, "h4")}<ul>{rows}</ul></div>')
+    count = e(tr('kn.sessions').replace('{n}', str(len(mine))))
+    return (f'<div class="talk"><p class="talk-k">{e(tr("kn.talk"))}</p><p class="talk-t">{e(tr(topic))}{tag}</p>'
+            f'<p class="talk-n">{count}</p>' + ''.join(days) + '</div>\n')
 
 
 MEDIA = ['HiFi PiG Magazine', 'AudioNet', 'Lee388', 'The AudiophileLance', 'Brother Bok', 'AudioArt', 'Mono & Stereo',
@@ -354,11 +361,11 @@ def render(lang, base, auto, page_url):
     rep = {
         '{{ACTIONS}}': actions, '{{DATES}}': dates, '{{MBAR}}': mbar, '{{LANG_OPTIONS}}': options,
         '{{GCAL}}': e(GCAL), '{{WA}}': e(wa), '{{WA_MICHELLE}}': e(WA_MICHELLE), '{{ICON_WA}}': ICON_WA,
-        '{{KEYNOTES}}': '\n'.join(person_card(i, b) for i, b in KEYNOTES),
+        '{{KEYNOTES}}': '\n'.join(person_card(i, b, talk_html(i)) for i, b in KEYNOTES),
         '{{GUESTS}}': '\n'.join(person_card(i, b) for i, b in GUESTS),
         '{{REPS}}': rep_html, '{{DEALERS}}': tiles(DEALER_IDX), '{{BRANDS}}': tiles(BRAND_IDX),
         '{{MEDIA}}': '\n'.join('<li>%s</li>' % e(m) for m in MEDIA),
-        '{{SPONSORS}}': sponsor_cards(SPONSORS), '{{HOTELS}}': sponsor_cards(HOTELS), '{{SCHEDULE}}': schedule_html(),
+        '{{SPONSORS}}': sponsor_cards(SPONSORS), '{{HOTELS}}': sponsor_cards(HOTELS),
         '{{DRAWS}}': '\n'.join(f'<li>{t(d)}<span>{e(tr("ld.4pm"))}</span><b>{e(v)}</b></li>' for d, v in DRAWS),
         # The visit section has its own "Get your free tickets" button, so its button row leaves out "Register".
         '{{ACTIONS_VISIT}}': actions.replace(f'''        <a class="btn btn-primary" href="register.html">{ICON_TICKET}{t('reg.cta')}</a>\n''', '', 1),
