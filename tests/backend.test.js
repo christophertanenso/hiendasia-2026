@@ -10,7 +10,7 @@ beforeEach(() => { b = loadBackend(); });
 describe('setup', () => {
   it('creates the Registrations tab with its header row', () => {
     assert.equal(b.reg.rows[0][0], 'Registered at');
-    assert.equal(b.reg.rows[0].length, 21);
+    assert.equal(b.reg.rows[0].length, 24);
   });
   it('lists the Sheet owner as the first daily-email recipient', () => {
     assert.equal(b.recipients.rows[1][0], 'owner@example.com');
@@ -476,4 +476,61 @@ describe('daily count email', () => {
   it('links to the Sheet', () => {
     assert.ok(report().htmlBody.includes('https://docs.example/registrations'));
   });
+});
+
+describe('door check-in', () => {
+  const PIN = '482916';
+  const checkin = (ticket, pin = PIN) => b.post({ action: 'checkin', ticket, pin });
+  const log = () => b.gs.SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Check-in log');
+  let ticket;
+  const at = t => mock.timers.enable({ apis: ['Date'], now: t });
+  const T0 = Date.parse('2026-12-17T03:00:00Z');   // 11am Singapore, first show day
+  beforeEach(() => { at(T0); b.state.props.DOOR_PIN = PIN; ticket = b.post(VISITOR).ticket; });
+  afterEach(() => { mock.timers.reset(); });
+
+  it('is closed until a door PIN is set', () => {
+    delete b.state.props.DOOR_PIN;
+    assert.deepEqual(checkin(ticket), { ok: false, error: 'closed' });
+  });
+  it('refuses a wrong PIN', () => assert.deepEqual(checkin(ticket, '000000'), { ok: false, error: 'pin' }));
+  it('records nothing for a wrong PIN', () => { checkin(ticket, '000000'); assert.ok(!b.row(1)['Check-ins']); assert.equal(log().rows.length, 1); });
+  it('admits a registered ticket and names the visitor', () => {
+    const r = checkin(ticket);
+    assert.equal(r.ok, true); assert.equal(r.name, 'Tan Wei Ming'); assert.equal(r.interest, 'Visitor'); assert.equal(r.visits, 1); assert.equal(r.repeat, false);
+  });
+  it('accepts the ticket number in lower case or with spaces', () => assert.equal(checkin(' ' + ticket.toLowerCase() + ' ').ok, true));
+  it('counts the visit in the Sheet', () => { checkin(ticket); assert.equal(b.row(1)['Check-ins'], 1); });
+  it('stores the time of the first and the latest visit', () => {
+    checkin(ticket);
+    assert.equal(b.row(1)['First check-in'].getTime(), T0); assert.equal(b.row(1)['Last check-in'].getTime(), T0);
+  });
+  it('writes each visit to the Check-in log tab', () => {
+    checkin(ticket);
+    assert.deepEqual(log().rows[0], ['Checked in at', 'Ticket', 'Name', 'Attending as', 'Visit']);
+    assert.deepEqual(log().rows[1].slice(1), [ticket, 'Tan Wei Ming', 'Visitor', 1]);
+  });
+  it('counts a later visit as the second', () => {
+    checkin(ticket); mock.timers.setTime(T0 + 3 * 3600000);
+    const r = checkin(ticket);
+    assert.equal(r.visits, 2); assert.equal(b.row(1)['Check-ins'], 2);
+    assert.equal(b.row(1)['First check-in'].getTime(), T0); assert.equal(b.row(1)['Last check-in'].getTime(), T0 + 3 * 3600000);
+    assert.equal(log().rows.length, 3);
+  });
+  it('does not count a second scan within two minutes', () => {
+    checkin(ticket); mock.timers.setTime(T0 + 60000);
+    const r = checkin(ticket);
+    assert.equal(r.ok, true); assert.equal(r.repeat, true); assert.equal(r.visits, 1);
+    assert.equal(b.row(1)['Check-ins'], 1); assert.equal(log().rows.length, 2);
+  });
+  it('reports a ticket that is not registered', () => assert.deepEqual(checkin('HEA26-ZZZZZZ'), { ok: false, error: 'ticket' }));
+  it('stops accepting PINs after ten wrong tries', () => {
+    for (let i = 0; i < 10; i++) checkin(ticket, '000000');
+    assert.deepEqual(checkin(ticket), { ok: false, error: 'locked' });
+  });
+  it('accepts PINs again after the lock-out', () => {
+    for (let i = 0; i < 10; i++) checkin(ticket, '000000');
+    b.state.cache = {};   // the cache entry expires after 15 minutes
+    assert.equal(checkin(ticket).ok, true);
+  });
+  it('does not add a registration', () => { checkin(ticket); assert.equal(b.count(), 1); });
 });

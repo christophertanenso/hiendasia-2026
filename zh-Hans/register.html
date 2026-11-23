@@ -570,27 +570,37 @@ function validateRegistration(d) {
 
   return { ok: true, value: { name: name, email: email, dial: dial, phone: digits, interest: interest } };
 }
-/* QR code, version 1 (21 x 21), error correction M, byte mode: up to 14 characters, enough for a ticket number.
-   Returns 21 rows of 21 numbers, 1 = dark. */
+/* What the ticket's QR code holds: the site's door page for that ticket. A phone camera opens it; on a staff
+   phone the page checks the visitor in (in.html, apps-script checkIn_). */
+function checkinUrl(site, ticket) {
+  return site + 'in.html?t=' + encodeURIComponent(ticket);
+}
+
+/* QR code, versions 1 to 6 (21 x 21 up to 41 x 41), error correction M, byte mode, the smallest version that fits:
+   up to 106 characters. A ticket number fits version 1; the check-in link needs version 5.
+   Returns N rows of N numbers, 1 = dark. */
 function qrMatrix(text) {
-  var N = 21, DATA = 16, EC = 10, i, j, x, y;
-  var bytes = [];
+  // Level M, per version: [blocks, data codewords per block, error-correction codewords per block]
+  var SPEC = [null, [1, 16, 10], [1, 28, 16], [1, 44, 26], [2, 32, 18], [2, 43, 24], [4, 27, 16]];
+  var i, j, x, y, b, V = 1, bytes = [];
   for (i = 0; i < text.length; i++) bytes.push(text.charCodeAt(i) & 255);
-  if (bytes.length > 14) throw new Error('QR text too long');
+  while (V <= 6 && SPEC[V][0] * SPEC[V][1] - 2 < bytes.length) V++;
+  if (V > 6) throw new Error('QR text too long');
+  var N = 17 + 4 * V, NB = SPEC[V][0], DATA = SPEC[V][1], EC = SPEC[V][2], TOTAL = NB * DATA;
 
   // Bit stream: mode 0100, 8-bit length, data, terminator, padding
   var bits = [];
-  function put(v, n) { for (var b = n - 1; b >= 0; b--) bits.push((v >>> b) & 1); }
+  function put(v, n) { for (var k = n - 1; k >= 0; k--) bits.push((v >>> k) & 1); }
   put(4, 4); put(bytes.length, 8);
   for (i = 0; i < bytes.length; i++) put(bytes[i], 8);
-  put(0, Math.min(4, DATA * 8 - bits.length));
+  put(0, Math.min(4, TOTAL * 8 - bits.length));
   while (bits.length % 8) bits.push(0);
-  for (i = 0; bits.length < DATA * 8; i++) put(i % 2 ? 0x11 : 0xEC, 8);
+  for (i = 0; bits.length < TOTAL * 8; i++) put(i % 2 ? 0x11 : 0xEC, 8);
   var cw = [];
-  for (i = 0; i < DATA; i++) { var v = 0; for (j = 0; j < 8; j++) v = (v << 1) | bits[i * 8 + j]; cw.push(v); }
+  for (i = 0; i < TOTAL; i++) { var v = 0; for (j = 0; j < 8; j++) v = (v << 1) | bits[i * 8 + j]; cw.push(v); }
 
-  // Reed-Solomon over GF(256), polynomial 0x11D
-  function mul(a, b) { var z = 0; for (var k = 7; k >= 0; k--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((b >>> k) & 1) * a; } return z; }
+  // Reed-Solomon over GF(256), polynomial 0x11D, one code word per block
+  function mul(a, c) { var z = 0; for (var k = 7; k >= 0; k--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((c >>> k) & 1) * a; } return z; }
   var gen = [], root = 1;
   for (i = 0; i < EC - 1; i++) gen.push(0);
   gen.push(1);
@@ -598,13 +608,20 @@ function qrMatrix(text) {
     for (j = 0; j < EC; j++) { gen[j] = mul(gen[j], root); if (j + 1 < EC) gen[j] ^= gen[j + 1]; }
     root = mul(root, 2);
   }
-  var rem = [];
-  for (i = 0; i < EC; i++) rem.push(0);
-  for (i = 0; i < DATA; i++) {
-    var f = cw[i] ^ rem.shift(); rem.push(0);
-    for (j = 0; j < EC; j++) rem[j] ^= mul(gen[j], f);
+  function ecOf(data) {
+    var rem = [];
+    for (var k = 0; k < EC; k++) rem.push(0);
+    for (k = 0; k < data.length; k++) {
+      var f = data[k] ^ rem.shift(); rem.push(0);
+      for (var q = 0; q < EC; q++) rem[q] ^= mul(gen[q], f);
+    }
+    return rem;
   }
-  var all = cw.concat(rem);
+  // Blocks are interleaved: the first codeword of every block, then the second, and so on; then the same for EC.
+  var blocks = [], ecs = [], all = [];
+  for (b = 0; b < NB; b++) { blocks.push(cw.slice(b * DATA, (b + 1) * DATA)); ecs.push(ecOf(blocks[b])); }
+  for (i = 0; i < DATA; i++) for (b = 0; b < NB; b++) all.push(blocks[b][i]);
+  for (i = 0; i < EC; i++) for (b = 0; b < NB; b++) all.push(ecs[b][i]);
 
   // Function patterns
   var m = [], fn = [];
@@ -618,6 +635,9 @@ function qrMatrix(text) {
   }
   for (i = 0; i < N; i++) { set(6, i, i % 2 === 0); set(i, 6, i % 2 === 0); }
   finder(3, 3); finder(N - 4, 3); finder(3, N - 4);
+  if (V > 1) {   // versions 2 to 6 have one alignment pattern, centred 7 modules in from the bottom-right corner
+    for (var ay = -2; ay <= 2; ay++) for (var ax = -2; ax <= 2; ax++) set(N - 7 + ax, N - 7 + ay, Math.max(Math.abs(ax), Math.abs(ay)) !== 1);
+  }
   function format(mask) {
     var data = mask, r = data;   // error correction M has format bits 00
     for (var k = 0; k < 10; k++) r = (r << 1) ^ ((r >>> 9) * 0x537);
@@ -693,6 +713,7 @@ function qrMatrix(text) {
 }
 (function () {
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzXhnZISem_HhZU0oBYNkhdm8AwThYFWHAQ_q9YoU-PWAlJgwgmPWptpn8dGq-VzIYD/exec';
+  var SITE_URL = 'https://christophertanenso.github.io/hiendasia-2026/';   // the ticket's QR code opens the door page there (checkinUrl)
   var T = {"errName": "请输入姓名。", "errEmail": "请输入有效的电邮地址。", "errPhone": "请输入有效的手机号码。", "errInterest": "请选择参观身份。", "errServer": "未能出票，请再试一次。", "errClosed": "登记尚未开放。", "submit": "领取门票", "sending": "正在出票", "doneEyebrow": "已登记", "doneH": "您的门票", "doneLead": "请于入口处出示此画面。门票副本已发送至您的电邮。", "storedLead": "请于入口处出示此画面。", "resentH": "已登记", "resentLead": "此电邮已领取门票，现已重新发送。"};
   var $ = function (id) { return document.getElementById(id); };
   var form = $('regForm'), err = $('err'), btn = $('submitBtn'), dial = $('f-dial');
@@ -810,7 +831,7 @@ function qrMatrix(text) {
     $('doneH').textContent = has ? T.doneH : T.resentH;
     $('doneEyebrow').hidden = !has;
     $('doneLead').textContent = !has || opts.resent ? T.resentLead : opts.stored ? T.storedLead : T.doneLead;
-    if (has) { $('tName').textContent = t.name; $('tNo').textContent = t.ticket; drawQr(t.ticket); }
+    if (has) { $('tName').textContent = t.name; $('tNo').textContent = t.ticket; drawQr(checkinUrl(SITE_URL, t.ticket)); }
     if (!opts.stored) { window.scrollTo(0, 0); $('doneH').focus(); }
   }
   function store(t) { try { if (t) localStorage.setItem('hea-ticket', JSON.stringify(t)); else localStorage.removeItem('hea-ticket'); } catch (e) {} }

@@ -10,6 +10,11 @@ const { spawnSync } = require('node:child_process');
 const ROOT = path.join(__dirname, '..');
 const GS = 'apps-script/Code.gs', PAGE = 'register.tpl.html', SHOW = 'page.tpl.html', BUILD = 'build.py';
 const MUTATIONS = [
+  ['door accepts any PIN', GS, "if (String(d.pin == null ? '' : d.pin).trim() !== String(pin).trim()) {", 'if (false) {'],
+  ['door counts a double scan', GS, 'if (visits && last && now - new Date(last) < DOOR_REPEAT_MS) { out.repeat = true; return out; }', ''],
+  ['door never locks after wrong PINs', GS, "if (fails >= DOOR_MAX_FAILS) return { ok: false, error: 'locked' };", ''],
+  ['door QR holds only the ticket number', GS, "return site + 'in.html?t=' + encodeURIComponent(ticket);", 'return ticket;'],
+  ['door page checks in without a PIN', 'in.tpl.html', 'if (getPin()) checkIn(); else visitor();', 'checkIn();'],
   ['bot trap ignored', GS, "if (clean_(d.website, 50)) return { ok: true, resent: true };", ''],
   ['Singapore landlines accepted', GS, "/^[89]\\d{7}$/.test(n)", "/^\\d{8}$/.test(n)"],
   ['email kept in mixed case', GS, "String(d.email == null ? '' : d.email).trim().toLowerCase();", "String(d.email == null ? '' : d.email).trim();"],

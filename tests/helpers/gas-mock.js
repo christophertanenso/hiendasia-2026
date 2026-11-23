@@ -50,7 +50,8 @@ function makeSheet() {
 
 function loadBackend(opts = {}) {
   const sheets = {};
-  const state = { sheets, mails: [], quota: opts.quota === undefined ? 1500 : opts.quota, triggers: [], errors: [], failMail: false };
+  const state = { sheets, mails: [], quota: opts.quota === undefined ? 1500 : opts.quota, triggers: [], errors: [], failMail: false,
+    props: {}, cache: {} };
   const spreadsheet = {
     getSheetByName: n => sheets[n] || null,
     insertSheet: n => (sheets[n] = makeSheet()),
@@ -87,6 +88,8 @@ function loadBackend(opts = {}) {
         return b;
       },
     },
+    PropertiesService: { getScriptProperties: () => ({ getProperty: k => (k in state.props ? state.props[k] : null) }) },
+    CacheService: { getScriptCache: () => ({ get: k => (k in state.cache ? state.cache[k] : null), put(k, v) { state.cache[k] = String(v); } }) },
     Session: { getEffectiveUser: () => ({ getEmail: () => 'owner@example.com' }) },
     ContentService: { MimeType: { JSON: 'application/json' }, createTextOutput: text => ({ text, setMimeType(m) { this.mime = m; return this; } }) },
     HtmlService: { createHtmlOutput: html => ({ html, setTitle(t) { this.title = t; return this; } }) },

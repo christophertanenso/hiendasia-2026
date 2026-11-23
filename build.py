@@ -457,7 +457,7 @@ def register_page(lang):
     rep = {
         '{{PAGE_LANG}}': lang, '{{BASE}}': base, '{{LANG_FONT}}': lang_font(lang), '{{LANG_OPTIONS}}': options,
         '{{CONSENT_CFG}}': consent_cfg(base), '{{CONSENT_JS}}': CONSENT_JS, '{{FONT_FACES}}': FONT_FACES, '{{QR_JS}}': QR_JS, '{{VALIDATE_JS}}': VALIDATE_JS,
-        '{{ENDPOINT}}': REGISTER_ENDPOINT, '{{REG_STRINGS}}': json.dumps(strings, ensure_ascii=False).replace('</', '<\\/'),
+        '{{ENDPOINT}}': REGISTER_ENDPOINT, '{{SITE_URL}}': PAGES, '{{REG_STRINGS}}': json.dumps(strings, ensure_ascii=False).replace('</', '<\\/'),
         '{{POSTER}}': POSTER, '{{POSTER_SRCSET}}': POSTER_SRCSET, '{{ICS}}': ICS_FILE, '{{MAPS}}': MAPS,
     }
     body = REG_TPL
@@ -500,9 +500,15 @@ for lang in LANGS:
     open(path, 'w', encoding='utf-8').write(register_page(lang))
     written.append(os.path.relpath(path, HERE))
 
+# ---------- Door page ----------
+# in.html is what a phone opens when its camera scans the QR code on a ticket. Visitors see their ticket number; a
+# staff phone that has the door PIN checks the ticket in (apps-script/Code.gs, checkIn_). English only: it is a staff tool.
+DOOR_TPL = open(os.path.join(HERE, 'in.tpl.html'), encoding='utf-8').read()
+open(os.path.join(HERE, 'in.html'), 'w', encoding='utf-8').write(DOOR_TPL.replace('{{ENDPOINT}}', REGISTER_ENDPOINT))
+
 # ---------- Privacy notice ----------
 CUR = EN
-PRIVACY_UPDATED = '20 November 2026'
+PRIVACY_UPDATED = '23 November 2026'
 DPO_EMAIL = 'michelle@hiendasia.com'  # data protection contact; replace with a dedicated dpo@ address when one exists
 COOKIES = [
     ('hea-lang', 'This site (browser storage)', 'Necessary', 'Remembers the language you picked.', 'Until you clear it'),
@@ -594,6 +600,8 @@ to the form, and the consent wording you agreed to.</p>
 <li>To contact you about the show, for example a change of hours or venue.</li>
 <li>To send you news of HiEnd Asia and NOWASIA, by email and by WhatsApp. You agree to this when you register.</li>
 <li>To count registrations and plan the show.</li>
+<li>To admit you at the entrance. When our staff scan the QR code on your ticket, we record the time of each visit and how many
+times you came. Scanning the code yourself records nothing.</li>
 </ul>
 <p><strong>What we do not do.</strong> We do not telephone you. We do not sell your details, and we do not give them to exhibitors or other
 companies for their own marketing.</p>
