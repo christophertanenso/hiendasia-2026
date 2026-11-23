@@ -72,6 +72,7 @@
 .hm-room .hm-rs { fill: var(--hm-room-ink); font: 700 10px var(--hm-display); text-anchor: middle; letter-spacing: .08em; pointer-events: none; opacity: .75; }
 .hm-room.t-vip rect { fill: var(--hm-vip); }
 .hm-room.t-hall rect { fill: #e7d6b0; }
+.hm-room.t-display rect { fill: #e9c93f; }
 .hm-room.t-stage rect { fill: #d98f66; }
 .hm-room.t-tbc rect { fill: #221e17; stroke: var(--hm-accent); stroke-width: 1.5; stroke-dasharray: 5 4; }
 .hm-room.t-tbc .hm-rn, .hm-room.t-tbc .hm-rs { fill: var(--hm-heading); }
@@ -92,7 +93,7 @@
 .hm-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: -4px 0 0; padding: 0; list-style: none; font-size: 13px; color: var(--hm-muted); }
 .hm-legend li { display: inline-flex; align-items: center; gap: 7px; }
 .sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; flex: none; background: var(--hm-room); }
-.sw.t-vip { background: var(--hm-vip); } .sw.t-hall { background: #e7d6b0; } .sw.t-stage { background: #d98f66; }
+.sw.t-vip { background: var(--hm-vip); } .sw.t-hall { background: #e7d6b0; } .sw.t-stage { background: #d98f66; } .sw.t-display { background: #e9c93f; }
 .sw.t-tbc { background: #221e17; border: 1px dashed var(--hm-accent); }
 .sw-wc { width: 16px; height: 16px; border-radius: 50%; background: #2a261d; border: 1px solid #57503f; color: var(--hm-muted); font: 700 6px/14px var(--hm-display); text-align: center; font-style: normal; }
 .sw-esc { background: repeating-linear-gradient(180deg, #2a261d 0 3px, #6b624f 3px 4px); border: 1px solid #57503f; }
