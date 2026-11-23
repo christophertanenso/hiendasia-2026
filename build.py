@@ -140,15 +140,15 @@ SCHEDULE = [
     ('d.thu', '4–5pm', 16, '323', 'Activities Room', 'sched.dan'),
     ('d.fri', '11am–12pm', 16, '301', 'Audioline', 'sched.dan'),
     ('d.fri', '1–2pm', 13, '333', 'Aries Cerat', 'sched.mak'),
-    ('d.fri', '3–4pm', 16, '335', 'San Yuan', 'sched.dan'),
-    ('d.fri', '4–5pm', 13, '301', 'Audioline', 'sched.mak'),
-    ('d.sat', '10–11am', 16, '335', 'San Yuan', 'sched.dan'),
-    ('d.sat', '11am–12pm', 13, '332', 'AMR', 'sched.mak'),
+    ('d.fri', '3–4pm', 16, '307', 'High End Research', 'sched.dan'),
+    ('d.fri', '4–5pm', 13, '332', 'AMR', 'sched.mak'),
+    ('d.sat', '10–11am', 16, '312', 'Sharkwire', 'sched.dan'),
+    ('d.sat', '11am–12pm', 13, 'S-3', 'OBIT sound room', 'sched.mak'),
     ('d.sat', '1–2pm', 16, '333', 'Aries Cerat', 'sched.dan'),
     ('d.sat', '2–3pm', 13, '307', 'High End Research', 'sched.mak'),
-    ('d.sat', '3–4pm', 16, '323', 'Activities Room', 'sched.dan'),
+    ('d.sat', '3–4pm', 16, '335', 'San Yuan', 'sched.dan'),
 ]
-# Lucky draw: (day key, venue). Every draw is at 4pm.
+# Lucky draw: (day key, venue). Every draw is at 5pm (ld.hour), after the last talk ends.
 DRAWS = [('d.thu', 'The Link 2'), ('d.fri', 'Foyer 1'), ('d.sat', 'Foyer 5')]
 
 
@@ -366,7 +366,7 @@ def render(lang, base, auto, page_url):
         '{{REPS}}': rep_html, '{{DEALERS}}': tiles(DEALER_IDX), '{{BRANDS}}': tiles(BRAND_IDX),
         '{{MEDIA}}': '\n'.join('<li>%s</li>' % e(m) for m in MEDIA),
         '{{SPONSORS}}': sponsor_cards(SPONSORS), '{{HOTELS}}': sponsor_cards(HOTELS),
-        '{{DRAWS}}': '\n'.join(f'<li>{t(d)}<span>{e(tr("ld.4pm"))}</span><b>{e(v)}</b></li>' for d, v in DRAWS),
+        '{{DRAWS}}': '\n'.join(f'<li>{t(d)}<span>{e(tr("ld.hour"))}</span><b>{e(v)}</b></li>' for d, v in DRAWS),
         # The visit section has its own "Get your free tickets" button, so its button row leaves out "Register".
         '{{ACTIONS_VISIT}}': actions.replace(f'''        <a class="btn btn-primary" href="register.html">{ICON_TICKET}{t('reg.cta')}</a>\n''', '', 1),
         '{{ICON_TICKET}}': ICON_TICKET,
