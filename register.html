@@ -690,7 +690,7 @@ function qrMatrix(text) {
   return m;
 }
 (function () {
-  var ENDPOINT = '';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzXhnZISem_HhZU0oBYNkhdm8AwThYFWHAQ_q9YoU-PWAlJgwgmPWptpn8dGq-VzIYD/exec';
   var T = {"errName": "Enter your full name.", "errEmail": "Enter a valid email address.", "errPhone": "Enter a valid mobile number.", "errInterest": "Select how you are attending.", "errServer": "The ticket could not be issued. Try again.", "errClosed": "Registration is not open yet.", "submit": "Get my ticket", "sending": "Issuing ticket", "doneEyebrow": "Registered", "doneH": "Your ticket", "doneLead": "Show this screen at the entrance. A copy has been sent to your email.", "storedLead": "Show this screen at the entrance.", "resentH": "Already registered", "resentLead": "This email already holds a ticket. It has been sent again."};
   var $ = function (id) { return document.getElementById(id); };
   var form = $('regForm'), err = $('err'), btn = $('submitBtn'), dial = $('f-dial');

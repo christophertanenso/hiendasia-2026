@@ -692,7 +692,7 @@ function qrMatrix(text) {
   return m;
 }
 (function () {
-  var ENDPOINT = '';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzXhnZISem_HhZU0oBYNkhdm8AwThYFWHAQ_q9YoU-PWAlJgwgmPWptpn8dGq-VzIYD/exec';
   var T = {"errName": "กรุณากรอกชื่อ-นามสกุล", "errEmail": "กรุณากรอกอีเมลที่ถูกต้อง", "errPhone": "กรุณากรอกหมายเลขโทรศัพท์มือถือที่ถูกต้อง", "errInterest": "กรุณาเลือกฐานะที่เข้าร่วม", "errServer": "ไม่สามารถออกบัตรได้ กรุณาลองอีกครั้ง", "errClosed": "ยังไม่เปิดลงทะเบียน", "submit": "รับบัตร", "sending": "กำลังออกบัตร", "doneEyebrow": "ลงทะเบียนแล้ว", "doneH": "บัตรของท่าน", "doneLead": "แสดงหน้าจอนี้ที่ทางเข้า สำเนาบัตรส่งไปที่อีเมลของท่านแล้ว", "storedLead": "แสดงหน้าจอนี้ที่ทางเข้า", "resentH": "ลงทะเบียนแล้ว", "resentLead": "อีเมลนี้มีบัตรแล้ว ระบบได้ส่งบัตรให้อีกครั้ง"};
   var $ = function (id) { return document.getElementById(id); };
   var form = $('regForm'), err = $('err'), btn = $('submitBtn'), dial = $('f-dial');

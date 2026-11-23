@@ -690,7 +690,7 @@ function qrMatrix(text) {
   return m;
 }
 (function () {
-  var ENDPOINT = '';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzXhnZISem_HhZU0oBYNkhdm8AwThYFWHAQ_q9YoU-PWAlJgwgmPWptpn8dGq-VzIYD/exec';
   var T = {"errName": "Nhập họ và tên của bạn.", "errEmail": "Nhập địa chỉ email hợp lệ.", "errPhone": "Nhập số điện thoại di động hợp lệ.", "errInterest": "Chọn tư cách tham dự.", "errServer": "Không thể xuất vé. Vui lòng thử lại.", "errClosed": "Chưa mở đăng ký.", "submit": "Nhận vé", "sending": "Đang xuất vé", "doneEyebrow": "Đã đăng ký", "doneH": "Vé của bạn", "doneLead": "Xuất trình màn hình này tại lối vào. Một bản đã được gửi đến email của bạn.", "storedLead": "Xuất trình màn hình này tại lối vào.", "resentH": "Đã đăng ký", "resentLead": "Email này đã có vé. Vé đã được gửi lại."};
   var $ = function (id) { return document.getElementById(id); };
   var form = $('regForm'), err = $('err'), btn = $('submitBtn'), dial = $('f-dial');

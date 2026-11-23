@@ -690,7 +690,7 @@ function qrMatrix(text) {
   return m;
 }
 (function () {
-  var ENDPOINT = '';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzXhnZISem_HhZU0oBYNkhdm8AwThYFWHAQ_q9YoU-PWAlJgwgmPWptpn8dGq-VzIYD/exec';
   var T = {"errName": "Masukkan nama lengkap Anda.", "errEmail": "Masukkan alamat email yang valid.", "errPhone": "Masukkan nomor ponsel yang valid.", "errInterest": "Pilih Anda hadir sebagai apa.", "errServer": "Tiket tidak dapat diterbitkan. Coba lagi.", "errClosed": "Pendaftaran belum dibuka.", "submit": "Ambil tiket saya", "sending": "Menerbitkan tiket", "doneEyebrow": "Terdaftar", "doneH": "Tiket Anda", "doneLead": "Tunjukkan layar ini di pintu masuk. Salinannya telah dikirim ke email Anda.", "storedLead": "Tunjukkan layar ini di pintu masuk.", "resentH": "Sudah terdaftar", "resentLead": "Email ini sudah memiliki tiket. Tiket telah dikirim ulang."};
   var $ = function (id) { return document.getElementById(id); };
   var form = $('regForm'), err = $('err'), btn = $('submitBtn'), dial = $('f-dial');
