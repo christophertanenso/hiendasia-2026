@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Entry to HiEnd Asia 2026 is free. A ticket is required. Register once, enter any day, 17–19 Dec 2026, Suntec Singapore.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Register for your free ticket · HiEnd Asia 2026">
+<meta property="og:description" content="Entry to HiEnd Asia 2026 is free. A ticket is required. Register once, enter any day, 17–19 Dec 2026, Suntec Singapore.">
+<meta property="og:url" content="https://christophertanenso.github.io/hiendasia-2026/register.html">
+<meta property="og:image" content="https://christophertanenso.github.io/hiendasia-2026/img/og-2026.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_SG">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://christophertanenso.github.io/hiendasia-2026/register.html">
+<link rel="alternate" hreflang="en" href="https://christophertanenso.github.io/hiendasia-2026/register.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://christophertanenso.github.io/hiendasia-2026/zh-Hans/register.html">
+<link rel="alternate" hreflang="zh-Hant" href="https://christophertanenso.github.io/hiendasia-2026/zh-Hant/register.html">
+<link rel="alternate" hreflang="id" href="https://christophertanenso.github.io/hiendasia-2026/id/register.html">
+<link rel="alternate" hreflang="ms" href="https://christophertanenso.github.io/hiendasia-2026/ms/register.html">
+<link rel="alternate" hreflang="fil" href="https://christophertanenso.github.io/hiendasia-2026/fil/register.html">
+<link rel="alternate" hreflang="th" href="https://christophertanenso.github.io/hiendasia-2026/th/register.html">
+<link rel="alternate" hreflang="vi" href="https://christophertanenso.github.io/hiendasia-2026/vi/register.html">
+<link rel="alternate" hreflang="x-default" href="https://christophertanenso.github.io/hiendasia-2026/register.html">
+<title>Register for your free ticket · HiEnd Asia 2026</title>
+<script>
+/* The register page follows the visitor's language like the show page: ?lang= first, then the saved choice, then the
+   browser's language list. Each language is its own pre-rendered page (register.html, th/register.html ...). */
+(function () {
+  var PAGE_LANG = 'en', BASE = '';
+  var SUPPORTED = ['en', 'zh-Hans', 'zh-Hant', 'id', 'ms', 'fil', 'th', 'vi'];
+  function match(tag) {
+    tag = String(tag || '').toLowerCase();
+    if (/^zh(-|$)/.test(tag)) return /hant|-tw|-hk|-mo/.test(tag) ? 'zh-Hant' : 'zh-Hans';
+    if (/^(id|in)(-|$)/.test(tag)) return 'id';
+    if (/^ms(-|$)/.test(tag)) return 'ms';
+    if (/^(fil|tl)(-|$)/.test(tag)) return 'fil';
+    if (/^th(-|$)/.test(tag)) return 'th';
+    if (/^vi(-|$)/.test(tag)) return 'vi';
+    if (/^en(-|$)/.test(tag)) return 'en';
+    return null;
+  }
+  window.HEA_LANG = PAGE_LANG;
+  window.HEA_REG_URL = function (lang) { return BASE + (lang === 'en' ? '' : lang + '/') + 'register.html'; };
+  var params = null, forced = null, want = null;
+  try { params = new URLSearchParams(location.search); forced = params.get('lang'); } catch (e) {}
+  if (SUPPORTED.indexOf(forced) >= 0) want = forced;
+  else if (PAGE_LANG === 'en') {
+    var saved = null;
+    try { saved = localStorage.getItem('hea-lang'); } catch (e) {}
+    if (SUPPORTED.indexOf(saved) >= 0) want = saved;
+    else {
+      var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+      for (var i = 0; i < list.length && !want; i++) want = match(list[i]);
+    }
+  }
+  if (params) params.delete('lang');
+  var q = params && params.toString();
+  if (want && want !== PAGE_LANG) location.replace(window.HEA_REG_URL(want) + (q ? '?' + q : '') + location.hash);
+  else if (forced && history.replaceState) history.replaceState(null, '', location.pathname + (q ? '?' + q : '') + location.hash);
+})();
+</script>
+
+<link rel="icon" href="img/monogram.svg" type="image/svg+xml">
+<script>
+/* Analytics behind consent, as on the show page: nothing loads until the visitor accepts in the cookie banner. */
+window.dataLayer = window.dataLayer || [];
+function gtag() { dataLayer.push(arguments); }
+gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+gtag('set', 'url_passthrough', false);
+gtag('js', new Date());
+var HEA_TEST = /^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$|\.localhost$|\.test$/.test(location.hostname) && !/[?&]track=live\b/.test(location.search);
+gtag('config', 'G-NED2Z7D1C5', HEA_TEST ? { debug_mode: true } : {});
+window.fbq = function () {};
+window.HEA_CONSENT = {"privacy": "privacy.html", "t": {"title": "Your privacy", "text": "We'd like to use analytics cookies to see how this page is used, and marketing cookies from Google and Meta to measure our ads. Nothing is set until you choose, and you can change your mind any time.", "accept": "Accept all", "reject": "Reject all", "settings": "Choose", "save": "Save choices", "necessary": "Strictly necessary", "necessaryD": "Remembers your language and this choice. Always on.", "analytics": "Analytics", "analyticsD": "Google Analytics: which sections are viewed and which buttons are used.", "marketing": "Marketing", "marketingD": "Google Ads and Meta Pixel: measure our ads and show HiEnd Asia ads to past visitors.", "policy": "Privacy notice"}};
+/* HiEnd Asia 2026 – cookie consent (PDPA). build.py inlines this file into every page, after the gtag/fbq stubs.
+   Categories: necessary (language, this choice: always on), analytics (GA4), marketing (Google Ads via the GA4
+   link, Meta Pixel). Nothing optional loads until the visitor chooses. The choice is kept in localStorage
+   ('hea-consent') with a version and date, and can be changed or withdrawn any time from "Cookie settings".
+   Page config: window.HEA_CONSENT = { t: {translated strings}, privacy: 'privacy.html' }. */
+(function () {
+  var VERSION = 1, KEY = 'hea-consent', GA = 'G-NED2Z7D1C5', PIXEL = '9829555510477872';
+  var cfg = window.HEA_CONSENT || {}, T = cfg.t || {};
+  var choice = null, gaLoaded = false, metaLoaded = false;
+
+  function read() {
+    try {
+      var c = JSON.parse(localStorage.getItem(KEY) || 'null');
+      return c && c.v === VERSION ? c : null;
+    } catch (e) { return null; }
+  }
+  function write(c) { try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {} }
+
+  // Vendor scripts wait until the page has loaded and the browser is idle, so they never slow the first paint.
+  function whenIdle(fn) {
+    function go() { (window.requestIdleCallback || function (f) { setTimeout(f, 1); })(fn, { timeout: 3000 }); }
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+  }
+  function loadGa() {
+    if (gaLoaded) return; gaLoaded = true;
+    whenIdle(function () {
+      var s = document.createElement('script');
+      s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA;
+      document.head.appendChild(s);
+    });
+  }
+  function loadMeta() {
+    if (metaLoaded || window.HEA_TEST) return; metaLoaded = true;
+    whenIdle(function () {
+      try { delete window.fbq; } catch (e) { window.fbq = undefined; }
+      /* Meta's standard base code */
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      window.fbq('consent', 'grant');
+      window.fbq('init', PIXEL);
+      window.fbq('track', 'PageView');
+    });
+  }
+  // Withdrawal: tell the vendors, then remove the first-party cookies they set on this site.
+  function clearCookies(pattern) {
+    var host = location.hostname, parts = host.split('.'), domains = [''];
+    for (var i = 0; i < parts.length - 1; i++) domains.push('; domain=.' + parts.slice(i).join('.'));
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (!pattern.test(name)) return;
+      domains.forEach(function (d) {
+        ['/', location.pathname].forEach(function (p) {
+          document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=' + p + d;
+        });
+      });
+    });
+  }
+  function apply(c, before) {
+    var g = function (on) { return on ? 'granted' : 'denied'; };
+    gtag('consent', 'update', { analytics_storage: g(c.a), ad_storage: g(c.m), ad_user_data: g(c.m), ad_personalization: g(c.m) });
+    if (c.a || c.m) loadGa();
+    if (c.m) loadMeta();
+    if (before) {
+      if (before.a && !c.a) clearCookies(/^_ga/);
+      if (before.m && !c.m) {
+        clearCookies(/^(_gcl|_fbp|_fbc)/);
+        if (metaLoaded && typeof window.fbq === 'function') window.fbq('consent', 'revoke');
+      }
+    }
+  }
+  function decide(a, m) {
+    var before = choice;
+    choice = { v: VERSION, a: !!a, m: !!m, at: new Date().toISOString() };
+    write(choice);
+    apply(choice, before);
+    close();
+    if (window.trackIntent) window.trackIntent('consent_choice', { analytics: choice.a ? 'yes' : 'no', marketing: choice.m ? 'yes' : 'no' });
+  }
+
+  // ---------- Banner ----------
+  var box = null, lastFocus = null;
+  function el(tag, attrs, html) {
+    var n = document.createElement(tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function row(id, title, desc, on, locked) {
+    return '<label class="cc-row"><span class="cc-txt"><b>' + esc(title) + '</b><small>' + esc(desc) + '</small></span>' +
+      '<input type="checkbox" id="cc-' + id + '"' + (on ? ' checked' : '') + (locked ? ' disabled' : '') + '>' +
+      '<span class="cc-sw" aria-hidden="true"></span></label>';
+  }
+  function open(settings) {
+    if (box) close(true);
+    lastFocus = document.activeElement;
+    var c = choice || { a: false, m: false };
+    box = el('section', { 'class': 'cc' + (settings ? ' cc-open' : ''), role: 'dialog', 'aria-modal': 'false', 'aria-labelledby': 'cc-h' },
+      '<div class="cc-in">' +
+        '<div class="cc-msg"><h2 id="cc-h">' + esc(T.title) + '</h2>' +
+          '<p>' + esc(T.text) + ' <a href="' + esc(cfg.privacy || 'privacy.html') + '">' + esc(T.policy) + '</a></p></div>' +
+        '<div class="cc-set" id="cc-set">' +
+          row('n', T.necessary, T.necessaryD, true, true) +
+          row('a', T.analytics, T.analyticsD, c.a) +
+          row('m', T.marketing, T.marketingD, c.m) +
+        '</div>' +
+        '<div class="cc-btns">' +
+          '<button type="button" class="cc-b cc-p" data-cc="all">' + esc(T.accept) + '</button>' +
+          '<button type="button" class="cc-b" data-cc="none">' + esc(T.reject) + '</button>' +
+          '<button type="button" class="cc-b cc-l" data-cc="settings" aria-expanded="' + (settings ? 'true' : 'false') + '" aria-controls="cc-set">' + esc(T.settings) + '</button>' +
+          '<button type="button" class="cc-b cc-p cc-save" data-cc="save">' + esc(T.save) + '</button>' +
+        '</div>' +
+      '</div>');
+    box.addEventListener('click', function (ev) {
+      var b = ev.target.closest ? ev.target.closest('[data-cc]') : null;
+      if (!b) return;
+      var k = b.getAttribute('data-cc');
+      if (k === 'all') decide(true, true);
+      else if (k === 'none') decide(false, false);
+      else if (k === 'save') decide(box.querySelector('#cc-a').checked, box.querySelector('#cc-m').checked);
+      else if (k === 'settings') {
+        var openNow = box.classList.toggle('cc-open');
+        b.setAttribute('aria-expanded', String(openNow));
+        if (openNow) box.querySelector('#cc-a').focus();
+      }
+    });
+    box.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && choice) close(); });
+    // Early in the document (right after the skip link), so keyboard and screen-reader users reach it first;
+    // it is shown fixed at the bottom of the screen.
+    var skip = document.querySelector('body > .skip');
+    document.body.insertBefore(box, skip ? skip.nextSibling : document.body.firstChild);
+    document.documentElement.classList.add('cc-showing');
+    if (settings) box.querySelector('#cc-a').focus();
+  }
+  function close(silent) {
+    if (!box) return;
+    box.parentNode.removeChild(box); box = null;
+    document.documentElement.classList.remove('cc-showing');
+    if (!silent && lastFocus && lastFocus.focus && lastFocus !== document.body) { try { lastFocus.focus(); } catch (e) {} }
+  }
+
+  var CSS = '.cc{position:fixed;z-index:60;left:0;right:0;bottom:0;padding:0 max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));pointer-events:none}' +
+    '.cc-in{pointer-events:auto;max-width:980px;margin:0 auto;background:var(--band,#201d17);color:var(--body,#ebebeb);border:1px solid var(--accent,#c6a661);border-radius:12px;padding:18px 20px;display:grid;gap:14px;box-shadow:0 -8px 40px rgba(0,0,0,.6);font:15px/1.6 var(--font-body,sans-serif);max-height:calc(100vh - 24px);overflow:auto}' +
+    '.cc h2{margin:0 0 4px;font:700 17px/1.3 var(--font-display,sans-serif);color:var(--heading,#f0d9a0)}' +
+    '.cc p{margin:0;color:var(--muted,#d2c8b4);font-size:14px}.cc a{color:var(--heading,#f0d9a0)}' +
+    '.cc-set{display:none;flex-direction:column;gap:2px;border-top:1px solid var(--line,#4f4632);padding-top:10px}.cc-open .cc-set{display:flex}' +
+    '.cc-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;padding:8px 0;cursor:pointer;position:relative}' +
+    '.cc-row b{display:block;color:var(--body,#ebebeb);font-size:14px}.cc-row small{display:block;color:var(--muted,#d2c8b4);font-size:13px;line-height:1.45}' +
+    '.cc-row input{position:absolute;opacity:0;width:44px;height:26px;right:0;margin:0;cursor:pointer}' +
+    '.cc-sw{width:44px;height:26px;border-radius:13px;background:#3a352b;border:1px solid var(--line,#4f4632);position:relative;transition:background .15s}' +
+    '.cc-sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#bbb;transition:transform .15s}' +
+    '.cc-row input:checked+.cc-sw{background:var(--accent,#c6a661)}.cc-row input:checked+.cc-sw::after{transform:translateX(18px);background:#000}' +
+    '.cc-row input:disabled+.cc-sw{opacity:.6}.cc-row input:focus-visible+.cc-sw{outline:2px solid var(--accent,#c6a661);outline-offset:2px}' +
+    '.cc-btns{display:flex;flex-wrap:wrap;gap:10px}' +
+    '.cc-b{min-height:44px;padding:0 20px;border-radius:50px;border:1px solid var(--accent,#c6a661);background:transparent;color:var(--heading,#f0d9a0);font:700 13px/1 var(--font-display,sans-serif);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;flex:1 1 auto}' +
+    '.cc-p{background:var(--accent,#c6a661);color:#000}.cc-l{border-color:transparent;text-decoration:underline;text-underline-offset:3px;flex:0 1 auto}' +
+    '.cc-save{display:none}.cc-open .cc-save{display:inline-flex;align-items:center;justify-content:center}.cc-open .cc-l{display:none}' +
+    '@media (min-width:760px){.cc-in{grid-template-columns:1fr auto;align-items:center}.cc-set{grid-column:1/-1;order:2}.cc-btns{flex-wrap:nowrap}.cc-b{flex:0 0 auto}}' +
+    '@media (prefers-reduced-motion:reduce){.cc-sw,.cc-sw::after{transition:none}}';
+
+  function init() {
+    var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    if (!choice) open(false);
+    // Any element with data-consent-open (footer "Cookie settings", the privacy page) reopens the choices.
+    document.addEventListener('click', function (ev) {
+      var t = ev.target.closest ? ev.target.closest('[data-consent-open]') : null;
+      if (!t) return;
+      ev.preventDefault();
+      open(true);
+    });
+  }
+
+  choice = read();
+  if (choice) apply(choice, null);
+  window.HEA_CONSENT_OPEN = function () { open(true); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+/* A completed registration is the sign_up event (Meta: CompleteRegistration). Someone registering at the door, from a
+   QR sign, is already at the show, so theirs is sent as onsite_action and never counts as an ad conversion. */
+(function () {
+  var here = null, onSite = false;
+  try { here = new URLSearchParams(location.search).get('here'); } catch (err) {}
+  try {
+    if (here) sessionStorage.setItem('hea-onsite', here);
+    here = here || sessionStorage.getItem('hea-onsite');
+  } catch (err) {}
+  onSite = !!here;
+  window.HEA_HERE = here || '';
+  window.trackIntent = function (action, detail) {
+    try {
+      var params = {}, name = action;
+      for (var k in (detail || {})) if (detail[k] !== undefined && detail[k] !== '') params[k] = detail[k];
+      params.page_language = document.documentElement.lang || 'en';
+      if (onSite) { params.on_site = 'yes'; if (action === 'sign_up') { name = 'onsite_action'; params.action = action; } }
+      params.transport_type = 'beacon';
+      gtag('event', name, params);
+      if (action === 'sign_up' && typeof fbq === 'function') {
+        if (onSite) fbq('trackCustom', 'OnsiteAction', { action: action });
+        else fbq('track', 'CompleteRegistration', { content_name: 'HiEnd Asia 2026 ticket', status: params.method });
+      }
+    } catch (err) { /* tracking must never affect the page */ }
+  };
+})();
+</script>
+<style>
+@font-face { font-family: 'Arimo'; font-style: italic; font-weight: 400; font-display: swap; src: url(fonts/arimo-italic-vietnamese.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: 'Arimo'; font-style: italic; font-weight: 400; font-display: swap; src: url(fonts/arimo-italic-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Arimo'; font-style: italic; font-weight: 400; font-display: swap; src: url(fonts/arimo-italic-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Arimo'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/arimo-vietnamese.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: 'Arimo'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/arimo-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Arimo'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/arimo-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/opensans-vietnamese.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/opensans-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/opensans-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+:root {
+  --bg: #000000; --heading: #f0d9a0; --body: #ebebeb; --muted: #d2c8b4; --accent: #c6a661; --on-accent: #000000;
+  --line: #4f4632; --band: #201d17; --danger: #f2a093;
+  --font-display: Arimo, "Helvetica Neue", Helvetica, Arial, "Noto Sans SC", sans-serif;
+  --font-body: "Open Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --radius-card: 12px; --radius-pill: 50px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--body); font: 16px/1.7 var(--font-body); }
+img { max-width: 100%; display: block; }
+a { color: var(--heading); }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 12px; top: -100px; z-index: 70; padding: 12px 18px; border-radius: var(--radius-pill);
+  background: var(--accent); color: #000; font: 700 14px/1 var(--font-display); text-decoration: none; }
+.skip:focus { top: calc(12px + env(safe-area-inset-top, 0px)); color: #000; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 720px) { .wrap { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); } }
+
+.site-head { border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 12px; padding-block: 14px; }
+.site-head .logo img { height: 44px; width: auto; }
+.site-head .back { margin-left: auto; font: 700 13px/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; color: var(--body); text-decoration: none; white-space: nowrap; }
+.site-head .back:hover { color: var(--heading); }
+.lang { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 10px; border: 1px solid var(--line);
+  border-radius: var(--radius-pill); color: var(--body); }
+.lang:hover, .lang:focus-within { border-color: var(--accent); color: var(--heading); }
+.lang svg { width: 16px; height: 16px; flex: none; }
+.lang select { appearance: none; -webkit-appearance: none; border: 0; background: transparent; color: inherit; font: 600 13px/1 var(--font-body); max-width: 120px; cursor: pointer; }
+.lang select:focus { outline: none; }
+.lang select option { background: var(--band); color: var(--body); }
+@media (max-width: 520px) { .site-head .logo img { height: 36px; } .site-head .back { display: none; } .lang { margin-left: auto; } }
+
+.reg { position: relative; overflow: hidden; }
+.reg::before { content: ""; position: absolute; width: 1100px; height: 1100px; right: -420px; top: -300px; pointer-events: none; opacity: .18;
+  background: repeating-radial-gradient(circle at center, transparent 0 27px, var(--accent) 27px 28px);
+  -webkit-mask: radial-gradient(circle, #000 0 35%, transparent 70%); mask: radial-gradient(circle, #000 0 35%, transparent 70%); }
+.reg .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; padding-block: 56px 96px; }
+.panel { min-width: 0; max-width: 520px; width: 100%; display: flex; flex-direction: column; gap: 18px; }
+.poster { min-width: 0; margin: 0; }
+.poster img { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); }
+@media (max-width: 900px) {
+  .reg .wrap { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-block: 32px 64px; }
+  .panel { margin: 0 auto; }
+  .poster { max-width: 520px; width: 100%; margin: 0 auto; }
+}
+.eyebrow { margin: 0; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+h1:focus { outline: none; }
+h1 { margin: 0; font: 700 clamp(30px, 4vw, 44px)/1.08 var(--font-display); letter-spacing: .005em; text-transform: uppercase; color: var(--heading); text-wrap: balance; overflow-wrap: break-word; }
+.rule { width: 64px; height: 1px; background: var(--accent); }
+.lead { margin: 0; color: var(--muted); max-width: 46ch; }
+
+form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
+.field { display: flex; flex-direction: column; gap: 6px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.field > label, .field > legend { padding: 0; font: 700 13px/1.4 var(--font-display); letter-spacing: .08em; text-transform: uppercase; color: var(--heading); }
+.hint { font-size: 13px; line-height: 1.5; color: var(--muted); }
+.in { width: 100%; min-height: 52px; padding: 0 16px; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--band);
+  color: var(--body); font: 16px/1.4 var(--font-body); }
+.in::placeholder { color: #8f8672; }
+.in:hover { border-color: #6d6145; }
+.in:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.in[aria-invalid="true"], .seg[aria-invalid="true"] label { border-color: var(--danger); }
+.phone { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; }
+.dial { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 52px; padding: 0 14px; border: 1px solid var(--line);
+  border-radius: var(--radius-card); background: var(--band); color: var(--body); font: 16px/1 var(--font-body); white-space: nowrap; }
+.dial:focus-within { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.dial select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+.dial select option { background: var(--band); color: var(--body); }
+.dial i { font-style: normal; color: var(--accent); font-size: 11px; }
+.seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 52px; padding: 6px 8px; border: 1px solid var(--line);
+  border-radius: var(--radius-card); background: var(--band); color: var(--muted); font: 700 14px/1.2 var(--font-display); letter-spacing: .04em; cursor: pointer; }
+.seg label:hover { border-color: #6d6145; color: var(--body); }
+.seg input:checked + label { border-color: var(--accent); background: #2b2619; color: var(--heading); box-shadow: 0 0 0 1px var(--accent); }
+.seg input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 26px; border-radius: var(--radius-pill);
+  border: 1px solid var(--accent); font: 700 14px/1.2 var(--font-display); letter-spacing: .08em; text-transform: uppercase; text-decoration: none;
+  cursor: pointer; background: transparent; color: var(--heading); text-align: center; }
+.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover { color: var(--on-accent); filter: brightness(1.08); }
+.btn-outline:hover { background: rgba(198,166,97,.12); color: var(--heading); }
+.btn[aria-busy="true"] { opacity: .7; cursor: progress; }
+.err { margin: 0; min-height: 24px; color: var(--danger); font-size: 14px; line-height: 1.5; }
+.consent { margin: 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+.ticket { background: var(--band); border: 1px solid var(--accent); border-radius: var(--radius-card); padding: 24px 20px; text-align: center; }
+.ticket .admit { margin: 0; font: 700 12px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.ticket .who { margin: 8px 0 2px; font: 700 clamp(22px, 5vw, 28px)/1.25 var(--font-display); color: var(--heading); overflow-wrap: anywhere; }
+.ticket .no { font: 15px/1.4 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .12em; color: var(--accent); }
+.ticket .qr { width: 196px; height: 196px; margin: 18px auto; padding: 14px; background: #fff; border-radius: 8px; }
+.ticket .qr svg { display: block; width: 100%; height: 100%; }
+.ticket .facts { margin: 0; padding-top: 16px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 14px; line-height: 1.6; }
+.after { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.after .btn { padding: 0 14px; white-space: normal; }
+.another { align-self: flex-start; background: none; border: 0; padding: 8px 0; color: var(--heading); font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }
+.another:hover { color: var(--accent); }
+
+.bb { position: relative; border-top: 1px solid var(--line); background: var(--band); }
+.reg .bb .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; padding-block: 64px; }
+.bb-text { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.bb h2 { margin: 0; font: 700 clamp(26px, 3.2vw, 36px)/1.1 var(--font-display); text-transform: uppercase; color: var(--heading); overflow-wrap: break-word; }
+.steps { list-style: none; counter-reset: s; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 14px; align-items: baseline; color: var(--body); }
+.steps li::before { content: counter(s); display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid var(--accent);
+  border-radius: 50%; color: var(--accent); font: 700 14px/1 var(--font-display); transform: translateY(-2px); }
+.terms { margin: 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
+.cds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; min-width: 0; }
+.cds img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); }
+@media (max-width: 900px) {
+  .reg .bb .wrap { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-block: 48px; }
+  .bb-text, .cds { max-width: 520px; width: 100%; margin: 0 auto; }
+  .cds { gap: 8px; }
+}
+
+.site-foot { border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.site-foot .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; }
+.legal { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.legal a, .legal button { color: var(--muted); font: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.legal a:hover, .legal button:hover { color: var(--heading); }
+:root:is([lang^="zh"], [lang="th"]) :is(.btn, .eyebrow, .back, .field > label, .field > legend, .ticket .admit, h1) { letter-spacing: .02em; }
+@media (prefers-reduced-motion: no-preference) { .btn, .in, .seg label { transition: border-color .15s, background-color .15s, filter .15s; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="./" aria-label="HiEnd Asia home"><img src="img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
+    <a class="back" href="./">Show page</a>
+    <label class="lang">
+      <span class="sr">Language</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>
+      <select id="langSel">
+        <option value="en" lang="en" selected>English</option>
+        <option value="zh-Hans" lang="zh-Hans">简体中文</option>
+        <option value="zh-Hant" lang="zh-Hant">繁體中文</option>
+        <option value="id" lang="id">Bahasa Indonesia</option>
+        <option value="ms" lang="ms">Bahasa Melayu</option>
+        <option value="fil" lang="fil">Filipino</option>
+        <option value="th" lang="th">ไทย</option>
+        <option value="vi" lang="vi">Tiếng Việt</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main id="main" class="reg" tabindex="-1">
+  <div class="wrap">
+    <div class="panel" id="formView">
+      <p class="eyebrow">17 – 19 Dec 2026 · Suntec Singapore</p>
+      <h1>Register for your free ticket</h1>
+      <div class="rule"></div>
+      <p class="lead">Entry is free. A ticket is required. One per visitor, valid all three days.</p>
+      <form id="regForm" novalidate>
+        <div class="field">
+          <label for="f-name">Full name</label>
+          <input class="in" id="f-name" name="name" type="text" autocomplete="name" autocapitalize="words" maxlength="80" required aria-describedby="h-name">
+          <span class="hint" id="h-name">As it will appear on the ticket.</span>
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input class="in" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" maxlength="120" required aria-describedby="h-email">
+          <span class="hint" id="h-email">Your ticket is sent here.</span>
+        </div>
+        <div class="field">
+          <label for="f-phone">Mobile number</label>
+          <div class="phone">
+            <span class="dial"><span id="dialLabel" aria-hidden="true">SG +65</span><i aria-hidden="true">▾</i>
+              <select id="f-dial" aria-label="Country code" autocomplete="tel-country-code"></select></span>
+            <input class="in" id="f-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="20" required>
+          </div>
+        </div>
+        <fieldset class="field">
+          <legend>Attending as</legend>
+          <div class="seg" id="seg" role="radiogroup" aria-label="Attending as">
+            <input type="radio" name="interest" id="i-visitor" value="visitor"><label for="i-visitor">Visitor</label>
+            <input type="radio" name="interest" id="i-trade" value="trade"><label for="i-trade">Trade</label>
+            <input type="radio" name="interest" id="i-media" value="media"><label for="i-media">Media</label>
+          </div>
+        </fieldset>
+        <div class="trap" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <button class="btn btn-primary" id="submitBtn" type="submit">Get my ticket</button>
+        <p class="err" id="err" role="alert"></p>
+        <p class="consent">By registering, you agree to receive news of HiEnd Asia and NOWASIA by email and WhatsApp. We do not call. We do not sell your details. You may unsubscribe at any time. <a href="privacy.html#registration">Privacy notice</a></p>
+      </form>
+    </div>
+
+    <div class="panel" id="ticketView" hidden>
+      <p class="eyebrow" id="doneEyebrow">Registered</p>
+      <h1 id="doneH" tabindex="-1">Your ticket</h1>
+      <div class="rule"></div>
+      <p class="lead" id="doneLead">Show this screen at the entrance. A copy has been sent to your email.</p>
+      <div class="ticket" id="ticketCard">
+        <p class="admit">Admit one · Free entry</p>
+        <p class="who" id="tName"></p>
+        <span class="no" id="tNo"></span>
+        <div class="qr" id="tQr" role="img" aria-label="Ticket QR code"></div>
+        <p class="facts">17 – 19 Dec 2026 · 10am – 7pm daily<br>Level 3, Suntec Singapore Convention &amp; Exhibition Centre</p>
+      </div>
+      <div class="after">
+        <a class="btn btn-outline" href="hiendasia-2026.ics">Add to calendar</a>
+        <a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener">Get directions</a>
+      </div>
+      <button class="another" id="another" type="button">Register another visitor</button>
+    </div>
+
+    <figure class="poster">
+      <img src="img/000-1242.webp" srcset="img/000-640.webp 640w, img/000-760.webp 760w, img/000-960.webp 960w, img/000-1242.webp 1242w" sizes="(max-width: 900px) min(520px, calc(100vw - 32px)), min(560px, 46vw)" alt="Official poster: 2026 Singapore Hi-End Asia International Audio Visual and Art Exhibition, with NOWASIA, 17 to 19 December, Suntec Singapore Level 3" width="1242" height="1660">
+    </figure>
+  </div>
+
+  <section class="bb" id="blindbox" aria-labelledby="bbH">
+    <div class="wrap">
+      <div class="bb-text">
+        <p class="eyebrow">For registered visitors</p>
+        <h2 id="bbH">Mystery blind box</h2>
+        <div class="rule"></div>
+        <p class="lead">A sealed box holding one HiEnd Asia commemorative CD. Three winners are drawn every day at the show, for registered visitors only.</p>
+        <ol class="steps">
+          <li>Register by 5 December 2026.</li>
+          <li>Collect a draw ticket at the show, in person.</li>
+          <li>The draw is held daily at 4pm: The Link 2 on Thursday, Foyer 1 on Friday, Foyer 5 on Saturday.</li>
+        </ol>
+        <p class="terms">Bring your ticket email and valid ID to collect a draw ticket.</p>
+      </div>
+      <div class="cds" role="img" aria-label="HiEnd Asia commemorative CDs, 2023, 2024 and 2025">
+        <img src="img/cd-2023.webp" alt="" width="640" height="480" loading="lazy" decoding="async">
+        <img src="img/cd-2024.webp" alt="" width="640" height="480" loading="lazy" decoding="async">
+        <img src="img/cd-2025.webp" alt="" width="640" height="480" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span>© 2026 HiEnd Asia + Pte. Ltd</span>
+    <span class="legal"><a href="privacy.html">Privacy notice</a><button type="button" data-consent-open>Cookie settings</button></span>
+  </div>
+</footer>
+
+<script>
+/* The rules for a registration. Returns { ok: true, value: { name, email, dial, phone, interest } } with the tidied
+   values (phone is the national number, digits only), or { ok: false, error } naming the first field that fails:
+   'name', 'email', 'phone' or 'interest'. */
+function validateRegistration(d) {
+  d = d || {};
+  var name = String(d.name == null ? '' : d.name).replace(/\s+/g, ' ').trim();
+  if (name.length < 2) return { ok: false, error: 'name' };
+
+  var email = String(d.email == null ? '' : d.email).trim().toLowerCase();
+  if (email.length > 120 || !/^[a-z0-9][a-z0-9._%+-]*@[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(email)) return { ok: false, error: 'email' };
+
+  var dial = String(d.dial == null ? '' : d.dial).replace(/\D/g, '').slice(0, 4);
+  var typed = String(d.phone == null ? '' : d.phone).trim();
+  var digits = typed.replace(/\D/g, '');
+  // Singapore mobiles are 8 digits starting 8 or 9 (WhatsApp needs a mobile); elsewhere only the length is checked.
+  function valid(n) { return dial === '65' ? /^[89]\d{7}$/.test(n) : n.length >= 6 && n.length <= 14; }
+  function national(n) { return n.replace(/^0+/, ''); }
+  // A number typed in full ("+65 9123 4567", "0065…", or "6591234567" where that cannot be a local number) loses its country code.
+  var international = /^(\+|00)/.test(typed);
+  if (/^00/.test(typed)) digits = digits.replace(/^00/, '');
+  if (dial && digits.indexOf(dial) === 0 && (international || !valid(national(digits)))) {
+    var rest = national(digits.slice(dial.length));
+    if (valid(rest)) digits = rest;
+  }
+  digits = national(digits);
+  if (!dial || !valid(digits)) return { ok: false, error: 'phone' };
+
+  var interest = String(d.interest == null ? '' : d.interest);
+  if (interest !== 'visitor' && interest !== 'trade' && interest !== 'media') return { ok: false, error: 'interest' };
+
+  return { ok: true, value: { name: name, email: email, dial: dial, phone: digits, interest: interest } };
+}
+/* QR code, version 1 (21 x 21), error correction M, byte mode: up to 14 characters, enough for a ticket number.
+   Returns 21 rows of 21 numbers, 1 = dark. */
+function qrMatrix(text) {
+  var N = 21, DATA = 16, EC = 10, i, j, x, y;
+  var bytes = [];
+  for (i = 0; i < text.length; i++) bytes.push(text.charCodeAt(i) & 255);
+  if (bytes.length > 14) throw new Error('QR text too long');
+
+  // Bit stream: mode 0100, 8-bit length, data, terminator, padding
+  var bits = [];
+  function put(v, n) { for (var b = n - 1; b >= 0; b--) bits.push((v >>> b) & 1); }
+  put(4, 4); put(bytes.length, 8);
+  for (i = 0; i < bytes.length; i++) put(bytes[i], 8);
+  put(0, Math.min(4, DATA * 8 - bits.length));
+  while (bits.length % 8) bits.push(0);
+  for (i = 0; bits.length < DATA * 8; i++) put(i % 2 ? 0x11 : 0xEC, 8);
+  var cw = [];
+  for (i = 0; i < DATA; i++) { var v = 0; for (j = 0; j < 8; j++) v = (v << 1) | bits[i * 8 + j]; cw.push(v); }
+
+  // Reed-Solomon over GF(256), polynomial 0x11D
+  function mul(a, b) { var z = 0; for (var k = 7; k >= 0; k--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((b >>> k) & 1) * a; } return z; }
+  var gen = [], root = 1;
+  for (i = 0; i < EC - 1; i++) gen.push(0);
+  gen.push(1);
+  for (i = 0; i < EC; i++) {
+    for (j = 0; j < EC; j++) { gen[j] = mul(gen[j], root); if (j + 1 < EC) gen[j] ^= gen[j + 1]; }
+    root = mul(root, 2);
+  }
+  var rem = [];
+  for (i = 0; i < EC; i++) rem.push(0);
+  for (i = 0; i < DATA; i++) {
+    var f = cw[i] ^ rem.shift(); rem.push(0);
+    for (j = 0; j < EC; j++) rem[j] ^= mul(gen[j], f);
+  }
+  var all = cw.concat(rem);
+
+  // Function patterns
+  var m = [], fn = [];
+  for (y = 0; y < N; y++) { m.push([]); fn.push([]); for (x = 0; x < N; x++) { m[y].push(0); fn[y].push(0); } }
+  function set(xx, yy, dark) { m[yy][xx] = dark ? 1 : 0; fn[yy][xx] = 1; }
+  function finder(cx, cy) {
+    for (var dy = -4; dy <= 4; dy++) for (var dx = -4; dx <= 4; dx++) {
+      var d = Math.max(Math.abs(dx), Math.abs(dy)), xx = cx + dx, yy = cy + dy;
+      if (xx >= 0 && xx < N && yy >= 0 && yy < N) set(xx, yy, d !== 2 && d !== 4);
+    }
+  }
+  for (i = 0; i < N; i++) { set(6, i, i % 2 === 0); set(i, 6, i % 2 === 0); }
+  finder(3, 3); finder(N - 4, 3); finder(3, N - 4);
+  function format(mask) {
+    var data = mask, r = data;   // error correction M has format bits 00
+    for (var k = 0; k < 10; k++) r = (r << 1) ^ ((r >>> 9) * 0x537);
+    var fb = ((data << 10) | r) ^ 0x5412;
+    function bit(k) { return (fb >>> k) & 1; }
+    for (k = 0; k <= 5; k++) set(8, k, bit(k));
+    set(8, 7, bit(6)); set(8, 8, bit(7)); set(7, 8, bit(8));
+    for (k = 9; k < 15; k++) set(14 - k, 8, bit(k));
+    for (k = 0; k < 8; k++) set(N - 1 - k, 8, bit(k));
+    for (k = 8; k < 15; k++) set(8, N - 15 + k, bit(k));
+    set(8, N - 8, 1);
+  }
+  format(0);   // reserves the format cells before the data is laid out
+
+  // Data, in the zigzag from the bottom-right corner
+  var n = 0;
+  for (var right = N - 1; right >= 1; right -= 2) {
+    if (right === 6) right = 5;
+    for (var vert = 0; vert < N; vert++) {
+      for (j = 0; j < 2; j++) {
+        x = right - j;
+        y = ((right + 1) & 2) === 0 ? N - 1 - vert : vert;
+        if (!fn[y][x] && n < all.length * 8) { m[y][x] = (all[n >>> 3] >>> (7 - (n & 7))) & 1; n++; }
+      }
+    }
+  }
+
+  var MASKS = [
+    function (x, y) { return (x + y) % 2 === 0; }, function (x, y) { return y % 2 === 0; },
+    function (x, y) { return x % 3 === 0; }, function (x, y) { return (x + y) % 3 === 0; },
+    function (x, y) { return (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0; },
+    function (x, y) { return (x * y) % 2 + (x * y) % 3 === 0; },
+    function (x, y) { return ((x * y) % 2 + (x * y) % 3) % 2 === 0; },
+    function (x, y) { return ((x + y) % 2 + (x * y) % 3) % 2 === 0; }
+  ];
+  function applyMask(k) {
+    for (var yy = 0; yy < N; yy++) for (var xx = 0; xx < N; xx++) if (!fn[yy][xx] && MASKS[k](xx, yy)) m[yy][xx] ^= 1;
+  }
+  function penalty() {
+    var p = 0, a, b, run, dark = 0, line, k;
+    for (a = 0; a < N; a++) {
+      for (var dir = 0; dir < 2; dir++) {
+        line = [];
+        for (b = 0; b < N; b++) line.push(dir ? m[b][a] : m[a][b]);
+        run = 1;
+        for (b = 1; b <= N; b++) {
+          if (b < N && line[b] === line[b - 1]) run++;
+          else { if (run >= 5) p += run - 2; run = 1; }
+        }
+        var s = line.join('');
+        for (k = 0; k + 11 <= N; k++) {
+          var w = s.substr(k, 11);
+          if (w === '10111010000' || w === '00001011101') p += 40;
+        }
+      }
+    }
+    for (a = 0; a < N - 1; a++) for (b = 0; b < N - 1; b++) {
+      if (m[a][b] === m[a][b + 1] && m[a][b] === m[a + 1][b] && m[a][b] === m[a + 1][b + 1]) p += 3;
+    }
+    for (a = 0; a < N; a++) for (b = 0; b < N; b++) dark += m[a][b];
+    p += Math.floor(Math.abs(dark * 20 - N * N * 10) / (N * N)) * 10;
+    return p;
+  }
+  var best = 0, bestScore = Infinity;
+  for (var k = 0; k < 8; k++) {
+    applyMask(k); format(k);
+    var sc = penalty();
+    if (sc < bestScore) { bestScore = sc; best = k; }
+    applyMask(k);
+  }
+  applyMask(best); format(best);
+  return m;
+}
+(function () {
+  var ENDPOINT = '';
+  var T = {"errName": "Enter your full name.", "errEmail": "Enter a valid email address.", "errPhone": "Enter a valid mobile number.", "errInterest": "Select how you are attending.", "errServer": "The ticket could not be issued. Try again.", "errClosed": "Registration is not open yet.", "submit": "Get my ticket", "sending": "Issuing ticket", "doneEyebrow": "Registered", "doneH": "Your ticket", "doneLead": "Show this screen at the entrance. A copy has been sent to your email.", "storedLead": "Show this screen at the entrance.", "resentH": "Already registered", "resentLead": "This email already holds a ticket. It has been sent again."};
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('regForm'), err = $('err'), btn = $('submitBtn'), dial = $('f-dial');
+
+  // Language menu: the same page in another language, keeping any campaign tags on the link.
+  $('langSel').addEventListener('change', function () {
+    try { localStorage.setItem('hea-lang', this.value); } catch (e) {}
+    location.href = window.HEA_REG_URL(this.value) + location.search;
+  });
+
+  // Country codes: the region's first, then the rest by name in the page language.
+  var FIRST = 'SG65 MY60 ID62 TH66 VN84 PH63 CN86 HK852 TW886 MO853 JP81 KR82 IN91 AU61 NZ64 GB44 US1';
+  var REST = 'AD376 AE971 AF93 AL355 AM374 AO244 AR54 AT43 AZ994 BA387 BD880 BE32 BF226 BG359 BH973 BI257 BJ229 BN673 BO591 BR55 BT975 ' +
+    'BW267 BY375 BZ501 CA1 CD243 CG242 CH41 CI225 CL56 CM237 CO57 CR506 CU53 CY357 CZ420 DE49 DK45 DO1 DZ213 EC593 EE372 EG20 ES34 ET251 ' +
+    'FI358 FJ679 FR33 GE995 GH233 GR30 GT502 HN504 HR385 HU36 IE353 IL972 IQ964 IR98 IS354 IT39 JM1 JO962 KE254 KG996 KH855 KW965 KZ7 ' +
+    'LA856 LB961 LI423 LK94 LT370 LU352 LV371 LY218 MA212 MC377 MD373 ME382 MG261 MK389 MM95 MN976 MT356 MU230 MV960 MX52 MZ258 NA264 ' +
+    'NG234 NI505 NL31 NO47 NP977 OM968 PA507 PE51 PG675 PK92 PL48 PS970 PT351 PY595 QA974 RO40 RS381 RU7 RW250 SA966 SD249 SE46 SI386 ' +
+    'SK421 SN221 SV503 SY963 TJ992 TL670 TM993 TN216 TR90 TT1 TZ255 UA380 UG256 UY598 UZ998 VE58 YE967 ZA27 ZM260 ZW263';
+  var names = null;
+  try { names = new Intl.DisplayNames([document.documentElement.lang || 'en'], { type: 'region' }); } catch (e) {}
+  function entry(s) { var iso = s.slice(0, 2), n = iso; try { n = names ? names.of(iso) : iso; } catch (e) {} return { iso: iso, code: s.slice(2), name: n || iso }; }
+  var first = FIRST.split(' ').map(entry);
+  var rest = REST.split(' ').map(entry).sort(function (a, b) { return a.name.localeCompare(b.name, document.documentElement.lang || 'en'); });
+  function addOptions(list) {
+    list.forEach(function (c) {
+      var o = document.createElement('option');
+      o.value = c.iso; o.setAttribute('data-code', c.code); o.textContent = c.name + ' +' + c.code;
+      dial.appendChild(o);
+    });
+  }
+  addOptions(first);
+  var sep = document.createElement('option'); sep.disabled = true; sep.textContent = '────────'; dial.appendChild(sep);
+  addOptions(rest);
+  function dialCode() { var o = dial.options[dial.selectedIndex]; return o ? o.getAttribute('data-code') : '65'; }
+  function showDial() { $('dialLabel').textContent = dial.value + ' +' + dialCode(); }
+  dial.addEventListener('change', showDial);
+  dial.value = 'SG'; showDial();
+
+  // How the visitor arrived: tags on this link, or the ones the show page saved earlier in the visit.
+  function arrival() {
+    var out = { source: '', medium: '', campaign: '' };
+    try {
+      var p = new URLSearchParams(location.search), saved = JSON.parse(sessionStorage.getItem('hea-utm') || '{}');
+      out.source = p.get('utm_source') || saved.source || '';
+      out.medium = p.get('utm_medium') || saved.medium || '';
+      out.campaign = p.get('utm_campaign') || saved.campaign || '';
+    } catch (e) {}
+    return out;
+  }
+
+  // Country by IP: asked once, when the visitor starts filling in the form. Only the two-letter country is kept.
+  var ipCountry = '', asked = false;
+  function askCountry() {
+    if (asked || !window.fetch) return; asked = true;
+    var ctl = window.AbortController ? new AbortController() : null;
+    if (ctl) setTimeout(function () { ctl.abort(); }, 4000);
+    fetch('https://api.country.is/', ctl ? { signal: ctl.signal } : {}).then(function (r) { return r.json(); })
+      .then(function (j) { if (j && /^[A-Z]{2}$/.test(j.country)) ipCountry = j.country; }).catch(function () {});
+  }
+  form.addEventListener('focusin', askCountry);
+
+  function fail(msg, el) {
+    err.textContent = msg;
+    if (el) { el.setAttribute('aria-invalid', 'true'); if (el.focus && el.id !== 'seg') el.focus(); else $('i-visitor').focus(); }
+    return false;
+  }
+  function clearErr() {
+    err.textContent = '';
+    [].forEach.call(form.querySelectorAll('[aria-invalid]'), function (n) { n.removeAttribute('aria-invalid'); });
+  }
+  form.addEventListener('input', clearErr);
+  form.addEventListener('change', clearErr);
+
+  var FIELD = { name: 'f-name', email: 'f-email', phone: 'f-phone', interest: 'seg' };
+  var MESSAGE = { name: T.errName, email: T.errEmail, phone: T.errPhone, interest: T.errInterest };
+  function read() {
+    var picked = form.querySelector('input[name="interest"]:checked');
+    // validateRegistration is the backend's own rule set (copied in from apps-script/Code.gs by build.py).
+    var checked = validateRegistration({ name: $('f-name').value, email: $('f-email').value, dial: dialCode(),
+      phone: $('f-phone').value, interest: picked ? picked.value : '' });
+    if (!checked.ok) return fail(MESSAGE[checked.error], $(FIELD[checked.error]));
+    var v = checked.value;
+    var a = arrival(), tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    return { name: v.name, email: v.email, iso: dial.value, dial: v.dial, phone: v.phone, interest: v.interest,
+      website: $('f-website').value, lang: document.documentElement.lang || 'en', tz: tz, ipCountry: ipCountry,
+      source: a.source, medium: a.medium, campaign: a.campaign, here: window.HEA_HERE || '',
+      device: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'phone' : 'desktop' };
+  }
+
+  function send(data) {
+    if (!ENDPOINT) {
+      // No backend connected. On a developer's machine the page issues a sample ticket so the flow can be seen.
+      if (window.HEA_TEST) return new Promise(function (ok) { setTimeout(function () { ok({ ok: true, ticket: 'HEA26-SAMPLE', name: data.name }); }, 600); });
+      return Promise.resolve({ ok: false, error: 'closed' });
+    }
+    var ctl = window.AbortController ? new AbortController() : null;
+    if (ctl) setTimeout(function () { ctl.abort(); }, 30000);
+    // text/plain keeps this a simple request: Apps Script web apps cannot answer a CORS preflight.
+    return fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data),
+      redirect: 'follow', signal: ctl ? ctl.signal : undefined }).then(function (r) { return r.json(); });
+  }
+
+  function drawQr(text) {
+    var m = qrMatrix(text), n = m.length, d = '';
+    for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) if (m[y][x]) d += 'M' + x + ' ' + y + 'h1v1h-1z';
+    $('tQr').innerHTML = '<svg viewBox="0 0 ' + n + ' ' + n + '" shape-rendering="crispEdges" aria-hidden="true"><path fill="#000" d="' + d + '"/></svg>';
+  }
+  function showTicket(t, opts) {
+    opts = opts || {};
+    $('formView').hidden = true; $('ticketView').hidden = false;
+    var has = !!t.ticket;
+    $('ticketCard').hidden = !has;
+    $('doneEyebrow').textContent = has ? T.doneEyebrow : T.resentH;
+    $('doneH').textContent = has ? T.doneH : T.resentH;
+    $('doneEyebrow').hidden = !has;
+    $('doneLead').textContent = !has || opts.resent ? T.resentLead : opts.stored ? T.storedLead : T.doneLead;
+    if (has) { $('tName').textContent = t.name; $('tNo').textContent = t.ticket; drawQr(t.ticket); }
+    if (!opts.stored) { window.scrollTo(0, 0); $('doneH').focus(); }
+  }
+  function store(t) { try { if (t) localStorage.setItem('hea-ticket', JSON.stringify(t)); else localStorage.removeItem('hea-ticket'); } catch (e) {} }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if (btn.getAttribute('aria-busy') === 'true') return;
+    clearErr();
+    var data = read();
+    if (!data) return;
+    btn.setAttribute('aria-busy', 'true'); btn.textContent = T.sending;
+    send(data).then(function (res) {
+      if (res && res.ok) {
+        var t = res.ticket ? { ticket: res.ticket, name: res.name || data.name } : {};
+        if (t.ticket) store(t);
+        showTicket(t, { resent: !!res.resent });
+        if (!res.resent) window.trackIntent('sign_up', { method: data.interest });
+        return;
+      }
+      var code = res && res.error;
+      if (MESSAGE[code]) fail(MESSAGE[code], $(FIELD[code])); else fail(code === 'closed' ? T.errClosed : T.errServer);
+    }).catch(function () { fail(T.errServer); }).then(function () {
+      btn.removeAttribute('aria-busy'); btn.textContent = T.submit;
+    });
+  });
+
+  $('another').addEventListener('click', function () {
+    store(null);
+    form.reset(); dial.value = 'SG'; showDial(); clearErr();
+    $('ticketView').hidden = true; $('formView').hidden = false;
+    $('f-name').focus();
+  });
+
+  // A ticket issued on this device earlier is shown straight away, so it can be pulled up again at the entrance.
+  try {
+    var saved = JSON.parse(localStorage.getItem('hea-ticket') || 'null');
+    if (saved && /^HEA26-[0-9A-Z]{6}$/.test(saved.ticket) && saved.name) showTicket(saved, { stored: true });
+  } catch (e) {}
+})();
+</script>
+
+</body>
+</html>

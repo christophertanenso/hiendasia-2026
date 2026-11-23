@@ -24,7 +24,7 @@
 <link rel="alternate" hreflang="vi" href="https://christophertanenso.github.io/hiendasia-2026/vi/">
 <link rel="alternate" hreflang="x-default" href="https://christophertanenso.github.io/hiendasia-2026/">
 <link rel="preload" as="image" href="../img/000zh-1242.webp" imagesrcset="../img/000zh-640.webp 640w, ../img/000zh-760.webp 760w, ../img/000zh-960.webp 960w, ../img/000zh-1242.webp 1242w" imagesizes="(max-width: 960px) calc(100vw - 32px), min(920px, 60vw)" fetchpriority="high">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "2026 Singapore Hi-End Asia International Audio Visual Show", "inLanguage": "zh-Hant", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hant/", "startDate": "2026-12-17T10:00:00+08:00", "endDate": "2026-12-19T19:00:00+08:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": {"@type": "Place", "name": "Suntec Singapore Convention & Exhibition Centre, Level 3", "address": {"@type": "PostalAddress", "streetAddress": "1 Raffles Boulevard", "postalCode": "039593", "addressCountry": "SG"}}, "image": ["https://christophertanenso.github.io/hiendasia-2026/img/000.jpg", "https://christophertanenso.github.io/hiendasia-2026/img/og-2026.jpg"], "description": "2026年12月17–19日，新加坡新達城3樓。免費入場。逾150個高端音響品牌、試聽室、主題演講與嘉賓現場演出。", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SGD", "availability": "https://schema.org/InStock", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hant/"}, "organizer": {"@type": "Organization", "name": "HiEnd Asia + Pte. Ltd", "url": "https://www.hiendasia.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Event", "name": "2026 Singapore Hi-End Asia International Audio Visual Show", "inLanguage": "zh-Hant", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hant/", "startDate": "2026-12-17T10:00:00+08:00", "endDate": "2026-12-19T19:00:00+08:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": {"@type": "Place", "name": "Suntec Singapore Convention & Exhibition Centre, Level 3", "address": {"@type": "PostalAddress", "streetAddress": "1 Raffles Boulevard", "postalCode": "039593", "addressCountry": "SG"}}, "image": ["https://christophertanenso.github.io/hiendasia-2026/img/000.jpg", "https://christophertanenso.github.io/hiendasia-2026/img/og-2026.jpg"], "description": "2026年12月17–19日，新加坡新達城3樓。免費入場。逾150個高端音響品牌、試聽室、主題演講與嘉賓現場演出。", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SGD", "availability": "https://schema.org/InStock", "url": "https://christophertanenso.github.io/hiendasia-2026/zh-Hant/register.html"}, "organizer": {"@type": "Organization", "name": "HiEnd Asia + Pte. Ltd", "url": "https://www.hiendasia.com/"}}</script>
 <title>HiEnd Asia 2026</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>
@@ -301,6 +301,12 @@ window.HEA_CONSENT = {"privacy": "../privacy.html", "t": {"title": "您的隱私
     onSite = !!here || !!(ss && ss.getItem('hea-onsite'));
   } catch (err) { onSite = !!here; }
   function lang() { return document.documentElement.lang || window.HEA_LANG || 'en'; }
+  // Campaign tags on the link that brought the visitor are kept for this tab, so a registration made later in the
+  // visit (register.html) can record which ad, share or sign it came from.
+  try {
+    var qs = new URLSearchParams(location.search);
+    if (qs.get('utm_source') && ss) ss.setItem('hea-utm', JSON.stringify({ source: qs.get('utm_source'), medium: qs.get('utm_medium') || '', campaign: qs.get('utm_campaign') || '' }));
+  } catch (err) {}
 
   window.trackIntent = function (action, detail) {
     try {
@@ -395,7 +401,7 @@ window.HEA_CONSENT = {"privacy": "../privacy.html", "t": {"title": "您的隱私
             } else clearTimeout(timers[id]);
           });
         }, { rootMargin: '0px 0px -40% 0px' });
-        ['floorplan', 'speakers', 'guests', 'brands', 'visit'].forEach(function (id) {
+        ['floorplan', 'speakers', 'guests', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
           var el = document.getElementById(id); if (el) io.observe(el);
         });
       }
@@ -647,6 +653,49 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .media { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .media li { padding: 6px 14px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; color: var(--body); }
 
+/* Talk schedule */
+.sch { display: flex; flex-direction: column; gap: var(--space-m); }
+.sch-days { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-m); }
+.sch-day { border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px; background: #000; }
+.sch-day h4 { margin: 0 0 8px; font: 700 20px/1.3 var(--font-display); color: var(--heading); }
+.sch-list { list-style: none; margin: 0; padding: 0; }
+.sch-row { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 2px 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.sch-time { grid-row: span 2; font: 700 14px/1.5 var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.sch-who { font-size: 15px; line-height: 1.5; }
+.sch-who b { display: block; color: var(--heading); font-family: var(--font-display); }
+.sch-tag { display: inline-block; margin-left: 6px; padding: 0 8px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 11px; color: var(--muted); vertical-align: 1px; }
+.sch-where { font-size: 13px; color: var(--muted); }
+
+/* Commemorative CDs */
+.cd-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: var(--space-m); }
+.cd { display: flex; flex-direction: column; gap: 4px; }
+.cd img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); border: 1px solid var(--line); margin-bottom: 10px; }
+.cd-name { font: 700 18px/1.3 var(--font-display); color: var(--heading); }
+.cd-note { font-size: 14px; color: var(--muted); }
+
+/* Lucky draw */
+.ld { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-l); align-items: start; }
+@media (max-width: 860px) { .ld { grid-template-columns: minmax(0, 1fr); } }
+.ld-box { border: 1px solid var(--accent); border-radius: var(--radius-card); padding: 24px; background: #000; }
+.ld-big { margin: 0 0 18px; font: 700 clamp(22px, 3vw, 30px)/1.2 var(--font-display); color: var(--heading); text-align: center; }
+.ld-head, .ld-rows li { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr) minmax(0, 1fr); gap: 12px; align-items: center; }
+.ld-head { padding: 0 0 8px; font: 700 12px/1.4 var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.ld-rows { list-style: none; margin: 0; padding: 0; }
+.ld-rows li { padding: 12px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.ld-rows li span { color: var(--heading); font-weight: 700; font-variant-numeric: tabular-nums; }
+.ld-rows li b { font: 700 16px/1.3 var(--font-display); color: var(--heading); }
+.ld-terms h3 { margin: 0 0 10px; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.ld-terms ul { margin: 0 0 24px; padding-left: 18px; color: var(--body); font-size: 15px; line-height: 1.7; }
+
+/* Sponsor and hotel logos */
+.sp-wall { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); gap: 24px 16px; }
+.sp { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sp .tile { margin-bottom: 8px; aspect-ratio: auto; height: 112px; }
+.sp .tile img { max-height: 84px; max-width: 86%; }
+.sp-word { font: 700 17px/1.25 var(--font-display); color: #1a1a1a; text-align: center; }
+.sp-name { color: var(--body); font-weight: 700; line-height: 1.4; }
+.sp small { color: var(--muted); font-size: 13px; }
+
 /* Footer */
 .site-foot { border-top: 1px solid var(--line); }
 .site-foot .wrap { padding-block: 64px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
@@ -671,6 +720,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .foot-contact { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
 .foot-contact > a { color: inherit; text-decoration: none; }
 .foot-contact > a:hover, .foot-contact > a:focus-visible { color: var(--heading); text-decoration: underline; }
+.foot-qr { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 160px; text-decoration: none; color: var(--muted); font-size: 13px; line-height: 1.4; text-align: center; }
+.foot-qr img { width: 160px; height: 160px; border-radius: 12px; background: #fff; }
+.foot-qr:hover { color: var(--heading); }
 .foot-contact .social { display: flex; flex-wrap: wrap; gap: 20px; padding-top: 8px; }
 .copy { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
 .copy .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
@@ -728,6 +780,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <a class="txt" href="#art" data-i18n="nav.art">Art</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">講者</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">品牌</a>
+      <a class="txt" href="#luckydraw" data-i18n="nav.draw">幸運抽獎</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">參觀</a>
       <a class="txt dup" href="../hotel.html" data-i18n="nav.hotel">Hotel</a>
       <a class="txt dup" href="../exhibitor-login.html" data-i18n="nav.login">Exhibitor login</a>
@@ -748,7 +801,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     </label>
     <a class="btn btn-outline btn-sm head-extra" href="../hotel.html" data-i18n="cta.hotel">Hotel booking</a>
     <a class="btn btn-outline btn-sm head-extra" href="../exhibitor-login.html" data-i18n="cta.login">Exhibitor login</a>
-    <a class="btn btn-primary btn-sm head-cta" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener" data-i18n="nav.save">加入日曆</a>
+    <a class="btn btn-primary btn-sm head-cta" href="register.html" data-i18n="reg.cta.short">登記</a>
   </div>
 </header>
 
@@ -767,18 +820,19 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <span data-i18n="d.sat">12月19日 星期六</span><span data-i18n="time">上午10時 – 晚上7時</span>
       </div>
       <p class="venue" data-i18n="venue">Suntec Singapore · 新達城新加坡國際會議與展覽中心 三樓</p>
-      <p class="free"><b data-i18n="free.label">免費入場</b><span data-i18n="free.hero">無需門票，三日內隨時蒞臨。</span></p>
+      <p class="free"><b data-i18n="free.label">免費入場</b><span data-i18n="free.hero">憑票入場。登記一次，三日通用。</span></p>
       <div class="btns">
+        <a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="reg.cta">登記領取免費門票</span></a>
         <details class="cal">
-          <summary class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="cal.add">加入日曆</span><span class="chev" aria-hidden="true">▾</span></summary>
+          <summary class="btn btn-outline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="cal.add">加入日曆</span><span class="chev" aria-hidden="true">▾</span></summary>
           <div class="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
-            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
-            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry.+A+ticket+is+required%3A+register+at+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2Fregister.html.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
+            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry.+A+ticket+is+required%3A+register+at+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2Fregister.html.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
+            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry.+A+ticket+is+required%3A+register+at+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2Fregister.html.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
             <a href="../hiendasia-2026.ics"><span data-i18n="cal.ics">Apple 行事曆及其他</span><small data-i18n="cal.ics.note">iPhone、Mac 或任何行事曆 App（.ics）</small></a>
           </div>
         </details>
-        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%20%E6%96%B0%E5%8A%A0%E5%9D%A1%20Hi-End%20Asia%20%E5%9C%8B%E9%9A%9B%E9%9F%B3%E9%9F%BF%E5%BD%B1%E9%9F%B3%E5%B1%95%0A2026%E5%B9%B412%E6%9C%8817%20%E2%80%93%2019%E6%97%A5%EF%BC%8C%E6%AF%8F%E6%97%A5%E4%B8%8A%E5%8D%8810%E6%99%82%20%E2%80%93%20%E6%99%9A%E4%B8%8A7%E6%99%82%0ASuntec%20Singapore%20%C2%B7%20%E6%96%B0%E9%81%94%E5%9F%8E%E6%96%B0%E5%8A%A0%E5%9D%A1%E5%9C%8B%E9%9A%9B%E6%9C%83%E8%AD%B0%E8%88%87%E5%B1%95%E8%A6%BD%E4%B8%AD%E5%BF%83%20%E4%B8%89%E6%A8%93%0A%E5%85%8D%E8%B2%BB%E5%85%A5%E5%A0%B4%EF%BC%8C%E7%84%A1%E9%9C%80%E9%96%80%E7%A5%A8%E3%80%82%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/zh-Hant/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">分享至 WhatsApp</span></a>
+        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%20%E6%96%B0%E5%8A%A0%E5%9D%A1%20Hi-End%20Asia%20%E5%9C%8B%E9%9A%9B%E9%9F%B3%E9%9F%BF%E5%BD%B1%E9%9F%B3%E5%B1%95%0A2026%E5%B9%B412%E6%9C%8817%20%E2%80%93%2019%E6%97%A5%EF%BC%8C%E6%AF%8F%E6%97%A5%E4%B8%8A%E5%8D%8810%E6%99%82%20%E2%80%93%20%E6%99%9A%E4%B8%8A7%E6%99%82%0ASuntec%20Singapore%20%C2%B7%20%E6%96%B0%E9%81%94%E5%9F%8E%E6%96%B0%E5%8A%A0%E5%9D%A1%E5%9C%8B%E9%9A%9B%E6%9C%83%E8%AD%B0%E8%88%87%E5%B1%95%E8%A6%BD%E4%B8%AD%E5%BF%83%20%E4%B8%89%E6%A8%93%0A%E5%85%8D%E8%B2%BB%E5%85%A5%E5%A0%B4%EF%BC%8C%E8%AB%8B%E5%85%88%E7%99%BB%E8%A8%98%E9%A0%98%E5%8F%96%E9%96%80%E7%A5%A8%E3%80%82%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/zh-Hant/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">分享至 WhatsApp</span></a>
         <details class="cal wx">
           <summary class="btn btn-outline"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 4C5.1 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.4 2.5.4h.4a5 5 0 0 1-.2-1.4C9.2 11 12.2 8.6 16 8.6h.3C15.6 5.9 12.6 4 9 4Zm-2.4 3.2a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/><path d="M22 14.2c0-2.7-2.7-4.8-6-4.8s-6 2.1-6 4.8 2.7 4.8 6 4.8c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.8Zm-8-.9a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z"/></svg><span data-i18n="share.wx">分享到微信</span></summary>
           <div class="cal-menu wx-menu">
@@ -801,7 +855,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="stat"><b>150+</b><span data-i18n="stat.brands">個國際頂尖音響品牌</span></div>
     <div class="stat"><b>8,000+</b><span data-i18n="stat.visits">2024 年展會參觀人次</span></div>
     <div class="stat"><b data-i18n="stat.days.n">3 天</b><span data-i18n="stat.days">沉浸聆聽與現場音樂</span></div>
-    <div class="stat"><b data-i18n="stat.free.n">免費</b><span data-i18n="stat.free">入場，無需門票</span></div>
+    <div class="stat"><b data-i18n="stat.free.n">免費</b><span data-i18n="stat.free">入場，須登記領票</span></div>
   </div>
 </section>
 
@@ -896,6 +950,15 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   <span class="p-role" data-i18n="p.16.role">PaPa Dan 影音實驗室主持人 · 台灣</span>
   <p class="p-bio" data-i18n="p.16.bio">StormAudio 認證專家級調校師，逾20年多聲道家庭影音系統設計與調校經驗，在亞洲完成超過50套 StormAudio 系統安裝。講題：為發燒友打造的新世代 Hi-Fi 影音沉浸式系統。</p>
 </article>
+    </div>
+    <div class="sch">
+      <h3 class="sub-h" data-i18n="sched.h">講座時間表</h3>
+      <div class="sch-days">
+<div class="sch-day"><h4 data-i18n="d.thu">12月17日 星期四</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系統</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 323 · MU6</span></li><li class="sch-row"><span class="sch-time">4–5pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系統</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 323 · Activities Room</span></li></ol></div>
+<div class="sch-day"><h4 data-i18n="d.fri">12月18日 星期五</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">11am–12pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系統</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 301 · Audioline</span></li><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">黑膠的藝術與科學</span> <span class="sch-tag">暫定</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 333 · Aries Cerat</span></li><li class="sch-row"><span class="sch-time">3–4pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系統</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 335 · San Yuan</span></li><li class="sch-row"><span class="sch-time">4–5pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">黑膠的藝術與科學</span> <span class="sch-tag">暫定</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 301 · Audioline</span></li></ol></div>
+<div class="sch-day"><h4 data-i18n="d.sat">12月19日 星期六</h4><ol class="sch-list"><li class="sch-row"><span class="sch-time">10–11am</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系統</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 335 · San Yuan</span></li><li class="sch-row"><span class="sch-time">11am–12pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">黑膠的藝術與科學</span> <span class="sch-tag">暫定</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 332 · AMR</span></li><li class="sch-row"><span class="sch-time">1–2pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系統</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 333 · Aries Cerat</span></li><li class="sch-row"><span class="sch-time">2–3pm</span><span class="sch-who"><b>Richard H. Mak</b><span data-i18n="sched.mak">黑膠的藝術與科學</span> <span class="sch-tag">暫定</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 307 · High End Research</span></li><li class="sch-row"><span class="sch-time">3–4pm</span><span class="sch-who"><b>Daniel Hsu</b><span data-i18n="sched.dan">新一代 Hi-Fi 影音沉浸式系統</span></span><span class="sch-where"><span data-i18n="sched.room">房間</span> 323 · Activities Room</span></li></ol></div>
+      </div>
+      <p class="figcap" data-i18n="sched.note">各房間講題或有不同。Richard H. Mak 的講題為暫定，待確認。每場講座 60 分鐘。</p>
     </div>
   </div>
 </section>
@@ -1022,6 +1085,52 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
   </div>
 </section>
 
+<section class="block" id="cds">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="cd.h">紀念 CD 與黑膠唱片</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="cd.intro">HiEnd Asia 2024 及 2025 年紀念錄音於展會現場發售。</p>
+    </div>
+    <ul class="cd-grid">
+      <li class="cd"><img src="../img/cds/hea6-1000.webp" srcset="../img/cds/hea6-600.webp 600w, ../img/cds/hea6-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="2024 紀念 CD" data-i18n-attr="alt:cd.2024" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.2024">2024 紀念 CD</span><span class="cd-note" data-i18n="cd.sale">展會現場發售</span></li>
+      <li class="cd"><img src="../img/cds/hea5-1000.webp" srcset="../img/cds/hea5-600.webp 600w, ../img/cds/hea5-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="2025 紀念 CD" data-i18n-attr="alt:cd.2025" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.2025">2025 紀念 CD</span><span class="cd-note" data-i18n="cd.sale">展會現場發售</span></li>
+      <li class="cd"><img src="../img/cds/hea7-1000.webp" srcset="../img/cds/hea7-600.webp 600w, ../img/cds/hea7-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="2025 紀念雙黑膠唱片" data-i18n-attr="alt:cd.lp" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.lp">2025 紀念雙黑膠唱片</span><span class="cd-note" data-i18n="cd.lp.note">限量版 · 45 轉</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="block band" id="luckydraw">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="ld.h">幸運抽獎與神秘盲盒</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="ld.intro">請於2026年12月5日前登記免費門票，即可參加。</p>
+    </div>
+    <div class="ld">
+      <div class="ld-box">
+        <p class="ld-big" data-i18n="ld.winners">每日抽出三名幸運得主</p>
+        <div class="ld-head" aria-hidden="true"><span data-i18n="ld.date">抽獎日期</span><span data-i18n="ld.time">抽獎時間</span><span data-i18n="ld.venue">地點</span></div>
+        <ul class="ld-rows">
+<li><span data-i18n="d.thu">12月17日 星期四</span><span>下午4時</span><b>The Link 2</b></li>
+<li><span data-i18n="d.fri">12月18日 星期五</span><span>下午4時</span><b>Foyer 1</b></li>
+<li><span data-i18n="d.sat">12月19日 星期六</span><span>下午4時</span><b>Foyer 5</b></li>
+        </ul>
+      </div>
+      <div class="ld-terms">
+        <h3 data-i18n="ld.terms.h">條款與細則</h3>
+        <ul>
+          <li data-i18n="ld.t1">須提前登記。</li>
+          <li data-i18n="ld.t2">參加者須為已登記觀眾。</li>
+          <li data-i18n="ld.t3">得獎者須親臨現場，並出示有效身分證件以供核實。</li>
+          <li data-i18n="ld.t4">獎品數量有限，送完即止。</li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="ld.cta">12月5日前登記</span></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="block" id="visit">
   <div class="wrap">
     <div class="visit-grid">
@@ -1041,19 +1150,19 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <li><b>Promenade</b><span data-i18n="mrt.promenade">環線或濱海市區線</span></li>
           <li><b>City Hall</b><span data-i18n="mrt.cityhall">南北線或東西線</span></li>
         </ul>
-        <p class="free"><b data-i18n="free.label">免費入場</b><span data-i18n="free.short">無需門票。</span></p>
+        <div class="btns"><a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="visit.tickets">領取免費門票</span></a></div>
         <div class="btns"><a class="btn btn-outline" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener" data-i18n="visit.directions">交通指南</a> <a class="btn btn-outline" href="https://wa.me/6586681927?text=Hi%20Michelle%2C%20I%20have%20a%20question%20about%20HiEnd%20Asia%202026." target="_blank" rel="noopener" data-wa-contact><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="cta.wa">WhatsApp Michelle</span></a></div>
       <div class="btns">
         <details class="cal">
-          <summary class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="cal.add">加入日曆</span><span class="chev" aria-hidden="true">▾</span></summary>
+          <summary class="btn btn-outline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="cal.add">加入日曆</span><span class="chev" aria-hidden="true">▾</span></summary>
           <div class="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
-            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
-            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry.+A+ticket+is+required%3A+register+at+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2Fregister.html.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
+            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry.+A+ticket+is+required%3A+register+at+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2Fregister.html.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
+            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry.+A+ticket+is+required%3A+register+at+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2Fregister.html.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
             <a href="../hiendasia-2026.ics"><span data-i18n="cal.ics">Apple 行事曆及其他</span><small data-i18n="cal.ics.note">iPhone、Mac 或任何行事曆 App（.ics）</small></a>
           </div>
         </details>
-        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%20%E6%96%B0%E5%8A%A0%E5%9D%A1%20Hi-End%20Asia%20%E5%9C%8B%E9%9A%9B%E9%9F%B3%E9%9F%BF%E5%BD%B1%E9%9F%B3%E5%B1%95%0A2026%E5%B9%B412%E6%9C%8817%20%E2%80%93%2019%E6%97%A5%EF%BC%8C%E6%AF%8F%E6%97%A5%E4%B8%8A%E5%8D%8810%E6%99%82%20%E2%80%93%20%E6%99%9A%E4%B8%8A7%E6%99%82%0ASuntec%20Singapore%20%C2%B7%20%E6%96%B0%E9%81%94%E5%9F%8E%E6%96%B0%E5%8A%A0%E5%9D%A1%E5%9C%8B%E9%9A%9B%E6%9C%83%E8%AD%B0%E8%88%87%E5%B1%95%E8%A6%BD%E4%B8%AD%E5%BF%83%20%E4%B8%89%E6%A8%93%0A%E5%85%8D%E8%B2%BB%E5%85%A5%E5%A0%B4%EF%BC%8C%E7%84%A1%E9%9C%80%E9%96%80%E7%A5%A8%E3%80%82%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/zh-Hant/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">分享至 WhatsApp</span></a>
+        <a class="btn btn-outline" href="https://wa.me/?text=HiEnd%20Asia%202026%20%E6%96%B0%E5%8A%A0%E5%9D%A1%20Hi-End%20Asia%20%E5%9C%8B%E9%9A%9B%E9%9F%B3%E9%9F%BF%E5%BD%B1%E9%9F%B3%E5%B1%95%0A2026%E5%B9%B412%E6%9C%8817%20%E2%80%93%2019%E6%97%A5%EF%BC%8C%E6%AF%8F%E6%97%A5%E4%B8%8A%E5%8D%8810%E6%99%82%20%E2%80%93%20%E6%99%9A%E4%B8%8A7%E6%99%82%0ASuntec%20Singapore%20%C2%B7%20%E6%96%B0%E9%81%94%E5%9F%8E%E6%96%B0%E5%8A%A0%E5%9D%A1%E5%9C%8B%E9%9A%9B%E6%9C%83%E8%AD%B0%E8%88%87%E5%B1%95%E8%A6%BD%E4%B8%AD%E5%BF%83%20%E4%B8%89%E6%A8%93%0A%E5%85%8D%E8%B2%BB%E5%85%A5%E5%A0%B4%EF%BC%8C%E8%AB%8B%E5%85%88%E7%99%BB%E8%A8%98%E9%A0%98%E5%8F%96%E9%96%80%E7%A5%A8%E3%80%82%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/zh-Hant/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg><span data-i18n="share.wa">分享至 WhatsApp</span></a>
         <details class="cal wx">
           <summary class="btn btn-outline"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 4C5.1 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.4 2.5.4h.4a5 5 0 0 1-.2-1.4C9.2 11 12.2 8.6 16 8.6h.3C15.6 5.9 12.6 4 9 4Zm-2.4 3.2a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/><path d="M22 14.2c0-2.7-2.7-4.8-6-4.8s-6 2.1-6 4.8 2.7 4.8 6 4.8c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.8Zm-8-.9a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6Z"/></svg><span data-i18n="share.wx">分享到微信</span></summary>
           <div class="cal-menu wx-menu">
@@ -1081,20 +1190,30 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="partners">
       <div>
         <h3 data-i18n="partners.main">主辦單位</h3>
-        <ul class="plist"><li>HiEnd Asia + Pte. Ltd</li><li>SIEC<small>上海市国际展览（集团）有限公司</small></li></ul>
+        <ul class="plist"><li>HiEnd Asia + Pte. Ltd</li></ul>
       </div>
       <div>
         <h3 data-i18n="partners.co">協辦單位</h3>
         <ul class="plist"><li>Taipei Electrical Commercial Association</li><li>SIAV</li><li>Taichung City Electric Business Association</li></ul>
       </div>
-      <div>
-        <h3 data-i18n="partners.sponsors">贊助</h3>
-        <ul class="plist"><li>MU6<small data-i18n="sp.mu6">現金贊助</small></li><li>Enso Consult<small data-i18n="sp.enso">宣傳與資訊科技</small></li><li>Stardust Pictures<small data-i18n="sp.stardust">影片與攝影</small></li><li>Melodious Piano House<small data-i18n="sp.piano">Yamaha 音樂會鋼琴</small></li></ul>
-      </div>
-      <div>
-        <h3 data-i18n="partners.hotels">合作酒店</h3>
-        <ul class="plist"><li>Pullman Singapore</li><li>lyf Funan Singapore</li></ul>
-      </div>
+    </div>
+    <div>
+      <h3 class="sub-h" data-i18n="partners.sponsors">贊助</h3>
+      <ul class="sp-wall">
+<li class="sp"><span class="tile"><img src="../img/sponsors/mu6.webp" alt="MU6" loading="lazy"></span><span class="sp-name">MU6</span><small data-i18n="sp.mu6">現金贊助</small></li>
+<li class="sp"><span class="tile"><img src="../img/sponsors/enso.webp" alt="Enso Consult" loading="lazy"></span><span class="sp-name">Enso Consult</span><small data-i18n="sp.enso">宣傳與資訊科技</small></li>
+<li class="sp"><span class="tile"><img src="../img/sponsors/stardust.webp" alt="Stardust Pictures" loading="lazy"></span><span class="sp-name">Stardust Pictures</span><small data-i18n="sp.stardust">影片與攝影</small></li>
+<li class="sp"><span class="tile"><span class="sp-word">Melodious Piano House</span></span><span class="sp-name">Melodious Piano House</span><small data-i18n="sp.piano">Yamaha 音樂會鋼琴</small></li>
+<li class="sp"><span class="tile"><img src="../img/sponsors/sharkwire.webp" alt="Sharkwire" loading="lazy"></span><span class="sp-name">Sharkwire</span></li>
+<li class="sp"><span class="tile"><img src="../img/sponsors/tuanyuan.webp" alt="Tuan Yuan Pork Ribs Soup" loading="lazy"></span><span class="sp-name">Tuan Yuan Pork Ribs Soup</span></li>
+<li class="sp"><span class="tile"><img src="../img/sponsors/creative-district.webp" alt="Creative District" loading="lazy"></span><span class="sp-name">Creative District</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="sub-h" data-i18n="partners.hotels">合作酒店</h3>
+      <ul class="sp-wall">
+<li class="sp"><span class="tile"><img src="../img/sponsors/pullman.webp" alt="Pullman Singapore Hill Street" loading="lazy"></span><span class="sp-name">Pullman Singapore Hill Street</span></li>
+      </ul>
     </div>
     <div>
       <h3 class="sub-h" data-i18n="partners.media">媒體合作夥伴</h3>
@@ -1128,15 +1247,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 </main>
 
 <div class="mbar" id="mbar">
-  <details class="cal">
-    <summary class="btn btn-primary btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="nav.save">加入日曆</span></summary>
-    <div class="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HiEnd+Asia+2026&amp;dates=20261217T100000%2F20261217T190000&amp;ctz=Asia%2FSingapore&amp;recur=RRULE%3AFREQ%3DDAILY%3BCOUNT%3D3&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;details=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.google">Google Calendar</span><small data-i18n="cal.google.note">12月17 – 19日，每日上午10時 – 晚上7時</small></a>
-            <a href="https://outlook.live.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.outlook">Outlook.com</span><small data-i18n="cal.outlook.note">個人 Outlook 與 Hotmail 帳戶</small></a>
-            <a href="https://outlook.office.com/calendar/0/action/compose?subject=HiEnd+Asia+2026&amp;startdt=2026-12-17T10%3A00%3A00%2B08%3A00&amp;enddt=2026-12-19T19%3A00%3A00%2B08%3A00&amp;location=Level+3%2C+Suntec+Singapore+Convention+%26+Exhibition+Centre%2C+1+Raffles+Boulevard%2C+Singapore+039593&amp;body=2026+Singapore+Hi-End+Asia+International+Audio+Visual+Show%0A%0AFree+entry%2C+no+tickets+needed.+150%2B+high-end+audio+brands%2C+listening+rooms%2C+keynote+talks+and+a+live+guest+performance.+Open+10am+-+7pm+daily.+https%3A%2F%2Fchristophertanenso.github.io%2Fhiendasia-2026%2F%3Futm_source%3Dcalendar%26utm_medium%3Dreferral%26utm_campaign%3Dsave_the_date" target="_blank" rel="noopener"><span data-i18n="cal.work">Outlook（公司或學校）</span><small data-i18n="cal.work.note">Microsoft 365</small></a>
-            <a href="../hiendasia-2026.ics"><span data-i18n="cal.ics">Apple 行事曆及其他</span><small data-i18n="cal.ics.note">iPhone、Mac 或任何行事曆 App（.ics）</small></a>
-          </div>
-  </details>
+  <a class="btn btn-primary btn-sm" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="reg.cta.short">登記</span></a>
   <a class="btn btn-outline btn-sm" href="https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre" target="_blank" rel="noopener"><span data-i18n="visit.directions">交通指南</span></a>
 </div>
 
@@ -1155,7 +1266,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     </div>
     <div class="foot-contact">
       <span>1093 Lower Delta Road #02-09, Singapore 169204</span>
-      <a href="tel:+6586681927">+65 8668 1927</a>
+      <a href="https://wa.me/6586681927?text=Hi%20Michelle%2C%20I%20have%20a%20question%20about%20HiEnd%20Asia%202026." target="_blank" rel="noopener">+65 8668 1927</a>
       <a href="mailto:michelle@hiendasia.com">michelle@hiendasia.com</a>
       <div class="social">
         <a href="https://www.facebook.com/hiendasia.sg/" target="_blank" rel="noopener">Facebook</a>
@@ -1164,8 +1275,12 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
         <a href="https://www.hiendasia.com/" target="_blank" rel="noopener">hiendasia.com</a>
       </div>
     </div>
+    <a class="foot-qr" href="https://wa.me/6586681927?text=Hi%20Michelle%2C%20I%20have%20a%20question%20about%20HiEnd%20Asia%202026." target="_blank" rel="noopener">
+      <img src="../img/whatsapp-qr.png" alt="掃碼透過 WhatsApp 聯絡我們" data-i18n-attr="alt:foot.waqr" width="670" height="670" loading="lazy">
+      <span data-i18n="foot.waqr">掃碼透過 WhatsApp 聯絡我們</span>
+    </a>
   </div>
-  <div class="copy"><div class="wrap"><span>© 2026 HiEnd Asia + Pte. Ltd</span><span class="legal"><a href="../privacy.html">隱私聲明</a><button type="button" data-consent-open>Cookie 設定</button></span><span><span data-i18n="foot.motto">靜心聆聽，此刻屬於你。</span> · <a href="https://wa.me/?text=HiEnd%20Asia%202026%20%E6%96%B0%E5%8A%A0%E5%9D%A1%20Hi-End%20Asia%20%E5%9C%8B%E9%9A%9B%E9%9F%B3%E9%9F%BF%E5%BD%B1%E9%9F%B3%E5%B1%95%0A2026%E5%B9%B412%E6%9C%8817%20%E2%80%93%2019%E6%97%A5%EF%BC%8C%E6%AF%8F%E6%97%A5%E4%B8%8A%E5%8D%8810%E6%99%82%20%E2%80%93%20%E6%99%9A%E4%B8%8A7%E6%99%82%0ASuntec%20Singapore%20%C2%B7%20%E6%96%B0%E9%81%94%E5%9F%8E%E6%96%B0%E5%8A%A0%E5%9D%A1%E5%9C%8B%E9%9A%9B%E6%9C%83%E8%AD%B0%E8%88%87%E5%B1%95%E8%A6%BD%E4%B8%AD%E5%BF%83%20%E4%B8%89%E6%A8%93%0A%E5%85%8D%E8%B2%BB%E5%85%A5%E5%A0%B4%EF%BC%8C%E7%84%A1%E9%9C%80%E9%96%80%E7%A5%A8%E3%80%82%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/zh-Hant/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa data-i18n="share.wa">分享至 WhatsApp</a></span></div></div>
+  <div class="copy"><div class="wrap"><span>© 2026 HiEnd Asia + Pte. Ltd</span><span class="legal"><a href="../privacy.html">隱私聲明</a><button type="button" data-consent-open>Cookie 設定</button></span><span><span data-i18n="foot.motto">靜心聆聽，此刻屬於你。</span> · <a href="https://wa.me/?text=HiEnd%20Asia%202026%20%E6%96%B0%E5%8A%A0%E5%9D%A1%20Hi-End%20Asia%20%E5%9C%8B%E9%9A%9B%E9%9F%B3%E9%9F%BF%E5%BD%B1%E9%9F%B3%E5%B1%95%0A2026%E5%B9%B412%E6%9C%8817%20%E2%80%93%2019%E6%97%A5%EF%BC%8C%E6%AF%8F%E6%97%A5%E4%B8%8A%E5%8D%8810%E6%99%82%20%E2%80%93%20%E6%99%9A%E4%B8%8A7%E6%99%82%0ASuntec%20Singapore%20%C2%B7%20%E6%96%B0%E9%81%94%E5%9F%8E%E6%96%B0%E5%8A%A0%E5%9D%A1%E5%9C%8B%E9%9A%9B%E6%9C%83%E8%AD%B0%E8%88%87%E5%B1%95%E8%A6%BD%E4%B8%AD%E5%BF%83%20%E4%B8%89%E6%A8%93%0A%E5%85%8D%E8%B2%BB%E5%85%A5%E5%A0%B4%EF%BC%8C%E8%AB%8B%E5%85%88%E7%99%BB%E8%A8%98%E9%A0%98%E5%8F%96%E9%96%80%E7%A5%A8%E3%80%82%0Ahttps%3A//christophertanenso.github.io/hiendasia-2026/zh-Hant/%3Futm_source%3Dwhatsapp%26utm_medium%3Dsocial%26utm_campaign%3Dshare" target="_blank" rel="noopener" data-wa data-i18n="share.wa">分享至 WhatsApp</a></span></div></div>
 </footer>
 
 <script>
