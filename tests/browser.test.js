@@ -6,6 +6,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { start } = require('./helpers/server');
 const { findChrome, evaluateWhen } = require('./helpers/chrome');
+const { loadBackend } = require('./helpers/gas-mock');
+const SITE = 'https://christophertanenso.github.io/hiendasia-2026/';
+const qrPath = text => { const m = loadBackend({ setup: false }).gs.qrMatrix(text); let d = ''; m.forEach((r, y) => r.forEach((v, x) => { if (v) d += 'M' + x + ' ' + y + 'h1v1h-1z'; })); return d; };
 
 const en = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'i18n', 'en.json'), 'utf8'));
 const th = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'i18n', 'th.json'), 'utf8'));
@@ -59,6 +62,9 @@ describe('register page in the browser', { skip }, () => {
       assert.match(ok(r, 'success').view.ticket, TICKET); assert.equal(r.success.view.ticket, r.success.state.rows[0].Ticket);
     });
     scenario('draws a QR code', r => assert.ok(ok(r, 'success').view.qrCells > 150));
+    scenario('draws the QR code of the door check-in link for this ticket', r => {
+      assert.equal(ok(r, 'success').view.qrPath, qrPath(SITE + 'in.html?t=' + r.success.view.ticket));
+    });
     scenario('says a copy was emailed', r => assert.equal(ok(r, 'success').view.lead, en['reg.done.lead']));
     scenario('moves focus to the ticket heading for screen readers', r => assert.equal(ok(r, 'success').headingFocused, true));
     scenario('writes one row to the Sheet', r => assert.equal(ok(r, 'success').state.rows.length, 1));
@@ -172,5 +178,39 @@ describe('register page in the browser', { skip }, () => {
       const t = ok(r, 'tapTargets'); for (const k of ['f-name', 'f-email', 'f-phone', 'submitBtn', 'interest']) assert.ok(t[k] >= 48, k + ' ' + t[k]);
     });
     scenario('inputs use 16px text so iPhones do not zoom', r => assert.equal(ok(r, 'tapTargets').inputFont, '16px'));
+  });
+  describe('the door page (in.html, opened by scanning a ticket)', () => {
+    scenario('shows a visitor the ticket number and what to do', r => {
+      const v = ok(r, 'doorVisitor'); assert.equal(v.state, 'visitor'); assert.match(v.ticket, TICKET); assert.match(v.msg, /entrance/);
+    });
+    scenario('checks nobody in for a phone without the door PIN', r => {
+      assert.equal(ok(r, 'doorVisitor').posts, 0); assert.equal(r.doorVisitor.pinAsked, false);
+    });
+    scenario('asks staff for the door PIN', r => assert.equal(ok(r, 'doorStaffSignIn').asked.pinAsked, true));
+    scenario('admits the visitor once the PIN is entered', r => {
+      const a = ok(r, 'doorStaffSignIn').after; assert.equal(a.state, 'admitted'); assert.equal(a.name, 'Tan Wei Ming'); assert.match(a.detail, /Trade.*visit 1/i);
+    });
+    scenario('sends the ticket and PIN to the backend as a check-in', r => {
+      const p = ok(r, 'doorStaffSignIn').post; assert.equal(p.action, 'checkin'); assert.equal(p.pin, '482916'); assert.match(p.ticket, TICKET);
+    });
+    scenario('counts the visit in the Sheet', r => assert.equal(ok(r, 'doorStaffSignIn').state.rows[0]['Check-ins'], 1));
+    scenario('remembers the PIN on the staff phone', r => assert.equal(ok(r, 'doorStaffSignIn').after.stored, '482916'));
+    scenario('checks in straight away on a phone that has the PIN', r => {
+      assert.equal(ok(r, 'doorRemembered').first.state, 'admitted'); assert.equal(r.doorRemembered.first.pinAsked, false);
+    });
+    scenario('says when the same ticket was just scanned', r => {
+      assert.equal(ok(r, 'doorRemembered').again.state, 'repeat'); assert.equal(r.doorRemembered.state.rows[0]['Check-ins'], 1);
+    });
+    scenario('asks again and forgets a wrong PIN', r => {
+      const v = ok(r, 'doorWrongPin'); assert.equal(v.state, 'pin'); assert.equal(v.pinAsked, true); assert.match(v.msg, /wrong pin/i); assert.equal(v.stored, null);
+    });
+    scenario('says when a ticket is not registered', r => { const v = ok(r, 'doorUnknown'); assert.equal(v.state, 'error'); assert.match(v.msg, /not registered/i); });
+    scenario('says when the link has no ticket in it', r => { const v = ok(r, 'doorNoTicket'); assert.equal(v.state, 'error'); assert.equal(v.posts, 0); });
+    scenario('says when there is no connection', r => { const v = ok(r, 'doorOffline'); assert.equal(v.state, 'error'); assert.match(v.msg, /connection/i); });
+    scenario('lets staff switch door mode off on the phone', r => {
+      const v = ok(r, 'doorSignOut'); assert.equal(v.stored, null); assert.equal(v.state, 'visitor');
+    });
+    scenario('fits a 320px phone', r => assert.ok(ok(r, 'doorNarrow').spill <= 0));
+    scenario('calls no outside service', r => assert.deepEqual(ok(r, 'doorStaffSignIn').after.external, []));
   });
 });

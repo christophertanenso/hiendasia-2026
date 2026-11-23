@@ -58,7 +58,7 @@ async function open(page, o) {
       invalid: invalid ? invalid.id : null, focus: d.activeElement ? d.activeElement.id : null,
       heading: d.getElementById('doneH').textContent, lead: d.getElementById('doneLead').textContent,
       name: d.getElementById('tName').textContent, ticket: d.getElementById('tNo').textContent,
-      qrCells: path ? path.getAttribute('d').split('M').length - 1 : 0,
+      qrCells: path ? path.getAttribute('d').split('M').length - 1 : 0, qrPath: path ? path.getAttribute('d') : '',
       stored: localStorage.getItem('hea-ticket'), busy: btn.getAttribute('aria-busy'), button: btn.textContent,
       posts: ctx.posts.length, external: ctx.external.slice(),
       events: (w.dataLayer || []).filter(function (a) { return a[0] === 'event'; }).map(function (a) { return { name: a[1], params: a[2] }; }),
@@ -80,6 +80,23 @@ async function open(page, o) {
   return ctx;
 }
 
+// The door page (in.html): what a phone shows after its camera opens the QR code on a ticket.
+async function registered() {
+  return (await api('/__api', { method: 'POST', body: JSON.stringify(VISITOR) })).ticket;
+}
+async function door(ticket, o) {
+  var c = await open('/__e/in.html?t=' + encodeURIComponent(ticket), o);
+  c.settled = function () { return waitFor(function () { var s = c.d.body.getAttribute('data-state'); return s && s !== 'busy'; }); };
+  c.view = function () {
+    var t = function (id) { var el = c.d.getElementById(id); return el && el.getClientRects().length ? el.textContent.trim() : null; };
+    return { state: c.d.body.getAttribute('data-state'), ticket: t('dTicket'), name: t('dName'), detail: t('dDetail'), msg: t('dMsg'),
+      pinAsked: !!c.d.getElementById('pin') && c.d.getElementById('pin').getClientRects().length > 0,
+      stored: localStorage.getItem('hea-door-pin'), posts: c.posts.length, external: c.external.slice(), spill: c.d.documentElement.scrollWidth - c.w.innerWidth };
+  };
+  await c.settled();
+  return c;
+}
+var PIN = '482916';
 var SCENARIOS = {
   emptySubmit: async function () { var c = await open('/__e/register.html'); c.submit(); await c.settled(); return c.view(); },
   badEmail: async function () { var c = await open('/__e/register.html'); c.fill({ email: 'weiming@' }); c.submit(); await c.settled(); return c.view(); },
@@ -204,6 +221,31 @@ var SCENARIOS = {
     }
     return out;
   },
+  doorVisitor: async function () { var c = await door(await registered()); return c.view(); },
+  doorStaffSignIn: async function () {
+    var c = await door(await registered());
+    c.$('staffBtn').click(); var asked = c.view();
+    c.type('pin', PIN); c.$('pinGo').click(); await sleep(50); await c.settled();
+    return { asked: asked, after: c.view(), post: c.posts[0], state: await api('/__state') };
+  },
+  doorRemembered: async function () {
+    var t = await registered();
+    var first = (await door(t, { storage: { 'hea-door-pin': PIN } })).view();
+    var again = (await door(t, { keep: true })).view();
+    return { first: first, again: again, state: await api('/__state') };
+  },
+  doorWrongPin: async function () { var c = await door(await registered(), { storage: { 'hea-door-pin': '000000' } }); return c.view(); },
+  doorUnknown: async function () { await registered(); var c = await door('HEA26-ZZZZZZ', { storage: { 'hea-door-pin': PIN } }); return c.view(); },
+  doorNoTicket: async function () { var c = await door('', { storage: { 'hea-door-pin': PIN } }); return c.view(); },
+  doorOffline: async function () {
+    var t = await registered(); await api('/__fail');
+    var c = await door(t, { storage: { 'hea-door-pin': PIN } }); return c.view();
+  },
+  doorSignOut: async function () {
+    var c = await door(await registered(), { storage: { 'hea-door-pin': PIN } });
+    c.$('signOut').click(); return c.view();
+  },
+  doorNarrow: async function () { var c = await door(await registered(), { storage: { 'hea-door-pin': PIN }, width: 320 }); return c.view(); },
   tapTargets: async function () {
     var c = await open('/__e/register.html');
     var ids = ['f-name', 'f-email', 'f-phone', 'submitBtn'], out = {};

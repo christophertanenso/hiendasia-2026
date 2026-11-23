@@ -20,6 +20,7 @@ var CONFIG = {
   TIMEZONE: 'Asia/Singapore',
   SHEET_REG: 'Registrations',
   SHEET_RECIPIENTS: 'Recipients',
+  SHEET_LOG: 'Check-in log',
   MAX_RESENDS: 5,                                                  // times one ticket can be emailed again
   BLINDBOX_UNTIL: '2026-12-06T00:00:00+08:00'                      // registered before this: the ticket email mentions the blind box
 };
@@ -32,7 +33,7 @@ var CONSENT_TEXT = {
 
 var COLS = ['Registered at', 'Ticket', 'Name', 'Email', 'Mobile', 'Attending as', 'Country (phone)', 'Country (IP)',
   'Timezone', 'Language', 'Source', 'Medium', 'Campaign', 'On site', 'Device', 'Consent version', 'Consent wording',
-  'Ticket emailed at', 'Resends', 'Unsubscribed at', 'Token'];
+  'Ticket emailed at', 'Resends', 'Unsubscribed at', 'Token', 'Check-ins', 'First check-in', 'Last check-in'];
 var C = {};
 COLS.forEach(function (name, i) { C[name] = i + 1; });
 
@@ -44,7 +45,8 @@ var LANGS = ['en', 'zh-Hans', 'zh-Hant', 'id', 'ms', 'fil', 'th', 'vi'];
 function doPost(e) {
   var out;
   try {
-    out = register_(JSON.parse(e.postData.contents));
+    var d = JSON.parse(e.postData.contents);
+    out = d && d.action === 'checkin' ? checkIn_(d) : register_(d);
   } catch (err) {
     console.error(err && err.stack || err);
     out = { ok: false, error: 'server' };
@@ -156,6 +158,56 @@ function register_(d) {
   // A repeat registration only shows the ticket on screen to the person who holds it (same name and mobile).
   if (existing && !sameVisitor) return { ok: true, resent: true };
   return { ok: true, resent: existing, ticket: ticket, name: name };
+}
+
+// ---------- Door check-in ----------
+// The ticket's QR code opens in.html on the site. On a staff phone (one that has the door PIN) that page posts
+// { action: 'checkin', ticket, pin } here. The PIN is a Script property, DOOR_PIN, never in this file: the repo is public.
+
+var DOOR_MAX_FAILS = 10;               // wrong PINs before the door stops accepting any for 15 minutes
+var DOOR_REPEAT_MS = 2 * 60 * 1000;    // a second scan of the same ticket within this time is not a new visit
+
+function checkIn_(d) {
+  var pin = PropertiesService.getScriptProperties().getProperty('DOOR_PIN');
+  if (!pin) return { ok: false, error: 'closed' };
+  var cache = CacheService.getScriptCache(), fails = Number(cache.get('door-fails')) || 0;
+  if (fails >= DOOR_MAX_FAILS) return { ok: false, error: 'locked' };
+  if (String(d.pin == null ? '' : d.pin).trim() !== String(pin).trim()) {
+    cache.put('door-fails', String(fails + 1), 900);
+    return { ok: false, error: 'pin' };
+  }
+  var ticket = String(d.ticket == null ? '' : d.ticket).replace(/\s+/g, '').toUpperCase();
+  if (!/^[A-Z0-9-]{6,20}$/.test(ticket)) return { ok: false, error: 'ticket' };
+
+  var sheet = regSheet_(), lock = LockService.getScriptLock();
+  lock.waitLock(25000);
+  try {
+    var row = findRow_(sheet, C['Ticket'], ticket);
+    if (!row) return { ok: false, error: 'ticket' };
+    var v = sheet.getRange(row, 1, 1, COLS.length).getValues()[0];
+    var now = new Date(), visits = Number(v[C['Check-ins'] - 1]) || 0, last = v[C['Last check-in'] - 1];
+    var out = { ok: true, ticket: ticket, name: String(v[C['Name'] - 1]), interest: String(v[C['Attending as'] - 1]),
+      visits: visits, repeat: false };
+    if (visits && last && now - new Date(last) < DOOR_REPEAT_MS) { out.repeat = true; return out; }
+    out.visits = ++visits;
+    sheet.getRange(row, C['Check-ins']).setValue(visits);
+    if (!v[C['First check-in'] - 1]) sheet.getRange(row, C['First check-in']).setValue(now);
+    sheet.getRange(row, C['Last check-in']).setValue(now);
+    logSheet_().appendRow([now, ticket, out.name, out.interest, visits]);
+    return out;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function logSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var s = ss.getSheetByName(CONFIG.SHEET_LOG);
+  if (!s) {
+    s = ss.insertSheet(CONFIG.SHEET_LOG);
+    s.appendRow(['Checked in at', 'Ticket', 'Name', 'Attending as', 'Visit']);
+  }
+  return s;
 }
 
 function regSheet_() {
@@ -284,7 +336,7 @@ function sendTicket_(p) {
       body: t.head(p.name) + '\n' + t.lead + '\n\n' + p.name + '\n' + p.ticket + '\n' + t.when + '\n' + t.where + '\n\n' +
         (blindBox_(p) ? t.bbH + '\n' + t.bb + '\n\n' : '') + t.why + '\n' + t.unsub + ': ' + ScriptApp.getService().getUrl() + '?u=' + p.token,
       htmlBody: ticketHtml_(p),
-      inlineImages: { qr: qrPng_(p.ticket) }
+      inlineImages: { qr: qrPng_(checkinUrl(CONFIG.SITE, p.ticket)) }
     });
     return true;
   } catch (err) {
@@ -376,6 +428,11 @@ function setup() {
   });
   reg.getRange(2, C['Resends'], reg.getMaxRows() - 1, 1).setNumberFormat('0');
   reg.hideColumns(C['Token']);
+  reg.getRange(2, C['Check-ins'], reg.getMaxRows() - 1, 1).setNumberFormat('0');
+  [C['First check-in'], C['Last check-in']].forEach(function (c) {
+    reg.getRange(2, c, reg.getMaxRows() - 1, 1).setNumberFormat('yyyy-mm-dd hh:mm:ss');
+  });
+  logSheet_();
 
   var rec = ss.getSheetByName(CONFIG.SHEET_RECIPIENTS) || ss.insertSheet(CONFIG.SHEET_RECIPIENTS);
   if (!rec.getRange(1, 1).getValue()) {
@@ -439,27 +496,37 @@ function validateRegistration(d) {
 
 
 // <qr>
-/* QR code, version 1 (21 x 21), error correction M, byte mode: up to 14 characters, enough for a ticket number.
-   Returns 21 rows of 21 numbers, 1 = dark. */
+/* What the ticket's QR code holds: the site's door page for that ticket. A phone camera opens it; on a staff
+   phone the page checks the visitor in (in.html, apps-script checkIn_). */
+function checkinUrl(site, ticket) {
+  return site + 'in.html?t=' + encodeURIComponent(ticket);
+}
+
+/* QR code, versions 1 to 6 (21 x 21 up to 41 x 41), error correction M, byte mode, the smallest version that fits:
+   up to 106 characters. A ticket number fits version 1; the check-in link needs version 5.
+   Returns N rows of N numbers, 1 = dark. */
 function qrMatrix(text) {
-  var N = 21, DATA = 16, EC = 10, i, j, x, y;
-  var bytes = [];
+  // Level M, per version: [blocks, data codewords per block, error-correction codewords per block]
+  var SPEC = [null, [1, 16, 10], [1, 28, 16], [1, 44, 26], [2, 32, 18], [2, 43, 24], [4, 27, 16]];
+  var i, j, x, y, b, V = 1, bytes = [];
   for (i = 0; i < text.length; i++) bytes.push(text.charCodeAt(i) & 255);
-  if (bytes.length > 14) throw new Error('QR text too long');
+  while (V <= 6 && SPEC[V][0] * SPEC[V][1] - 2 < bytes.length) V++;
+  if (V > 6) throw new Error('QR text too long');
+  var N = 17 + 4 * V, NB = SPEC[V][0], DATA = SPEC[V][1], EC = SPEC[V][2], TOTAL = NB * DATA;
 
   // Bit stream: mode 0100, 8-bit length, data, terminator, padding
   var bits = [];
-  function put(v, n) { for (var b = n - 1; b >= 0; b--) bits.push((v >>> b) & 1); }
+  function put(v, n) { for (var k = n - 1; k >= 0; k--) bits.push((v >>> k) & 1); }
   put(4, 4); put(bytes.length, 8);
   for (i = 0; i < bytes.length; i++) put(bytes[i], 8);
-  put(0, Math.min(4, DATA * 8 - bits.length));
+  put(0, Math.min(4, TOTAL * 8 - bits.length));
   while (bits.length % 8) bits.push(0);
-  for (i = 0; bits.length < DATA * 8; i++) put(i % 2 ? 0x11 : 0xEC, 8);
+  for (i = 0; bits.length < TOTAL * 8; i++) put(i % 2 ? 0x11 : 0xEC, 8);
   var cw = [];
-  for (i = 0; i < DATA; i++) { var v = 0; for (j = 0; j < 8; j++) v = (v << 1) | bits[i * 8 + j]; cw.push(v); }
+  for (i = 0; i < TOTAL; i++) { var v = 0; for (j = 0; j < 8; j++) v = (v << 1) | bits[i * 8 + j]; cw.push(v); }
 
-  // Reed-Solomon over GF(256), polynomial 0x11D
-  function mul(a, b) { var z = 0; for (var k = 7; k >= 0; k--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((b >>> k) & 1) * a; } return z; }
+  // Reed-Solomon over GF(256), polynomial 0x11D, one code word per block
+  function mul(a, c) { var z = 0; for (var k = 7; k >= 0; k--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((c >>> k) & 1) * a; } return z; }
   var gen = [], root = 1;
   for (i = 0; i < EC - 1; i++) gen.push(0);
   gen.push(1);
@@ -467,13 +534,20 @@ function qrMatrix(text) {
     for (j = 0; j < EC; j++) { gen[j] = mul(gen[j], root); if (j + 1 < EC) gen[j] ^= gen[j + 1]; }
     root = mul(root, 2);
   }
-  var rem = [];
-  for (i = 0; i < EC; i++) rem.push(0);
-  for (i = 0; i < DATA; i++) {
-    var f = cw[i] ^ rem.shift(); rem.push(0);
-    for (j = 0; j < EC; j++) rem[j] ^= mul(gen[j], f);
+  function ecOf(data) {
+    var rem = [];
+    for (var k = 0; k < EC; k++) rem.push(0);
+    for (k = 0; k < data.length; k++) {
+      var f = data[k] ^ rem.shift(); rem.push(0);
+      for (var q = 0; q < EC; q++) rem[q] ^= mul(gen[q], f);
+    }
+    return rem;
   }
-  var all = cw.concat(rem);
+  // Blocks are interleaved: the first codeword of every block, then the second, and so on; then the same for EC.
+  var blocks = [], ecs = [], all = [];
+  for (b = 0; b < NB; b++) { blocks.push(cw.slice(b * DATA, (b + 1) * DATA)); ecs.push(ecOf(blocks[b])); }
+  for (i = 0; i < DATA; i++) for (b = 0; b < NB; b++) all.push(blocks[b][i]);
+  for (i = 0; i < EC; i++) for (b = 0; b < NB; b++) all.push(ecs[b][i]);
 
   // Function patterns
   var m = [], fn = [];
@@ -487,6 +561,9 @@ function qrMatrix(text) {
   }
   for (i = 0; i < N; i++) { set(6, i, i % 2 === 0); set(i, 6, i % 2 === 0); }
   finder(3, 3); finder(N - 4, 3); finder(3, N - 4);
+  if (V > 1) {   // versions 2 to 6 have one alignment pattern, centred 7 modules in from the bottom-right corner
+    for (var ay = -2; ay <= 2; ay++) for (var ax = -2; ax <= 2; ax++) set(N - 7 + ax, N - 7 + ay, Math.max(Math.abs(ax), Math.abs(ay)) !== 1);
+  }
   function format(mask) {
     var data = mask, r = data;   // error correction M has format bits 00
     for (var k = 0; k < 10; k++) r = (r << 1) ^ ((r >>> 9) * 0x537);

@@ -17,11 +17,13 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '
   '.webp': 'image/webp', '.jpg': 'image/jpeg', '.png': 'image/png', '.woff2': 'font/woff2', '.css': 'text/css', '.ics': 'text/calendar' };
 
 function start() {
-  let backend = loadBackend(), posts = 0, fail = false;
+  // The door PIN the browser tests use; the live one is a Script property, never in the repo.
+  const fresh = () => { const b = loadBackend(); b.state.props.DOOR_PIN = '482916'; return b; };
+  let backend = fresh(), posts = 0, fail = false;
   const server = http.createServer((req, res) => {
     const url = new URL(req.url, 'http://x');
     const send = (code, body, type = 'application/json') => { res.writeHead(code, { 'Content-Type': type, 'Cache-Control': 'no-store' }); res.end(body); };
-    if (url.pathname === '/__reset') { backend = loadBackend(); posts = 0; fail = false; return send(200, '{}'); }
+    if (url.pathname === '/__reset') { backend = fresh(); posts = 0; fail = false; return send(200, '{}'); }
     if (url.pathname === '/__fail') { fail = true; return send(200, '{}'); }
     if (url.pathname === '/__state') {
       const rows = []; for (let i = 1; i <= backend.count(); i++) rows.push(backend.row(i));
@@ -45,9 +47,9 @@ function start() {
     const file = path.join(ROOT, p);
     if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) return send(404, 'not found', 'text/plain');
     let data = fs.readFileSync(file);
-    if (path.basename(file) === 'register.html') {
+    if (path.basename(file) === 'register.html' || path.basename(file) === 'in.html') {
       const html = data.toString('utf8');
-      if (!/var ENDPOINT = '[^']*';/.test(html)) return send(500, 'register.html has no ENDPOINT line to override', 'text/plain');
+      if (!/var ENDPOINT = '[^']*';/.test(html)) return send(500, path.basename(file) + ' has no ENDPOINT line to override', 'text/plain');
       const swapped = html.replace(/var ENDPOINT = '[^']*';/, `var ENDPOINT = '${endpoint === null ? '/__blocked' : endpoint}';`);
       data = Buffer.from(swapped);
     }

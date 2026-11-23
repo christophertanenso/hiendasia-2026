@@ -324,6 +324,7 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
 {{QR_JS}}
 (function () {
   var ENDPOINT = '{{ENDPOINT}}';
+  var SITE_URL = '{{SITE_URL}}';   // the ticket's QR code opens the door page there (checkinUrl)
   var T = {{REG_STRINGS}};
   var $ = function (id) { return document.getElementById(id); };
   var form = $('regForm'), err = $('err'), btn = $('submitBtn'), dial = $('f-dial');
@@ -441,7 +442,7 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
     $('doneH').textContent = has ? T.doneH : T.resentH;
     $('doneEyebrow').hidden = !has;
     $('doneLead').textContent = !has || opts.resent ? T.resentLead : opts.stored ? T.storedLead : T.doneLead;
-    if (has) { $('tName').textContent = t.name; $('tNo').textContent = t.ticket; drawQr(t.ticket); }
+    if (has) { $('tName').textContent = t.name; $('tNo').textContent = t.ticket; drawQr(checkinUrl(SITE_URL, t.ticket)); }
     if (!opts.stored) { window.scrollTo(0, 0); $('doneH').focus(); }
   }
   function store(t) { try { if (t) localStorage.setItem('hea-ticket', JSON.stringify(t)); else localStorage.removeItem('hea-ticket'); } catch (e) {} }

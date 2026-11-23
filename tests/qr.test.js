@@ -2,7 +2,7 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 const zlib = require('node:zlib');
-const { loadBackend } = require('./helpers/gas-mock');
+const { loadBackend, VISITOR } = require('./helpers/gas-mock');
 
 const { gs } = loadBackend();
 const N = 21;
@@ -81,9 +81,86 @@ describe('qrMatrix', () => {
   it('gives the same matrix every time for the same ticket', () => {
     assert.equal(JSON.stringify(gs.qrMatrix('HEA26-7K3M9Q')), JSON.stringify(gs.qrMatrix('HEA26-7K3M9Q')));
   });
-  it('refuses text too long for the code', () => {
-    assert.throws(() => gs.qrMatrix('HEA26-TOO-LONG-X'), /too long/);
+});
+
+// Any size from version 1 to 6 (error correction M), read by the same independent method: the function patterns
+// (finders, timing, alignment, format) are skipped, the codewords are de-interleaved into their blocks, and each
+// block's Reed-Solomon syndromes must be zero.
+const BLOCKS = { 1: [1, 26, 16], 2: [1, 44, 28], 3: [1, 70, 44], 4: [2, 50, 32], 5: [2, 67, 43], 6: [4, 43, 27] };
+function readAny(m) {
+  const n = m.length, v = (n - 17) / 4, [nb, total, data] = BLOCKS[v];
+  const al = v > 1 ? n - 7 : -99;
+  const fn = (x, y) => (x < 9 && y < 9) || (x >= n - 8 && y < 9) || (x < 9 && y >= n - 8) || x === 6 || y === 6 ||
+    (Math.abs(x - al) <= 2 && Math.abs(y - al) <= 2);
+  const cells = [[8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5], [8, 7], [8, 8], [7, 8], [5, 8], [4, 8], [3, 8], [2, 8], [1, 8], [0, 8]];
+  let fmt = 0; cells.forEach(([x, y], i) => { fmt |= m[y][x] << i; }); fmt ^= 0x5412;
+  const mask = (fmt >>> 10) & 7, bits = [];
+  for (let right = n - 1; right >= 1; right -= 2) {
+    if (right === 6) right = 5;
+    for (let vert = 0; vert < n; vert++) for (let j = 0; j < 2; j++) {
+      const x = right - j, y = ((right + 1) & 2) === 0 ? n - 1 - vert : vert;
+      if (!fn(x, y)) bits.push(m[y][x] ^ (MASKS[mask](x, y) ? 1 : 0));
+    }
+  }
+  const cw = [];
+  for (let i = 0; i < total * nb; i++) cw.push(parseInt(bits.slice(i * 8, i * 8 + 8).join(''), 2));
+  const ec = total - data, blocks = Array.from({ length: nb }, () => []);
+  for (let i = 0; i < data; i++) for (let b = 0; b < nb; b++) blocks[b].push(cw[i * nb + b]);
+  for (let i = 0; i < ec; i++) for (let b = 0; b < nb; b++) blocks[b].push(cw[data * nb + i * nb + b]);
+  const syndromes = blocks.map(bl => { const s = []; for (let k = 0, root = 1; k < ec; k++, root = gfMul(root, 2)) s.push(bl.reduce((a, c) => gfMul(a, root) ^ c, 0)); return s; });
+  const d = [].concat(...blocks.map(bl => bl.slice(0, data)));
+  const len = ((d[0] & 15) << 4) | (d[1] >>> 4);
+  let text = '';
+  for (let i = 0; i < len; i++) text += String.fromCharCode(((d[1 + i] & 15) << 4) | (d[2 + i] >>> 4));
+  return { version: v, mode: d[0] >>> 4, text, ok: syndromes.every(s => s.every(x => x === 0)) };
+}
+
+describe('qrMatrix for the check-in link', () => {
+  const site = 'https://christophertanenso.github.io/hiendasia-2026/';
+  const urls = ['HEA26-7K3M9Q', 'HEA26-222222', 'HEA26-ZZZZZZ'].map(t => site + 'in.html?t=' + t);
+  for (const u of urls) {
+    it('reads back as ' + u.slice(-24), () => { assert.equal(readAny(gs.qrMatrix(u)).text, u); });
+    it('has valid error correction in every block for ' + u.slice(-12), () => { assert.equal(readAny(gs.qrMatrix(u)).ok, true); });
+  }
+  it('grows to version 5 (37 by 37) for the link', () => { assert.equal(gs.qrMatrix(urls[0]).length, 37); });
+  it('uses the smallest version that fits', () => {
+    for (const [len, v] of [[14, 1], [15, 2], [40, 3], [60, 4], [84, 5], [85, 6], [106, 6]]) assert.equal(readAny(gs.qrMatrix('x'.repeat(len))).version, v, len + ' chars');
   });
+  it('reads back at every size', () => {
+    for (const len of [15, 40, 60, 84, 106]) { const r = readAny(gs.qrMatrix('y'.repeat(len))); assert.equal(r.text, 'y'.repeat(len)); assert.equal(r.ok, true); }
+  });
+  // Reference: the Python qrcode library (7.x) with the same mask, 2. Libraries differ in which mask they prefer
+  // (segno picks 4 and also adds a spare zero byte before the padding); the mask does not affect reading.
+  it('matches the qrcode reference library for the check-in link', () => {
+    const gold = ["1111111000111100010001011000101111111", "1000001001100100110010001001101000001", "1011101010100001101001110001101011101", "1011101011101110010000100110101011101", "1011101010000110011100010100101011101", "1000001011000001010001101011101000001", "1111111010101010101010101010101111111", "0000000011011010111101110000100000000", "1011111001111000100000010100001111100", "1000110000001101011010111110100001110", "0010011010100111101100101001001010011", "1110110111000101000111111001110100001", "0000011000001111010100001111011011111", "0011000110010000101111010100100100000", "1011101100110001001010100111010111011", "1101110111101110100011100011110110010", "0101101000111100001001100111111110101", "1111000111000111110000011010100001010", "1100111010110010010010100011000010011", "0100110000100100100001001011001001001", "1100001010000110011010101110111011100", "0110000011111100111110010010110001010", "1011101011100011110000001011100111011", "0110000100001011111001110000011110011", "1000011101000111100110011101011110101", "1011010110010101011011100010100000100", "1000011110000011110010100101001000011", "1010110100011101000001100000100001000", "1000011101101001010100101110111110100", "0000000011111000101111010110100011000", "1111111001100111101000000010101010111", "1000001011011101000011101010100011001", "1011101011100010001011101011111110111", "1011101010101111110100000000011011001", "1011101010001110001011001011100001111", "1000001000010100101011101001110011001", "1111111011010100010110111111000010111"];
+    assert.deepEqual(Array.from(gs.qrMatrix(urls[0]), r => r.join('')), gold);
+  });
+  it('refuses text too long for version 6', () => { assert.throws(() => gs.qrMatrix('x'.repeat(107)), /too long/); });
+});
+
+// The QR code in the ticket email, read back from the PNG itself.
+function pngModules(blob) {
+  const png = Buffer.from(Array.from(blob.bytes, v => v & 255));
+  let o = 8, ihdr, idat;
+  while (o < png.length) {
+    const len = png.readUInt32BE(o), type = png.toString('latin1', o + 4, o + 8);
+    if (type === 'IHDR') ihdr = png.subarray(o + 8, o + 8 + len); if (type === 'IDAT') idat = png.subarray(o + 8, o + 8 + len);
+    o += 12 + len;
+  }
+  const size = ihdr.readUInt32BE(0), raw = zlib.inflateSync(idat), stride = Math.ceil(size / 8) + 1;
+  const dark = (x, y) => ((raw[y * stride + 1 + (x >> 3)] >> (7 - (x & 7))) & 1) === 0;
+  const n = size / 10 - 8;
+  return Array.from({ length: n }, (_, y) => Array.from({ length: n }, (_, x) => (dark(40 + x * 10 + 5, 40 + y * 10 + 5) ? 1 : 0)));
+}
+
+describe('the ticket email QR code', () => {
+  const b = loadBackend();
+  const res = b.post(VISITOR);
+  const read = readAny(pngModules(b.state.mails[0].inlineImages.qr));
+  it('opens the check-in page for that ticket', () => {
+    assert.equal(read.text, 'https://christophertanenso.github.io/hiendasia-2026/in.html?t=' + res.ticket);
+  });
+  it('reads back with valid error correction', () => assert.equal(read.ok, true));
 });
 
 describe('qrPng_', () => {

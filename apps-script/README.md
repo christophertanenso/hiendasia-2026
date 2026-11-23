@@ -35,6 +35,29 @@ Do this signed in to the Google account that should own the data and send the ti
   resets, and the daily email says how many are waiting.
 - **Same email twice.** The same ticket is sent again (at most five times). No second row is added.
 
+## At the door (check-in)
+
+The QR code on every ticket (in the email and on the ticket screen) opens `in.html?t=HEA26-…` on the site. Any phone
+camera can scan it; there is no app.
+
+- **On a visitor's phone** the page just shows the ticket number. Nothing is recorded.
+- **On a staff phone** the page asks once for the door PIN and keeps it on that phone. From then on, every scan checks the
+  ticket in: a green **Admitted** screen with the name and visit number, amber **Already scanned** for a second scan
+  within two minutes (not counted again), red **Not found** for a ticket that is not registered.
+- **The record.** On the `Registrations` tab: `Check-ins` (how many visits), `First check-in`, `Last check-in`. The
+  `Check-in log` tab has one row per visit.
+
+**Setting the PIN.** In the Apps Script editor: **Project Settings → Script properties → Add script property**, name
+`DOOR_PIN`, value a number of 6 digits or more. Give it to door staff only. Check-in stays off until it is set. To change it,
+edit the property; staff phones then ask again. After 10 wrong PINs the door accepts none for 15 minutes.
+The PIN never goes in `Code.gs`: this repo is public.
+
+**After updating to this version**, run **setup** once more: it adds the three columns' headings and the `Check-in log` tab.
+Existing rows are kept.
+
+**Staff phone tips.** Scan with the normal camera app, tap the link. "Turn off door mode on this phone" at the bottom
+removes the PIN from that phone.
+
 ## Changing things
 
 - Change `Code.gs` in this repo first, test first (`npm test`, see `tests/README.md`), then paste the tested file into
