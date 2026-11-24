@@ -722,6 +722,8 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .art-points li { display: flex; flex-direction: column; gap: 2px; padding-left: 14px; border-left: 2px solid var(--accent); }
 .art-points b { font: 700 17px/1.3 var(--font-display); color: var(--heading); }
 .art-points span { color: var(--muted); }
+.art-points .art-img { display: block; width: 100%; max-width: 480px; height: auto; margin: 8px 0; border-radius: 8px; }
+.art-points .art-collab { display: block; margin-bottom: 4px; color: var(--accent); font-weight: 700; letter-spacing: .02em; }
 .art-points .art-link { align-self: flex-start; margin-top: 6px; color: var(--accent); font-weight: 700; text-underline-offset: 3px; }
 .art-figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
 .art-figure video { width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); background: #000; }
@@ -929,7 +931,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
           <li><b data-i18n="art.p1.h">Art Exhibition Zone, C1–C4</b><span data-i18n="art.p1">Art galleries from NOWASIA across the full front concourse.</span></li>
           <li><b data-i18n="art.p2.h">Art walls, Links 2–4</b><span data-i18n="art.p2">More gallery walls along the links between the listening rooms.</span></li>
           <li><b data-i18n="art.pb.h">Patrick Bezalel</b><span data-i18n="art.pb">Art gallery. Booth to be announced.</span></li>
-          <li><b data-i18n="art.p3.h">Extra•Ordinary People, L4-1</b><span data-i18n="art.p3">A Singapore charity for persons with diverse abilities: artists with autism sell their work here. Bears For Good: donate S$50 to adopt a bear, for yourself or as a gift. Their goal this year is 15,000 bears.</span><a class="art-link" href="https://shorturl.at/7veEO" target="_blank" rel="noopener" data-i18n="art.p3.link">Adopt a bear</a></li>
+          <li><b data-i18n="art.p3.h">Extra•Ordinary People, L4-1</b><img class="art-img" src="../img/bears-for-good.webp" alt="Bears For Good 2026: five teddy bears" width="960" height="540" loading="lazy"><small class="art-collab" data-i18n="art.p3.collab">HiEnd Asia × Extra•Ordinary People</small><span data-i18n="art.p3">A Singapore charity for persons with diverse abilities: artists with autism sell their work here. Bears For Good: donate S$50 to adopt a bear, for yourself or as a gift. Their goal this year is 15,000 bears.</span><a class="art-link" href="https://shorturl.at/7veEO" target="_blank" rel="noopener" data-i18n="art.p3.link">Adopt a bear</a></li>
         </ul>
         <div class="btns"><a class="btn btn-primary" href="#floorplan" data-i18n="art.cta">Find the art on the floor plan</a></div>
       </div>
@@ -1032,6 +1034,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     </div>
     <h3 class="sub-h" data-i18n="brands.dealers">Peniaga &amp; pengedar</h3>
     <ul class="wall big">
+<li class="tile"><img src="../img/312.jpg" alt="Analog Playground" loading="lazy" title="Analog Playground"></li>
 <li class="tile"><img src="../img/085.jpg" alt="AudioLine" loading="lazy" title="AudioLine"></li>
 <li class="tile"><img src="../img/101.jpg" alt="High End Research" loading="lazy" title="High End Research"></li>
 <li class="tile"><img src="../img/092.jpg" alt="MU6" loading="lazy" title="MU6"></li>
@@ -1065,11 +1068,13 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <li class="tile"><img src="../img/207.jpg" alt="Rogers High Fidelity" loading="lazy" title="Rogers High Fidelity"></li>
 <li class="tile"><img src="../img/302.jpg" alt="Ronnie" loading="lazy" title="Ronnie"></li>
 <li class="tile"><img src="../img/301.jpg" alt="San Yuan" loading="lazy" title="San Yuan"></li>
+<li class="tile"><img src="../img/313.jpg" alt="Sharkwire" loading="lazy" title="Sharkwire"></li>
 <li class="tile"><img src="../img/213.jpg" alt="Signal Projects" loading="lazy" title="Signal Projects"></li>
 <li class="tile"><img src="../img/303.jpg" alt="SME" loading="lazy" title="SME"></li>
 <li class="tile"><img src="../img/220.jpg" alt="Sutherland" loading="lazy" title="Sutherland"></li>
 <li class="tile"><img src="../img/222.jpg" alt="TAD" loading="lazy" title="TAD"></li>
 <li class="tile"><img src="../img/306.jpg" alt="Vimberg" loading="lazy" title="Vimberg"></li>
+<li class="tile"><img src="../img/311.jpg" alt="Westend Audio Systems" loading="lazy" title="Westend Audio Systems"></li>
 <li class="tile"><img src="../img/238.jpg" alt="Wilson Audio" loading="lazy" title="Wilson Audio"></li>
       </ul>
     </div>
@@ -1224,6 +1229,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <h3 class="sub-h" data-i18n="partners.hotels">Hotel rakan kongsi</h3>
       <ul class="sp-wall">
 <li class="sp"><span class="tile"><img src="../img/sponsors/pullman.webp" alt="Pullman Singapore Hill Street" loading="lazy"></span><span class="sp-name">Pullman Singapore Hill Street</span></li>
+<li class="sp"><span class="tile"><span class="sp-word">Mondrian Singapore Duxton</span></span><span class="sp-name">Mondrian Singapore Duxton</span></li>
       </ul>
     </div>
     <div>
