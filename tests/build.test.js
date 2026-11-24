@@ -151,12 +151,12 @@ describe('register pages', () => {
   }
 });
 
-describe('mystery blind box', () => {
+describe('lucky draw and mystery blind box', () => {
   const BB = ['bb.eyebrow', 'bb.h', 'bb.lead', 'bb.s1', 'bb.s2', 'bb.s3', 'bb.terms', 'bb.alt'];
   const CDS = ['img/cd-2023.webp', 'img/cd-2024.webp', 'img/cd-2025.webp'];
   it('English gives the deadline, the daily draw time and what to bring', () => {
     const all = BB.map(k => i18n.en[k]).join(' ');
-    for (const s of ['5 December 2026', '5pm', 'ticket email', 'valid ID']) assert.ok(all.includes(s), s);
+    for (const s of ['5 December 2026', '4pm', 'ticket email', 'valid ID']) assert.ok(all.includes(s), s);
   });
   it('the CD images exist and are small enough for phones', () => {
     for (const f of CDS) { assert.ok(fs.existsSync(path.join(ROOT, f)), f); assert.ok(fs.statSync(path.join(ROOT, f)).size < 120000, f + ' too large'); }
@@ -171,14 +171,16 @@ describe('mystery blind box', () => {
     if (l !== 'en') it(`${l}: blind box copy is translated`, () => {
       assert.deepEqual(['bb.h', 'bb.lead', 'bb.s2', 'bb.terms'].filter(k => i18n[l][k] === i18n.en[k]), []);
     });
-    it(`${l}: shows the blind box section after the form`, () => {
-      const at = html.indexOf('id="blindbox"');
-      assert.ok(at > html.indexOf('</form>'), 'section missing or before the form');
-      for (const k of BB.filter(k => k !== 'bb.alt')) assert.ok(t.includes(i18n[l][k]), k);
+    it(`${l}: shows the lucky draw at the top, before the form`, () => {
+      const at = html.indexOf('id="luckydraw"');
+      assert.ok(at > 0 && at < html.indexOf('<form'), 'section missing or after the form');
+      for (const k of ['ld.h', 'ld.intro', 'ld.winners', 'ld.date', 'ld.time', 'ld.venue', 'ld.terms.h', 'ld.t1', 'ld.t2', 'ld.t3', 'ld.t4'])
+        assert.ok(t.includes(i18n[l][k] || i18n.en[k]), k);
     });
-    it(`${l}: shows the three commemorative CDs, sized to avoid layout shift`, () => {
-      const p = l === 'en' ? '' : '../';
-      for (const f of CDS) assert.match(html, new RegExp(`<img[^>]*src="${p}${f}"[^>]*width="\\d+" height="\\d+"`), f);
+    it(`${l}: lists the three daily draws at the same hour, in their venues`, () => {
+      const rows = html.slice(html.indexOf('class="ld-rows"'), html.indexOf('</ul>', html.indexOf('class="ld-rows"')));
+      for (const v of ['The Link 2', 'Foyer 1', 'Foyer 5']) assert.ok(rows.includes(v), v);
+      assert.equal(rows.split(i18n[l]['ld.hour']).length - 1, 3);
     });
   }
 });

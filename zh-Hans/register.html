@@ -393,22 +393,35 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
 .another { align-self: flex-start; background: none; border: 0; padding: 8px 0; color: var(--heading); font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }
 .another:hover { color: var(--accent); }
 
-.bb { position: relative; border-top: 1px solid var(--line); background: var(--band); }
-.reg .bb .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; padding-block: 64px; }
-.bb-text { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
-.bb h2 { margin: 0; font: 700 clamp(26px, 3.2vw, 36px)/1.1 var(--font-display); text-transform: uppercase; color: var(--heading); overflow-wrap: break-word; }
-.steps { list-style: none; counter-reset: s; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-.steps li { counter-increment: s; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 14px; align-items: baseline; color: var(--body); }
-.steps li::before { content: counter(s); display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid var(--accent);
-  border-radius: 50%; color: var(--accent); font: 700 14px/1 var(--font-display); transform: translateY(-2px); }
-.terms { margin: 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
-.cds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; min-width: 0; }
-.cds img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); }
+.ld-top { position: relative; border-bottom: 1px solid var(--line); background: var(--band); }
+.reg .ld-top .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; padding-block: 48px; }
+.ld-text { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ld-top h2 { margin: 0; font: 700 clamp(26px, 3.4vw, 40px)/1.08 var(--font-display); text-transform: uppercase; color: var(--heading); overflow-wrap: break-word; text-wrap: balance; }
+.ld-by { margin: 0; color: var(--body); font-size: 17px; line-height: 1.5; }
+.ld-big { margin: 0; font: 700 clamp(20px, 2.4vw, 26px)/1.25 var(--font-display); color: var(--accent); }
+.ld-prize { margin: 0; color: var(--body); max-width: 46ch; }
+.ld-go { align-self: flex-start; }
+.ld-img { display: block; width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); }
+.ld-side { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.ld-box { border: 1px solid var(--accent); border-radius: var(--radius-card); padding: 18px 20px 6px; background: #000; }
+.ld-head, .ld-rows li { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr) minmax(0, 1fr); gap: 12px; align-items: center; }
+.ld-head { padding: 0 0 8px; font: 700 12px/1.4 var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.ld-rows { list-style: none; margin: 0; padding: 0; }
+.ld-rows li { padding: 12px 0; border-top: 1px solid var(--line); font-size: 15px; color: var(--body); }
+.ld-rows li > span:nth-child(2) { color: var(--heading); font-weight: 700; font-variant-numeric: tabular-nums; }
+.ld-rows li b { font: 700 16px/1.3 var(--font-display); color: var(--heading); }
+.ld-terms { padding-top: 16px; border-top: 1px solid var(--line); }
+.ld-terms h3 { margin: 0 0 8px; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.ld-terms ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; line-height: 1.7; }
 @media (max-width: 900px) {
-  .reg .bb .wrap { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-block: 48px; }
-  .bb-text, .cds { max-width: 520px; width: 100%; margin: 0 auto; }
-  .cds { gap: 8px; }
+  /* One column: the draw table comes before the terms. */
+  .reg .ld-top .wrap { grid-template-columns: minmax(0, 1fr); gap: 16px; padding-block: 32px; max-width: 568px; }
+  .ld-text, .ld-side { display: contents; }
+  .ld-go { justify-self: start; }
+  .ld-side > * { order: 1; }
+  .ld-terms { order: 2; }
 }
+@media (max-width: 420px) { .ld-box { padding-inline: 14px; } .ld-rows li { font-size: 14px; gap: 8px; } }
 
 .site-foot { border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
 .site-foot .wrap { padding-block: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; }
@@ -443,6 +456,40 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
 </header>
 
 <main id="main" class="reg" tabindex="-1">
+  <section class="ld-top" id="luckydraw" aria-labelledby="ldH">
+    <div class="wrap">
+      <div class="ld-text">
+        <p class="eyebrow">限已登记观众</p>
+        <h2 id="ldH">幸运抽奖与神秘盲盒</h2>
+        <div class="rule"></div>
+        <p class="ld-by">请于2026年12月5日前登记免费门票，即可参加。</p>
+        <p class="ld-big">每日抽出三名幸运得主</p>
+        <p class="ld-prize">每个密封盲盒内装有一张 HiEnd Asia 纪念 CD 或黑胶唱片，究竟是哪一种，打开才知道。</p>
+        <a class="btn btn-primary ld-go" href="#formView">12月5日前登记</a>
+        <div class="ld-terms">
+          <h3>条款与条件</h3>
+          <ul>
+            <li>须提前登记。</li>
+            <li>参加者须为已登记观众。</li>
+            <li>得奖者须亲临现场，并出示有效身份证件以供核实。</li>
+            <li>奖品数量有限，送完即止。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ld-side">
+        <img class="ld-img" src="../img/mystery-box-1200.webp" srcset="../img/mystery-box-640.webp 640w, ../img/mystery-box-1200.webp 1200w"
+          sizes="(max-width: 900px) min(520px, calc(100vw - 32px)), 56vw" alt="系着金色缎带的 HiEnd Asia 密封神秘盲盒" width="1200" height="600" decoding="async">
+        <div class="ld-box">
+          <div class="ld-head" aria-hidden="true"><span>抽奖日期</span><span>抽奖时间</span><span>地点</span></div>
+          <ul class="ld-rows">
+            <li><span data-i18n="d.thu">12月17日 星期四</span><span>下午4时</span><b>The Link 2</b></li>
+            <li><span data-i18n="d.fri">12月18日 星期五</span><span>下午4时</span><b>Foyer 1</b></li>
+            <li><span data-i18n="d.sat">12月19日 星期六</span><span>下午4时</span><b>Foyer 5</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
   <div class="wrap">
     <div class="panel" id="formView">
       <p class="eyebrow">2026年12月17 – 19日 · 新达城</p>
@@ -507,27 +554,6 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
     </figure>
   </div>
 
-  <section class="bb" id="blindbox" aria-labelledby="bbH">
-    <div class="wrap">
-      <div class="bb-text">
-        <p class="eyebrow">限已登记观众</p>
-        <h2 id="bbH">神秘盲盒</h2>
-        <div class="rule"></div>
-        <p class="lead">密封盒内装有一张 HiEnd Asia 纪念 CD。展会期间每日抽出三名得主，仅限已登记观众。</p>
-        <ol class="steps">
-          <li>请于2026年12月5日前登记。</li>
-          <li>于展会现场亲自领取抽奖券。</li>
-          <li>每日下午5时抽奖：周四在 The Link 2，周五在 Foyer 1，周六在 Foyer 5。</li>
-        </ol>
-        <p class="terms">领取抽奖券时，请出示门票电邮及有效身份证件。</p>
-      </div>
-      <div class="cds" role="img" aria-label="HiEnd Asia 纪念 CD，2023、2024 及 2025 年">
-        <img src="../img/cd-2023.webp" alt="" width="640" height="480" loading="lazy" decoding="async">
-        <img src="../img/cd-2024.webp" alt="" width="640" height="480" loading="lazy" decoding="async">
-        <img src="../img/cd-2025.webp" alt="" width="640" height="480" loading="lazy" decoding="async">
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer class="site-foot">

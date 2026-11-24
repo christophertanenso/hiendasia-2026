@@ -249,7 +249,7 @@ var MAIL = {
     where: 'Level 3, Suntec Singapore Convention & Exhibition Centre',
     site: 'Programme, floorplan and directions',
     bbH: 'Mystery blind box',
-    bb: 'A sealed box holding one HiEnd Asia commemorative CD. Three winners are drawn daily at 5pm during the show. Keep this email. Bring it with valid ID to collect a draw ticket at the show.',
+    bb: 'A sealed box holding one HiEnd Asia commemorative CD or vinyl record. Which one stays a secret until you open it. Three winners are drawn daily at 4pm during the show. Keep this email. Bring it with valid ID to collect a draw ticket at the show.',
     why: 'You are receiving news of HiEnd Asia and NOWASIA by email and WhatsApp because you registered for this ticket. We do not call. We do not sell your details.',
     unsub: 'Unsubscribe', privacy: 'Privacy notice'
   },
@@ -262,7 +262,7 @@ var MAIL = {
     where: '新达城新加坡国际会议与展览中心 三楼',
     site: '活动日程、展位图与路线',
     bbH: '神秘盲盒',
-    bb: '密封盒内装有一张 HiEnd Asia 纪念 CD，展会期间每日下午5时抽出三名得主。请保留此电邮，凭此电邮及有效身份证件于展会现场领取抽奖券。',
+    bb: '密封盲盒内装有一张 HiEnd Asia 纪念 CD 或黑胶唱片，打开才知道是哪一种。展会期间每日下午4时抽出三名得主。请保留此电邮，凭此电邮及有效身份证件于展会现场领取抽奖券。',
     why: '您已登记领取门票，因此将通过电邮和 WhatsApp 收到 HiEnd Asia 与 NOWASIA 的资讯。我们不会致电，也不会出售您的资料。',
     unsub: '退订', privacy: '隐私声明'
   },
@@ -275,7 +275,7 @@ var MAIL = {
     where: '新達城新加坡國際會議與展覽中心 三樓',
     site: '活動日程、展位圖與路線',
     bbH: '神秘盲盒',
-    bb: '密封盒內裝有一張 HiEnd Asia 紀念 CD，展會期間每日下午5時抽出三名得主。請保留此電郵，憑此電郵及有效身分證件於展會現場領取抽獎券。',
+    bb: '密封盲盒內裝有一張 HiEnd Asia 紀念 CD 或黑膠唱片，打開才知道是哪一種。展會期間每日下午4時抽出三名得主。請保留此電郵，憑此電郵及有效身分證件於展會現場領取抽獎券。',
     why: '您已登記領取門票，因此將透過電郵和 WhatsApp 收到 HiEnd Asia 與 NOWASIA 的資訊。我們不會致電，也不會出售您的資料。',
     unsub: '取消訂閱', privacy: '私隱聲明'
   }
