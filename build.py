@@ -133,7 +133,7 @@ SPONSORS = [
     ('Melodious Piano House', None, 'sp.piano'), ('Sharkwire', 'sharkwire', None),
     ('Tuan Yuan Pork Ribs Soup', 'tuanyuan', None), ('Creative District', 'creative-district', None),
 ]
-HOTELS = [('Pullman Singapore Hill Street', 'pullman', None)]
+HOTELS = [('Pullman Singapore Hill Street', 'pullman', None), ('Mondrian Singapore Duxton', None, None)]
 
 # Keynote talk schedule (organiser's programme, 2026-11-23): (day key, time, speaker photo id, room, exhibitor, topic key)
 SCHEDULE = [
