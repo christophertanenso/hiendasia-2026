@@ -1,8 +1,8 @@
 [
  {
   "code": "entrance",
-  "en": "Entrance · Info counter",
-  "zh": "入口 · 服务台",
+  "en": "Entrance",
+  "zh": "入口",
   "url": "https://christophertanenso.github.io/hiendasia-2026/?here=entrance&utm_source=qr&utm_medium=signage&utm_campaign=venue",
   "file": "qr/here-entrance.svg"
  },
@@ -26,6 +26,27 @@
   "zh": "大厅 2 & 3",
   "url": "https://christophertanenso.github.io/hiendasia-2026/?here=C23&utm_source=qr&utm_medium=signage&utm_campaign=venue",
   "file": "qr/here-c23.svg"
+ },
+ {
+  "code": "300",
+  "en": "Room 300",
+  "zh": "300 室",
+  "url": "https://christophertanenso.github.io/hiendasia-2026/?here=300&utm_source=qr&utm_medium=signage&utm_campaign=venue",
+  "file": "qr/here-300.svg"
+ },
+ {
+  "code": "301",
+  "en": "Room 301",
+  "zh": "301 室",
+  "url": "https://christophertanenso.github.io/hiendasia-2026/?here=301&utm_source=qr&utm_medium=signage&utm_campaign=venue",
+  "file": "qr/here-301.svg"
+ },
+ {
+  "code": "302",
+  "en": "Room 302",
+  "zh": "302 室",
+  "url": "https://christophertanenso.github.io/hiendasia-2026/?here=302&utm_source=qr&utm_medium=signage&utm_campaign=venue",
+  "file": "qr/here-302.svg"
  },
  {
   "code": "303",
@@ -61,34 +82,6 @@
   "zh": "307 室",
   "url": "https://christophertanenso.github.io/hiendasia-2026/?here=307&utm_source=qr&utm_medium=signage&utm_campaign=venue",
   "file": "qr/here-307.svg"
- },
- {
-  "code": "308",
-  "en": "Room 308",
-  "zh": "308 室",
-  "url": "https://christophertanenso.github.io/hiendasia-2026/?here=308&utm_source=qr&utm_medium=signage&utm_campaign=venue",
-  "file": "qr/here-308.svg"
- },
- {
-  "code": "309",
-  "en": "Room 309",
-  "zh": "309 室",
-  "url": "https://christophertanenso.github.io/hiendasia-2026/?here=309&utm_source=qr&utm_medium=signage&utm_campaign=venue",
-  "file": "qr/here-309.svg"
- },
- {
-  "code": "310",
-  "en": "Room 310",
-  "zh": "310 室",
-  "url": "https://christophertanenso.github.io/hiendasia-2026/?here=310&utm_source=qr&utm_medium=signage&utm_campaign=venue",
-  "file": "qr/here-310.svg"
- },
- {
-  "code": "311",
-  "en": "Room 311",
-  "zh": "311 室",
-  "url": "https://christophertanenso.github.io/hiendasia-2026/?here=311&utm_source=qr&utm_medium=signage&utm_campaign=venue",
-  "file": "qr/here-311.svg"
  },
  {
   "code": "312",
