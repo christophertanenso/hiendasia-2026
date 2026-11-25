@@ -77,10 +77,11 @@ EXTRA_REPS = [('Stavros Danos', 'rep.stavros.role', 'Aries Cerat', 'img/rep-stav
 
 # Dealer logos 82-106, brand logos 107-242 (alt text = brand name on the live site)
 # 2026 exhibitors and brands only. 300+ are logos added for 2026 (names in NEW_LOGOS, files img/3xx.jpg).
-DEALER_IDX = [312, 85, 101, 92, 237]  # Analog Playground, AudioLine, High End Research, MU6, Welchen Music
+DEALER_IDX = [312, 85, 101, 92, 237]  # Analog Playground, AudioLine, High End Research, MU6, Welchen Music (shown in the brand wall)
+SHOW_REPS = False  # brand representatives section: hidden for 2026 (too sparse); set True to bring it back
 NEW_LOGOS = {300: 'AMR', 301: 'San Yuan', 302: 'Ronnie', 303: 'SME', 304: 'Koetsu', 305: 'Graham Engineering',
              306: 'Vimberg', 307: 'Magnum Dynalab', 308: 'Clearaudio', 309: 'Purist Audio Design', 310: 'Aries Cerat',
-             311: 'Westend Audio Systems', 312: 'Analog Playground', 313: 'Sharkwire'}
+             311: 'Westend Audio Systems', 312: 'Analog Playground', 313: 'Sharkwire', 314: 'Medien'}
 BRAND_IDX = [109, 110, 300, 310, 107, 117, 121, 134, 308, 139, 147, 151, 305, 159, 163, 304,
              176, 307, 184, 188, 198, 309, 207, 302, 301, 313, 213, 303, 220, 222, 306, 311, 238]
 NAME_FIX = {'Opera Loudpseakers': 'Opera Loudspeakers', 'Quadspire': 'Quadraspire', 'Tinglon': 'Tiglon',
@@ -364,7 +365,7 @@ def render(lang, base, auto, page_url):
         '{{GCAL}}': e(GCAL), '{{WA}}': e(wa), '{{WA_MICHELLE}}': e(WA_MICHELLE), '{{ICON_WA}}': ICON_WA,
         '{{KEYNOTES}}': '\n'.join(person_card(i, b, talk_html(i)) for i, b in KEYNOTES),
         '{{GUESTS}}': '\n'.join(person_card(i, b) for i, b in GUESTS),
-        '{{REPS}}': rep_html, '{{DEALERS}}': tiles(DEALER_IDX), '{{BRANDS}}': tiles(BRAND_IDX),
+        '{{REPS}}': rep_html, '{{BRANDS}}': tiles(sorted(BRAND_IDX + DEALER_IDX + [314], key=lambda i: logo_name(i).lower())),
         '{{MEDIA}}': '\n'.join('<li>%s</li>' % e(m) for m in MEDIA),
         '{{SPONSORS}}': sponsor_cards(SPONSORS), '{{HOTELS}}': sponsor_cards(HOTELS),
         '{{DRAWS}}': '\n'.join(f'<li>{t(d)}<span>{e(tr("ld.hour"))}</span><b>{e(v)}</b></li>' for d, v in DRAWS),
@@ -378,6 +379,8 @@ def render(lang, base, auto, page_url):
         '{{CONSENT_CFG}}': consent_cfg(base), '{{CONSENT_JS}}': CONSENT_JS,
     }
     out = TPL
+    if not SHOW_REPS:
+        out = re.sub(r'<section class="block" id="reps">.*?</section>\s*', '', out, count=1, flags=re.S)
     for k, v in rep.items():
         out = out.replace(k, v)
     # The remaining {{key}} tokens are strings from i18n/<lang>.json
