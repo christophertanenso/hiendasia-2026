@@ -111,7 +111,7 @@ Nothing blocks navigation, and the page works if an ad blocker stops the tags. Q
 - `signage/index.html`: the same sheet as a web page.
 - `signage/qr/*.svg`: one QR code per sign, for larger prints.
 
-There are 20 signs: the entrance and info counter, both escalators, Concourse 2 & 3, and rooms 303–312, 323 and 332–336. Each code opens `?here=<spot>&utm_source=qr&utm_medium=signage&utm_campaign=venue`. The room finder starts its route there, and GA4 logs a `venue_checkin`, which is the show's only attendance signal, so put the signs where people will scan them.
+There are 19 signs: the entrance, both escalators, Concourse 2 & 3, and rooms 300–307, 312, 323 and 332–336 (308–311 are not in use in 2026). Each code opens `?here=<spot>&utm_source=qr&utm_medium=signage&utm_campaign=venue`. The room finder starts its route there, and GA4 logs a `venue_checkin`, which is the show's only attendance signal, so put the signs where people will scan them.
 
 ## Mainland China
 
