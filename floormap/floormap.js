@@ -18,7 +18,7 @@
     clear: 'Clear search',
     all: 'All',
     zones: { east: 'East wing', west: 'West wing', centre: 'Front' },
-    zoneRooms: { east: 'Rooms 300–312', west: 'Rooms 332–336, Foyer 5', centre: 'Room 323, Links 2–4, Art Exhibition Zone' },
+    zoneRooms: { east: 'Rooms 300–307, 312', west: 'Rooms 332–336, Foyer 5', centre: 'Room 323, Links 2–4, Art Exhibition Zone, sound rooms' },
     room: 'Room',
     tba: 'Exhibitor to be announced',
     none: 'No rooms match your search.',
@@ -32,17 +32,17 @@
     notToScale: 'Not to scale',
     entranceBottom: 'Escalators and entrance at the bottom',
     updated: 'Room allocations may change before the show.',
-    types: { listening: 'Listening room', vip: 'VIP room', hall: 'Exhibition hall', stage: 'Concert hall', display: 'Display area', tbc: 'To be confirmed' },
+    types: { listening: 'Listening room', vip: 'VIP room', hall: 'Exhibition hall', stage: 'Concert hall', display: 'Display area', activity: 'Activities room', tbc: 'To be confirmed' },
     tbcShort: 'TBC',
     // Directions. {from} = starting point, {n} = room, {ord} = first/second/…
-    from: { entrance: 'the info counter', esc: 'the escalators', room: 'Room {n}' },
+    from: { entrance: 'the top of the escalators', esc: 'the escalators', room: 'Room {n}' },
     ord: ['first', 'second', 'third', 'fourth', 'fifth'],
     dir: {
       east: 'From {from}, walk up Foyer 3. Room {n} is on your right, the {ord} door.',
       farEast: 'From {from}, walk up Foyer 1 on the far right. Room {n} is on your right, the {ord} door.',
       top: 'From {from}, walk up Foyer 3 to the end and turn right into Foyer 2. Room {n} is on your left, the {ord} door.',
-      west: 'From {from}, walk left along Foyer 6, then up Foyer 5. Room {n} is on your left, the {ord} door.',
-      centre: 'From {from}, walk ahead to Foyer 6. Room {n} is in front of you.',
+      west: 'From {from}, walk left past Link 3 and Link 4, then up Foyer 5. Room {n} is on your left, the {ord} door.',
+      centre: 'From {from}, walk ahead. Room {n} is in front of you.',
       concourse: 'Concourse 2 & 3 is at the front of the floor, between the escalators.',
       follow: 'Follow the dashed line from {from}.',
       same: 'You are here.'
@@ -55,45 +55,51 @@
     '332': [16, 40, 82, 78, 'west'], '333': [16, 82, 82, 120, 'west'], '334': [16, 124, 82, 162, 'west'],
     '335': [16, 166, 82, 204, 'west'], '336': [16, 208, 82, 246, 'west'],
     '307': [208, 20, 250, 62, 'top'], '306': [254, 20, 296, 62, 'top'], '305': [300, 20, 342, 62, 'top'],
-    '308': [208, 84, 282, 122, 'east'], '309': [208, 126, 282, 164, 'east'], '310': [208, 168, 282, 206, 'east'],
-    '311': [208, 210, 282, 248, 'east'], '312': [208, 256, 282, 294, 'east'],
+    // 308–311 are not in use in 2026 (Suntec plan 2026-11-17): drawn faintly in VENUE
+    '312': [208, 256, 282, 294, 'east'],
     '304': [292, 84, 344, 122, 'farEast'], '303': [292, 126, 344, 164, 'farEast'], '302': [292, 168, 344, 206, 'farEast'],
     '301': [292, 210, 344, 248, 'farEast'], '300': [292, 256, 344, 294, 'farEast'],
     '323': [124, 256, 176, 294, 'centre'],
-    'C23': [16, 438, 252, 470, 'concourse'],
+    // Art bays C1–C4 at the centre front (Concourse 3 and half of 2); Concourse 4 (left) and 1 (right) are empty
+    'C23': [88, 438, 214, 470, 'concourse'],
     // Sound rooms at Concourse 2, right of the art bays: S-1 and S-2 (4 × 6 m each) together, S-3 (7 × 5 m)
-    'S-1': [256, 438, 298, 470, 'concourse'], 'S-3': [302, 438, 344, 470, 'concourse'],
+    'S-1': [218, 438, 256, 470, 'concourse'], 'S-3': [260, 438, 298, 470, 'concourse'],
     // Links 2–4: the booths along the top of the escalator wells (Suntec plan 2026-11-17: L2-1 to L2-10, L3-1 to L3-6,
     // L4-1 to L4-3). What they hold is set in the rows below, so a link can change from art to anything else there.
-    'L3': [90, 326, 142, 350, 'link'], 'L2': [218, 326, 344, 350, 'link'],
+    // Link 2 runs from under Room 323 (L2-7 to L2-10) across the top of the right escalators (L2-1 to L2-6);
+    // Link 1, under rooms 312 and 300, is empty.
+    'L3': [92, 326, 152, 350, 'link'], 'L2': [172, 326, 270, 350, 'link'],
     // Display tables (yellow on Suntec's plan) as thin strips along the foyers: F5-1 to F5-10 beside rooms 332–336,
     // F1-1 (by room 300) to F1-9 (by 304) along Foyer 1. Too narrow for a label: the list and details name them.
     'F5-1': [83, 40, 89, 66, 'west'], 'F5': [83, 72, 89, 290, 'west'], 'F1': [283, 84, 291, 294, 'farEast'],
-    'F2': [254, 63, 342, 68, 'top'],   // F2-4 (by 306) to F2-1 (past 305), along Foyer 2
-    'L4-1': [16, 362, 80, 386, 'concourse'], 'L4-2': [16, 390, 80, 412, 'concourse'], 'F5-7': [16, 252, 82, 290, 'west']
+    'F2': [210, 63, 342, 68, 'top'],   // F2-4 (by 307) to F2-1 (by 305), along Foyer 2
+    // Link 4: one row of three booths, level with Link 3. F5-7 and F5-8 are two tables in the Foyer 5 strip, by 335–336.
+    'L4-1': [16, 326, 43, 350, 'link'], 'L4-2': [46, 326, 88, 350, 'link'], 'F5-7': [83, 208, 89, 246, 'west']
   };
   var ZONE = { west: 'west', top: 'east', east: 'east', farEast: 'east', centre: 'centre', concourse: 'centre', link: 'centre' };
-  var ORDER = { east: ['312', '311', '310', '309', '308'], farEast: ['300', '301', '302', '303', '304'], top: ['307', '306', '305'], west: ['336', '335', '334', '333', '332'] };
-  var SHORT = { C23: 'Art Exhibition Zone · C1–C4', 'S-1': 'S-1/2', 'F5-7': 'F5-7/8', L2: 'Link 2', L3: 'Link 3', 'L4-2': 'L4-2/3' };
+  var ORDER = { east: ['312'], farEast: ['300', '301', '302', '303', '304'], top: ['307', '306', '305'], west: ['336', '335', '334', '333', '332'] };
+  var SHORT = { C23: 'Art Zone · C1–C4', 'S-1': 'S-1/2', 'F5-7': 'F5-7/8', L2: 'Link 2', L3: 'Link 3', 'L4-2': 'L4-2/3' };
   // Spots outside the numbered rooms get their own directions
-  var SPOT_DIR = { 'L4-1': 'Link 4 is at the front left of the floor, past the left escalators. Look for the art walls.',
-    'L4-2': 'Link 4 is at the front left of the floor, past the left escalators. L4-2 and L4-3 are next to L4-1.',
-    'F5-1': 'From {from}, walk left along Foyer 6, then up Foyer 5 to the far end. The media area is at display table F5-1, beside room 332.',
-    F5: 'From {from}, walk left along Foyer 6, then up Foyer 5. The display tables line the foyer beside rooms 332 to 336.',
-    F2: 'From {from}, walk up Foyer 3 to the end and turn right into Foyer 2. The display tables are along the foyer outside rooms 306 and 305.',
+  var SPOT_DIR = { 'L4-1': 'From {from}, walk left past Link 3. Link 4 is the next row of art walls; L4-1 is the first booth.',
+    'L4-2': 'From {from}, walk left past Link 3. Link 4 is the next row of art walls; L4-2 and L4-3 are next to L4-1.',
+    'F5-1': 'From {from}, walk left past Link 3 and Link 4, then up Foyer 5 to the far end. The media area is at display table F5-1, beside room 332.',
+    F5: 'From {from}, walk left past Link 3 and Link 4, then up Foyer 5. The display tables line the foyer beside rooms 332 to 336.',
+    F2: 'From {from}, walk up Foyer 3 to the end and turn right into Foyer 2. The display tables are along the foyer outside rooms 307, 306 and 305.',
     F1: 'From {from}, walk right to Foyer 1, beside room 300. The display tables line the foyer from room 300 up to 304.',
-    'S-1': 'Sound rooms S-1 and S-2 are at the front of the floor, Concourse 2, to the right of the art bays.',
-    'S-3': 'Sound room S-3 is at the front of the floor, Concourse 2, at the right end past the art bays.',
+    'S-1': 'Sound rooms S-1 and S-2 are at the front of the floor, Concourse 2, right after art bay C4.',
+    'S-3': 'Sound room S-3 is at the front of the floor, Concourse 2, next to S-1 and S-2.',
     L3: 'From {from}, Link 3 is on your left, along the top of the left escalators.',
-    L2: 'From {from}, Link 2 is on your right, along the top of the right escalators and the wall of Room 323.',
-    'F5-7': 'From {from}, walk left along Foyer 6, then up Foyer 5. Display tables F5-7 and F5-8 are along the foyer.' };
+    L2: 'From {from}, Link 2 is just ahead and to your right: along the top of the right escalators and under Room 323.',
+    'F5-7': 'From {from}, walk left past Link 3 and Link 4, then up Foyer 5. Display tables F5-7 and F5-8 are beside rooms 335 and 336.' };
   var VENUE = [ // other Level 3 rooms, drawn faintly for orientation
-    { r: [112, 20, 182, 62], t: '327–330' }, { r: [100, 84, 192, 240], t: 'Summit 1 & 2|324–326' }
+    { r: [112, 20, 182, 62], t: '327–330' }, { r: [100, 84, 192, 240], t: 'Summit 1 & 2|324–326' },
+    { r: [208, 84, 282, 248], t: '308–311|Not in use' }
   ];
   var WC = [[100, 41], [194, 41], [106, 275], [192, 275]];
   var ESC = [[88, 360, 152, 387], [88, 390, 124, 406], [88, 413, 124, 430], [206, 360, 269, 387],
     [233, 390, 269, 406], [233, 413, 269, 430], [46, 417, 73, 430], [287, 417, 314, 430]];
-  var FOYER = [['Foyer 5', 95, 150, -90], ['Foyer 3', 200, 150, -90], ['Foyer 1', 318, 312, 0], ['Foyer 2', 318, 81, 0], ['Foyer 6', 146, 316, 0]];
+  var FOYER = [['Foyer 5', 95, 150, -90], ['Foyer 3', 200, 150, -90], ['Foyer 1', 318, 312, 0], ['Foyer 2', 318, 81, 0], ['Link 1', 312, 342, 0]];
+  var INFO = [97, 302]; // information counter: bottom of Foyer 5, below display table F5-10
   var POI = { entrance: [180, 352], 'esc-left': [120, 375], 'esc-right': [238, 375] };
 
   // Corridors (route network)
@@ -109,26 +115,25 @@
     { room: '305', type: 'listening', exhibitor: 'AOPT', note: 'Taiwan' },
     { room: '306', type: 'listening' },
     { room: '307', type: 'listening', exhibitor: 'High End Research', brands: 'Wilson Audio, Pass Labs, Metronome, SME, Koetsu, Graham Engineering, Vimberg, Purist Audio Design, Magnum Dynalab, Clearaudio, Live Cables' },
-    { room: '308', type: 'listening' }, { room: '309', type: 'listening' }, { room: '310', type: 'listening' }, { room: '311', type: 'listening' },
     { room: '312', type: 'listening', exhibitor: 'MU6' },
-    { room: '323', type: 'tbc', name: 'Activities area' },
+    { room: '323', type: 'activity', name: 'Activities room', note: 'Keynote talks and activities.' },
     { room: '332', type: 'listening', exhibitor: 'Abbingdon Music Research', brands: 'AMR' },
     { room: '333', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 336', brands: 'Aries Cerat' },
     { room: '334', type: 'listening' },
     { room: '335', type: 'listening', exhibitor: 'San Yuan', note: 'Taiwan', brands: 'San Yuan, Ronnie' },
     { room: '336', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 333', brands: 'Aries Cerat' },
-    { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'NOWASIA art galleries', brands: 'Art galleries, C1–C4', note: 'Gallery bays C1 to C4 along the whole front, with more art walls along Links 2, 3 and 4. Sound rooms S-1 to S-3 are beside them at Concourse 2.' },
+    { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'NOWASIA art galleries', brands: 'Art galleries, C1–C4', note: 'Gallery bays C1 to C4 at the centre front (Concourse 3 and 2), with more art walls along Links 2, 3 and 4. Sound rooms S-1 to S-3 are beside them at Concourse 2.' },
     { room: 'L4-1', type: 'hall', name: 'Link 4 · L4-1', exhibitor: 'Extra•Ordinary People', brands: 'Art gallery, charity', note: 'A Singapore charity for persons with diverse abilities: artists with autism sell their work here. Bears For Good: donate S$50 to adopt a bear, for yourself or as a gift.' },
     { room: 'S-1', type: 'listening', name: 'Sound rooms S-1 & S-2', exhibitor: 'Audiomis', note: 'Taiwan. Two sound rooms side by side at Concourse 2.', brands: 'Audiomis' },
     { room: 'S-3', type: 'listening', name: 'Sound room S-3', exhibitor: 'OBIT', note: 'At Concourse 2. Richard H. Mak speaks here on Saturday at 11am.' },
     { room: 'F5-1', type: 'display', name: 'Foyer 5 · F5-1', exhibitor: 'Media area', note: 'Planned for display table F5-1.' },
     { room: 'F5', type: 'display', name: 'Foyer 5 · display tables F5-2 to F5-10', exhibitor: 'CDs & vinyl zone', note: 'Display tables along Foyer 5. F5-7 and F5-8 are Simply Music; the media area is at F5-1.' },
     { room: 'F1', type: 'display', name: 'Foyer 1 · display tables F1-1 to F1-9', exhibitor: 'Display areas', brands: 'Art, CDs & vinyl', note: 'Along Foyer 1, from room 300 up to room 304.' },
-    { room: 'F2', type: 'display', name: 'Foyer 2 · display tables F2-1 to F2-4', exhibitor: 'Display areas', note: 'Along Foyer 2, outside rooms 306 and 305.' },
-    { room: 'L4-2', type: 'hall', name: 'Link 4 · L4-2 & L4-3', exhibitor: 'Art booths', note: 'Two booths next to L4-1.' },
+    { room: 'F2', type: 'display', name: 'Foyer 2 · display tables F2-1 to F2-4', exhibitor: 'Display areas', note: 'Along Foyer 2, outside rooms 307, 306 and 305.' },
+    { room: 'L4-2', type: 'hall', name: 'Link 4 · L4-2 & L4-3', exhibitor: 'Art booths', note: 'Two booths next to L4-1, in the same row.' },
     { room: 'L3', type: 'hall', name: 'Link 3 · L3-1 to L3-6', exhibitor: 'Art booths', note: 'Six booths along the top of the left escalators.' },
-    { room: 'L2', type: 'hall', name: 'Link 2 · L2-1 to L2-10', exhibitor: 'Art booths', note: 'Ten booths: six along the top of the right escalators, four against the wall of Room 323.' },
-    { room: 'F5-7', type: 'listening', name: 'Foyer 5 · F5-7 & F5-8', exhibitor: 'Simply Music', note: 'Display tables F5-7 and F5-8' }
+    { room: 'L2', type: 'hall', name: 'Link 2 · L2-1 to L2-10', exhibitor: 'Art booths', note: 'Ten booths: L2-1 to L2-6 along the top of the right escalators, L2-7 to L2-10 under Room 323.' },
+    { room: 'F5-7', type: 'display', name: 'Foyer 5 · F5-7 & F5-8', exhibitor: 'Simply Music', brands: 'CDs & vinyl', note: 'Display tables F5-7 and F5-8, beside rooms 335 and 336.' }
   ];
 
   // ---------- Helpers ----------
@@ -306,7 +311,7 @@
         var aria = parts.join(', ');
         o += '<g class="' + cls + '" data-room="' + esc(r.room) + '" tabindex="0" role="button" aria-label="' + esc(aria) + '" aria-pressed="' + (sel === r.room) + '">' +
           '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="5"/>' +
-          (Math.min(w, h) < 20 ? '' : '<text class="hm-rn" x="' + cx + '" y="' + (small ? cy + 1 : cy + 5.5) + '"' + (big.length > 4 ? ' style="font-size:13px"' : '') + '>' + esc(big) + '</text>') +
+          (Math.min(w, h) < 20 ? '' : '<text class="hm-rn" x="' + cx + '" y="' + (small ? cy + 1 : cy + 5.5) + '"' + (w < 36 ? ' style="font-size:11px"' : big.length > 4 ? ' style="font-size:13px"' : '') + '>' + esc(big) + '</text>') +
           // the leading space keeps the room's text content "312 VIP" (not "312VIP"); SVG doesn't draw it
           (small ? '<text class="hm-rs" x="' + cx + '" y="' + (cy + 14) + '"> ' + esc(small) + '</text>' : '') + '</g>';
       });
@@ -316,9 +321,9 @@
         var path = route(s, door(sel));
         o += '<polyline class="hm-route" points="' + path.map(function (p) { return p[0] + ',' + p[1]; }).join(' ') + '"/>';
       }
-      var ic = POI.entrance;
+      var ic = INFO;
       o += '<g class="hm-info" role="img" aria-label="' + esc(STR.infoCounter) + '"><circle cx="' + ic[0] + '" cy="' + ic[1] + '" r="7"/><text class="i" x="' + ic[0] + '" y="' + (ic[1] + 3.5) + '">i</text>' +
-        '<text x="' + ic[0] + '" y="' + (ic[1] - 12) + '">' + esc(STR.infoCounter) + '</text></g>';
+        '<text x="' + (ic[0] + 11) + '" y="' + (ic[1] + 4) + '" style="text-anchor:start">' + esc(STR.infoCounter) + '</text></g>';
       if (here && (POI[here] || ROOMS[here])) {
         var sp = s.d;
         o += '<g class="hm-here"><circle class="ring" cx="' + sp[0] + '" cy="' + sp[1] + '" r="8"/><circle class="dot" cx="' + sp[0] + '" cy="' + sp[1] + '" r="6"/>' +
