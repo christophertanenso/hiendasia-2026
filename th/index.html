@@ -491,6 +491,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 /* Free entry + share */
 .free { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; align-self: flex-start; padding: 10px 18px;
   border: 1px solid var(--accent); border-radius: var(--radius-pill); color: var(--heading); }
+.hero-draw { align-self: flex-start; color: var(--accent); font-weight: 700; text-underline-offset: 3px; }
 .free b { font: 700 14px/1.2 var(--font-display); letter-spacing: .12em; text-transform: uppercase; }
 .free span { color: var(--body); font-size: 14px; }
 .cal { position: relative; }
@@ -796,10 +797,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <a class="logo" href="#top" aria-label="หน้าแรก HiEnd Asia" data-i18n-attr="aria-label:nav.home"><img src="../img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
     <nav class="nav" aria-label="เมนูหลัก" data-i18n-attr="aria-label:nav.aria">
       <a class="txt" href="#floorplan" data-i18n="nav.floorplan">ผังงาน</a>
+      <a class="txt" href="#luckydraw" data-i18n="nav.draw">จับรางวัล</a>
       <a class="txt" href="#art" data-i18n="nav.art">Art</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">วิทยากร</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">แบรนด์</a>
-      <a class="txt" href="#luckydraw" data-i18n="nav.draw">จับรางวัล</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">การเดินทาง</a>
       <a class="txt dup" href="../hotel.html" data-i18n="nav.hotel">Hotel</a>
       <a class="txt dup" href="../exhibitor-login.html" data-i18n="nav.login">Exhibitor login</a>
@@ -840,6 +841,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       </div>
       <p class="venue" data-i18n="venue">Suntec Singapore · ชั้น 3 ศูนย์ประชุมและนิทรรศการซันเทค สิงคโปร์</p>
       <p class="free"><b data-i18n="free.label">เข้าชมฟรี</b><span data-i18n="free.hero">ต้องใช้บัตรเข้างาน ลงทะเบียนครั้งเดียว เข้าได้ทุกวัน</span></p>
+      <a class="hero-draw" href="#luckydraw" data-i18n="hero.draw">ลุ้นรางวัลทุกวัน: จับรางวัลและกล่องสุ่มปริศนา</a>
       <div class="btns">
         <a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="reg.cta">ลงทะเบียนรับบัตรฟรี</span></a>
         <details class="cal">
@@ -875,6 +877,37 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="stat"><b>8,000+</b><span data-i18n="stat.visits">ผู้เข้าชมในงานปี 2024</span></div>
     <div class="stat"><b data-i18n="stat.days.n">3 วัน</b><span data-i18n="stat.days">แห่งห้องฟังเสียงและดนตรีสด</span></div>
     <div class="stat"><b data-i18n="stat.free.n">ฟรี</b><span data-i18n="stat.free">เข้าชมด้วยบัตรที่ลงทะเบียน</span></div>
+  </div>
+</section>
+
+<section class="block band" id="luckydraw">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="ld.h">จับรางวัลและกล่องสุ่มปริศนา</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="ld.intro">ลงทะเบียนรับบัตรเข้างานฟรีภายในวันที่ 5 ธันวาคม 2026 เพื่อร่วมสนุก</p>
+    </div>
+    <div class="ld">
+      <div class="ld-box">
+        <p class="ld-big" data-i18n="ld.winners">ผู้โชคดีสามรางวัลทุกวัน</p>
+        <div class="ld-head" aria-hidden="true"><span data-i18n="ld.date">วันจับรางวัล</span><span data-i18n="ld.time">เวลาจับรางวัล</span><span data-i18n="ld.venue">สถานที่</span></div>
+        <ul class="ld-rows">
+<li><span data-i18n="d.thu">วันพฤหัสบดีที่ 17 ธันวาคม</span><span>16.00 น.</span><b>The Link 2</b></li>
+<li><span data-i18n="d.fri">วันศุกร์ที่ 18 ธันวาคม</span><span>16.00 น.</span><b>Foyer 1</b></li>
+<li><span data-i18n="d.sat">วันเสาร์ที่ 19 ธันวาคม</span><span>16.00 น.</span><b>Foyer 5</b></li>
+        </ul>
+      </div>
+      <div class="ld-terms">
+        <h3 data-i18n="ld.terms.h">ข้อกำหนดและเงื่อนไข</h3>
+        <ul>
+          <li data-i18n="ld.t1">ต้องลงทะเบียนล่วงหน้า</li>
+          <li data-i18n="ld.t2">ผู้ร่วมกิจกรรมต้องเป็นผู้เข้าชมที่ลงทะเบียนแล้ว</li>
+          <li data-i18n="ld.t3">ผู้ได้รับรางวัลต้องมาด้วยตนเองพร้อมบัตรประจำตัวที่ยังไม่หมดอายุเพื่อยืนยันตัวตน</li>
+          <li data-i18n="ld.t4">ของรางวัลมีจำนวนจำกัด</li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="ld.cta">ลงทะเบียนภายใน 5 ธันวาคม</span></a></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1083,37 +1116,6 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <li class="cd"><img src="../img/cds/hea5-1000.webp" srcset="../img/cds/hea5-600.webp 600w, ../img/cds/hea5-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="ซีดีที่ระลึก 2025" data-i18n-attr="alt:cd.2025" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.2025">ซีดีที่ระลึก 2025</span><span class="cd-note" data-i18n="cd.sale">จำหน่ายภายในงาน</span></li>
       <li class="cd"><img src="../img/cds/hea7-1000.webp" srcset="../img/cds/hea7-600.webp 600w, ../img/cds/hea7-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="แผ่นเสียงคู่ที่ระลึก 2025" data-i18n-attr="alt:cd.lp" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.lp">แผ่นเสียงคู่ที่ระลึก 2025</span><span class="cd-note" data-i18n="cd.lp.note">รุ่นจำนวนจำกัด · 45 rpm</span></li>
     </ul>
-  </div>
-</section>
-
-<section class="block band" id="luckydraw">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="ld.h">จับรางวัลและกล่องสุ่มปริศนา</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="ld.intro">ลงทะเบียนรับบัตรเข้างานฟรีภายในวันที่ 5 ธันวาคม 2026 เพื่อร่วมสนุก</p>
-    </div>
-    <div class="ld">
-      <div class="ld-box">
-        <p class="ld-big" data-i18n="ld.winners">ผู้โชคดีสามรางวัลทุกวัน</p>
-        <div class="ld-head" aria-hidden="true"><span data-i18n="ld.date">วันจับรางวัล</span><span data-i18n="ld.time">เวลาจับรางวัล</span><span data-i18n="ld.venue">สถานที่</span></div>
-        <ul class="ld-rows">
-<li><span data-i18n="d.thu">วันพฤหัสบดีที่ 17 ธันวาคม</span><span>16.00 น.</span><b>The Link 2</b></li>
-<li><span data-i18n="d.fri">วันศุกร์ที่ 18 ธันวาคม</span><span>16.00 น.</span><b>Foyer 1</b></li>
-<li><span data-i18n="d.sat">วันเสาร์ที่ 19 ธันวาคม</span><span>16.00 น.</span><b>Foyer 5</b></li>
-        </ul>
-      </div>
-      <div class="ld-terms">
-        <h3 data-i18n="ld.terms.h">ข้อกำหนดและเงื่อนไข</h3>
-        <ul>
-          <li data-i18n="ld.t1">ต้องลงทะเบียนล่วงหน้า</li>
-          <li data-i18n="ld.t2">ผู้ร่วมกิจกรรมต้องเป็นผู้เข้าชมที่ลงทะเบียนแล้ว</li>
-          <li data-i18n="ld.t3">ผู้ได้รับรางวัลต้องมาด้วยตนเองพร้อมบัตรประจำตัวที่ยังไม่หมดอายุเพื่อยืนยันตัวตน</li>
-          <li data-i18n="ld.t4">ของรางวัลมีจำนวนจำกัด</li>
-        </ul>
-        <div class="btns"><a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="ld.cta">ลงทะเบียนภายใน 5 ธันวาคม</span></a></div>
-      </div>
-    </div>
   </div>
 </section>
 

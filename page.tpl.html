@@ -287,6 +287,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 /* Free entry + share */
 .free { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; align-self: flex-start; padding: 10px 18px;
   border: 1px solid var(--accent); border-radius: var(--radius-pill); color: var(--heading); }
+.hero-draw { align-self: flex-start; color: var(--accent); font-weight: 700; text-underline-offset: 3px; }
 .free b { font: 700 14px/1.2 var(--font-display); letter-spacing: .12em; text-transform: uppercase; }
 .free span { color: var(--body); font-size: 14px; }
 .cal { position: relative; }
@@ -591,10 +592,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <a class="logo" href="#top" aria-label="{{nav.home}}" data-i18n-attr="aria-label:nav.home"><img src="img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
     <nav class="nav" aria-label="{{nav.aria}}" data-i18n-attr="aria-label:nav.aria">
       <a class="txt" href="#floorplan" data-i18n="nav.floorplan">{{nav.floorplan}}</a>
+      <a class="txt" href="#luckydraw" data-i18n="nav.draw">{{nav.draw}}</a>
       <a class="txt" href="#art" data-i18n="nav.art">{{nav.art}}</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">{{nav.speakers}}</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">{{nav.brands}}</a>
-      <a class="txt" href="#luckydraw" data-i18n="nav.draw">{{nav.draw}}</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">{{nav.visit}}</a>
       <a class="txt dup" href="hotel.html" data-i18n="nav.hotel">{{nav.hotel}}</a>
       <a class="txt dup" href="exhibitor-login.html" data-i18n="nav.login">{{nav.login}}</a>
@@ -624,6 +625,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 {{DATES}}
       <p class="venue" data-i18n="venue">{{venue}}</p>
       <p class="free"><b data-i18n="free.label">{{free.label}}</b><span data-i18n="free.hero">{{free.hero}}</span></p>
+      <a class="hero-draw" href="#luckydraw" data-i18n="hero.draw">{{hero.draw}}</a>
 {{ACTIONS}}
     </div>
     <div class="hero-poster">
@@ -639,6 +641,35 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="stat"><b>8,000+</b><span data-i18n="stat.visits">{{stat.visits}}</span></div>
     <div class="stat"><b data-i18n="stat.days.n">{{stat.days.n}}</b><span data-i18n="stat.days">{{stat.days}}</span></div>
     <div class="stat"><b data-i18n="stat.free.n">{{stat.free.n}}</b><span data-i18n="stat.free">{{stat.free}}</span></div>
+  </div>
+</section>
+
+<section class="block band" id="luckydraw">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="ld.h">{{ld.h}}</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="ld.intro">{{ld.intro}}</p>
+    </div>
+    <div class="ld">
+      <div class="ld-box">
+        <p class="ld-big" data-i18n="ld.winners">{{ld.winners}}</p>
+        <div class="ld-head" aria-hidden="true"><span data-i18n="ld.date">{{ld.date}}</span><span data-i18n="ld.time">{{ld.time}}</span><span data-i18n="ld.venue">{{ld.venue}}</span></div>
+        <ul class="ld-rows">
+{{DRAWS}}
+        </ul>
+      </div>
+      <div class="ld-terms">
+        <h3 data-i18n="ld.terms.h">{{ld.terms.h}}</h3>
+        <ul>
+          <li data-i18n="ld.t1">{{ld.t1}}</li>
+          <li data-i18n="ld.t2">{{ld.t2}}</li>
+          <li data-i18n="ld.t3">{{ld.t3}}</li>
+          <li data-i18n="ld.t4">{{ld.t4}}</li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="register.html">{{ICON_TICKET}}<span data-i18n="ld.cta">{{ld.cta}}</span></a></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -801,35 +832,6 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <li class="cd"><img src="img/cds/hea5-1000.webp" srcset="img/cds/hea5-600.webp 600w, img/cds/hea5-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="{{cd.2025}}" data-i18n-attr="alt:cd.2025" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.2025">{{cd.2025}}</span><span class="cd-note" data-i18n="cd.sale">{{cd.sale}}</span></li>
       <li class="cd"><img src="img/cds/hea7-1000.webp" srcset="img/cds/hea7-600.webp 600w, img/cds/hea7-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="{{cd.lp}}" data-i18n-attr="alt:cd.lp" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.lp">{{cd.lp}}</span><span class="cd-note" data-i18n="cd.lp.note">{{cd.lp.note}}</span></li>
     </ul>
-  </div>
-</section>
-
-<section class="block band" id="luckydraw">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="ld.h">{{ld.h}}</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="ld.intro">{{ld.intro}}</p>
-    </div>
-    <div class="ld">
-      <div class="ld-box">
-        <p class="ld-big" data-i18n="ld.winners">{{ld.winners}}</p>
-        <div class="ld-head" aria-hidden="true"><span data-i18n="ld.date">{{ld.date}}</span><span data-i18n="ld.time">{{ld.time}}</span><span data-i18n="ld.venue">{{ld.venue}}</span></div>
-        <ul class="ld-rows">
-{{DRAWS}}
-        </ul>
-      </div>
-      <div class="ld-terms">
-        <h3 data-i18n="ld.terms.h">{{ld.terms.h}}</h3>
-        <ul>
-          <li data-i18n="ld.t1">{{ld.t1}}</li>
-          <li data-i18n="ld.t2">{{ld.t2}}</li>
-          <li data-i18n="ld.t3">{{ld.t3}}</li>
-          <li data-i18n="ld.t4">{{ld.t4}}</li>
-        </ul>
-        <div class="btns"><a class="btn btn-primary" href="register.html">{{ICON_TICKET}}<span data-i18n="ld.cta">{{ld.cta}}</span></a></div>
-      </div>
-    </div>
   </div>
 </section>
 
