@@ -489,6 +489,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 /* Free entry + share */
 .free { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; align-self: flex-start; padding: 10px 18px;
   border: 1px solid var(--accent); border-radius: var(--radius-pill); color: var(--heading); }
+.hero-draw { align-self: flex-start; color: var(--accent); font-weight: 700; text-underline-offset: 3px; }
 .free b { font: 700 14px/1.2 var(--font-display); letter-spacing: .12em; text-transform: uppercase; }
 .free span { color: var(--body); font-size: 14px; }
 .cal { position: relative; }
@@ -794,10 +795,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <a class="logo" href="#top" aria-label="HiEnd Asia home" data-i18n-attr="aria-label:nav.home"><img src="../img/logo.svg" alt="HiEnd Asia" width="170" height="44"></a>
     <nav class="nav" aria-label="Pangunahin" data-i18n-attr="aria-label:nav.aria">
       <a class="txt" href="#floorplan" data-i18n="nav.floorplan">Floorplan</a>
+      <a class="txt" href="#luckydraw" data-i18n="nav.draw">Raffle</a>
       <a class="txt" href="#art" data-i18n="nav.art">Art</a>
       <a class="txt" href="#speakers" data-i18n="nav.speakers">Speakers</a>
       <a class="txt" href="#brands" data-i18n="nav.brands">Brands</a>
-      <a class="txt" href="#luckydraw" data-i18n="nav.draw">Raffle</a>
       <a class="txt" href="#visit" data-i18n="nav.visit">Pagbisita</a>
       <a class="txt dup" href="../hotel.html" data-i18n="nav.hotel">Hotel</a>
       <a class="txt dup" href="../exhibitor-login.html" data-i18n="nav.login">Exhibitor login</a>
@@ -838,6 +839,7 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       </div>
       <p class="venue" data-i18n="venue">Level 3, Suntec Singapore Convention &amp; Exhibition Centre</p>
       <p class="free"><b data-i18n="free.label">Libreng pasok</b><span data-i18n="free.hero">Kailangan ng tiket. Magrehistro nang isang beses, pumasok kahit anong araw.</span></p>
+      <a class="hero-draw" href="#luckydraw" data-i18n="hero.draw">Manalo araw-araw: raffle at mystery blind box</a>
       <div class="btns">
         <a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="reg.cta">Magrehistro para sa libreng tiket</span></a>
         <details class="cal">
@@ -873,6 +875,37 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
     <div class="stat"><b>8,000+</b><span data-i18n="stat.visits">bisita noong 2024</span></div>
     <div class="stat"><b data-i18n="stat.days.n">3 araw</b><span data-i18n="stat.days">ng listening rooms at live na musika</span></div>
     <div class="stat"><b data-i18n="stat.free.n">Libre</b><span data-i18n="stat.free">ang pasok, may rehistradong tiket</span></div>
+  </div>
+</section>
+
+<section class="block band" id="luckydraw">
+  <div class="wrap">
+    <div class="bh">
+      <h2 class="bh-en" data-i18n="ld.h">Raffle at Mystery Blind Box</h2>
+      <div class="rule"></div>
+      <p class="intro" data-i18n="ld.intro">Magrehistro para sa libreng tiket hanggang 5 Disyembre 2026 para makasali.</p>
+    </div>
+    <div class="ld">
+      <div class="ld-box">
+        <p class="ld-big" data-i18n="ld.winners">Tatlong mananalo sa raffle araw-araw</p>
+        <div class="ld-head" aria-hidden="true"><span data-i18n="ld.date">Petsa ng bunutan</span><span data-i18n="ld.time">Oras ng bunutan</span><span data-i18n="ld.venue">Lugar</span></div>
+        <ul class="ld-rows">
+<li><span data-i18n="d.thu">Huwebes, 17 Disyembre</span><span>4pm</span><b>The Link 2</b></li>
+<li><span data-i18n="d.fri">Biyernes, 18 Disyembre</span><span>4pm</span><b>Foyer 1</b></li>
+<li><span data-i18n="d.sat">Sabado, 19 Disyembre</span><span>4pm</span><b>Foyer 5</b></li>
+        </ul>
+      </div>
+      <div class="ld-terms">
+        <h3 data-i18n="ld.terms.h">Mga tuntunin at kondisyon</h3>
+        <ul>
+          <li data-i18n="ld.t1">Kailangang magparehistro nang maaga.</li>
+          <li data-i18n="ld.t2">Dapat rehistradong bisita ang mga kalahok.</li>
+          <li data-i18n="ld.t3">Dapat personal na naroon ang mga nanalo, may dalang balidong ID para sa beripikasyon.</li>
+          <li data-i18n="ld.t4">Depende sa availability ang mga premyo.</li>
+        </ul>
+        <div class="btns"><a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="ld.cta">Magrehistro bago 5 Disyembre</span></a></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1081,37 +1114,6 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
       <li class="cd"><img src="../img/cds/hea5-1000.webp" srcset="../img/cds/hea5-600.webp 600w, ../img/cds/hea5-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="2025 Commemorative CD" data-i18n-attr="alt:cd.2025" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.2025">2025 Commemorative CD</span><span class="cd-note" data-i18n="cd.sale">Ibinebenta sa show</span></li>
       <li class="cd"><img src="../img/cds/hea7-1000.webp" srcset="../img/cds/hea7-600.webp 600w, ../img/cds/hea7-1000.webp 1000w" sizes="(max-width: 700px) calc(100vw - 32px), 380px" alt="2025 Commemorative Double LP" data-i18n-attr="alt:cd.lp" width="1000" height="750" loading="lazy"><span class="cd-name" data-i18n="cd.lp">2025 Commemorative Double LP</span><span class="cd-note" data-i18n="cd.lp.note">Limitadong edisyon · 45 rpm</span></li>
     </ul>
-  </div>
-</section>
-
-<section class="block band" id="luckydraw">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="ld.h">Raffle at Mystery Blind Box</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="ld.intro">Magrehistro para sa libreng tiket hanggang 5 Disyembre 2026 para makasali.</p>
-    </div>
-    <div class="ld">
-      <div class="ld-box">
-        <p class="ld-big" data-i18n="ld.winners">Tatlong mananalo sa raffle araw-araw</p>
-        <div class="ld-head" aria-hidden="true"><span data-i18n="ld.date">Petsa ng bunutan</span><span data-i18n="ld.time">Oras ng bunutan</span><span data-i18n="ld.venue">Lugar</span></div>
-        <ul class="ld-rows">
-<li><span data-i18n="d.thu">Huwebes, 17 Disyembre</span><span>4pm</span><b>The Link 2</b></li>
-<li><span data-i18n="d.fri">Biyernes, 18 Disyembre</span><span>4pm</span><b>Foyer 1</b></li>
-<li><span data-i18n="d.sat">Sabado, 19 Disyembre</span><span>4pm</span><b>Foyer 5</b></li>
-        </ul>
-      </div>
-      <div class="ld-terms">
-        <h3 data-i18n="ld.terms.h">Mga tuntunin at kondisyon</h3>
-        <ul>
-          <li data-i18n="ld.t1">Kailangang magparehistro nang maaga.</li>
-          <li data-i18n="ld.t2">Dapat rehistradong bisita ang mga kalahok.</li>
-          <li data-i18n="ld.t3">Dapat personal na naroon ang mga nanalo, may dalang balidong ID para sa beripikasyon.</li>
-          <li data-i18n="ld.t4">Depende sa availability ang mga premyo.</li>
-        </ul>
-        <div class="btns"><a class="btn btn-primary" href="register.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2.4"/></svg><span data-i18n="ld.cta">Magrehistro bago 5 Disyembre</span></a></div>
-      </div>
-    </div>
   </div>
 </section>
 
