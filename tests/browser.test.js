@@ -41,10 +41,10 @@ describe('register page in the browser', { skip }, () => {
     scenario('an empty form moves focus to the name field', r => assert.equal(ok(r, 'emptySubmit').focus, 'f-name'));
     scenario('an empty form sends nothing to the backend', r => assert.equal(ok(r, 'emptySubmit').posts, 0));
     scenario('a bad email is reported on the email field', r => {
-      assert.equal(ok(r, 'badEmail').err, en['reg.err.email']); assert.equal(r.badEmail.invalid, 'f-email');
+      assert.equal(ok(r, 'badEmail').err, en['reg.err.email']); assert.equal(r.badEmail.invalid, 'f-email'); assert.equal(r.badEmail.slot, 'e-email');
     });
     scenario('a Singapore landline is reported on the phone field', r => {
-      assert.equal(ok(r, 'landline').err, en['reg.err.phone']); assert.equal(r.landline.invalid, 'f-phone');
+      assert.equal(ok(r, 'landline').err, en['reg.err.phone']); assert.equal(r.landline.invalid, 'f-phone'); assert.equal(r.landline.slot, 'e-phone');
     });
     scenario('a missing attendance type is reported', r => assert.equal(ok(r, 'noInterest').err, en['reg.err.interest']));
     scenario('a missing attendance type moves focus to the first choice', r => assert.equal(ok(r, 'noInterest').focus, 'i-visitor'));
@@ -129,7 +129,7 @@ describe('register page in the browser', { skip }, () => {
   });
 
   describe('when things go wrong', () => {
-    scenario('a backend failure shows a plain retry message', r => assert.equal(ok(r, 'backendDown').err, en['reg.err.server']));
+    scenario('a backend failure shows a plain retry message', r => { assert.equal(ok(r, 'backendDown').err, en['reg.err.server']); assert.equal(r.backendDown.slot, 'err'); });
     scenario('a backend failure keeps the form and what was typed', r => { assert.equal(ok(r, 'backendDown').formShown, true); assert.equal(r.backendDown.ticketShown, false); });
     scenario('a backend failure re-enables the button', r => { assert.equal(ok(r, 'backendDown').busy, null); assert.equal(r.backendDown.button, en['reg.submit']); });
     scenario('with no backend connected the live page says registration is not open', r => assert.equal(ok(r, 'notConnectedLive').err, en['reg.err.closed']));

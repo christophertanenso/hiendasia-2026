@@ -48,13 +48,13 @@ async function open(page, o) {
   };
   ctx.submit = function () { d.getElementById('submitBtn').click(); };
   ctx.settled = function () {
-    return waitFor(function () { return !d.getElementById('ticketView').hidden || d.getElementById('err').textContent !== ''; });
+    return waitFor(function () { return !d.getElementById('ticketView').hidden || d.getElementById('live').textContent !== ''; });
   };
   ctx.view = function () {
     var path = d.querySelector('#tQr path'), invalid = d.querySelector('[aria-invalid="true"]'), btn = d.getElementById('submitBtn');
     return {
       formShown: !d.getElementById('formView').hidden, ticketShown: !d.getElementById('ticketView').hidden,
-      cardShown: !d.getElementById('ticketCard').hidden, err: d.getElementById('err').textContent,
+      cardShown: !d.getElementById('ticketCard').hidden, err: d.getElementById('live').textContent, slot: (function () { var n = [].filter.call(d.querySelectorAll('.ferr, #err'), function (e) { return e.textContent !== ''; })[0]; return n ? n.id : null; })(),
       invalid: invalid ? invalid.id : null, focus: d.activeElement ? d.activeElement.id : null,
       heading: d.getElementById('doneH').textContent, lead: d.getElementById('doneLead').textContent,
       name: d.getElementById('tName').textContent, ticket: d.getElementById('tNo').textContent,
