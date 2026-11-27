@@ -338,7 +338,7 @@ a:hover { color: var(--accent); }
 @media (max-width: 900px) {
   .reg .wrap { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-block: 32px 64px; }
   .panel { margin: 0 auto; }
-  .poster { max-width: 520px; width: 100%; margin: 0 auto; }
+  .poster { display: none; } /* one column: the form, then the lucky draw; the poster is on the show page */
 }
 .eyebrow { margin: 0; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
 h1:focus { outline: none; }
@@ -379,6 +379,9 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
 .btn-outline:hover { background: rgba(198,166,97,.12); color: var(--heading); }
 .btn[aria-busy="true"] { opacity: .7; cursor: progress; }
 .err { margin: 0; min-height: 24px; color: var(--danger); font-size: 14px; line-height: 1.5; }
+.ferr { color: var(--danger); font-size: 14px; line-height: 1.5; }
+.ferr:empty { display: none; }
+.draw-link { align-self: flex-start; color: var(--heading); font-weight: 700; text-underline-offset: 3px; }
 .consent { margin: 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
 
 .ticket { background: var(--band); border: 1px solid var(--accent); border-radius: var(--radius-card); padding: 24px 20px; text-align: center; }
@@ -393,13 +396,12 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
 .another { align-self: flex-start; background: none; border: 0; padding: 8px 0; color: var(--heading); font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }
 .another:hover { color: var(--accent); }
 
-.ld-top { position: relative; border-bottom: 1px solid var(--line); background: var(--band); }
+.ld-top { position: relative; border-top: 1px solid var(--line); background: var(--band); }
 .reg .ld-top .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; padding-block: 48px; }
 .ld-text { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .ld-top h2 { margin: 0; font: 700 clamp(26px, 3.4vw, 40px)/1.08 var(--font-display); text-transform: uppercase; color: var(--heading); overflow-wrap: break-word; text-wrap: balance; }
 .ld-by { margin: 0; color: var(--body); font-size: 17px; line-height: 1.5; }
 .ld-big { margin: 0; font: 700 clamp(20px, 2.4vw, 26px)/1.25 var(--font-display); color: var(--accent); }
-.ld-prize { margin: 0; color: var(--body); max-width: 46ch; }
 .ld-go { align-self: flex-start; }
 .ld-img { display: block; width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); }
 .ld-side { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
@@ -456,76 +458,48 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
 </header>
 
 <main id="main" class="reg" tabindex="-1">
-  <section class="ld-top" id="luckydraw" aria-labelledby="ldH">
-    <div class="wrap">
-      <div class="ld-text">
-        <p class="eyebrow">限已登記觀眾</p>
-        <h2 id="ldH">幸運抽獎與神秘盲盒</h2>
-        <div class="rule"></div>
-        <p class="ld-by">請於2026年12月5日前登記免費門票，即可參加。</p>
-        <p class="ld-big">每日抽出三名幸運得主</p>
-        <p class="ld-prize">每個密封盲盒內裝有一張 HiEnd Asia 紀念 CD 或黑膠唱片，究竟是哪一種，打開才知道。</p>
-        <a class="btn btn-primary ld-go" href="#formView">12月5日前登記</a>
-        <div class="ld-terms">
-          <h3>條款與細則</h3>
-          <ul>
-            <li>須提前登記。</li>
-            <li>參加者須為已登記觀眾。</li>
-            <li>得獎者須親臨現場，並出示有效身分證件以供核實。</li>
-            <li>獎品數量有限，送完即止。</li>
-          </ul>
-        </div>
-      </div>
-      <div class="ld-side">
-        <img class="ld-img" src="../img/mystery-box-1200.webp" srcset="../img/mystery-box-640.webp 640w, ../img/mystery-box-1200.webp 1200w"
-          sizes="(max-width: 900px) min(520px, calc(100vw - 32px)), 56vw" alt="繫著金色緞帶的 HiEnd Asia 密封神秘盲盒" width="1200" height="600" decoding="async">
-        <div class="ld-box">
-          <div class="ld-head" aria-hidden="true"><span>抽獎日期</span><span>抽獎時間</span><span>地點</span></div>
-          <ul class="ld-rows">
-            <li><span data-i18n="d.thu">12月17日 星期四</span><span>下午4時</span><b>The Link 2</b></li>
-            <li><span data-i18n="d.fri">12月18日 星期五</span><span>下午4時</span><b>Foyer 1</b></li>
-            <li><span data-i18n="d.sat">12月19日 星期六</span><span>下午4時</span><b>Foyer 5</b></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
   <div class="wrap">
     <div class="panel" id="formView">
       <p class="eyebrow">2026年12月17 – 19日 · 新達城</p>
       <h1>登記領取免費門票</h1>
       <div class="rule"></div>
       <p class="lead">免費入場，須憑票。每人一張，三日通用。</p>
+      <a class="draw-link" href="#luckydraw">每日贏好禮：幸運抽獎與神秘盲盒</a>
       <form id="regForm" novalidate>
         <div class="field">
           <label for="f-name">姓名</label>
-          <input class="in" id="f-name" name="name" type="text" autocomplete="name" autocapitalize="words" maxlength="80" required aria-describedby="h-name">
+          <input class="in" id="f-name" name="name" type="text" autocomplete="name" autocapitalize="words" maxlength="80" required aria-describedby="h-name e-name">
           <span class="hint" id="h-name">將顯示在門票上。</span>
+          <span class="ferr" id="e-name"></span>
         </div>
         <div class="field">
           <label for="f-email">電郵</label>
-          <input class="in" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" maxlength="120" required aria-describedby="h-email">
+          <input class="in" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" maxlength="120" required aria-describedby="h-email e-email">
           <span class="hint" id="h-email">門票將發送至此。</span>
+          <span class="ferr" id="e-email"></span>
         </div>
         <div class="field">
           <label for="f-phone">手機號碼</label>
           <div class="phone">
             <span class="dial"><span id="dialLabel" aria-hidden="true">SG +65</span><i aria-hidden="true">▾</i>
               <select id="f-dial" aria-label="國家／地區代碼" autocomplete="tel-country-code"></select></span>
-            <input class="in" id="f-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="20" required>
+            <input class="in" id="f-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="20" required aria-describedby="e-phone">
           </div>
+          <span class="ferr" id="e-phone"></span>
         </div>
         <fieldset class="field">
           <legend>參觀身份</legend>
-          <div class="seg" id="seg" role="radiogroup" aria-label="參觀身份">
+          <div class="seg" id="seg" role="radiogroup" aria-label="參觀身份" aria-describedby="e-interest">
             <input type="radio" name="interest" id="i-visitor" value="visitor"><label for="i-visitor">觀眾</label>
             <input type="radio" name="interest" id="i-trade" value="trade"><label for="i-trade">業界人士</label>
             <input type="radio" name="interest" id="i-media" value="media"><label for="i-media">媒體</label>
           </div>
+          <span class="ferr" id="e-interest"></span>
         </fieldset>
         <div class="trap" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
         <button class="btn btn-primary" id="submitBtn" type="submit">領取門票</button>
-        <p class="err" id="err" role="alert"></p>
+        <p class="err" id="err"></p>
+        <p class="sr" id="live" role="alert"></p>
         <p class="consent">登記即表示您同意透過電郵和 WhatsApp 接收 HiEnd Asia 與 NOWASIA 的資訊。我們不會致電，也不會出售您的資料。您可隨時取消訂閱。 <a href="../privacy.html#registration">隱私聲明</a></p>
       </form>
     </div>
@@ -553,6 +527,39 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
       <img src="../img/000-1242.webp" srcset="../img/000-640.webp 640w, ../img/000-760.webp 760w, ../img/000-960.webp 960w, ../img/000-1242.webp 1242w" sizes="(max-width: 900px) min(520px, calc(100vw - 32px)), min(560px, 46vw)" alt="官方海報：2026 新加坡 Hi-End Asia 國際音響影音展，12月17日至19日，Suntec Singapore 三樓" width="1242" height="1660">
     </figure>
   </div>
+  <section class="ld-top" id="luckydraw" aria-labelledby="ldH">
+    <div class="wrap">
+      <div class="ld-text">
+        <p class="eyebrow">限已登記觀眾</p>
+        <h2 id="ldH">幸運抽獎與神秘盲盒</h2>
+        <div class="rule"></div>
+        <p class="ld-by">請於2026年12月5日前登記免費門票，即可參加。</p>
+        <p class="ld-big">每日抽出三名幸運得主</p>
+        <a class="btn btn-primary ld-go" href="#formView">12月5日前登記</a>
+        <div class="ld-terms">
+          <h3>條款與細則</h3>
+          <ul>
+            <li>須提前登記。</li>
+            <li>參加者須為已登記觀眾。</li>
+            <li>得獎者須親臨現場，並出示有效身分證件以供核實。</li>
+            <li>獎品數量有限，送完即止。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ld-side">
+        <img class="ld-img" src="../img/mystery-box-1200.webp" srcset="../img/mystery-box-640.webp 640w, ../img/mystery-box-1200.webp 1200w"
+          sizes="(max-width: 900px) min(520px, calc(100vw - 32px)), 56vw" alt="繫著金色緞帶的 HiEnd Asia 密封神秘盲盒" width="1200" height="600" decoding="async">
+        <div class="ld-box">
+          <div class="ld-head" aria-hidden="true"><span>抽獎日期</span><span>抽獎時間</span><span>地點</span></div>
+          <ul class="ld-rows">
+            <li><span data-i18n="d.thu">12月17日 星期四</span><span>下午4時</span><b>The Link 2</b></li>
+            <li><span data-i18n="d.fri">12月18日 星期五</span><span>下午4時</span><b>Foyer 1</b></li>
+            <li><span data-i18n="d.sat">12月19日 星期六</span><span>下午4時</span><b>Foyer 5</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </main>
 
@@ -801,13 +808,19 @@ function qrMatrix(text) {
   }
   form.addEventListener('focusin', askCountry);
 
+  // A field's message goes under that field; anything else (the server, registration closed) goes under the button.
+  // #live is the one announcement region, so a screen reader hears the message wherever it is shown.
+  var SLOT = { 'f-name': 'e-name', 'f-email': 'e-email', 'f-phone': 'e-phone', 'seg': 'e-interest' };
   function fail(msg, el) {
-    err.textContent = msg;
+    var slot = el && $(SLOT[el.id]);
+    (slot || err).textContent = msg;
+    $('live').textContent = msg;
     if (el) { el.setAttribute('aria-invalid', 'true'); if (el.focus && el.id !== 'seg') el.focus(); else $('i-visitor').focus(); }
     return false;
   }
   function clearErr() {
-    err.textContent = '';
+    err.textContent = ''; $('live').textContent = '';
+    [].forEach.call(form.querySelectorAll('.ferr'), function (n) { n.textContent = ''; });
     [].forEach.call(form.querySelectorAll('[aria-invalid]'), function (n) { n.removeAttribute('aria-invalid'); });
   }
   form.addEventListener('input', clearErr);
