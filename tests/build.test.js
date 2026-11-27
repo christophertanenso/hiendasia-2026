@@ -171,11 +171,20 @@ describe('lucky draw and mystery blind box', () => {
     if (l !== 'en') it(`${l}: blind box copy is translated`, () => {
       assert.deepEqual(['bb.h', 'bb.lead', 'bb.s2', 'bb.terms'].filter(k => i18n[l][k] === i18n.en[k]), []);
     });
-    it(`${l}: shows the lucky draw at the top, before the form`, () => {
-      const at = html.indexOf('id="luckydraw"');
-      assert.ok(at > 0 && at < html.indexOf('<form'), 'section missing or after the form');
+    it(`${l}: puts the form first, with the lucky draw below it and a link to it above the form`, () => {
+      const at = html.indexOf('id="luckydraw"'), form = html.indexOf('<form');
+      assert.ok(form > 0 && at > form, 'section missing or before the form');
+      const link = html.indexOf('href="#luckydraw"');
+      assert.ok(link > 0 && link < form, 'no link to the lucky draw above the form');
       for (const k of ['ld.h', 'ld.intro', 'ld.winners', 'ld.date', 'ld.time', 'ld.venue', 'ld.terms.h', 'ld.t1', 'ld.t2', 'ld.t3', 'ld.t4'])
         assert.ok(t.includes(i18n[l][k] || i18n.en[k]), k);
+    });
+    it(`${l}: does not say what the prizes are`, () => {
+      assert.ok(!html.includes('ld-prize'));
+      assert.ok(!t.includes(i18n[l]['ld.prize']), 'the prize sentence is on the page');
+    });
+    it(`${l}: has a message slot under each field`, () => {
+      for (const id of ['e-name', 'e-email', 'e-phone', 'e-interest']) assert.ok(html.includes(`id="${id}"`), id);
     });
     it(`${l}: lists the three daily draws at the same hour, in their venues`, () => {
       const rows = html.slice(html.indexOf('class="ld-rows"'), html.indexOf('</ul>', html.indexOf('class="ld-rows"')));

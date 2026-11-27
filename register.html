@@ -336,7 +336,7 @@ a:hover { color: var(--accent); }
 @media (max-width: 900px) {
   .reg .wrap { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-block: 32px 64px; }
   .panel { margin: 0 auto; }
-  .poster { max-width: 520px; width: 100%; margin: 0 auto; }
+  .poster { display: none; } /* one column: the form, then the lucky draw; the poster is on the show page */
 }
 .eyebrow { margin: 0; font: 700 13px/1.4 var(--font-display); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
 h1:focus { outline: none; }
@@ -377,6 +377,9 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
 .btn-outline:hover { background: rgba(198,166,97,.12); color: var(--heading); }
 .btn[aria-busy="true"] { opacity: .7; cursor: progress; }
 .err { margin: 0; min-height: 24px; color: var(--danger); font-size: 14px; line-height: 1.5; }
+.ferr { color: var(--danger); font-size: 14px; line-height: 1.5; }
+.ferr:empty { display: none; }
+.draw-link { align-self: flex-start; color: var(--heading); font-weight: 700; text-underline-offset: 3px; }
 .consent { margin: 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
 
 .ticket { background: var(--band); border: 1px solid var(--accent); border-radius: var(--radius-card); padding: 24px 20px; text-align: center; }
@@ -391,13 +394,12 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
 .another { align-self: flex-start; background: none; border: 0; padding: 8px 0; color: var(--heading); font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }
 .another:hover { color: var(--accent); }
 
-.ld-top { position: relative; border-bottom: 1px solid var(--line); background: var(--band); }
+.ld-top { position: relative; border-top: 1px solid var(--line); background: var(--band); }
 .reg .ld-top .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; padding-block: 48px; }
 .ld-text { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .ld-top h2 { margin: 0; font: 700 clamp(26px, 3.4vw, 40px)/1.08 var(--font-display); text-transform: uppercase; color: var(--heading); overflow-wrap: break-word; text-wrap: balance; }
 .ld-by { margin: 0; color: var(--body); font-size: 17px; line-height: 1.5; }
 .ld-big { margin: 0; font: 700 clamp(20px, 2.4vw, 26px)/1.25 var(--font-display); color: var(--accent); }
-.ld-prize { margin: 0; color: var(--body); max-width: 46ch; }
 .ld-go { align-self: flex-start; }
 .ld-img { display: block; width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--line); }
 .ld-side { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
@@ -454,76 +456,48 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
 </header>
 
 <main id="main" class="reg" tabindex="-1">
-  <section class="ld-top" id="luckydraw" aria-labelledby="ldH">
-    <div class="wrap">
-      <div class="ld-text">
-        <p class="eyebrow">For registered visitors</p>
-        <h2 id="ldH">Lucky Draw &amp; Mystery Blind Box</h2>
-        <div class="rule"></div>
-        <p class="ld-by">Register for your free ticket by 5 December 2026 to take part.</p>
-        <p class="ld-big">Three lucky draw winners every day</p>
-        <p class="ld-prize">Each sealed box holds one HiEnd Asia commemorative CD or vinyl record. Which one stays a secret until you open it.</p>
-        <a class="btn btn-primary ld-go" href="#formView">Register by 5 December</a>
-        <div class="ld-terms">
-          <h3>Terms &amp; conditions</h3>
-          <ul>
-            <li>Advance registration is compulsory.</li>
-            <li>Participants must be registered visitors.</li>
-            <li>Winners must be present in person with valid ID for verification.</li>
-            <li>Prizes are subject to availability.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="ld-side">
-        <img class="ld-img" src="img/mystery-box-1200.webp" srcset="img/mystery-box-640.webp 640w, img/mystery-box-1200.webp 1200w"
-          sizes="(max-width: 900px) min(520px, calc(100vw - 32px)), 56vw" alt="Sealed HiEnd Asia mystery blind boxes tied with gold ribbon" width="1200" height="600" decoding="async">
-        <div class="ld-box">
-          <div class="ld-head" aria-hidden="true"><span>Draw date</span><span>Draw time</span><span>Venue</span></div>
-          <ul class="ld-rows">
-            <li><span data-i18n="d.thu">17 Dec Thursday</span><span>4pm</span><b>The Link 2</b></li>
-            <li><span data-i18n="d.fri">18 Dec Friday</span><span>4pm</span><b>Foyer 1</b></li>
-            <li><span data-i18n="d.sat">19 Dec Saturday</span><span>4pm</span><b>Foyer 5</b></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
   <div class="wrap">
     <div class="panel" id="formView">
       <p class="eyebrow">17 – 19 Dec 2026 · Suntec Singapore</p>
       <h1>Register for your free ticket</h1>
       <div class="rule"></div>
       <p class="lead">Entry is free. A ticket is required. One per visitor, valid all three days.</p>
+      <a class="draw-link" href="#luckydraw">Win daily: lucky draw &amp; mystery blind box</a>
       <form id="regForm" novalidate>
         <div class="field">
           <label for="f-name">Full name</label>
-          <input class="in" id="f-name" name="name" type="text" autocomplete="name" autocapitalize="words" maxlength="80" required aria-describedby="h-name">
+          <input class="in" id="f-name" name="name" type="text" autocomplete="name" autocapitalize="words" maxlength="80" required aria-describedby="h-name e-name">
           <span class="hint" id="h-name">As it will appear on the ticket.</span>
+          <span class="ferr" id="e-name"></span>
         </div>
         <div class="field">
           <label for="f-email">Email</label>
-          <input class="in" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" maxlength="120" required aria-describedby="h-email">
+          <input class="in" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" maxlength="120" required aria-describedby="h-email e-email">
           <span class="hint" id="h-email">Your ticket is sent here.</span>
+          <span class="ferr" id="e-email"></span>
         </div>
         <div class="field">
           <label for="f-phone">Mobile number</label>
           <div class="phone">
             <span class="dial"><span id="dialLabel" aria-hidden="true">SG +65</span><i aria-hidden="true">▾</i>
               <select id="f-dial" aria-label="Country code" autocomplete="tel-country-code"></select></span>
-            <input class="in" id="f-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="20" required>
+            <input class="in" id="f-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="20" required aria-describedby="e-phone">
           </div>
+          <span class="ferr" id="e-phone"></span>
         </div>
         <fieldset class="field">
           <legend>Attending as</legend>
-          <div class="seg" id="seg" role="radiogroup" aria-label="Attending as">
+          <div class="seg" id="seg" role="radiogroup" aria-label="Attending as" aria-describedby="e-interest">
             <input type="radio" name="interest" id="i-visitor" value="visitor"><label for="i-visitor">Visitor</label>
             <input type="radio" name="interest" id="i-trade" value="trade"><label for="i-trade">Trade</label>
             <input type="radio" name="interest" id="i-media" value="media"><label for="i-media">Media</label>
           </div>
+          <span class="ferr" id="e-interest"></span>
         </fieldset>
         <div class="trap" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
         <button class="btn btn-primary" id="submitBtn" type="submit">Get my ticket</button>
-        <p class="err" id="err" role="alert"></p>
+        <p class="err" id="err"></p>
+        <p class="sr" id="live" role="alert"></p>
         <p class="consent">By registering, you agree to receive news of HiEnd Asia and NOWASIA by email and WhatsApp. We do not call. We do not sell your details. You may unsubscribe at any time. <a href="privacy.html#registration">Privacy notice</a></p>
       </form>
     </div>
@@ -551,6 +525,39 @@ form { display: flex; flex-direction: column; gap: 16px; margin-top: 6px; }
       <img src="img/000-1242.webp" srcset="img/000-640.webp 640w, img/000-760.webp 760w, img/000-960.webp 960w, img/000-1242.webp 1242w" sizes="(max-width: 900px) min(520px, calc(100vw - 32px)), min(560px, 46vw)" alt="Official poster: 2026 Singapore Hi-End Asia International Audio Visual and Art Exhibition, with NOWASIA, 17 to 19 December, Suntec Singapore Level 3" width="1242" height="1660">
     </figure>
   </div>
+  <section class="ld-top" id="luckydraw" aria-labelledby="ldH">
+    <div class="wrap">
+      <div class="ld-text">
+        <p class="eyebrow">For registered visitors</p>
+        <h2 id="ldH">Lucky Draw &amp; Mystery Blind Box</h2>
+        <div class="rule"></div>
+        <p class="ld-by">Register for your free ticket by 5 December 2026 to take part.</p>
+        <p class="ld-big">Three lucky draw winners every day</p>
+        <a class="btn btn-primary ld-go" href="#formView">Register by 5 December</a>
+        <div class="ld-terms">
+          <h3>Terms &amp; conditions</h3>
+          <ul>
+            <li>Advance registration is compulsory.</li>
+            <li>Participants must be registered visitors.</li>
+            <li>Winners must be present in person with valid ID for verification.</li>
+            <li>Prizes are subject to availability.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ld-side">
+        <img class="ld-img" src="img/mystery-box-1200.webp" srcset="img/mystery-box-640.webp 640w, img/mystery-box-1200.webp 1200w"
+          sizes="(max-width: 900px) min(520px, calc(100vw - 32px)), 56vw" alt="Sealed HiEnd Asia mystery blind boxes tied with gold ribbon" width="1200" height="600" decoding="async">
+        <div class="ld-box">
+          <div class="ld-head" aria-hidden="true"><span>Draw date</span><span>Draw time</span><span>Venue</span></div>
+          <ul class="ld-rows">
+            <li><span data-i18n="d.thu">17 Dec Thursday</span><span>4pm</span><b>The Link 2</b></li>
+            <li><span data-i18n="d.fri">18 Dec Friday</span><span>4pm</span><b>Foyer 1</b></li>
+            <li><span data-i18n="d.sat">19 Dec Saturday</span><span>4pm</span><b>Foyer 5</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </main>
 
@@ -799,13 +806,19 @@ function qrMatrix(text) {
   }
   form.addEventListener('focusin', askCountry);
 
+  // A field's message goes under that field; anything else (the server, registration closed) goes under the button.
+  // #live is the one announcement region, so a screen reader hears the message wherever it is shown.
+  var SLOT = { 'f-name': 'e-name', 'f-email': 'e-email', 'f-phone': 'e-phone', 'seg': 'e-interest' };
   function fail(msg, el) {
-    err.textContent = msg;
+    var slot = el && $(SLOT[el.id]);
+    (slot || err).textContent = msg;
+    $('live').textContent = msg;
     if (el) { el.setAttribute('aria-invalid', 'true'); if (el.focus && el.id !== 'seg') el.focus(); else $('i-visitor').focus(); }
     return false;
   }
   function clearErr() {
-    err.textContent = '';
+    err.textContent = ''; $('live').textContent = '';
+    [].forEach.call(form.querySelectorAll('.ferr'), function (n) { n.textContent = ''; });
     [].forEach.call(form.querySelectorAll('[aria-invalid]'), function (n) { n.removeAttribute('aria-invalid'); });
   }
   form.addEventListener('input', clearErr);
