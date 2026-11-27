@@ -11,7 +11,7 @@
  * Setup steps are in apps-script/README.md. Nothing here needs editing except CONFIG.
  */
 var CONFIG = {
-  SITE: 'https://christophertanenso.github.io/hiendasia-2026/',   // the show site (images and links in the email)
+  SITE: 'https://www.hiendasia.com/',   // the show site (images and links in the email)
   FROM_NAME: 'HiEnd Asia',
   REPLY_TO: 'michelle@hiendasia.com',                              // replies and data-protection requests go here
   TICKET_PREFIX: 'HEA26-',
@@ -503,7 +503,7 @@ function checkinUrl(site, ticket) {
 }
 
 /* QR code, versions 1 to 6 (21 x 21 up to 41 x 41), error correction M, byte mode, the smallest version that fits:
-   up to 106 characters. A ticket number fits version 1; the check-in link needs version 5.
+   up to 106 characters. A ticket number fits version 1; the check-in link needs version 4.
    Returns N rows of N numbers, 1 = dark. */
 function qrMatrix(text) {
   // Level M, per version: [blocks, data codewords per block, error-correction codewords per block]

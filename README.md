@@ -2,7 +2,7 @@
 
 One-page site, in eight languages, for the **2026 Singapore Hi-End Asia International Audio Visual Show**, 17–19 December 2026, Level 3, Suntec Singapore Convention & Exhibition Centre. Free entry with a registered ticket.
 
-Live: https://christophertanenso.github.io/hiendasia-2026/
+Live: https://www.hiendasia.com/
 
 Built on the HiEnd Asia 2026 design system (black ground, champagne-gold headings sampled from the poster (`#f0d9a0`), gold rules, bronze bands; Arimo, Open Sans, Noto Sans SC). Photos, logos, copy and the 2025 showcase video come from [hiendasia.com](https://www.hiendasia.com/).
 
@@ -125,6 +125,6 @@ Google services are blocked in mainland China, so the page avoids depending on t
 
 Every image and the video can be linked directly, for example:
 
-- `https://christophertanenso.github.io/hiendasia-2026/img/000.jpg` (official poster)
-- `https://christophertanenso.github.io/hiendasia-2026/img/og-2026.jpg` (1200×630 share image)
-- `https://christophertanenso.github.io/hiendasia-2026/video/showcase-2025.mp4`
+- `https://www.hiendasia.com/img/000.jpg` (official poster)
+- `https://www.hiendasia.com/img/og-2026.jpg` (1200×630 share image)
+- `https://www.hiendasia.com/video/showcase-2025.mp4`

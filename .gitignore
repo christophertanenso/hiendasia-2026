@@ -2,3 +2,7 @@ files.json
 __pycache__/
 .DS_Store
 Thumbs.db
+
+# Local secrets and private notes: never publish
+env.txt
+openrouter.md
