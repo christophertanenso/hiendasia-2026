@@ -22,7 +22,7 @@
     room: 'Room',
     tba: 'Exhibitor to be announced',
     none: 'No rooms match your search.',
-    pick: 'Pick a room on the map or in the list to see who is there and how to get there.',
+    pick: 'Pick a room on the map to see who is there and how to get there.',
     close: 'Close',
     youAreHere: 'You are here',
     infoCounter: 'Info counter',
@@ -106,13 +106,13 @@
   // 2026 rooms (used unless a published sheet is set on the mount). Columns as in rooms-template.csv.
   var DEFAULT_ROWS = [
     { room: '300', type: 'listening', exhibitor: 'Welchen Music' },
-    { room: '301', type: 'listening', exhibitor: 'Audio Line', note: 'With room 302', brands: 'TAD, Accuphase, Acoustic Signature, Audio-Technica, Artesania Audio, Audiodesk Systeme, Cary Audio, Diapason, Ensemble, Finite Elemente, Graham Audio, Ikeda, Montaudio, Rogers High Fidelity, Signal Projects, Sutherland Engineering' },
-    { room: '302', type: 'listening', exhibitor: 'Audio Line', note: 'With room 301', brands: 'TAD, Accuphase, Acoustic Signature, Audio-Technica, Artesania Audio, Audiodesk Systeme, Cary Audio, Diapason, Ensemble, Finite Elemente, Graham Audio, Ikeda, Montaudio, Rogers High Fidelity, Signal Projects, Sutherland Engineering' },
+    { room: '301', type: 'listening', exhibitor: 'Audio-Technica' },
+    { room: '302', type: 'listening', exhibitor: 'Audio Line', brands: 'TAD, Accuphase, Acoustic Signature, Audio-Technica, Artesania Audio, Audiodesk Systeme, Cary Audio, Diapason, Ensemble, Finite Elemente, Graham Audio, Ikeda, Montaudio, Rogers High Fidelity, Signal Projects, Sutherland Engineering' },
     { room: '303', type: 'listening' }, { room: '304', type: 'listening' },
     { room: '305', type: 'listening', exhibitor: 'AOPT', note: 'Taiwan' },
-    { room: '306', type: 'listening' },
+    { room: '306', type: 'listening', exhibitor: 'OBIT & Audio Line' },
     { room: '307', type: 'listening', exhibitor: 'High End Research', brands: 'Wilson Audio, Pass Labs, Metronome, SME, Koetsu, Graham Engineering, Vimberg, Purist Audio Design, Magnum Dynalab, Clearaudio, Live Cables' },
-    { room: '312', type: 'listening', exhibitor: 'MU6' },
+    { room: '312', type: 'listening', exhibitor: 'NuPrime' },
     { room: '323', type: 'activity', name: 'Activities room', note: 'Keynote talks and activities.' },
     { room: '332', type: 'listening', exhibitor: 'Abbingdon Music Research', brands: 'AMR' },
     { room: '333', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 336', brands: 'Aries Cerat' },
@@ -236,19 +236,19 @@
         '<input type="search" enterkeyhint="search" autocomplete="off" aria-label="' + esc(STR.search) + '" placeholder="' + esc(STR.search) + '">' +
         '<button type="button" class="hm-clear" aria-label="' + esc(STR.clear) + '" hidden>×</button></div>' +
         '<div class="hm-chips" role="group"></div>' +
-        '<div class="hm-list" aria-live="polite"></div>' +
+        '<p class="hm-empty" aria-live="polite" hidden>' + esc(STR.none) + '</p>' +
+        '<div class="hm-detail" aria-live="polite"></div>' +
+        '<ul class="hm-legend"></ul>' +
         '<p class="hm-note">' + esc(STR.updated) + '</p>' +
       '</div>' +
       '<div class="hm-main">' +
         '<figure class="hm-stage"><svg class="hm-svg" viewBox="0 0 360 486" role="group" aria-label="Level 3 map"></svg>' +
         '<figcaption class="hm-cap"><span>' + esc(STR.notToScale) + '</span><span>↓ ' + esc(STR.entranceBottom) + '</span></figcaption></figure>' +
-        '<ul class="hm-legend"></ul>' +
-        '<div class="hm-detail" aria-live="polite"></div>' +
       '</div>';
 
     var $ = function (s) { return mount.querySelector(s); };
     var svg = $('.hm-svg'), input = $('input'), clearBtn = $('.hm-clear'), chips = $('.hm-chips'),
-      list = $('.hm-list'), detail = $('.hm-detail'), legend = $('.hm-legend'), stage = $('.hm-stage');
+      empty = $('.hm-empty'), detail = $('.hm-detail'), legend = $('.hm-legend'), stage = $('.hm-stage');
 
     function title(r) { return r.name || (SHORT[r.room] || STR.room + ' ' + r.room); }
     function zoneOf(r) { return ZONE[ROOMS[r.room][4]]; }
@@ -296,7 +296,11 @@
         var g = ROOMS[r.room], x = g[0], y = g[1], w = g[2] - g[0], h = g[3] - g[1], cx = x + w / 2, cy = y + h / 2;
         var big = isNum(r.room) ? r.room : (SHORT[r.room] || r.room);
         var small = r.type === 'vip' ? 'VIP' : r.type === 'tbc' ? STR.tbcShort : '';
-        var cls = 'hm-room t-' + r.type + (sel === r.room ? ' is-sel' : '') + (matches(r) ? '' : ' is-dim');
+        var cls = 'hm-room t-' + r.type + (sel === r.room ? ' is-sel' : '') + (matches(r) ? '' : ' is-dim') +
+          (r.exhibitor || r.name || r.type !== 'listening' ? '' : ' is-tba');
+        var exn = isNum(r.room) && r.exhibitor && w >= 40 ? r.exhibitor.split(' & ')[0] : '';
+        if (exn.length > 11) exn = exn.slice(0, 10).trim() + '…';
+        if (exn) cls += ' has-x';
         // The accessible name starts with the text drawn on the room (WCAG 2.5.3 label-in-name), then adds
         // the room's name and type only where they say something new, so nothing is read out twice.
         var vis = big + (small ? ' ' + small : ''), tt = title(r), ty = STR.types[r.type], parts = [vis];
@@ -306,8 +310,9 @@
         var aria = parts.join(', ');
         o += '<g class="' + cls + '" data-room="' + esc(r.room) + '" tabindex="0" role="button" aria-label="' + esc(aria) + '" aria-pressed="' + (sel === r.room) + '">' +
           '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="5"/>' +
-          (Math.min(w, h) < 20 ? '' : '<text class="hm-rn" x="' + cx + '" y="' + (small ? cy + 1 : cy + 5.5) + '"' + (w < 36 ? ' style="font-size:11px"' : big.length > 4 ? ' style="font-size:13px"' : '') + '>' + esc(big) + '</text>') +
+          (Math.min(w, h) < 20 ? '' : '<text class="hm-rn" x="' + cx + '" y="' + (small ? cy + 1 : exn ? cy + 2 : cy + 5.5) + '"' + (w < 36 ? ' style="font-size:11px"' : big.length > 4 ? ' style="font-size:13px"' : '') + '>' + esc(big) + '</text>') +
           // the leading space keeps the room's text content "312 VIP" (not "312VIP"); SVG doesn't draw it
+          (exn ? '<text class="hm-rx" x="' + cx + '" y="' + (cy + 12) + '" aria-hidden="true"> ' + esc(exn) + '</text>' : '') +
           (small ? '<text class="hm-rs" x="' + cx + '" y="' + (cy + 14) + '"> ' + esc(small) + '</text>' : '') + '</g>';
       });
 
@@ -332,7 +337,7 @@
       svg.innerHTML = o;
     }
 
-    // ---- Side: chips, list, detail, legend ----
+    // ---- Side: chips, detail, legend ----
     function drawChips() {
       var present = {}; rows.forEach(function (r) { present[zoneOf(r)] = 1; });
       var keys = ['all'].concat(['east', 'west', 'centre'].filter(function (z) { return present[z]; }));
@@ -340,24 +345,7 @@
         return '<button type="button" data-zone="' + k + '" aria-pressed="' + (zone === k) + '">' + esc(k === 'all' ? STR.all : STR.zones[k]) + '</button>';
       }).join('');
     }
-    function drawList() {
-      var html = '', any = false;
-      ['east', 'west', 'centre'].forEach(function (z) {
-        var items = rows.filter(function (r) { return zoneOf(r) === z && matches(r); })
-          .sort(function (a, b) { return a.room.localeCompare(b.room, undefined, { numeric: true }); });
-        if (!items.length) return; any = true;
-        html += '<section class="hm-group"><h3>' + esc(STR.zones[z]) + ' <span>' + esc(STR.zoneRooms[z]) + '</span></h3><ul>' +
-          items.map(function (r) {
-            var main = r.exhibitor || r.name || (r.type === 'listening' ? STR.tba : STR.types[r.type]);
-            var sub = [STR.types[r.type], r.brands].filter(Boolean).join(' · ');
-            return '<li><button type="button" data-room="' + esc(r.room) + '" aria-pressed="' + (sel === r.room) + '">' +
-              '<span class="n t-' + r.type + '">' + esc(isNum(r.room) ? r.room : r.room === 'C23' ? 'C1–4' : r.room) + '</span>' +
-              '<span class="b"><span class="m">' + esc(main) + '</span><span class="s">' + esc(sub) + '</span></span>' +
-              '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg></button></li>';
-          }).join('') + '</ul></section>';
-      });
-      list.innerHTML = any ? html : '<p class="hm-empty">' + esc(STR.none) + '</p>';
-    }
+    function drawEmpty() { empty.hidden = rows.some(matches); }
     function drawDetail() {
       var r = rows.filter(function (x) { return x.room === sel; })[0];
       detail.classList.toggle('is-open', !!r);
@@ -380,7 +368,7 @@
         '<li><i class="sw sw-esc"></i>' + esc(STR.escalators) + '</li>' +
         '<li><i class="sw sw-route"></i>' + esc(STR.route) + '</li>';
     }
-    function render() { drawMap(); drawChips(); drawList(); drawDetail(); drawLegend(); }
+    function render() { drawMap(); drawChips(); drawEmpty(); drawDetail(); drawLegend(); }
 
     function narrow() { return !matchMedia('(min-width: 900px)').matches; }
     // Analytics hook: the page's trackIntent (if present) reports finder use to GA4. Never throws.
@@ -404,9 +392,6 @@
         e.preventDefault(); var rid = g.getAttribute('data-room'); select(rid, false);
         var again = svg.querySelector('[data-room="' + rid + '"]'); if (again) again.focus();
       }
-    });
-    list.addEventListener('click', function (e) {
-      var b = e.target.closest('button[data-room]'); if (b) select(b.getAttribute('data-room'), true);
     });
     chips.addEventListener('click', function (e) {
       var b = e.target.closest('button[data-zone]'); if (!b) return;
