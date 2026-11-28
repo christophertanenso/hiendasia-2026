@@ -97,13 +97,13 @@ L = []
 w = L.append
 w('# HiEnd Asia 2026: Meta and Google campaign drafts\n')
 w('Drafted 28 Nov 2026. Show: 17–19 Dec 2026, Level 3, Suntec Singapore. Lucky draw registration closes 5 Dec.\n')
-w('The Meta campaigns exist as unpublished drafts in Ads Manager. G1 and G2 are built in Google Ads and paused; G3 was not built (see below). Total budget: S$1,500, of which S$1,000 is Meta and S$500 is Google.\n')
+w('The Meta campaigns exist as unpublished drafts in Ads Manager. G1 and G2 are live in Google Ads; G3 is built and paused (see below). Total budget: S$1,500, of which S$1,000 is Meta and S$500 is Google.\n')
 w('## Budget split\n')
 w('| Platform | Campaign | Budget | Runs |\n| --- | --- | --- | --- |')
 for row in [('Meta', 'M1 Registrations, prospecting', 'S$540', '30 Nov to 16 Dec'), ('Meta', 'M2 Video awareness', 'S$180', '30 Nov to 14 Dec'),
             ('Meta', 'M3 Retargeting', 'S$150', '1 to 16 Dec'), ('Meta', 'M4 Show days', 'S$130', '16 to 19 Dec'),
-            ('Google', 'G1 Search', 'S$140 campaign total', '28 Nov to 19 Dec'), ('Google', 'G2 Demand Gen (YouTube, Discover, Gmail)', 'S$360 campaign total (includes G3’s S$70)', '28 Nov to 16 Dec'),
-            ('Google', 'G3 Demand Gen remarketing', 'Not built; S$70 moved to G2', '—')]:
+            ('Google', 'G1 Search', 'S$140 campaign total', '28 Nov to 19 Dec'), ('Google', 'G2 Demand Gen (YouTube, Discover, Gmail)', 'S$360 campaign total', '28 Nov to 16 Dec'),
+            ('Google', 'G3 Demand Gen remarketing', 'S$70 campaign total, paused; only serves if the visitor list qualifies', '9 to 18 Dec')]:
     w('| ' + ' | '.join(row) + ' |')
 w('\nThe Meta budgets are lifetime budgets on the ad sets. The Google budgets are campaign totals over the dates shown. Spend about 40% of the total by 5 Dec, while the lucky draw deadline gives people a reason to act.\n')
 
@@ -216,8 +216,8 @@ for i, h in enumerate(DG_H, 1): w(f'{i}. {n(h)}')
 w('\n**Descriptions (90 max):**\n')
 for i, d in enumerate(DG_D, 1): w(f'{i}. {n(d)}')
 w(f"\n**Final URL:** `{url(REG, 'google', 'demand_gen', 'hea26_demandgen', '{creative}')}`\n")
-w('### G3 Demand Gen remarketing (not built)\n')
-w('Not built on 28 Nov 2026: Google Ads sees 0 eligible people in the GA4 visitor list and rules it too small for Demand Gen. Its S$70 went to G2. The copy below is kept in case the list grows.\n')
+w('### G3 Demand Gen remarketing\n')
+w('Built and paused on 28 Nov 2026, running 9 to 18 Dec at S$70. Google Ads sees 0 eligible people in the GA4 visitor list and rules it too small for Demand Gen, so it will not serve unless the list grows. The live ad uses headlines 2 to 4 and descriptions 2 and 3 below; the lucky draw lines are left out because it starts after 5 Dec.\n')
 w('- **Audience:** GA4 audience "visited, did not register" (page view in the last 30 days, no `sign_up`).\n- **Images:** A to 5 Dec, then C and D to 11 Dec, then B and D to 16 Dec; E on 17–18 Dec with the show page as the link.\n- **Copy:** the same three messages as M3, in the same order. Swap the headlines and descriptions on 6 and 12 Dec.\n- **Note:** this list only fills from visitors who accept cookies, so it will be small. Keep the budget at S$70; if it cannot spend, move what is left to G1.\n')
 G3_H = [r['headline'] for r in RETARGET] + ['Claim Your Free Ticket in a Minute']
 G3_D = ['Your free HiEnd Asia ticket takes a minute. Register by 5 Dec for the daily lucky draw.',
