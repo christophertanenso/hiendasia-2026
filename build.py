@@ -145,7 +145,7 @@ SCHEDULE = [
     ('d.fri', '3–4pm', 16, '307', 'High End Research', 'sched.dan'),
     ('d.fri', '4–5pm', 13, '332', 'AMR', 'sched.mak'),
     ('d.sat', '10–11am', 16, '312', 'Sharkwire', 'sched.dan'),
-    ('d.sat', '11am–12pm', 13, 'S-3', 'OBIT sound room', 'sched.mak'),
+    ('d.sat', '11am–12pm', 13, None, 'OBIT', 'sched.mak'),  # venue to be confirmed (sound room S-3 dropped)
     ('d.sat', '1–2pm', 16, '333', 'Aries Cerat', 'sched.dan'),
     ('d.sat', '2–3pm', 13, '307', 'High End Research', 'sched.mak'),
     ('d.sat', '3–4pm', 16, '335', 'San Yuan', 'sched.dan'),
@@ -173,7 +173,7 @@ def talk_html(pid):
     tag = f' <span class="sch-tag">{e(tr("sched.proposed"))}</span>' if topic == 'sched.mak' else ''
     days = []
     for d in ('d.thu', 'd.fri', 'd.sat'):
-        rows = ''.join(f'<li><span class="talk-time">{time}</span><span class="talk-where">{t("sched.room")} {room} · {e(where)}</span></li>'
+        rows = ''.join(f'<li><span class="talk-time">{time}</span><span class="talk-where">{(t("sched.room") + " " + room) if room else t("prog.tbc")} · {e(where)}</span></li>'
                        for dd, time, _, room, where, _x in mine if dd == d)
         if rows:
             days.append(f'<div class="talk-day">{t(d, "h4")}<ul>{rows}</ul></div>')

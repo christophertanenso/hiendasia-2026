@@ -18,7 +18,7 @@
     clear: 'Clear search',
     all: 'All',
     zones: { east: 'East wing', west: 'West wing', centre: 'Front' },
-    zoneRooms: { east: 'Rooms 300–307, 312', west: 'Rooms 332–336, Foyer 5', centre: 'Room 323, Links 2–4, Art Exhibition Zone, sound rooms' },
+    zoneRooms: { east: 'Rooms 300–307, 312', west: 'Rooms 332–336, Foyer 5', centre: 'Room 323, Links 2–4, Art Exhibition Zone' },
     room: 'Room',
     tba: 'Exhibitor to be announced',
     none: 'No rooms match your search.',
@@ -62,8 +62,7 @@
     '323': [124, 256, 176, 294, 'centre'],
     // Art bays C1–C4 at the centre front (Concourse 3 and half of 2); Concourse 4 (left) and 1 (right) are empty
     'C23': [88, 438, 214, 470, 'concourse'],
-    // Sound rooms at Concourse 2, right of the art bays: S-1 and S-2 (4 × 6 m each) together, S-3 (7 × 5 m)
-    'S-1': [218, 438, 256, 470, 'concourse'], 'S-3': [260, 438, 298, 470, 'concourse'],
+    // The sound rooms S-1 to S-3 at Concourse 2 were dropped (2026-11-28)
     // Links 2–4: the booths along the top of the escalator wells (Suntec plan 2026-11-17: L2-1 to L2-10, L3-1 to L3-6,
     // L4-1 to L4-3). What they hold is set in the rows below, so a link can change from art to anything else there.
     // Link 2 runs from under Room 323 (L2-7 to L2-10) across the top of the right escalators (L2-1 to L2-6);
@@ -78,7 +77,7 @@
   };
   var ZONE = { west: 'west', top: 'east', east: 'east', farEast: 'east', centre: 'centre', concourse: 'centre', link: 'centre' };
   var ORDER = { east: ['312'], farEast: ['300', '301', '302', '303', '304'], top: ['307', '306', '305'], west: ['336', '335', '334', '333', '332'] };
-  var SHORT = { C23: 'Art Zone · C1–C4', 'S-1': 'S-1/2', 'F5-7': 'F5-7/8', L2: 'Link 2', L3: 'Link 3', 'L4-2': 'L4-2/3' };
+  var SHORT = { C23: 'Art Zone · C1–C4', 'F5-7': 'F5-7/8', L2: 'Link 2', L3: 'Link 3', 'L4-2': 'L4-2/3' };
   // Spots outside the numbered rooms get their own directions
   var SPOT_DIR = { 'L4-1': 'From {from}, walk left past Link 3. Link 4 is the next row of art walls; L4-1 is the first booth.',
     'L4-2': 'From {from}, walk left past Link 3. Link 4 is the next row of art walls; L4-2 and L4-3 are next to L4-1.',
@@ -86,8 +85,6 @@
     F5: 'From {from}, walk left past Link 3 and Link 4, then up Foyer 5. The display tables line the foyer beside rooms 332 to 336.',
     F2: 'From {from}, walk up Foyer 3 to the end and turn right into Foyer 2. The display tables are along the foyer outside rooms 307, 306 and 305.',
     F1: 'From {from}, walk right to Foyer 1, beside room 300. The display tables line the foyer from room 300 up to 304.',
-    'S-1': 'Sound rooms S-1 and S-2 are at the front of the floor, Concourse 2, right after art bay C4.',
-    'S-3': 'Sound room S-3 is at the front of the floor, Concourse 2, next to S-1 and S-2.',
     L3: 'From {from}, Link 3 is on your left, along the top of the left escalators.',
     L2: 'From {from}, Link 2 is just ahead and to your right: along the top of the right escalators and under Room 323.',
     'F5-7': 'From {from}, walk left past Link 3 and Link 4, then up Foyer 5. Display tables F5-7 and F5-8 are beside rooms 335 and 336.' };
@@ -122,10 +119,8 @@
     { room: '334', type: 'listening' },
     { room: '335', type: 'listening', exhibitor: 'San Yuan', note: 'Taiwan', brands: 'San Yuan, Ronnie' },
     { room: '336', type: 'listening', exhibitor: 'Aries Cerat', note: 'With room 333', brands: 'Aries Cerat' },
-    { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'NOWASIA art galleries', brands: 'Art galleries, C1–C4', note: 'Gallery bays C1 to C4 at the centre front (Concourse 3 and 2), with more art walls along Links 2, 3 and 4. Sound rooms S-1 to S-3 are beside them at Concourse 2.' },
+    { room: 'C23', type: 'hall', name: 'Art Exhibition Zone', exhibitor: 'NOWASIA art galleries', brands: 'Art galleries, C1–C4', note: 'Gallery bays C1 to C4 at the centre front (Concourse 3 and 2), with more art walls along Links 2, 3 and 4.' },
     { room: 'L4-1', type: 'hall', name: 'Link 4 · L4-1', exhibitor: 'Extra•Ordinary People', brands: 'Art gallery, charity', note: 'A Singapore charity for persons with diverse abilities: artists with autism sell their work here. Bears For Good: donate S$50 to adopt a bear, for yourself or as a gift.' },
-    { room: 'S-1', type: 'listening', name: 'Sound rooms S-1 & S-2', exhibitor: 'Audiomis', note: 'Taiwan. Two sound rooms side by side at Concourse 2.', brands: 'Audiomis' },
-    { room: 'S-3', type: 'listening', name: 'Sound room S-3', exhibitor: 'OBIT', note: 'At Concourse 2. Richard H. Mak speaks here on Saturday at 11am.' },
     { room: 'F5-1', type: 'display', name: 'Foyer 5 · F5-1', exhibitor: 'Media area', note: 'Planned for display table F5-1.' },
     { room: 'F5', type: 'display', name: 'Foyer 5 · display tables F5-2 to F5-10', exhibitor: 'CDs & vinyl zone', note: 'Display tables along Foyer 5. F5-7 and F5-8 are Simply Music; the media area is at F5-1.' },
     { room: 'F1', type: 'display', name: 'Foyer 1 · display tables F1-1 to F1-9', exhibitor: 'Display areas', brands: 'Art, CDs & vinyl', note: 'Along Foyer 1, from room 300 up to room 304.' },
