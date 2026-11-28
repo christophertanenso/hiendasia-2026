@@ -10,7 +10,7 @@ const { describe, it, before } = require('node:test');
 const assert = require('node:assert/strict');
 const { findChrome, evaluateWhen } = require('./helpers/chrome');
 
-const URL_ = process.env.LIVE_URL || 'https://christophertanenso.github.io/hiendasia-2026/register.html';
+const URL_ = process.env.LIVE_URL || 'https://www.hiendasia.com/register.html';
 const EMAIL = process.env.LIVE_EMAIL;
 const NAME = 'E2E Test';
 const TICKET = /^HEA26-[2-9A-HJ-NP-Z]{6}$/;

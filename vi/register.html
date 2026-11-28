@@ -7,22 +7,22 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Đăng ký vé miễn phí · HiEnd Asia 2026">
 <meta property="og:description" content="Vào cửa HiEnd Asia 2026 miễn phí. Cần có vé. Đăng ký một lần, vào cửa bất cứ ngày nào, 17–19/12/2026, Suntec Singapore.">
-<meta property="og:url" content="https://christophertanenso.github.io/hiendasia-2026/vi/register.html">
-<meta property="og:image" content="https://christophertanenso.github.io/hiendasia-2026/img/og-2026.jpg">
+<meta property="og:url" content="https://www.hiendasia.com/vi/register.html">
+<meta property="og:image" content="https://www.hiendasia.com/img/og-2026.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="vi_VN">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://christophertanenso.github.io/hiendasia-2026/vi/register.html">
-<link rel="alternate" hreflang="en" href="https://christophertanenso.github.io/hiendasia-2026/register.html">
-<link rel="alternate" hreflang="zh-Hans" href="https://christophertanenso.github.io/hiendasia-2026/zh-Hans/register.html">
-<link rel="alternate" hreflang="zh-Hant" href="https://christophertanenso.github.io/hiendasia-2026/zh-Hant/register.html">
-<link rel="alternate" hreflang="id" href="https://christophertanenso.github.io/hiendasia-2026/id/register.html">
-<link rel="alternate" hreflang="ms" href="https://christophertanenso.github.io/hiendasia-2026/ms/register.html">
-<link rel="alternate" hreflang="fil" href="https://christophertanenso.github.io/hiendasia-2026/fil/register.html">
-<link rel="alternate" hreflang="th" href="https://christophertanenso.github.io/hiendasia-2026/th/register.html">
-<link rel="alternate" hreflang="vi" href="https://christophertanenso.github.io/hiendasia-2026/vi/register.html">
-<link rel="alternate" hreflang="x-default" href="https://christophertanenso.github.io/hiendasia-2026/register.html">
+<link rel="canonical" href="https://www.hiendasia.com/vi/register.html">
+<link rel="alternate" hreflang="en" href="https://www.hiendasia.com/register.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://www.hiendasia.com/zh-Hans/register.html">
+<link rel="alternate" hreflang="zh-Hant" href="https://www.hiendasia.com/zh-Hant/register.html">
+<link rel="alternate" hreflang="id" href="https://www.hiendasia.com/id/register.html">
+<link rel="alternate" hreflang="ms" href="https://www.hiendasia.com/ms/register.html">
+<link rel="alternate" hreflang="fil" href="https://www.hiendasia.com/fil/register.html">
+<link rel="alternate" hreflang="th" href="https://www.hiendasia.com/th/register.html">
+<link rel="alternate" hreflang="vi" href="https://www.hiendasia.com/vi/register.html">
+<link rel="alternate" hreflang="x-default" href="https://www.hiendasia.com/register.html">
 <title>Đăng ký vé miễn phí · HiEnd Asia 2026</title>
 <script>
 /* The register page follows the visitor's language like the show page: ?lang= first, then the saved choice, then the
@@ -608,7 +608,7 @@ function checkinUrl(site, ticket) {
 }
 
 /* QR code, versions 1 to 6 (21 x 21 up to 41 x 41), error correction M, byte mode, the smallest version that fits:
-   up to 106 characters. A ticket number fits version 1; the check-in link needs version 5.
+   up to 106 characters. A ticket number fits version 1; the check-in link needs version 4.
    Returns N rows of N numbers, 1 = dark. */
 function qrMatrix(text) {
   // Level M, per version: [blocks, data codewords per block, error-correction codewords per block]
@@ -744,7 +744,7 @@ function qrMatrix(text) {
 }
 (function () {
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzXhnZISem_HhZU0oBYNkhdm8AwThYFWHAQ_q9YoU-PWAlJgwgmPWptpn8dGq-VzIYD/exec';
-  var SITE_URL = 'https://christophertanenso.github.io/hiendasia-2026/';   // the ticket's QR code opens the door page there (checkinUrl)
+  var SITE_URL = 'https://www.hiendasia.com/';   // the ticket's QR code opens the door page there (checkinUrl)
   var T = {"errName": "Nhập họ và tên của bạn.", "errEmail": "Nhập địa chỉ email hợp lệ.", "errPhone": "Nhập số điện thoại di động hợp lệ.", "errInterest": "Chọn tư cách tham dự.", "errServer": "Không thể xuất vé. Vui lòng thử lại.", "errClosed": "Chưa mở đăng ký.", "submit": "Nhận vé", "sending": "Đang xuất vé", "doneEyebrow": "Đã đăng ký", "doneH": "Vé của bạn", "doneLead": "Xuất trình màn hình này tại lối vào. Một bản đã được gửi đến email của bạn.", "storedLead": "Xuất trình màn hình này tại lối vào.", "resentH": "Đã đăng ký", "resentLead": "Email này đã có vé. Vé đã được gửi lại."};
   var $ = function (id) { return document.getElementById(id); };
   var form = $('regForm'), err = $('err'), btn = $('submitBtn'), dial = $('f-dial');

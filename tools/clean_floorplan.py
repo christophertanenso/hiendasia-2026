@@ -39,7 +39,7 @@ def main():
                 {'type': 'image_url', 'image_url': {'url': 'data:image/png;base64,' + src}}]}]}
     req = urllib.request.Request('https://openrouter.ai/api/v1/chat/completions', json.dumps(body).encode(),
                                  {'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json',
-                                  'HTTP-Referer': 'https://christophertanenso.github.io/hiendasia-2026/',
+                                  'HTTP-Referer': 'https://www.hiendasia.com/',
                                   'X-Title': 'HiEnd Asia 2026 floor plan'})
     try:
         res = json.load(urllib.request.urlopen(req, timeout=300))

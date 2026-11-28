@@ -7,7 +7,7 @@ const path = require('node:path');
 const { start } = require('./helpers/server');
 const { findChrome, evaluateWhen } = require('./helpers/chrome');
 const { loadBackend } = require('./helpers/gas-mock');
-const SITE = 'https://christophertanenso.github.io/hiendasia-2026/';
+const SITE = 'https://www.hiendasia.com/';
 const qrPath = text => { const m = loadBackend({ setup: false }).gs.qrMatrix(text); let d = ''; m.forEach((r, y) => r.forEach((v, x) => { if (v) d += 'M' + x + ' ' + y + 'h1v1h-1z'; })); return d; };
 
 const en = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'i18n', 'en.json'), 'utf8'));

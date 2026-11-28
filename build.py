@@ -191,7 +191,7 @@ MEDIA = ['HiFi PiG Magazine', 'AudioNet', 'Lee388', 'The AudiophileLance', 'Brot
 EVENT = '2026 Singapore Hi-End Asia International Audio Visual Show'
 VENUE = 'Level 3, Suntec Singapore Convention & Exhibition Centre, 1 Raffles Boulevard, Singapore 039593'
 SITE = 'https://www.hiendasia.com/'  # the organiser's own site (schema.org organizer)
-PAGES = 'https://christophertanenso.github.io/hiendasia-2026/'  # the show site
+PAGES = 'https://www.hiendasia.com/'  # the show site
 MAPS = 'https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Centre'
 # Links people carry away (calendar entries, shares) point at the show site and are UTM-tagged, so GA4
 # credits the visits they bring back to the right source.
@@ -444,12 +444,12 @@ written = []
 for lang in LANGS:
     path = os.path.join(HERE, lang_path(lang), 'index.html')
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    open(path, 'w', encoding='utf-8').write(document(lang))
+    open(path, 'w', encoding='utf-8', newline='\n').write(document(lang))
     written.append(os.path.relpath(path, HERE))
 
 # artifact.html: the English fragment the Claude artifact host wraps in its own skeleton (no language forwarding).
 artifact = render('en', '', False, PAGES)
-open(os.path.join(HERE, 'artifact.html'), 'w', encoding='utf-8').write(artifact)
+open(os.path.join(HERE, 'artifact.html'), 'w', encoding='utf-8', newline='\n').write(artifact)
 
 # ---------- Registration page ----------
 def register_page(lang):
@@ -509,14 +509,14 @@ def register_page(lang):
 
 for lang in LANGS:
     path = os.path.join(HERE, lang_path(lang), 'register.html')
-    open(path, 'w', encoding='utf-8').write(register_page(lang))
+    open(path, 'w', encoding='utf-8', newline='\n').write(register_page(lang))
     written.append(os.path.relpath(path, HERE))
 
 # ---------- Door page ----------
 # in.html is what a phone opens when its camera scans the QR code on a ticket. Visitors see their ticket number; a
 # staff phone that has the door PIN checks the ticket in (apps-script/Code.gs, checkIn_). English only: it is a staff tool.
 DOOR_TPL = open(os.path.join(HERE, 'in.tpl.html'), encoding='utf-8').read()
-open(os.path.join(HERE, 'in.html'), 'w', encoding='utf-8').write(DOOR_TPL.replace('{{ENDPOINT}}', REGISTER_ENDPOINT))
+open(os.path.join(HERE, 'in.html'), 'w', encoding='utf-8', newline='\n').write(DOOR_TPL.replace('{{ENDPOINT}}', REGISTER_ENDPOINT))
 
 # ---------- Privacy notice ----------
 CUR = EN
@@ -672,7 +672,7 @@ and we will not use registration details for a new purpose without asking you.</
 </body>
 </html>
 '''
-open(os.path.join(HERE, 'privacy.html'), 'w', encoding='utf-8').write(PRIVACY)
+open(os.path.join(HERE, 'privacy.html'), 'w', encoding='utf-8', newline='\n').write(PRIVACY)
 
 files = {p: p for p in sorted(set(re.findall(r'(?:src|href|poster)="((?:img|video)/[^"]+)"', artifact))
                               | set(re.findall(r'((?:img|video)/[\w.-]+\.webp)', artifact))
