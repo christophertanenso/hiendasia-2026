@@ -196,7 +196,7 @@ MAPS = 'https://maps.google.com/?q=Suntec+Singapore+Convention+%26+Exhibition+Ce
 # Links people carry away (calendar entries, shares) point at the show site and are UTM-tagged, so GA4
 # credits the visits they bring back to the right source.
 CAL_LINK = PAGES + '?utm_source=calendar&utm_medium=referral&utm_campaign=save_the_date'
-ABOUT = ('Free entry. A ticket is required: register at ' + PAGES + 'register.html. 150+ high-end audio brands, listening rooms, keynote talks and a live guest performance. '
+ABOUT = ('Free entry. A ticket is required: register at ' + PAGES + 'register.html. High-end audio brands, listening rooms, keynote talks and a live guest performance. '
          'Open 10am - 7pm daily. ' + CAL_LINK)
 # Google repeats 10am-7pm SGT for three days; Outlook takes one span from the first opening to the last close.
 GCAL = 'https://calendar.google.com/calendar/render?' + urlencode({
