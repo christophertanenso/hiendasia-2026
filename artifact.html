@@ -734,16 +734,17 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 /* Phones and tablets: once the hero's buttons scroll away, "Save the date" and "Directions" stay within thumb reach. */
 .mbar { display: none; }
 @media (max-width: 860px) {
-  .mbar { display: flex; position: fixed; z-index: 25; left: 0; right: 0; bottom: 0; gap: 10px; align-items: center;
+  /* Sticky, not fixed: iOS Safari (the collapsing toolbar, and after the keyboard closes) can leave a fixed bottom bar
+     stranded mid-screen. A sticky bar is placed by the page's own scrolling, and keeps its own space at the end of the page. */
+  .mbar { display: flex; position: sticky; z-index: 25; bottom: 0; gap: 10px; align-items: center;
     padding: 10px max(12px, env(safe-area-inset-right, 0px)) max(10px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
     background: rgba(0,0,0,.94); backdrop-filter: blur(8px); border-top: 1px solid var(--line);
-    transform: translateY(110%); transition: transform .25s ease; }
-  .mbar.on { transform: none; }
-  .cc-showing .mbar { transform: translateY(110%); }
+    transform: translateY(110%); visibility: hidden; transition: transform .25s ease, visibility 0s .25s; }
+  .mbar.on { transform: none; visibility: visible; transition: transform .25s ease; }
+  .cc-showing .mbar { transform: translateY(110%); visibility: hidden; }
   .mbar > * { flex: 1 1 0; min-width: 0; }
   .mbar .btn { width: 100%; padding: 0 14px; }
   .mbar .cal-menu { top: auto; bottom: calc(100% + 8px); left: 0; right: auto; }
-  body.mbar-pad { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
 }
 @media (max-width: 860px) and (prefers-reduced-motion: reduce) { .mbar { transition: none; } }
 
