@@ -136,6 +136,26 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Button:** Get Offer
 - **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_billyho&utm_content={{ad.name}}`
 
+#### I · Hi-fi and art
+
+- **Runs:** Now to 16 Dec
+- **Images:** `hea26_I-art_*.jpg`
+- **Primary text:** HiEnd Asia shares Level 3 of Suntec Singapore with the NOWASIA art galleries: high-end hi-fi in dedicated listening rooms, and contemporary art a few steps away. 17–19 Dec. Your ticket is free when you register online. It takes a minute.
+- **Headline:** Hi-Fi and Art. One Free Ticket (30)
+- **Description:** Tap to get your free ticket (27)
+- **Button:** Get Offer
+- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_art&utm_content={{ad.name}}`
+
+#### J · Listening rooms come alive
+
+- **Runs:** Now to 16 Dec
+- **Images:** `hea26_J-live_*.jpg`
+- **Primary text:** Hi-fi is better with people in the room. Three days of listening rooms, live music and art at HiEnd Asia, 17–19 Dec, Level 3, Suntec Singapore. Your ticket is free when you register online. It takes a minute.
+- **Headline:** Listening Rooms, Live Music, Free Ticket (40)
+- **Description:** Tap to get your free ticket (27)
+- **Button:** Get Offer
+- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_live&utm_content={{ad.name}}`
+
 #### F · Brands coming
 
 - **Runs:** Now to 16 Dec

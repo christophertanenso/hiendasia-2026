@@ -82,6 +82,18 @@ CONCEPTS = {
         kicker='Live at the show · Solo guitar', head='<em>EB Duet’s</em><br>Billy Ho Live', hs=11.5,
         sub='See him free. Get your ticket now.',
         badge=FREE, bar=BAR),
+    # From the image catalogue (photos 007 and 136, NOWASIA Art Fair, August 2026). 007 is cleared for ads as it
+    # stands; 136 shows recognisable guests and performers, whose consent is needed before it runs as a paid ad.
+    'I-art': dict(
+        bg='art-aisle.jpg', pos={'stack': '40% 45%', 'story': '40% 45%', 'side': '30% 45%'}, top=True,
+        kicker='With NOWASIA · Level 3', head='Hi-Fi and<br><em>Art Galleries</em>', hs=10,
+        sub='Two worlds, one free ticket.',
+        badge=FREE, bar=BAR),
+    'J-live': dict(
+        bg='live-session.jpg', pos={'stack': '45% 100%', 'story': '45% 100%', 'side': '40% 100%'}, top=True, fade='short',
+        kicker='As seen at NOWASIA · Aug 2026', head='Listening Rooms<br><em>Come Alive</em>', hs=9,
+        sub='Hi-fi, live music and art. Get your free ticket.',
+        badge=FREE, bar=BAR),
     'D-free': dict(
         bg='listening.jpg', pos={'stack': '50% 60%', 'story': '50% 60%', 'side': '100% 62%'}, top=True,
         kicker='Audio × Art · Level 3', head='3 Days of<br><em>Listening Rooms</em>', hs=9.2,
@@ -148,6 +160,13 @@ body.top .bg::after { background:
     linear-gradient(to bottom, rgba(0,0,0,.94) 0, rgba(0,0,0,.62) 14%, rgba(0,0,0,0) 32%),
     linear-gradient(to top, #000 0, rgba(0,0,0,.55) 18%, rgba(0,0,0,0) 40%); }
 body.square.top .bg { bottom: 42%; }
+/* For a photo whose subject sits at its bottom edge: the photo stops above the type, with a shorter fade. */
+body.top.short .bg { bottom: 47%; }
+body.square.top.short .bg { bottom: 50%; }
+body.story.top.short .bg { height: 68vw; }
+body.top.short .bg::after { background:
+    linear-gradient(to bottom, rgba(0,0,0,.94) 0, rgba(0,0,0,.62) 14%, rgba(0,0,0,0) 32%),
+    linear-gradient(to top, #000 0, rgba(0,0,0,.35) 7%, rgba(0,0,0,0) 16%); }
 
 .logos { position: absolute; z-index: 3; top: calc(var(--u) * 4.5); left: var(--pad); display: flex; align-items: center; gap: calc(var(--u) * 2.2); }
 .logos img.hea { height: calc(var(--u) * 6.6); width: auto; }
@@ -271,7 +290,7 @@ body.side .bar { font-size: calc(var(--u) * 5); }
 body.side .badge { top: calc(var(--u) * 5); right: calc(var(--u) * 5); width: calc(var(--u) * 33); height: calc(var(--u) * 33); }
 body.side .badge b { font-size: calc(var(--u) * 11); }
 body.side .badge b.long { font-size: calc(var(--u) * 9); }
-body.side .badge small { font-size: calc(var(--u) * 3.6); }
+body.side .badge small { font-size: calc(var(--u) * 2.9); }
 body.side.people-ad .people { left: 54%; right: var(--pad); top: calc(var(--u) * 6); height: auto; bottom: calc(var(--barh) + var(--u) * 5.5); }
 body.side.people-ad .copy { right: 48%; }
 body.side.people-ad .badge { display: none; }
@@ -318,7 +337,7 @@ def page(c, layout, shape):
         art = f'<div class="bg"><img src="assets/{pick(c["bg"], layout)}" style="object-position:{pick(c["pos"], layout)}"></div>'
     top, big, bottom = c['badge']
     badge = (f'<small>{top}</small>' if top else '') + f'<b class="{"long" if len(big) > 4 else ""}">{big}</b>' + (f'<small>{bottom}</small>' if bottom else '')
-    cls = ' '.join(filter(None, [layout, shape, 'people-ad' if c.get('people') else '', 'panel-ad' if c.get('tiles') else '', 'top' if c.get('top') else '', 'loud' if c.get('loud') else '']))
+    cls = ' '.join(filter(None, [layout, shape, 'people-ad' if c.get('people') else '', 'panel-ad' if c.get('tiles') else '', 'top' if c.get('top') else '', c.get('fade', ''), 'loud' if c.get('loud') else '']))
     return f"""<!doctype html><meta charset="utf-8"><style>{CSS}</style>
 <body class="{cls}" style="--hs:{c['hs']}">
 {art}
@@ -374,6 +393,15 @@ def assets():
     for n, dst in [(30, 'show-crowd.jpg'), (4, 'show-speakers.jpg'), (44, 'show-turntable.jpg'), (45, 'show-vinyl.jpg')]:
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', os.path.join(SITE, 'video', 'showcase-2025.mp4'),
                         '-vf', r'fps=1,select=eq(n\,%d)' % n, '-frames:v', '1', '-q:v', '1', os.path.join(ASSETS, dst)], check=True)
+    # Two more catalogue photos, cropped; the saved crops in src/photos stand in when the originals are absent.
+    for src, dst, box, size in [('007_IMG_8142.JPG', 'art-aisle.jpg', (0, 60, 4000, 2600), (2000, 1270)),
+                                ('136_IMG_8388.JPG', 'live-session.jpg', (350, 640, 3650, 2666), (2000, 1228))]:
+        original = os.path.join(COLLATERALS, src)
+        if os.path.exists(original):
+            im = ImageOps.exif_transpose(Image.open(original)).convert('RGB').crop(box).resize(size, Image.LANCZOS)
+            im = ImageEnhance.Color(ImageEnhance.Contrast(im).enhance(1.06)).enhance(1.1)
+            im.save(os.path.join(SRC, 'photos', dst), quality=92)
+        shutil.copyfile(os.path.join(SRC, 'photos', dst), os.path.join(ASSETS, dst))
     # Generated backgrounds (gen_art.py), scaled down to what the largest ad needs.
     for f in os.listdir(os.path.join(SRC, 'gen')):
         im = Image.open(os.path.join(SRC, 'gen', f)).convert('RGB')

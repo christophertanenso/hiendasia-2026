@@ -6,7 +6,7 @@ Written 28 Nov 2026 so the work can continue on another machine. Show: 17–19 D
 
 | File | What it is |
 | --- | --- |
-| `images/` | Finished ads: eight concepts (A–H) in four sizes, two carousels, one ad per brand in `images/brands/` |
+| `images/` | Finished ads: ten concepts (A–J) in four sizes, two carousels, one ad per brand in `images/brands/` |
 | `campaign-drafts.md` | Campaign structure, budget split, all Meta and Google ad text. Written by `build_copy.py` |
 | `build_ads.py` | Renders every image. Needs Python with Pillow, Google Chrome and ffmpeg |
 | `build_copy.py` | Holds the ad text and checks it against platform limits |
@@ -42,6 +42,15 @@ Everything below is an unpublished Ads Manager draft. Publishing a draft makes i
 The ads use the creatives named "HEA26 v2 | …". The creatives named "HEA26 | …" without "v2" are the earlier versions and are unused, except "HEA26 | E Open now", which M4 still uses.
 
 The ad images Meta imported are hosted at `https://christophertanenso.github.io/hiendasia-2026/ads/v2/`.
+
+## Built but not yet in Meta
+
+Two more ads, added 28 Nov from the image catalogue. Their images are in `images/` and their text is in `campaign-drafts.md`, but they are not hosted on the site and have no creative or draft ad in Meta yet.
+
+- **I · Hi-fi and art** (`hea26_I-art_*`): the NOWASIA fair aisle, catalogue photo 007, which is cleared for ads as it stands.
+- **J · Listening rooms come alive** (`hea26_J-live_*`): the HiEnd Asia room at the NOWASIA Art Fair in August 2026, catalogue photo 136. It shows recognisable guests and performers, so their consent is needed before it runs as a paid ad.
+
+Open question: a poster on now-asia.org announces a HiEnd Asia 2026 limited-edition 1:1 MQD disc, 50 copies. If it is real for December it belongs in the albums ad.
 
 ## Blocked on the account owner
 
