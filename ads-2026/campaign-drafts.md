@@ -2,21 +2,21 @@
 
 Drafted 28 Nov 2026. Show: 17–19 Dec 2026, Level 3, Suntec Singapore. Lucky draw registration closes 5 Dec.
 
-Nothing here has been created in an ad account. Budgets are shares of your total because the total is not set yet.
+The Meta campaigns exist as unpublished drafts in Ads Manager. Nothing has been created in Google Ads. Total budget: S$1,500, of which S$1,000 is Meta and S$500 is Google.
 
 ## Budget split
 
-| Platform | Campaign | Share | Runs |
+| Platform | Campaign | Budget | Runs |
 | --- | --- | --- | --- |
-| Meta | M1 Registrations, prospecting | 35% | Now to 16 Dec |
-| Meta | M2 Video awareness | 12% | Now to 14 Dec |
-| Meta | M3 Retargeting | 10% | 1 to 16 Dec |
-| Meta | M4 Show days | 8% | 16 to 19 Dec |
-| Google | G1 Search | 10% | Now to 19 Dec |
-| Google | G2 Demand Gen (YouTube, Discover, Gmail) | 20% | Now to 16 Dec |
-| Google | G3 Demand Gen remarketing | 5% | 1 to 18 Dec |
+| Meta | M1 Registrations, prospecting | S$540 | 30 Nov to 16 Dec |
+| Meta | M2 Video awareness | S$180 | 30 Nov to 14 Dec |
+| Meta | M3 Retargeting | S$150 | 1 to 16 Dec |
+| Meta | M4 Show days | S$130 | 16 to 19 Dec |
+| Google | G1 Search | S$140 (about S$7 a day) | 30 Nov to 19 Dec |
+| Google | G2 Demand Gen (YouTube, Discover, Gmail) | S$290 (about S$17 a day) | 30 Nov to 16 Dec |
+| Google | G3 Demand Gen remarketing | S$70 (about S$4 a day) | 1 to 18 Dec |
 
-Spend about 40% of the total by 5 Dec, while the lucky draw deadline gives people a reason to act.
+The Meta budgets are lifetime budgets on the ad sets. Google budgets are daily, so the daily figures assume a 30 Nov start; if a campaign starts later, divide its amount by the days left. Spend about 40% of the total by 5 Dec, while the lucky draw deadline gives people a reason to act.
 
 ## Images
 
@@ -65,7 +65,37 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Objective:** Leads, event `CompleteRegistration`.
 - **Include:** video viewers at 50% or more (30 days), Facebook and Instagram engagers (60 days), website visitors (30 days).
 - **Exclude:** people who fired `CompleteRegistration` (30 days).
-- **Ads:** A (to 5 Dec), then C and D.
+- **Ads:** the three retargeting messages below, one after another. The images are the prospecting ones; only the text changes.
+
+#### R1 · Lucky draw nudge
+
+- **Runs:** 1 to 5 Dec
+- **Images:** A
+- **Primary text:** Still thinking about HiEnd Asia? Your free ticket takes a minute to claim. Register by 5 Dec and you’re also in the daily lucky draw. 17–19 Dec, Level 3, Suntec Singapore.
+- **Headline:** Register by 5 Dec. Daily Lucky Draw (35)
+- **Description:** Tap to get your free ticket
+- **Button:** Get Offer
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_retarget_R1&utm_content={{ad.name}}`
+
+#### R2 · Still deciding
+
+- **Runs:** 6 to 11 Dec
+- **Images:** C, D and Carousel 2
+- **Primary text:** Still deciding? Come and hear it for yourself: three days of listening rooms, the big names in hi-fi and NOWASIA art on Level 3, Suntec. 17–19 Dec. Your ticket is free and registering takes a minute.
+- **Headline:** Your Free Ticket Is Still Waiting (33)
+- **Description:** Tap to get your free ticket
+- **Button:** Get Offer
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_retarget_R2&utm_content={{ad.name}}`
+
+#### R3 · Countdown
+
+- **Runs:** 12 to 16 Dec
+- **Images:** B and D
+- **Primary text:** One week to go. HiEnd Asia opens 17 Dec on Level 3, Suntec Singapore. Register now and your free ticket is ready at the door. It takes a minute.
+- **Headline:** Opens 17 Dec. Get Your Free Ticket (34)
+- **Description:** Tap to get your free ticket
+- **Button:** Get Offer
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_retarget_R3&utm_content={{ad.name}}`
 
 ### M4 Show days
 
@@ -84,7 +114,7 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Headline:** Register by 5 Dec for the Lucky Draw (36)
 - **Description:** Tap to get your free ticket (27)
 - **Button:** Get Offer
-- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_luckydraw&utm_content={{ad.name}}`
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_luckydraw&utm_content={{ad.name}}`
 
 #### B · The show is back
 
@@ -94,7 +124,7 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Headline:** Your Free HiEnd Asia Ticket Is Waiting (38)
 - **Description:** Tap to get your free ticket (27)
 - **Button:** Get Offer
-- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_show&utm_content={{ad.name}}`
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_show&utm_content={{ad.name}}`
 
 #### C · Keynote talks
 
@@ -104,7 +134,7 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Headline:** Free Ticket: 11 Keynote Sessions (32)
 - **Description:** Tap to get your free ticket (27)
 - **Button:** Get Offer
-- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_keynotes&utm_content={{ad.name}}`
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_keynotes&utm_content={{ad.name}}`
 
 #### D · Free entry
 
@@ -114,7 +144,7 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Headline:** One Free Ticket, Any Day You Like (33)
 - **Description:** Tap to get your free ticket (27)
 - **Button:** Get Offer
-- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_free&utm_content={{ad.name}}`
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_free&utm_content={{ad.name}}`
 
 #### E · On now
 
@@ -124,7 +154,7 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Headline:** On Now at Suntec. Free Entry (28)
 - **Description:** Level 3 · 10am–7pm (18)
 - **Button:** Get Directions
-- **Link:** `https://christophertanenso.github.io/hiendasia-2026/?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_showdays&utm_content={{ad.name}}`
+- **Link:** `https://www.hiendasia.com/?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_showdays&utm_content={{ad.name}}`
 
 #### H · Billy Ho live
 
@@ -134,7 +164,7 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Headline:** See EB Duet’s Billy Ho. Free Ticket (35)
 - **Description:** Tap to get your free ticket (27)
 - **Button:** Get Offer
-- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_billyho&utm_content={{ad.name}}`
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_billyho&utm_content={{ad.name}}`
 
 #### I · Hi-fi and art
 
@@ -144,7 +174,7 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Headline:** Hi-Fi and Art. One Free Ticket (30)
 - **Description:** Tap to get your free ticket (27)
 - **Button:** Get Offer
-- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_art&utm_content={{ad.name}}`
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_art&utm_content={{ad.name}}`
 
 #### J · Listening rooms come alive
 
@@ -154,7 +184,7 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Headline:** Listening Rooms, Live Music, Free Ticket (40)
 - **Description:** Tap to get your free ticket (27)
 - **Button:** Get Offer
-- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_live&utm_content={{ad.name}}`
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_live&utm_content={{ad.name}}`
 
 #### F · Brands coming
 
@@ -164,7 +194,7 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Headline:** Hear the Big Names. Get a Free Ticket (37)
 - **Description:** Tap to get your free ticket (27)
 - **Button:** Get Offer
-- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_brands&utm_content={{ad.name}}`
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_brands&utm_content={{ad.name}}`
 
 #### G · HiEnd Asia albums
 
@@ -174,7 +204,7 @@ Interest names need checking in Ads Manager; Meta renames and retires them often
 - **Headline:** HiEnd Asia Commemorative CDs & LP (33)
 - **Description:** Tap to get your free ticket (27)
 - **Button:** Get Offer
-- **Link:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_albums&utm_content={{ad.name}}`
+- **Link:** `https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_albums&utm_content={{ad.name}}`
 
 `{{ad.name}}` is a Meta URL parameter that fills in the ad’s name, so the registration Sheet shows which ad each ticket came from.
 
@@ -191,7 +221,7 @@ Two carousel ads for Facebook and Instagram feed, 1080×1080 cards in `images/ca
 - **Primary text:** Singapore’s hi-fi show is back. The big names in dedicated listening rooms, keynote talks, the HiEnd Asia albums and a daily lucky draw. 17–19 Dec, Level 3, Suntec Singapore. Your ticket is free when you register online. It takes a minute.
 - **Description on every card:** Tap to get your free ticket
 - **Button:** Get Offer
-- **Link on every card:** https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_carousel_show&utm_content={{ad.name}}
+- **Link on every card:** https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_carousel_show&utm_content={{ad.name}}
 
 | Card | Image | Headline |
 | --- | --- | --- |
@@ -209,7 +239,7 @@ Two carousel ads for Facebook and Instagram feed, 1080×1080 cards in `images/ca
 - **Primary text:** The big names in hi-fi are coming to HiEnd Asia. Hear them in dedicated listening rooms, 17–19 Dec, Level 3, Suntec Singapore. Your ticket is free when you register online. It takes a minute.
 - **Description on every card:** Tap to get your free ticket
 - **Button:** Get Offer
-- **Link on every card:** https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_carousel_brands&utm_content={{ad.name}}
+- **Link on every card:** https://www.hiendasia.com/register.html?utm_source=meta&utm_medium=paid_social&utm_campaign=hea26_carousel_brands&utm_content={{ad.name}}
 
 | Card | Image | Headline |
 | --- | --- | --- |
@@ -223,22 +253,28 @@ Two carousel ads for Facebook and Instagram feed, 1080×1080 cards in `images/ca
 
 ## Google
 
-I could not find a HiEnd Asia Google Ads account among the ones I can read, so these need an account ID before they can be built. Import the GA4 `sign_up` key event as the conversion first.
+Account: **HIEND ASIA + PTE. LTD.**, 545-469-1642 (SGD, auto-tagging on). I can read it but not change it, so these are built by hand in Google Ads.
+
+What the account showed on 28 Nov 2026:
+
+- Four campaigns from 2025, all paused: `ChenLei2025 - Search` (S$905 spent), `HEA_GDN_SE-Asia_B2C` (S$296), `HEA_Search_SG_B2C` (S$283) and `chenlei025 - pmax` (S$6). Leave them paused and build new ones; between them they recorded one conversion.
+- No conversion measures a registration. The enabled ones are `Page view (1)`, `OUTBOUND_CLICK` and an Android installs default. Import the GA4 `sign_up` key event, make it the only primary conversion and set the others to secondary, or Maximise conversions will chase page views.
+- In `HEA_Search_SG_B2C`, `high end audio singapore` brought 605 clicks at S$0.09 with a 28% click-through rate, and the four spellings of the show name brought 424 clicks. `sound speaker` on broad match took S$128 for 597 clicks at an 8% click-through rate: do not reuse it, and use phrase or exact match only.
 
 ### G1 Search
 
 - **Network:** Google Search only, no search partners, no Display.
 - **Location:** Singapore, presence only. **Language:** English.
-- **Bidding:** Maximise clicks with a S$1.50 bid cap to start; switch to Maximise conversions once `sign_up` has 15 or more conversions.
+- **Bidding:** Maximise clicks with a S$0.60 bid cap to start (clicks cost S$0.09 to S$0.37 in 2025); switch to Maximise conversions once `sign_up` has 15 or more conversions.
 - **Why so small:** "hifi show singapore" gets about 20 searches a month and the site already ranks first or second for it.
 
-**Brand (always on):** `[hiend asia]`, `[hi end asia]`, `"hiend asia 2026"`, `"hi end asia 2026"`, `"hiend asia singapore"`
+**Brand (always on):** `[hiend asia]`, `[hi end asia]`, `[high end asia]`, `[hiendasia]`, `"hiend asia 2026"`, `"hi end asia 2026"`, `"hiend asia singapore"`
 
 **The show (always on):** `"hifi show singapore"`, `"singapore hifi show"`, `"audio show singapore"`, `"singapore audio show 2026"`, `"hifi show 2026"`, `"hifi exhibition"`, `"high end audio show"`, `"high end audio singapore"`
 
 **What’s on (14 to 19 Dec only):** `"suntec events"`, `"suntec convention centre events"`, `"things to do in singapore this weekend"`, `"art exhibition singapore"`, `"events in singapore this weekend"`
 
-**Negative keywords:** `jobs`, `career`, `hiring`, `rental`, `repair`, `second hand`, `used`, `cheap`, `wedding`, `car audio`, `exhibitor booth price`
+**Negative keywords:** `jobs`, `career`, `hiring`, `rental`, `repair`, `second hand`, `used`, `cheap`, `wedding`, `car audio`, `exhibitor booth price`, `concert`, `chen lei`, `陈雷`
 
 **Responsive search ad, headlines (30 max):**
 
@@ -267,16 +303,16 @@ Pin headline 1 or 2 to position 1. Pause headlines 10 and 11 after 5 Dec.
 3. Register once and enter on any of the three days. Your ticket is sent by email. (79)
 4. Keynote talks, live music and a daily lucky draw for registered visitors. 10am–7pm. (83)
 
-**Final URL:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=google&utm_medium=cpc&utm_campaign=hea26_search&utm_content={adgroupid}`
+**Final URL:** `https://www.hiendasia.com/register.html?utm_source=google&utm_medium=cpc&utm_campaign=hea26_search&utm_content={adgroupid}`
 
 **Sitelinks:**
 
 | Text | Description | URL |
 | --- | --- | --- |
-| Register Free | One ticket covers all three days | `https://christophertanenso.github.io/hiendasia-2026/register.html` |
-| Show Floorplan | Find every listening room | `https://christophertanenso.github.io/hiendasia-2026/#floorplan` |
-| Keynote Speakers | Eleven sessions, two experts | `https://christophertanenso.github.io/hiendasia-2026/#speakers` |
-| Getting There | Level 3, Suntec Singapore | `https://christophertanenso.github.io/hiendasia-2026/#visit` |
+| Register Free | One ticket covers all three days | `https://www.hiendasia.com/register.html` |
+| Show Floorplan | Find every listening room | `https://www.hiendasia.com/#floorplan` |
+| Keynote Speakers | Eleven sessions, two experts | `https://www.hiendasia.com/#speakers` |
+| Getting There | Level 3, Suntec Singapore | `https://www.hiendasia.com/#visit` |
 
 **Callouts:** Free Entry · 17–19 Dec 2026 · 10am–7pm Daily · Level 3, Suntec · Top Hi-Fi Brands · Art Galleries Too
 
@@ -309,20 +345,37 @@ Pin headline 1 or 2 to position 1. Pause headlines 10 and 11 after 5 Dec.
 4. Keynote talks, live music and a daily lucky draw for registered visitors. 10am–7pm. (83)
 5. Hear turntables, speakers and amplifiers in purpose-built rooms. Free with a ticket. (84)
 
-**Final URL:** `https://christophertanenso.github.io/hiendasia-2026/register.html?utm_source=google&utm_medium=demand_gen&utm_campaign=hea26_demandgen&utm_content={creative}`
+**Final URL:** `https://www.hiendasia.com/register.html?utm_source=google&utm_medium=demand_gen&utm_campaign=hea26_demandgen&utm_content={creative}`
 
 ### G3 Demand Gen remarketing
 
 - **Audience:** GA4 audience "visited, did not register" (page view in the last 30 days, no `sign_up`).
-- **Images:** A to 5 Dec, then C and D; E on 17–18 Dec with the show page as the link.
-- **Note:** this list only fills from visitors who accept cookies, so it will be small. Keep the budget at 5%.
+- **Images:** A to 5 Dec, then C and D to 11 Dec, then B and D to 16 Dec; E on 17–18 Dec with the show page as the link.
+- **Copy:** the same three messages as M3, in the same order. Swap the headlines and descriptions on 6 and 12 Dec.
+- **Note:** this list only fills from visitors who accept cookies, so it will be small. Keep the budget at S$70; if it cannot spend, move what is left to G1.
+
+**Headlines (40 max):** 1 is for R1 only (to 5 Dec), 2 for R2, 3 for R3; 4 runs throughout.
+
+1. Register by 5 Dec. Daily Lucky Draw (35)
+2. Your Free Ticket Is Still Waiting (33)
+3. Opens 17 Dec. Get Your Free Ticket (34)
+4. Claim Your Free Ticket in a Minute (34)
+
+**Descriptions (90 max):** 1 is for R1 only, 2 for R2, 3 for R3.
+
+1. Your free HiEnd Asia ticket takes a minute. Register by 5 Dec for the daily lucky draw. (87)
+2. Three days of listening rooms and art at Suntec, 17–19 Dec. Free with a ticket. (79)
+3. HiEnd Asia opens 17 Dec on Level 3, Suntec. Register now; your ticket is free. (78)
+
+**Final URL:** `https://www.hiendasia.com/register.html?utm_source=google&utm_medium=demand_gen&utm_campaign=hea26_remarketing&utm_content={creative}`
 
 ## Changes on fixed dates
 
 | Date | Change |
 | --- | --- |
 | 5 Dec, 11:59pm | Stop every A (lucky draw) ad; pause RSA headlines 10 and 11 |
-| 6 Dec | Start C and D ads |
+| 6 Dec | Start C and D ads; retargeting moves from R1 to R2 (Meta switches itself; swap the G3 text by hand) |
+| 12 Dec | Retargeting moves from R2 to R3 (Meta switches itself; swap the G3 text by hand) |
 | 14 Dec | Start the "What’s on" search ad group; stop M2 |
 | 16 Dec, 6pm | Start M4 show-days ads |
 | 17 Dec | Stop M1, M3 and G2; registrations still open, but spend moves to walk-ins |
@@ -331,7 +384,7 @@ Pin headline 1 or 2 to position 1. Pause headlines 10 and 11 after 5 Dec.
 ## Before launch
 
 - Mark `sign_up` as a key event in GA4 and import it into Google Ads.
-- Confirm the Google Ads account and link it to the GA4 property "hiendasia.com".
+- In Google Ads account 545-469-1642, check the link to the GA4 property "hiendasia.com" and make `sign_up` the only primary conversion.
 - Upload the showcase video to YouTube (needed for G2).
 - Confirm Richard H. Mak’s sessions; the site still marks his topic as proposed.
 - Have someone at HiEnd Asia approve the keynote portraits for advertising use.

@@ -5,8 +5,8 @@
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REG = 'https://christophertanenso.github.io/hiendasia-2026/register.html'
-HOME = 'https://christophertanenso.github.io/hiendasia-2026/'
+REG = 'https://www.hiendasia.com/register.html'
+HOME = 'https://www.hiendasia.com/'
 
 
 def url(base, source, medium, campaign, content):
@@ -81,13 +81,13 @@ DG_D = check(RSA_D + ['Hear turntables, speakers and amplifiers in purpose-built
 check(['HiEnd Asia'], 25, 'business name')
 
 KEYWORDS = {
-    'Brand (always on)': ['[hiend asia]', '[hi end asia]', '"hiend asia 2026"', '"hi end asia 2026"', '"hiend asia singapore"'],
+    'Brand (always on)': ['[hiend asia]', '[hi end asia]', '[high end asia]', '[hiendasia]', '"hiend asia 2026"', '"hi end asia 2026"', '"hiend asia singapore"'],
     'The show (always on)': ['"hifi show singapore"', '"singapore hifi show"', '"audio show singapore"', '"singapore audio show 2026"',
                              '"hifi show 2026"', '"hifi exhibition"', '"high end audio show"', '"high end audio singapore"'],
     'What’s on (14 to 19 Dec only)': ['"suntec events"', '"suntec convention centre events"', '"things to do in singapore this weekend"',
                                       '"art exhibition singapore"', '"events in singapore this weekend"'],
 }
-NEGATIVES = ['jobs', 'career', 'hiring', 'rental', 'repair', 'second hand', 'used', 'cheap', 'wedding', 'car audio', 'exhibitor booth price']
+NEGATIVES = ['jobs', 'career', 'hiring', 'rental', 'repair', 'second hand', 'used', 'cheap', 'wedding', 'car audio', 'exhibitor booth price', 'concert', 'chen lei', '陈雷']
 
 
 def n(s): return f'{s} ({len(s)})'
@@ -97,15 +97,15 @@ L = []
 w = L.append
 w('# HiEnd Asia 2026: Meta and Google campaign drafts\n')
 w('Drafted 28 Nov 2026. Show: 17–19 Dec 2026, Level 3, Suntec Singapore. Lucky draw registration closes 5 Dec.\n')
-w('Nothing here has been created in an ad account. Budgets are shares of your total because the total is not set yet.\n')
+w('The Meta campaigns exist as unpublished drafts in Ads Manager. Nothing has been created in Google Ads. Total budget: S$1,500, of which S$1,000 is Meta and S$500 is Google.\n')
 w('## Budget split\n')
-w('| Platform | Campaign | Share | Runs |\n| --- | --- | --- | --- |')
-for row in [('Meta', 'M1 Registrations, prospecting', '35%', 'Now to 16 Dec'), ('Meta', 'M2 Video awareness', '12%', 'Now to 14 Dec'),
-            ('Meta', 'M3 Retargeting', '10%', '1 to 16 Dec'), ('Meta', 'M4 Show days', '8%', '16 to 19 Dec'),
-            ('Google', 'G1 Search', '10%', 'Now to 19 Dec'), ('Google', 'G2 Demand Gen (YouTube, Discover, Gmail)', '20%', 'Now to 16 Dec'),
-            ('Google', 'G3 Demand Gen remarketing', '5%', '1 to 18 Dec')]:
+w('| Platform | Campaign | Budget | Runs |\n| --- | --- | --- | --- |')
+for row in [('Meta', 'M1 Registrations, prospecting', 'S$540', '30 Nov to 16 Dec'), ('Meta', 'M2 Video awareness', 'S$180', '30 Nov to 14 Dec'),
+            ('Meta', 'M3 Retargeting', 'S$150', '1 to 16 Dec'), ('Meta', 'M4 Show days', 'S$130', '16 to 19 Dec'),
+            ('Google', 'G1 Search', 'S$140 (about S$7 a day)', '30 Nov to 19 Dec'), ('Google', 'G2 Demand Gen (YouTube, Discover, Gmail)', 'S$290 (about S$17 a day)', '30 Nov to 16 Dec'),
+            ('Google', 'G3 Demand Gen remarketing', 'S$70 (about S$4 a day)', '1 to 18 Dec')]:
     w('| ' + ' | '.join(row) + ' |')
-w('\nSpend about 40% of the total by 5 Dec, while the lucky draw deadline gives people a reason to act.\n')
+w('\nThe Meta budgets are lifetime budgets on the ad sets. Google budgets are daily, so the daily figures assume a 30 Nov start; if a campaign starts later, divide its amount by the days left. Spend about 40% of the total by 5 Dec, while the lucky draw deadline gives people a reason to act.\n')
 
 w('## Images\n')
 w('All in `images/`, named `hea26_<concept>_<size>.jpg`. Each concept comes in four sizes.\n')
@@ -129,7 +129,26 @@ w('\nInterest names need checking in Ads Manager; Meta renames and retires them 
 w('### M2 Video awareness\n')
 w('- **Objective:** Awareness, optimised for ThruPlay.\n- **Creative:** the 1:05 showcase video (`video/showcase-2025.mp4` in the site folder), with ad B’s text.\n- **Audience:** Singapore, 25–65+, the hi-fi and art interests combined.\n- **Why:** people who watch half of it become the M3 audience, and that list does not depend on cookie consent.\n- **Note:** the file is 480p. Use the original export if you have one.\n')
 w('### M3 Retargeting\n')
-w('- **Objective:** Leads, event `CompleteRegistration`.\n- **Include:** video viewers at 50% or more (30 days), Facebook and Instagram engagers (60 days), website visitors (30 days).\n- **Exclude:** people who fired `CompleteRegistration` (30 days).\n- **Ads:** A (to 5 Dec), then C and D.\n')
+w('- **Objective:** Leads, event `CompleteRegistration`.\n- **Include:** video viewers at 50% or more (30 days), Facebook and Instagram engagers (60 days), website visitors (30 days).\n- **Exclude:** people who fired `CompleteRegistration` (30 days).\n- **Ads:** the three retargeting messages below, one after another. The images are the prospecting ones; only the text changes.\n')
+# Retargeting copy. Says "still deciding", never "you visited": Meta rejects ads that imply knowing what someone did.
+RETARGET = [
+    dict(key='R1', name='R1 · Lucky draw nudge', runs='1 to 5 Dec', images='A',
+         primary='Still thinking about HiEnd Asia? Your free ticket takes a minute to claim. Register by 5 Dec and you’re also in the daily lucky draw. 17–19 Dec, Level 3, Suntec Singapore.',
+         headline='Register by 5 Dec. Daily Lucky Draw'),
+    dict(key='R2', name='R2 · Still deciding', runs='6 to 11 Dec', images='C, D and Carousel 2',
+         primary='Still deciding? Come and hear it for yourself: three days of listening rooms, the big names in hi-fi and NOWASIA art on Level 3, Suntec. 17–19 Dec. Your ticket is free and registering takes a minute.',
+         headline='Your Free Ticket Is Still Waiting'),
+    dict(key='R3', name='R3 · Countdown', runs='12 to 16 Dec', images='B and D',
+         primary='One week to go. HiEnd Asia opens 17 Dec on Level 3, Suntec Singapore. Register now and your free ticket is ready at the door. It takes a minute.',
+         headline='Opens 17 Dec. Get Your Free Ticket'),
+]
+for r in RETARGET:
+    check([r['headline']], 40, 'retargeting headline')
+    assert len(r['primary']) <= 260, (r['key'], len(r['primary']))
+for r in RETARGET:
+    w(f"#### {r['name']}\n")
+    w(f"- **Runs:** {r['runs']}\n- **Images:** {r['images']}\n- **Primary text:** {r['primary']}\n- **Headline:** {n(r['headline'])}\n- **Description:** Tap to get your free ticket\n- **Button:** Get Offer")
+    w(f"- **Link:** `{url(REG, 'meta', 'paid_social', 'hea26_retarget_' + r['key'], '{{ad.name}}')}`\n")
 w('### M4 Show days\n')
 w('- **Objective:** Awareness, optimised for reach, frequency cap of 2 a day.\n- **Location:** Singapore, plus a second ad set for a 5 km radius around Suntec.\n- **Schedule:** 16 Dec 6pm to 19 Dec 5pm.\n- **Ad:** E, linking to the show page with a Get Directions button.\n')
 w('### Meta ad copy\n')
@@ -174,9 +193,11 @@ for c in CAROUSELS:
     w('')
 
 w('## Google\n')
-w('I could not find a HiEnd Asia Google Ads account among the ones I can read, so these need an account ID before they can be built. Import the GA4 `sign_up` key event as the conversion first.\n')
+w('Account: **HIEND ASIA + PTE. LTD.**, 545-469-1642 (SGD, auto-tagging on). I can read it but not change it, so these are built by hand in Google Ads.\n')
+w('What the account showed on 28 Nov 2026:\n')
+w('- Four campaigns from 2025, all paused: `ChenLei2025 - Search` (S$905 spent), `HEA_GDN_SE-Asia_B2C` (S$296), `HEA_Search_SG_B2C` (S$283) and `chenlei025 - pmax` (S$6). Leave them paused and build new ones; between them they recorded one conversion.\n- No conversion measures a registration. The enabled ones are `Page view (1)`, `OUTBOUND_CLICK` and an Android installs default. Import the GA4 `sign_up` key event, make it the only primary conversion and set the others to secondary, or Maximise conversions will chase page views.\n- In `HEA_Search_SG_B2C`, `high end audio singapore` brought 605 clicks at S$0.09 with a 28% click-through rate, and the four spellings of the show name brought 424 clicks. `sound speaker` on broad match took S$128 for 597 clicks at an 8% click-through rate: do not reuse it, and use phrase or exact match only.\n')
 w('### G1 Search\n')
-w('- **Network:** Google Search only, no search partners, no Display.\n- **Location:** Singapore, presence only. **Language:** English.\n- **Bidding:** Maximise clicks with a S$1.50 bid cap to start; switch to Maximise conversions once `sign_up` has 15 or more conversions.\n- **Why so small:** "hifi show singapore" gets about 20 searches a month and the site already ranks first or second for it.\n')
+w('- **Network:** Google Search only, no search partners, no Display.\n- **Location:** Singapore, presence only. **Language:** English.\n- **Bidding:** Maximise clicks with a S$0.60 bid cap to start (clicks cost S$0.09 to S$0.37 in 2025); switch to Maximise conversions once `sign_up` has 15 or more conversions.\n- **Why so small:** "hifi show singapore" gets about 20 searches a month and the site already ranks first or second for it.\n')
 for g, ks in KEYWORDS.items():
     w(f'**{g}:** ' + ', '.join(f'`{k}`' for k in ks) + '\n')
 w('**Negative keywords:** ' + ', '.join(f'`{k}`' for k in NEGATIVES) + '\n')
@@ -201,17 +222,28 @@ w('\n**Descriptions (90 max):**\n')
 for i, d in enumerate(DG_D, 1): w(f'{i}. {n(d)}')
 w(f"\n**Final URL:** `{url(REG, 'google', 'demand_gen', 'hea26_demandgen', '{creative}')}`\n")
 w('### G3 Demand Gen remarketing\n')
-w('- **Audience:** GA4 audience "visited, did not register" (page view in the last 30 days, no `sign_up`).\n- **Images:** A to 5 Dec, then C and D; E on 17–18 Dec with the show page as the link.\n- **Note:** this list only fills from visitors who accept cookies, so it will be small. Keep the budget at 5%.\n')
+w('- **Audience:** GA4 audience "visited, did not register" (page view in the last 30 days, no `sign_up`).\n- **Images:** A to 5 Dec, then C and D to 11 Dec, then B and D to 16 Dec; E on 17–18 Dec with the show page as the link.\n- **Copy:** the same three messages as M3, in the same order. Swap the headlines and descriptions on 6 and 12 Dec.\n- **Note:** this list only fills from visitors who accept cookies, so it will be small. Keep the budget at S$70; if it cannot spend, move what is left to G1.\n')
+G3_H = [r['headline'] for r in RETARGET] + ['Claim Your Free Ticket in a Minute']
+G3_D = ['Your free HiEnd Asia ticket takes a minute. Register by 5 Dec for the daily lucky draw.',
+        'Three days of listening rooms and art at Suntec, 17–19 Dec. Free with a ticket.',
+        'HiEnd Asia opens 17 Dec on Level 3, Suntec. Register now; your ticket is free.']
+check(G3_H, 40, 'G3 headline')
+check(G3_D, 90, 'G3 description')
+w('**Headlines (40 max):** 1 is for R1 only (to 5 Dec), 2 for R2, 3 for R3; 4 runs throughout.\n')
+for i, h in enumerate(G3_H, 1): w(f'{i}. {n(h)}')
+w('\n**Descriptions (90 max):** 1 is for R1 only, 2 for R2, 3 for R3.\n')
+for i, d in enumerate(G3_D, 1): w(f'{i}. {n(d)}')
+w(f"\n**Final URL:** `{url(REG, 'google', 'demand_gen', 'hea26_remarketing', '{creative}')}`\n")
 
 w('## Changes on fixed dates\n')
 w('| Date | Change |\n| --- | --- |')
-for d, c in [('5 Dec, 11:59pm', 'Stop every A (lucky draw) ad; pause RSA headlines 10 and 11'), ('6 Dec', 'Start C and D ads'),
+for d, c in [('5 Dec, 11:59pm', 'Stop every A (lucky draw) ad; pause RSA headlines 10 and 11'), ('6 Dec', 'Start C and D ads; retargeting moves from R1 to R2 (Meta switches itself; swap the G3 text by hand)'), ('12 Dec', 'Retargeting moves from R2 to R3 (Meta switches itself; swap the G3 text by hand)'),
              ('14 Dec', 'Start the "What’s on" search ad group; stop M2'), ('16 Dec, 6pm', 'Start M4 show-days ads'),
              ('17 Dec', 'Stop M1, M3 and G2; registrations still open, but spend moves to walk-ins'), ('19 Dec, 5pm', 'Stop everything')]:
     w(f'| {d} | {c} |')
 w('\n## Before launch\n')
 for s in ['Mark `sign_up` as a key event in GA4 and import it into Google Ads.',
-          'Confirm the Google Ads account and link it to the GA4 property "hiendasia.com".',
+          'In Google Ads account 545-469-1642, check the link to the GA4 property "hiendasia.com" and make `sign_up` the only primary conversion.',
           'Upload the showcase video to YouTube (needed for G2).',
           'Confirm Richard H. Mak’s sessions; the site still marks his topic as proposed.',
           'Have someone at HiEnd Asia approve the keynote portraits for advertising use.']:

@@ -36,7 +36,7 @@ Everything below is an unpublished Ads Manager draft. Publishing a draft makes i
 | --- | --- | --- | --- | --- | --- |
 | HEA26 \| M1 Registrations \| Prospecting | `120251407043460261` | `120251407045050261` | S$540 | 30 Nov – 16 Dec | A, B, F, G, H, I, J, Carousel 1 |
 | HEA26 \| M2 Video awareness | `120251407043670261` | `120251407045230261` | S$180 | 30 Nov – 14 Dec | 2025 showcase video |
-| HEA26 \| M3 Registrations \| Retargeting | `120251407043860261` | `120251407045550261` | S$150 | 1 – 16 Dec | A, C, D, Carousel 2 |
+| HEA26 \| M3 Registrations \| Retargeting | `120251407043860261` | three, below | S$150 (campaign budget) | 1 – 16 Dec | R1, R2, R3 |
 | HEA26 \| M4 Show days \| Reach | `120251407044080261` | `120251407045410261` | S$130 | 16 Dec 6pm – 19 Dec 5pm | E |
 
 Since 28 Nov every draft ad holds its creative inline (written through `ads_update_entity`), not a reference to a saved creative. Each one has the same images and text as its "HEA26 v2 | …" creative (E: the original "HEA26 | E Open now"), links to `https://www.hiendasia.com/…`, and has the WhatsApp browser add-on switched on (`asset_feed_spec.message_extensions: [{"type":"whatsapp"}]`). The saved creatives in the library, including two "HEA26 v3 …" tests, are now unused.
@@ -50,6 +50,20 @@ Checked in Ads Manager on A, Carousel 1 and E: WhatsApp add-on selected, number 
 
 The ad images Meta imported are hosted at `https://www.hiendasia.com/ads/v2/`.
 
+### M3 retargeting sequence
+
+Meta does not allow per-ad dates in this campaign (error 3858139), so M3 is three ad sets with back-to-back dates under the one S$150 campaign budget. Only the text differs from the prospecting ads; copy is in `campaign-drafts.md` under M3.
+
+| Ad set | ID | Dates | Ads |
+| --- | --- | --- | --- |
+| R1 Lucky draw nudge | `120251409155330261` | 1 – 5 Dec | A `120251409156940261` |
+| R2 Still deciding | `120251407045550261` | 6 – 11 Dec | C `120251407640290261`, D `120251407640460261`, Carousel 2 `120251407640640261` |
+| R3 Countdown | `120251409155480261` | 12 – 16 Dec | B `120251409157070261`, D `120251409157230261` |
+
+The R2 ad set also holds the old A ad (`120251407639440261`), paused and renamed "OLD A copy, not used (can delete)". It could not be moved to R1.
+
+The copy says "still deciding", never "you visited": Meta rejects ads that imply knowing what someone did. All three ad sets still have no custom audience; add the same include/exclude audiences to each once the terms are accepted.
+
 ## Ads I and J
 
 Added 28 Nov from the image catalogue; both are draft ads in M1.
@@ -62,16 +76,16 @@ Open question: a poster on now-asia.org announces a HiEnd Asia 2026 limited-edit
 ## Blocked on the account owner
 
 1. **Verified advertiser for Singapore.** Done 28 Nov: identity `2131198877405316` is set as beneficiary and payer on all four ad sets.
-2. **Custom audience terms.** Accept them at https://www.facebook.com/customaudiences/app/tos/?act=1747104616175118, then create "website visitors 30 days" and "registered 30 days" audiences and attach them to M3 (include the first, exclude the second). Until then M3 is a plain Singapore ad set.
+2. **Custom audience terms.** Accept them at https://www.facebook.com/customaudiences/app/tos/?act=1747104616175118, then create "website visitors 30 days" and "registered 30 days" audiences and attach them to all three M3 ad sets (include the first, exclude the second). Until then M3 reaches everyone in Singapore. The pixel is collecting (about 80–130 page views a day in late November).
 3. **Publish** when ready to spend. M1 and M2 are scheduled from 30 Nov.
 
 ## Still to do
 
-- Switch off ad A (lucky draw) in M1 and M3 after 5 December.
+- Switch off ad A (lucky draw) in M1 after 5 December. In M3 the R1 ad set ends on 5 Dec by itself.
 - In Ads Manager, turn off reordering of carousel cards by performance on both carousels.
 - Decide on Meta's AI disclosure for ad A; its background is AI-generated. Not required for ads shown in Singapore.
 - Interest ad sets (hi-fi, art) were not built; only one broad ad set exists per campaign.
-- Google campaigns exist only as text in `campaign-drafts.md`; no HiEnd Asia Google Ads account was reachable.
+- Google campaigns exist only as text in `campaign-drafts.md` (S$500: S$140 Search, S$290 Demand Gen, S$70 remarketing). Account HIEND ASIA + PTE. LTD., 545-469-1642, is readable through the manager account 5454691642 but the connection cannot create anything, so they are built by hand. No GDN or Performance Max: too little budget and conversion data. Swap the G3 text by hand on 6 and 12 Dec.
 - Site: the albums section still lists only the 2024 and 2025 recordings; the ads say the 2023 CD is on sale too.
 - Site: `www.hiendasia.com` (Wix) has no link to the registration page.
 - GA4 property "hiendasia.com": mark `sign_up` as a key event. Apps Script: redeploy so the confirmation email no longer mentions prizes.
