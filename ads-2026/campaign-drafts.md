@@ -42,21 +42,15 @@ Ad account: HiEnd Asia AdAccount. Pixel: HiEnd Asia Website. Optimise M1 and M3 
 - **Objective:** Leads, conversion location Website, event `CompleteRegistration`.
 - **Location:** Singapore, people living there. **Age:** 25–65+.
 - **Placements:** Advantage+ placements.
-- **Budget:** campaign-level (Advantage+ campaign budget), so Meta moves spend to the ad set that registers people.
-
-| Ad set | Audience | Ads |
-| --- | --- | --- |
-| Hi-fi and vinyl | Interests: High fidelity, Audiophile, Phonograph record, Turntable, Home cinema, Headphones, Jazz | A (to 5 Dec), B, C, D |
-| Art and design | Interests: Contemporary art, Art exhibition, Art collecting, Interior design | A (to 5 Dec), B, D |
-| Broad | No interests, Advantage+ audience on | A (to 5 Dec), B, D |
-
-Interest names need checking in Ads Manager; Meta renames and retires them often.
+- **Budget:** S$540 at campaign level.
+- **Audience:** one broad ad set, Advantage+ audience on, no interests. M1 is an Advantage+ leads campaign, which has no interest targeting; decided 28 Nov 2026 to keep it broad rather than turn Advantage+ off and split S$540 three ways.
+- **Ads:** A (to 5 Dec), B, F, G, H, I, J and Carousel 1.
 
 ### M2 Video awareness
 
 - **Objective:** Awareness, optimised for ThruPlay.
 - **Creative:** the 1:05 showcase video (`video/showcase-2025.mp4` in the site folder), with ad B’s text.
-- **Audience:** Singapore, 25–65+, the hi-fi and art interests combined.
+- **Audience:** Singapore, 25–65+, broad with Advantage+ audience on.
 - **Why:** people who watch half of it become the M3 audience, and that list does not depend on cookie consent.
 - **Note:** the file is 480p. Use the original export if you have one.
 

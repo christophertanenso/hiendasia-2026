@@ -84,7 +84,7 @@ Open question: a poster on now-asia.org announces a HiEnd Asia 2026 limited-edit
 - Switch off ad A (lucky draw) in M1 after 5 December. In M3 the R1 ad set ends on 5 Dec by itself.
 - In Ads Manager, turn off reordering of carousel cards by performance on both carousels.
 - Decide on Meta's AI disclosure for ad A; its background is AI-generated. Not required for ads shown in Singapore.
-- Interest ad sets (hi-fi, art) were not built; only one broad ad set exists per campaign.
+- Targeting is broad everywhere (Singapore, 25–65 as a suggestion, Advantage+ audience on). Interest ad sets were considered on 28 Nov and dropped: M1 is an Advantage+ leads campaign, which has no interest targeting, and splitting S$540 three ways would slow learning.
 - Google campaigns exist only as text in `campaign-drafts.md` (S$500: S$140 Search, S$290 Demand Gen, S$70 remarketing). Account HIEND ASIA + PTE. LTD., 545-469-1642, is readable through the manager account 5454691642 but the connection cannot create anything, so they are built by hand. No GDN or Performance Max: too little budget and conversion data. Swap the G3 text by hand on 6 and 12 Dec.
 - Site: the albums section still lists only the 2024 and 2025 recordings; the ads say the 2023 CD is on sale too.
 - Site: `www.hiendasia.com` (Wix) has no link to the registration page.
