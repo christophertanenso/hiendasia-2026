@@ -399,7 +399,7 @@ window.HEA_CONSENT = {"privacy": "../privacy.html", "t": {"title": "Quyền riê
             } else clearTimeout(timers[id]);
           });
         }, { rootMargin: '0px 0px -40% 0px' });
-        ['floorplan', 'speakers', 'guests', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
+        ['floorplan', 'speakers', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
           var el = document.getElementById(id); if (el) io.observe(el);
         });
       }
@@ -593,6 +593,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .people.duo { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); max-width: 1040px; margin: 0 auto; }
 @media (min-width: 1100px) { .people.duo .person { display: grid; grid-template-columns: 200px minmax(0, 1fr); grid-template-rows: auto auto auto auto 1fr; column-gap: 24px; align-content: start; align-self: start; }
   .people.duo .person > .p-photo { grid-row: 1 / span 5; } .people.duo .person > .talk { grid-column: 1 / -1; } .people.duo .person > .badge { justify-self: start; } }
+/* Esteemed guests: one wide card under the keynote speakers, photo beside the text */
+.people.duo.solo { grid-template-columns: 1fr; margin-top: calc(var(--space-m) - var(--space-l)); } /* the wrap's own gap is --space-l; keep the card one grid gap below the keynotes */
+@media (min-width: 700px) { .people.duo.solo .person { display: grid; grid-template-columns: 150px minmax(0, 1fr); grid-template-rows: auto auto auto 1fr; column-gap: 24px; align-content: start; }
+  .people.duo.solo .person > .p-photo { grid-row: 1 / span 4; } .people.duo.solo .person > .badge { justify-self: start; } }
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
@@ -991,9 +995,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <section class="block band" id="speakers">
   <div class="wrap">
     <div class="bh">
-      <h2 class="bh-en" data-i18n="kn.h">Diễn giả chính</h2>
+      <h2 class="bh-en" data-i18n="kn.h">Diễn giả &amp; Khách mời</h2>
       <div class="rule"></div>
-      <p class="intro" data-i18n="kn.intro">Hai diễn giả, mười một buổi trong ba ngày, mỗi buổi tại một phòng nghe của nhà triển lãm. Richard H. Mak nói về nghệ thuật và khoa học của đĩa than, Daniel Hsu nói về hệ thống nghe nhìn hi-fi nhập vai.</p>
+      <p class="intro" data-i18n="kn.intro">Hai diễn giả, mười một buổi trong ba ngày, mỗi buổi tại một phòng nghe của nhà triển lãm. Richard H. Mak nói về nghệ thuật và khoa học của đĩa than, Daniel Hsu nói về hệ thống nghe nhìn hi-fi nhập vai. Khách mời danh dự của chúng tôi, nghệ sĩ guitar Billy Ho, sẽ biểu diễn trực tiếp.</p>
       <p class="kn-open" data-i18n="kn.opening">Lễ khai mạc: 10:00, thứ Năm 17/12</p>
     </div>
     <div class="people duo">
@@ -1014,26 +1018,16 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <div class="talk"><p class="talk-k">Chủ đề</p><p class="talk-t">Hệ thống nghe nhìn Hi-Fi nhập vai thế hệ mới</p><p class="talk-n">7 buổi · mỗi buổi 60 phút</p><div class="talk-day"><h4 data-i18n="d.thu">Thứ Năm, 17/12</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 323 · MU6</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 323 · Activities Room</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.fri">Thứ Sáu, 18/12</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 301 · Audioline</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 307 · High End Research</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">Thứ Bảy, 19/12</h4><ul><li><span class="talk-time">10–11am</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 312 · Sharkwire</span></li><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 333 · Aries Cerat</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">Phòng</span> 335 · San Yuan</span></li></ul></div></div>
 </article>
     </div>
-    <p class="figcap talk-note" data-i18n="sched.note">Chủ đề có thể khác nhau tùy phòng. Chủ đề của Richard H. Mak là đề xuất, đang chờ xác nhận.</p>
-  </div>
-</section>
-
-<section class="block" id="guests">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="gu.h">Khách mời danh dự</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="gu.intro">Những gương mặt được kính trọng, các bậc lão làng trong ngành và những người say mê từ giới audiophile cùng hiện diện tại HiEnd Asia. Sự có mặt của họ là để chia sẻ niềm đam mê, sự trân trọng sâu sắc và những cuộc gặp gỡ ý nghĩa.</p>
-    </div>
-    <div class="people">
+    <div class="people duo solo">
 <article class="person">
   <img class="p-photo" src="../img/017.jpg" alt="Billy Ho" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">Trực tiếp</span>
+  <span class="badge" data-i18n="badge.guest">Khách mời danh dự · Trực tiếp</span>
   <h3 class="p-name" data-i18n="p.17.name">Billy Ho</h3>
   <span class="p-role" data-i18n="p.17.role">Nghệ sĩ guitar và nhà sản xuất, EB Duet · Malaysia</span>
   <p class="p-bio" data-i18n="p.17.bio">Một nửa của bộ đôi jazz EB Duet cùng ca sĩ Eve Wong, với mười album từ năm 2015 bằng tiếng Anh, Quan Thoại, Quảng Đông và Mã Lai. Tại triển lãm anh chơi guitar độc tấu, gồm một ca khúc mới.</p>
 </article>
     </div>
+    <p class="figcap talk-note" data-i18n="sched.note">Chủ đề có thể khác nhau tùy phòng. Chủ đề của Richard H. Mak là đề xuất, đang chờ xác nhận.</p>
   </div>
 </section>
 
