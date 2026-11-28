@@ -84,6 +84,7 @@ KEYWORDS = {
     'Brand (always on)': ['[hiend asia]', '[hi end asia]', '[high end asia]', '[hiendasia]', '"hiend asia 2026"', '"hi end asia 2026"', '"hiend asia singapore"'],
     'The show (always on)': ['"hifi show singapore"', '"singapore hifi show"', '"audio show singapore"', '"singapore audio show 2026"',
                              '"hifi show 2026"', '"hifi exhibition"', '"high end audio show"', '"high end audio singapore"'],
+    'Added 28 Nov from Search Console (always on)': ['"hi end show 2026"', '"audio exhibition 2026"', '"av show singapore"', '"stereonet"'],
     'What’s on (14 to 19 Dec only)': ['"suntec events"', '"suntec convention centre events"', '"things to do in singapore this weekend"',
                                       '"art exhibition singapore"', '"events in singapore this weekend"'],
 }
@@ -209,6 +210,7 @@ w('### G2 Demand Gen\n')
 w('- **Goal:** conversions (`sign_up`). **Location:** Singapore.\n- **Formats:** one video ad (the showcase video, uploaded to the HiEnd Asia YouTube channel) and one image ad per concept.\n- **Images:** landscape, square and portrait of A (to 5 Dec), B, C and D, plus the square logo.\n- **Button:** Sign up. **Business name:** HiEnd Asia.\n')
 w('| Ad group | Audience |\n| --- | --- |')
 w('| Hi-fi searchers | Custom segment: people who searched for hi-fi show, turntable, vinyl records, bookshelf speakers, amplifier, home theatre system |')
+w('| StereoNET readers (added 28 Nov) | Custom segment: people who browse websites similar to stereonet.com |')
 w('| In-market audio | In-market: Home audio, Speakers, Headphones; affinity: Audiophiles, Music lovers |')
 w('| Art and culture | Affinity: Art and theatre aficionados; in-market: Event tickets |')
 w('\n**Headlines (40 max):**\n')

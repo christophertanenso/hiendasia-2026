@@ -266,6 +266,8 @@ What the account showed on 28 Nov 2026:
 
 **The show (always on):** `"hifi show singapore"`, `"singapore hifi show"`, `"audio show singapore"`, `"singapore audio show 2026"`, `"hifi show 2026"`, `"hifi exhibition"`, `"high end audio show"`, `"high end audio singapore"`
 
+**Added 28 Nov from Search Console (always on):** `"hi end show 2026"`, `"audio exhibition 2026"`, `"av show singapore"`, `"stereonet"`
+
 **What’s on (14 to 19 Dec only):** `"suntec events"`, `"suntec convention centre events"`, `"things to do in singapore this weekend"`, `"art exhibition singapore"`, `"events in singapore this weekend"`
 
 **Negative keywords:** `jobs`, `career`, `hiring`, `rental`, `repair`, `second hand`, `used`, `cheap`, `wedding`, `car audio`, `exhibitor booth price`, `concert`, `chen lei`, `陈雷`
@@ -320,6 +322,7 @@ Pin headline 1 or 2 to position 1. Pause headlines 10 and 11 after 5 Dec.
 | Ad group | Audience |
 | --- | --- |
 | Hi-fi searchers | Custom segment: people who searched for hi-fi show, turntable, vinyl records, bookshelf speakers, amplifier, home theatre system |
+| StereoNET readers (added 28 Nov) | Custom segment: people who browse websites similar to stereonet.com |
 | In-market audio | In-market: Home audio, Speakers, Headphones; affinity: Audiophiles, Music lovers |
 | Art and culture | Affinity: Art and theatre aficionados; in-market: Event tickets |
 
