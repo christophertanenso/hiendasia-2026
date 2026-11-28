@@ -401,7 +401,7 @@ window.HEA_CONSENT = {"privacy": "../privacy.html", "t": {"title": "您的隐私
             } else clearTimeout(timers[id]);
           });
         }, { rootMargin: '0px 0px -40% 0px' });
-        ['floorplan', 'speakers', 'guests', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
+        ['floorplan', 'speakers', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
           var el = document.getElementById(id); if (el) io.observe(el);
         });
       }
@@ -595,6 +595,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .people.duo { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); max-width: 1040px; margin: 0 auto; }
 @media (min-width: 1100px) { .people.duo .person { display: grid; grid-template-columns: 200px minmax(0, 1fr); grid-template-rows: auto auto auto auto 1fr; column-gap: 24px; align-content: start; align-self: start; }
   .people.duo .person > .p-photo { grid-row: 1 / span 5; } .people.duo .person > .talk { grid-column: 1 / -1; } .people.duo .person > .badge { justify-self: start; } }
+/* Esteemed guests: one wide card under the keynote speakers, photo beside the text */
+.people.duo.solo { grid-template-columns: 1fr; margin-top: calc(var(--space-m) - var(--space-l)); } /* the wrap's own gap is --space-l; keep the card one grid gap below the keynotes */
+@media (min-width: 700px) { .people.duo.solo .person { display: grid; grid-template-columns: 150px minmax(0, 1fr); grid-template-rows: auto auto auto 1fr; column-gap: 24px; align-content: start; }
+  .people.duo.solo .person > .p-photo { grid-row: 1 / span 4; } .people.duo.solo .person > .badge { justify-self: start; } }
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
@@ -993,9 +997,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <section class="block band" id="speakers">
   <div class="wrap">
     <div class="bh">
-      <h2 class="bh-en" data-i18n="kn.h">主题演讲嘉宾</h2>
+      <h2 class="bh-en" data-i18n="kn.h">演讲嘉宾与贵宾</h2>
       <div class="rule"></div>
-      <p class="intro" data-i18n="kn.intro">两位主讲嘉宾，三天共十一场讲座，均在参展商的聆听室举行。Richard H. Mak 讲黑胶的艺术与科学，Daniel Hsu 讲沉浸式 Hi-Fi 影音系统。</p>
+      <p class="intro" data-i18n="kn.intro">两位主讲嘉宾，三天共十一场讲座，均在参展商的聆听室举行。Richard H. Mak 讲黑胶的艺术与科学，Daniel Hsu 讲沉浸式 Hi-Fi 影音系统。尊贵嘉宾、吉他手 Billy Ho 将现场演出。</p>
       <p class="kn-open" data-i18n="kn.opening">开幕仪式：12月17日 星期四 上午10时</p>
     </div>
     <div class="people duo">
@@ -1016,26 +1020,16 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <div class="talk"><p class="talk-k">讲题</p><p class="talk-t">新一代 Hi-Fi 影音沉浸式系统</p><p class="talk-n">共 7 场 · 每场 60 分钟</p><div class="talk-day"><h4 data-i18n="d.thu">12月17日 星期四</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 323 · MU6</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 323 · Activities Room</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.fri">12月18日 星期五</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 301 · Audioline</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 307 · High End Research</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">12月19日 星期六</h4><ul><li><span class="talk-time">10–11am</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 312 · Sharkwire</span></li><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 333 · Aries Cerat</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">房间</span> 335 · San Yuan</span></li></ul></div></div>
 </article>
     </div>
-    <p class="figcap talk-note" data-i18n="sched.note">各房间讲题或有不同。Richard H. Mak 的讲题为暂定，待确认。</p>
-  </div>
-</section>
-
-<section class="block" id="guests">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="gu.h">尊贵嘉宾</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="gu.intro">多位业界知名人士与音响爱好者将莅临展会，静静同行于 HiEnd Asia 的每一展厅。这不仅是一次现身，更是对声音艺术的真诚致敬与共鸣。</p>
-    </div>
-    <div class="people">
+    <div class="people duo solo">
 <article class="person">
   <img class="p-photo" src="../img/017.jpg" alt="Billy Ho" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">现场</span>
+  <span class="badge" data-i18n="badge.guest">尊贵嘉宾 · 现场</span>
   <h3 class="p-name" data-i18n="p.17.name">Billy Ho</h3>
   <span class="p-role" data-i18n="p.17.role">吉他手兼制作人，EB Duet · 马来西亚</span>
   <p class="p-bio" data-i18n="p.17.bio">与主唱 Eve Wong 组成爵士二人组 EB Duet，自2015年起推出十张英文、国语、粤语及马来语专辑。本届展会他将以吉他独奏演出，包括一首新歌。</p>
 </article>
     </div>
+    <p class="figcap talk-note" data-i18n="sched.note">各房间讲题或有不同。Richard H. Mak 的讲题为暂定，待确认。</p>
   </div>
 </section>
 

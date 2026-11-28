@@ -399,7 +399,7 @@ window.HEA_CONSENT = {"privacy": "../privacy.html", "t": {"title": "Privasi Anda
             } else clearTimeout(timers[id]);
           });
         }, { rootMargin: '0px 0px -40% 0px' });
-        ['floorplan', 'speakers', 'guests', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
+        ['floorplan', 'speakers', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
           var el = document.getElementById(id); if (el) io.observe(el);
         });
       }
@@ -593,6 +593,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .people.duo { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); max-width: 1040px; margin: 0 auto; }
 @media (min-width: 1100px) { .people.duo .person { display: grid; grid-template-columns: 200px minmax(0, 1fr); grid-template-rows: auto auto auto auto 1fr; column-gap: 24px; align-content: start; align-self: start; }
   .people.duo .person > .p-photo { grid-row: 1 / span 5; } .people.duo .person > .talk { grid-column: 1 / -1; } .people.duo .person > .badge { justify-self: start; } }
+/* Esteemed guests: one wide card under the keynote speakers, photo beside the text */
+.people.duo.solo { grid-template-columns: 1fr; margin-top: calc(var(--space-m) - var(--space-l)); } /* the wrap's own gap is --space-l; keep the card one grid gap below the keynotes */
+@media (min-width: 700px) { .people.duo.solo .person { display: grid; grid-template-columns: 150px minmax(0, 1fr); grid-template-rows: auto auto auto 1fr; column-gap: 24px; align-content: start; }
+  .people.duo.solo .person > .p-photo { grid-row: 1 / span 4; } .people.duo.solo .person > .badge { justify-self: start; } }
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
@@ -991,9 +995,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <section class="block band" id="speakers">
   <div class="wrap">
     <div class="bh">
-      <h2 class="bh-en" data-i18n="kn.h">Pembicara Utama</h2>
+      <h2 class="bh-en" data-i18n="kn.h">Pembicara &amp; Tamu</h2>
       <div class="rule"></div>
-      <p class="intro" data-i18n="kn.intro">Dua pembicara, sebelas sesi selama tiga hari, masing-masing di ruang dengar peserta pameran. Richard H. Mak tentang seni dan ilmu piringan hitam, Daniel Hsu tentang sistem audio-video hi-fi imersif.</p>
+      <p class="intro" data-i18n="kn.intro">Dua pembicara, sebelas sesi selama tiga hari, masing-masing di ruang dengar peserta pameran. Richard H. Mak tentang seni dan ilmu piringan hitam, Daniel Hsu tentang sistem audio-video hi-fi imersif. Tamu kehormatan kami, gitaris Billy Ho, tampil live.</p>
       <p class="kn-open" data-i18n="kn.opening">Upacara pembukaan: Kamis, 17 Desember, pukul 10.00</p>
     </div>
     <div class="people duo">
@@ -1014,26 +1018,16 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <div class="talk"><p class="talk-k">Topik</p><p class="talk-t">Sistem Imersif Audio-Video Hi-Fi Generasi Baru</p><p class="talk-n">7 sesi · masing-masing 60 menit</p><div class="talk-day"><h4 data-i18n="d.thu">Kamis, 17 Desember</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">Ruang</span> 323 · MU6</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">Ruang</span> 323 · Activities Room</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.fri">Jumat, 18 Desember</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">Ruang</span> 301 · Audioline</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">Ruang</span> 307 · High End Research</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">Sabtu, 19 Desember</h4><ul><li><span class="talk-time">10–11am</span><span class="talk-where"><span data-i18n="sched.room">Ruang</span> 312 · Sharkwire</span></li><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">Ruang</span> 333 · Aries Cerat</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">Ruang</span> 335 · San Yuan</span></li></ul></div></div>
 </article>
     </div>
-    <p class="figcap talk-note" data-i18n="sched.note">Topik dapat berbeda di tiap ruang. Topik Richard H. Mak masih usulan dan menunggu konfirmasi.</p>
-  </div>
-</section>
-
-<section class="block" id="guests">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="gu.h">Tamu Kehormatan</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="gu.intro">Tokoh-tokoh terhormat, veteran industri, dan suara-suara penuh gairah dari dunia audiophile hadir di HiEnd Asia. Kehadiran mereka adalah tentang gairah yang sama, apresiasi yang dalam, dan pertemuan yang bermakna.</p>
-    </div>
-    <div class="people">
+    <div class="people duo solo">
 <article class="person">
   <img class="p-photo" src="../img/017.jpg" alt="Billy Ho" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">Live</span>
+  <span class="badge" data-i18n="badge.guest">Tamu kehormatan · Live</span>
   <h3 class="p-name" data-i18n="p.17.name">Billy Ho</h3>
   <span class="p-role" data-i18n="p.17.role">Gitaris dan produser, EB Duet · Malaysia</span>
   <p class="p-bio" data-i18n="p.17.bio">Separuh dari duo jazz EB Duet bersama vokalis Eve Wong, dengan sepuluh album sejak 2015 dalam bahasa Inggris, Mandarin, Kanton, dan Melayu. Di pameran ia bermain gitar solo, termasuk sebuah lagu baru.</p>
 </article>
     </div>
+    <p class="figcap talk-note" data-i18n="sched.note">Topik dapat berbeda di tiap ruang. Topik Richard H. Mak masih usulan dan menunggu konfirmasi.</p>
   </div>
 </section>
 

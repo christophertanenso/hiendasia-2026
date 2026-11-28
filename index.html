@@ -399,7 +399,7 @@ window.HEA_CONSENT = {"privacy": "privacy.html", "t": {"title": "Your privacy", 
             } else clearTimeout(timers[id]);
           });
         }, { rootMargin: '0px 0px -40% 0px' });
-        ['floorplan', 'speakers', 'guests', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
+        ['floorplan', 'speakers', 'brands', 'cds', 'luckydraw', 'visit'].forEach(function (id) {
           var el = document.getElementById(id); if (el) io.observe(el);
         });
       }
@@ -593,6 +593,10 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 .people.duo { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); max-width: 1040px; margin: 0 auto; }
 @media (min-width: 1100px) { .people.duo .person { display: grid; grid-template-columns: 200px minmax(0, 1fr); grid-template-rows: auto auto auto auto 1fr; column-gap: 24px; align-content: start; align-self: start; }
   .people.duo .person > .p-photo { grid-row: 1 / span 5; } .people.duo .person > .talk { grid-column: 1 / -1; } .people.duo .person > .badge { justify-self: start; } }
+/* Esteemed guests: one wide card under the keynote speakers, photo beside the text */
+.people.duo.solo { grid-template-columns: 1fr; margin-top: calc(var(--space-m) - var(--space-l)); } /* the wrap's own gap is --space-l; keep the card one grid gap below the keynotes */
+@media (min-width: 700px) { .people.duo.solo .person { display: grid; grid-template-columns: 150px minmax(0, 1fr); grid-template-rows: auto auto auto 1fr; column-gap: 24px; align-content: start; }
+  .people.duo.solo .person > .p-photo { grid-row: 1 / span 4; } .people.duo.solo .person > .badge { justify-self: start; } }
 .person { background: var(--band); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 20px;
   display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .p-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); background: #000; margin-bottom: 6px; }
@@ -991,9 +995,9 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <section class="block band" id="speakers">
   <div class="wrap">
     <div class="bh">
-      <h2 class="bh-en" data-i18n="kn.h">Keynote Speakers</h2>
+      <h2 class="bh-en" data-i18n="kn.h">Speakers &amp; Guests</h2>
       <div class="rule"></div>
-      <p class="intro" data-i18n="kn.intro">Two speakers, eleven sessions over the three days, each in an exhibitor&#x27;s listening room. Richard H. Mak on the art and science of vinyl, Daniel Hsu on immersive hi-fi audio-video.</p>
+      <p class="intro" data-i18n="kn.intro">Two speakers, eleven sessions over the three days, each in an exhibitor&#x27;s listening room. Richard H. Mak on the art and science of vinyl, Daniel Hsu on immersive hi-fi audio-video. Our esteemed guest, guitarist Billy Ho, plays live.</p>
       <p class="kn-open" data-i18n="kn.opening">Opening ceremony: 10am, Thursday 17 December</p>
     </div>
     <div class="people duo">
@@ -1014,26 +1018,16 @@ section.block > .wrap { padding-block: var(--space-xl); display: flex; flex-dire
 <div class="talk"><p class="talk-k">Talk</p><p class="talk-t">Next-Gen Hi-Fi Audio-Video Immersive Systems</p><p class="talk-n">7 sessions · 60 minutes each</p><div class="talk-day"><h4 data-i18n="d.thu">17 Dec Thursday</h4><ul><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">Room</span> 323 · MU6</span></li><li><span class="talk-time">4–5pm</span><span class="talk-where"><span data-i18n="sched.room">Room</span> 323 · Activities Room</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.fri">18 Dec Friday</h4><ul><li><span class="talk-time">11am–12pm</span><span class="talk-where"><span data-i18n="sched.room">Room</span> 301 · Audioline</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">Room</span> 307 · High End Research</span></li></ul></div><div class="talk-day"><h4 data-i18n="d.sat">19 Dec Saturday</h4><ul><li><span class="talk-time">10–11am</span><span class="talk-where"><span data-i18n="sched.room">Room</span> 312 · Sharkwire</span></li><li><span class="talk-time">1–2pm</span><span class="talk-where"><span data-i18n="sched.room">Room</span> 333 · Aries Cerat</span></li><li><span class="talk-time">3–4pm</span><span class="talk-where"><span data-i18n="sched.room">Room</span> 335 · San Yuan</span></li></ul></div></div>
 </article>
     </div>
-    <p class="figcap talk-note" data-i18n="sched.note">Topics may vary by room. Richard H. Mak&#x27;s topic is proposed, pending confirmation.</p>
-  </div>
-</section>
-
-<section class="block" id="guests">
-  <div class="wrap">
-    <div class="bh">
-      <h2 class="bh-en" data-i18n="gu.h">Esteemed Guests</h2>
-      <div class="rule"></div>
-      <p class="intro" data-i18n="gu.intro">Respected personalities, industry veterans and passionate voices from the audiophile world walk the halls of HiEnd Asia. Their presence is about shared passion, deep appreciation and meaningful encounters.</p>
-    </div>
-    <div class="people">
+    <div class="people duo solo">
 <article class="person">
   <img class="p-photo" src="img/017.jpg" alt="Billy Ho" loading="lazy" width="640" height="800">
-  <span class="badge" data-i18n="badge.live">Live</span>
+  <span class="badge" data-i18n="badge.guest">Esteemed guest · Live</span>
   <h3 class="p-name" data-i18n="p.17.name">Billy Ho</h3>
   <span class="p-role" data-i18n="p.17.role">Guitarist and producer, EB Duet · Malaysia</span>
   <p class="p-bio" data-i18n="p.17.bio">One half of jazz duo EB Duet with vocalist Eve Wong, with ten albums since 2015 in English, Mandarin, Cantonese and Malay. At the show he plays solo guitar, including a new song.</p>
 </article>
     </div>
+    <p class="figcap talk-note" data-i18n="sched.note">Topics may vary by room. Richard H. Mak&#x27;s topic is proposed, pending confirmation.</p>
   </div>
 </section>
 

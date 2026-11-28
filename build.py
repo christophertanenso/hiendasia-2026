@@ -40,7 +40,7 @@ def img(i):
 # People: (photo id, badge key). Names, roles and bios live in i18n/<lang>.json as p.<id>.name/.role/.bio
 # 2026: two keynote speakers and one guest.
 KEYNOTES = [(13, 'keynote'), (16, 'keynote')]
-GUESTS = [(17, 'live')]
+GUESTS = [(17, 'guest')]  # shown under the keynote speakers, in the same section
 
 # Brand representatives: (name, English role for reference, brand). Displayed roles come from rep.<n>.role
 REPS = [
