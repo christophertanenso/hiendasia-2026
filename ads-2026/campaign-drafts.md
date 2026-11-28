@@ -2,7 +2,7 @@
 
 Drafted 28 Nov 2026. Show: 17–19 Dec 2026, Level 3, Suntec Singapore. Lucky draw registration closes 5 Dec.
 
-The Meta campaigns exist as unpublished drafts in Ads Manager. Nothing has been created in Google Ads. Total budget: S$1,500, of which S$1,000 is Meta and S$500 is Google.
+The Meta campaigns exist as unpublished drafts in Ads Manager. G1 and G2 are built in Google Ads and paused; G3 was not built (see below). Total budget: S$1,500, of which S$1,000 is Meta and S$500 is Google.
 
 ## Budget split
 
@@ -12,11 +12,11 @@ The Meta campaigns exist as unpublished drafts in Ads Manager. Nothing has been 
 | Meta | M2 Video awareness | S$180 | 30 Nov to 14 Dec |
 | Meta | M3 Retargeting | S$150 | 1 to 16 Dec |
 | Meta | M4 Show days | S$130 | 16 to 19 Dec |
-| Google | G1 Search | S$140 (about S$7 a day) | 30 Nov to 19 Dec |
-| Google | G2 Demand Gen (YouTube, Discover, Gmail) | S$290 (about S$17 a day) | 30 Nov to 16 Dec |
-| Google | G3 Demand Gen remarketing | S$70 (about S$4 a day) | 1 to 18 Dec |
+| Google | G1 Search | S$140 campaign total | 28 Nov to 19 Dec |
+| Google | G2 Demand Gen (YouTube, Discover, Gmail) | S$360 campaign total (includes G3’s S$70) | 28 Nov to 16 Dec |
+| Google | G3 Demand Gen remarketing | Not built; S$70 moved to G2 | — |
 
-The Meta budgets are lifetime budgets on the ad sets. Google budgets are daily, so the daily figures assume a 30 Nov start; if a campaign starts later, divide its amount by the days left. Spend about 40% of the total by 5 Dec, while the lucky draw deadline gives people a reason to act.
+The Meta budgets are lifetime budgets on the ad sets. The Google budgets are campaign totals over the dates shown. Spend about 40% of the total by 5 Dec, while the lucky draw deadline gives people a reason to act.
 
 ## Images
 
@@ -341,7 +341,9 @@ Pin headline 1 or 2 to position 1. Pause headlines 10 and 11 after 5 Dec.
 
 **Final URL:** `https://www.hiendasia.com/register.html?utm_source=google&utm_medium=demand_gen&utm_campaign=hea26_demandgen&utm_content={creative}`
 
-### G3 Demand Gen remarketing
+### G3 Demand Gen remarketing (not built)
+
+Not built on 28 Nov 2026: Google Ads sees 0 eligible people in the GA4 visitor list and rules it too small for Demand Gen. Its S$70 went to G2. The copy below is kept in case the list grows.
 
 - **Audience:** GA4 audience "visited, did not register" (page view in the last 30 days, no `sign_up`).
 - **Images:** A to 5 Dec, then C and D to 11 Dec, then B and D to 16 Dec; E on 17–18 Dec with the show page as the link.

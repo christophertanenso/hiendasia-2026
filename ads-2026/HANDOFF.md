@@ -73,6 +73,15 @@ Added 28 Nov from the image catalogue; both are draft ads in M1.
 
 Open question: a poster on now-asia.org announces a HiEnd Asia 2026 limited-edition 1:1 MQD disc, 50 copies. If it is real for December it belongs in the albums ad.
 
+## Google: what exists
+
+Account HIEND ASIA + PTE. LTD., 545-469-1642. The API connection is read-only (set the manager account to 5454691642 first), so everything below was built in the Google Ads web UI on 28 Nov 2026. Both campaigns are published but paused; enable them to start.
+
+- **Conversions:** `sign_up` is a GA4 key event (property hiendasia.com, 401777091) and is imported as "hiendasia.com (web) sign_up", the only primary conversion. "Page view (1)" and "OUTBOUND_CLICK" are secondary.
+- **G1 Search** `24564952055`: "HEA26 | G1 Search | Registrations". Search network only, Singapore, S$140 campaign total, 28 Nov – 19 Dec, maximise clicks with a S$0.60 cap, AI Max off. One ad group, 15 brand and show keywords (phrase and exact), 14 campaign negatives, one responsive search ad (approved), 4 sitelinks, 6 callouts. The "What's on" ad group for 14 – 19 Dec was not built.
+- **G2 Demand Gen** `24560160477`: "HEA26 | G2 Demand Gen | Registrations". Sign-ups goal, maximise conversions, S$360 campaign total (S$290 plus G3's S$70), 28 Nov – 16 Dec. One ad group "Hi-fi, audio and art" (Singapore, Display Network off, optimised targeting on) with audience "HEA26 hi-fi, audio and art": a custom segment of 8 hi-fi search terms plus Audiophiles, Music Lovers, Classical Music Enthusiasts, Audio, Audio Equipment, Art & Theater Aficionados, Concert & Music Festival Tickets, Performing Arts Tickets. One image ad with B, C and D in three sizes and the logo mark (`images/hea26_logo-mark_square-1200x1200.png`); A is left out because the campaign runs past 5 Dec. Animated images and auto-generated videos are off. Google called S$290 low for this goal and suggested S$490.
+- **G3 remarketing: not built.** Google Ads sees 0 eligible people in the GA4 "All Users" list (GA4 shows 505) and marks it too small for Demand Gen, most likely because visitors decline ad personalisation. Its S$70 was moved to G2. Meta M3 covers retargeting.
+
 ## Blocked on the account owner
 
 1. **Verified advertiser for Singapore.** Done 28 Nov: identity `2131198877405316` is set as beneficiary and payer on all four ad sets.
@@ -85,7 +94,7 @@ Open question: a poster on now-asia.org announces a HiEnd Asia 2026 limited-edit
 - In Ads Manager, turn off reordering of carousel cards by performance on both carousels.
 - Decide on Meta's AI disclosure for ad A; its background is AI-generated. Not required for ads shown in Singapore.
 - Targeting is broad everywhere (Singapore, 25–65 as a suggestion, Advantage+ audience on). Interest ad sets were considered on 28 Nov and dropped: M1 is an Advantage+ leads campaign, which has no interest targeting, and splitting S$540 three ways would slow learning.
-- Google campaigns exist only as text in `campaign-drafts.md` (S$500: S$140 Search, S$290 Demand Gen, S$70 remarketing). Account HIEND ASIA + PTE. LTD., 545-469-1642, is readable through the manager account 5454691642 but the connection cannot create anything, so they are built by hand. No GDN or Performance Max: too little budget and conversion data. Swap the G3 text by hand on 6 and 12 Dec.
+- Google: no GDN or Performance Max (too little budget and conversion data).
 - Site: the albums section still lists only the 2024 and 2025 recordings; the ads say the 2023 CD is on sale too.
 - Site: `www.hiendasia.com` (Wix) has no link to the registration page.
 - GA4 property "hiendasia.com": mark `sign_up` as a key event. Apps Script: redeploy so the confirmation email no longer mentions prizes.
