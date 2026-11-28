@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>HiEnd Asia 2026</title>
+<script>
+/* Hand-maintained (not built). GitHub Pages serves this file for every address that does not exist.
+
+   1. Links in emails sent from Wix Email Marketing are click-tracking addresses on this domain:
+        /so/<campaign>/c?w=<signature>.<base64url JSON {"u": "<the real link>", ...}>
+      Wix used to answer those when the domain pointed at the Wix site. It now points here, so we read the real
+      link out of the address and go there. Only links to hiendasia.com and wix.com are followed (no open redirect).
+   2. Anything else that is not found goes to ticket registration, keeping any utm_ tags. */
+(function () {
+  var HOME = 'https://www.hiendasia.com/', REGISTER = '/register.html';
+  function emailTarget() {
+    try {
+      if (!/^\/so\//.test(location.pathname)) return '';
+      var w = new URLSearchParams(location.search).get('w') || '';
+      var part = w.split('.')[1] || '';
+      var b64 = part.replace(/-/g, '+').replace(/_/g, '/');
+      while (b64.length % 4) b64 += '=';
+      var bytes = atob(b64), esc = '';
+      for (var i = 0; i < bytes.length; i++) esc += '%' + ('0' + bytes.charCodeAt(i).toString(16)).slice(-2);
+      var u = new URL(JSON.parse(decodeURIComponent(esc)).u);
+      // hiendasia.com, plus Wix's own pages (the unsubscribe link in the email footer goes to wix.com)
+      if (u.protocol !== 'https:' || !/^(www\.)?hiendasia\.com$|(^|\.)wix\.com$/.test(u.hostname)) return '';
+      if (/^\/so\//.test(u.pathname)) return '';   // never forward to another tracking address
+      return u.href;
+    } catch (e) { return ''; }
+  }
+  function utm() {
+    try {
+      var out = new URLSearchParams();
+      new URLSearchParams(location.search).forEach(function (v, k) { if (/^utm_/.test(k)) out.set(k, v); });
+      var s = out.toString();
+      return s ? '?' + s : '';
+    } catch (e) { return ''; }
+  }
+  var to = emailTarget() || (REGISTER + utm());
+  window.HEA_404_TARGET = to;
+  if (!/[?&]stay=1\b/.test(location.search)) location.replace(to);
+})();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=/register.html"></noscript>
+<style>
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #000; color: #e9e4d8; font: 16px/1.6 Arial, Helvetica, sans-serif; text-align: center; padding: 24px; box-sizing: border-box; }
+a { color: #c6a661; }
+</style>
+</head>
+<body>
+<p>Taking you to HiEnd Asia 2026 ticket registration.<br><a href="/register.html">Continue to registration</a> · <a href="/">Home page</a></p>
+</body>
+</html>
