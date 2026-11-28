@@ -34,18 +34,25 @@ Everything below is an unpublished Ads Manager draft. Publishing a draft makes i
 
 | Campaign | Campaign ID | Ad set ID | Lifetime budget | Runs | Draft ads |
 | --- | --- | --- | --- | --- | --- |
-| HEA26 \| M1 Registrations \| Prospecting | `120251407043460261` | `120251407045050261` | S$540 | 30 Nov – 16 Dec | A, B, F, G, H, Carousel 1 |
+| HEA26 \| M1 Registrations \| Prospecting | `120251407043460261` | `120251407045050261` | S$540 | 30 Nov – 16 Dec | A, B, F, G, H, I, J, Carousel 1 |
 | HEA26 \| M2 Video awareness | `120251407043670261` | `120251407045230261` | S$180 | 30 Nov – 14 Dec | 2025 showcase video |
 | HEA26 \| M3 Registrations \| Retargeting | `120251407043860261` | `120251407045550261` | S$150 | 1 – 16 Dec | A, C, D, Carousel 2 |
 | HEA26 \| M4 Show days \| Reach | `120251407044080261` | `120251407045410261` | S$130 | 16 Dec 6pm – 19 Dec 5pm | E |
 
-The ads use the creatives named "HEA26 v2 | …". The creatives named "HEA26 | …" without "v2" are the earlier versions and are unused, except "HEA26 | E Open now", which M4 still uses.
+Since 28 Nov every draft ad holds its creative inline (written through `ads_update_entity`), not a reference to a saved creative. Each one has the same images and text as its "HEA26 v2 | …" creative (E: the original "HEA26 | E Open now"), links to `https://www.hiendasia.com/…`, and has the WhatsApp browser add-on switched on (`asset_feed_spec.message_extensions: [{"type":"whatsapp"}]`). The saved creatives in the library, including two "HEA26 v3 …" tests, are now unused.
 
-The ad images Meta imported are hosted at `https://christophertanenso.github.io/hiendasia-2026/ads/v2/`.
+WhatsApp: +65 8668 1927 (Michelle) is linked to the Page as its primary number. Two things to know before touching this again:
 
-## Built but not yet in Meta
+- `ads_create_creative` accepts `message_extensions` but silently drops it. Only the inline creative on the draft ad keeps it.
+- Switching the add-on on by hand in Ads Manager rewrites the creative: it drops the story image, adds Meta's generated text options and raises error 1815589 ("link title and description … deprecated"). If that happens, re-send the inline creative.
 
-Two more ads, added 28 Nov from the image catalogue. Their images are in `images/` and their text is in `campaign-drafts.md`, but they are not hosted on the site and have no creative or draft ad in Meta yet.
+Checked in Ads Manager on A, Carousel 1 and E: WhatsApp add-on selected, number shown, no errors. The M2 video ad was accepted without errors, but its editor does not show the add-on options, so the button may not appear on that ad.
+
+The ad images Meta imported are hosted at `https://www.hiendasia.com/ads/v2/`.
+
+## Ads I and J
+
+Added 28 Nov from the image catalogue; both are draft ads in M1.
 
 - **I · Hi-fi and art** (`hea26_I-art_*`): the NOWASIA fair aisle, catalogue photo 007, which is cleared for ads as it stands.
 - **J · Listening rooms come alive** (`hea26_J-live_*`): the HiEnd Asia room at the NOWASIA Art Fair in August 2026, catalogue photo 136. It shows recognisable guests and performers, so their consent is needed before it runs as a paid ad.
@@ -54,7 +61,7 @@ Open question: a poster on now-asia.org announces a HiEnd Asia 2026 limited-edit
 
 ## Blocked on the account owner
 
-1. **Verified advertiser for Singapore.** Every draft ad carries "No advertiser information for Singapore Ads". Add a verified advertiser (beneficiary and payer) to each ad set in Ads Manager: https://www.facebook.com/business/help/983527276402621
+1. **Verified advertiser for Singapore.** Done 28 Nov: identity `2131198877405316` is set as beneficiary and payer on all four ad sets.
 2. **Custom audience terms.** Accept them at https://www.facebook.com/customaudiences/app/tos/?act=1747104616175118, then create "website visitors 30 days" and "registered 30 days" audiences and attach them to M3 (include the first, exclude the second). Until then M3 is a plain Singapore ad set.
 3. **Publish** when ready to spend. M1 and M2 are scheduled from 30 Nov.
 
